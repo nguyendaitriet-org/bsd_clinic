@@ -1,0 +1,11 @@
+plugins {
+    id 'war'
+}
+
+group = 'com.bsdclinic'
+jar.archiveClassifier.convention('')
+version = '1.0.0'
+
+dependencies {
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+}

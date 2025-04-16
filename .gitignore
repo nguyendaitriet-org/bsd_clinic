@@ -37,5 +37,5 @@ out/
 .vscode/
 
 ### Personal Profile ###
-/src/main/resources/application-triet.properties
-/src/main/resources/application-trung.properties
+/bsdclinic-web/src/main/resources/application-triet.properties
+/bsdclinic-web/src/main/resources/application-trung.properties

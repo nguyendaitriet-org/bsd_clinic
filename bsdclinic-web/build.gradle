@@ -3,7 +3,6 @@ plugins {
 }
 
 group = 'com.bsdclinic'
-jar.archiveClassifier.convention('')
 version = '1.0.0'
 
 dependencies {

@@ -1,0 +1,35 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.13.xsd">
+
+    <changeSet id="17042025_1" author="triet.nguyendai" context="Create tables for system user">
+        <sql>
+            CREATE TABLE IF NOT EXISTS roles (
+                role_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
+                title VARCHAR(20),
+                code VARCHAR(20),
+                CONSTRAINT role_pkey PRIMARY KEY (role_id)
+            );
+
+            INSERT INTO roles (title, code)
+            VALUES ('Administrator', 'ADMIN'),
+                   ('Doctor', 'DOCTOR'),
+                   ('Staff', 'STAFF');
+
+            CREATE TABLE IF NOT EXISTS users (
+                user_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
+                full_name VARCHAR(255),
+                email VARCHAR(255) NOT NULL UNIQUE,
+                phone VARCHAR(20) UNIQUE,
+                password VARCHAR(255) NOT NULL,
+                status VARCHAR(10) NOT NULL,
+                role_id VARCHAR(50) NOT NULL,
+                created_at TIMESTAMP,
+                updated_at TIMESTAMP,
+                CONSTRAINT user_pkey PRIMARY KEY (user_id)
+            )
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

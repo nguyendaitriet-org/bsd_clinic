@@ -1,0 +1,10 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.13.xsd">
+
+    <changeSet author="triet.nguyendai" id="common_generate_nano_id_function_20241207" context="This method is for all primary key generated nanoid">
+        <sqlFile path="db/function/create_nanoid_function.sql" splitStatements="false"/>
+    </changeSet>
+
+</databaseChangeLog>

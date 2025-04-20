@@ -31,5 +31,108 @@
             )
         </sql>
     </changeSet>
+    <changeSet id="19042025_1" author="trung.phanduc" context="Create tables for clinic system">
+        <sql>
+            CREATE TABLE IF NOT EXISTS subscribers (
+                subscriber_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
+                name VARCHAR(255),
+                phone VARCHAR(20),
+                email VARCHAR(255),
+                CONSTRAINT subscribers_pkey PRIMARY KEY (subscriber_id)
+                );
+
+            CREATE TABLE IF NOT EXISTS appointments (
+                appointment_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
+                subscriber_id VARCHAR(50),
+                patient_name VARCHAR(255),
+                patient_phone VARCHAR(20),
+                patient_email VARCHAR(255),
+                patient_gender VARCHAR(10),
+                patient_birthday DATE,
+                visit_reason VARCHAR(255),
+                subscriber_relation VARCHAR(50),
+                doctor_id VARCHAR(50),
+                action_status VARCHAR(20),
+                created_at TIMESTAMP,
+                updated_at TIMESTAMP,
+                CONSTRAINT appointments_pkey PRIMARY KEY (appointment_id)
+                );
+
+            CREATE TABLE IF NOT EXISTS medical_records (
+                medical_record_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
+                appointment_id VARCHAR(50),
+                patient_address VARCHAR(255),
+                medical_history TEXT,
+                diagnosis VARCHAR(255),
+                advance NUMERIC,
+                created_at TIMESTAMP,
+                updated_at TIMESTAMP,
+                CONSTRAINT medical_records_pkey PRIMARY KEY (medical_record_id)
+                );
+
+            CREATE TABLE IF NOT EXISTS chosen_medical_services (
+                medical_record_id VARCHAR(50),
+                medical_service_id VARCHAR(50),
+                created_at TIMESTAMP
+                );
+
+            CREATE TABLE IF NOT EXISTS medical_services (
+                medical_service_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
+                title VARCHAR(255),
+                price NUMERIC,
+                description TEXT,
+                created_at TIMESTAMP,
+                updated_at TIMESTAMP,
+                CONSTRAINT medical_services_pkey PRIMARY KEY (medical_service_id)
+                );
+
+            CREATE TABLE IF NOT EXISTS invoices (
+                invoice_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
+                medical_record_id VARCHAR(50),
+                patient_name VARCHAR(255),
+                purchased_services JSONB,
+                services_total_price NUMERIC,
+                purchased_medicines JSONB,
+                medicines_total_price NUMERIC,
+                advance NUMERIC,
+                grand_total_price NUMERIC,
+                remaining_price NUMERIC,
+                status VARCHAR(20),
+                created_at TIMESTAMP,
+                CONSTRAINT invoices_pkey PRIMARY KEY (invoice_id)
+                );
+
+            CREATE TABLE IF NOT EXISTS prescriptions (
+                prescription_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
+                medical_record_id VARCHAR(50),
+                external_medicines JSONB,
+                instruction TEXT,
+                re_examination TEXT,
+                created_at TIMESTAMP,
+                updated_at TIMESTAMP,
+                CONSTRAINT prescriptions_pkey PRIMARY KEY (prescription_id)
+                );
+
+            CREATE TABLE IF NOT EXISTS medicines (
+                medicine_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
+                title VARCHAR(255),
+                unit_price NUMERIC,
+                unit VARCHAR(50),
+                side_effect TEXT,
+                note TEXT,
+                created_at TIMESTAMP,
+                updated_at TIMESTAMP,
+                CONSTRAINT medicines_pkey PRIMARY KEY (medicine_id)
+                );
+
+            CREATE TABLE IF NOT EXISTS taken_medicines (
+                prescription_id VARCHAR(50),
+                medicine_id VARCHAR(50),
+                purchased_quantity INT,
+                purchased_total_price NUMERIC,
+                created_at TIMESTAMP
+                );
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>

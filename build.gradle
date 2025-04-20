@@ -41,6 +41,18 @@ subprojects {
     }
 
     dependencies {
+        switch (name) {
+            case 'bsdclinic-common': break
+            case 'bsdclinic-entity': break
+            default: {
+                implementation project(':bsdclinic-entity')
+                implementation project(':bsdclinic-common')
+                if (name != 'bsdclinic-security') {
+                    implementation project(':bsdclinic-security')
+                }
+            }
+        }
+
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'org.springframework.boot:spring-boot-starter-security'

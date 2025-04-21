@@ -87,7 +87,9 @@ public class SecurityConfiguration {
     }
 
     public static String[] ENDPOINTS_WHITELIST = {
+            /*-------------[TEST]-------------*/
             "/api/users/test-creation",
+            /*--------------------------------*/
             "/api/login",
             "/error/**",
             "/css/**",

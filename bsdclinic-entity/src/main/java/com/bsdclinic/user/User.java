@@ -1,5 +1,6 @@
 package com.bsdclinic.user;
 
+import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import com.bsdclinic.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -28,4 +29,10 @@ public class User extends BaseEntity {
     @Column(name = "role_id")
     private String roleId;
 
+    @PrePersist
+    public void prePersist() {
+        if (userId == null) {
+            userId = NanoIdUtils.randomNanoId();
+        }
+    }
 }

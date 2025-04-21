@@ -1,15 +1,14 @@
 package com.bsdclinic.user;
 
 import com.bsdclinic.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 @Getter
 @Setter
+@Accessors(chain = true)
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
@@ -28,4 +27,5 @@ public class User extends BaseEntity {
     private String status;
     @Column(name = "role_id")
     private String roleId;
+
 }

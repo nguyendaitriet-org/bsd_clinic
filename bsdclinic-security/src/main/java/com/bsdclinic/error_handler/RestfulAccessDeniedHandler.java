@@ -2,7 +2,6 @@ package com.bsdclinic.error_handler;
 
 import com.bsdclinic.Result;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,7 +21,7 @@ public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
     protected final ObjectMapper objectMapper;
 
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException ex) throws IOException {
-        response.setStatus(403);
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setContentType("application/json");
         String message = this.messageSource.getMessage("error.403", new Object[0], LocaleContextHolder.getLocale());
         if (log.isDebugEnabled()) {

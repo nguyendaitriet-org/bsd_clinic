@@ -19,11 +19,11 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> SuccessBuilder<T> success() {
-        return new DefaultBuilder<T>();
+        return new DefaultBuilder<>();
     }
 
     public static <T> FailureBuilder<T> fail() {
-        return new DefaultBuilder<T>();
+        return new DefaultBuilder<>();
     }
 
     @Generated
@@ -76,7 +76,7 @@ public class Result<T> implements Serializable {
         }
 
         public Result<T> build() {
-            return new Result<T>(this.data, this.errorCode, this.message, this.errors);
+            return new Result<>(this.data, this.errorCode, this.message, this.errors);
         }
     }
 

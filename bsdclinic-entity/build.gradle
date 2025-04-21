@@ -4,3 +4,7 @@ plugins {
 
 group = 'com.bsdclinic'
 version = '1.0.0'
+
+dependencies {
+    runtimeOnly("com.aventrix.jnanoid:jnanoid:2.0.0")
+}

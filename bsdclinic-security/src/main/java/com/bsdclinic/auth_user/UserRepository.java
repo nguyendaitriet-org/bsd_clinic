@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<User, String> {
                 u.status,
                 r.code AS role
             FROM User AS u
-            INNER JOIN Role AS r ON u.roleId=r.roleId
+            INNER JOIN Role AS r ON u.roleId = r.roleId
             WHERE u.email = :email
     """)
     IUserResult findByEmailWithRole(String email);

@@ -87,6 +87,7 @@ public class SecurityConfiguration {
     }
 
     public static String[] ENDPOINTS_WHITELIST = {
+            "/api/users/test-creation",
             "/api/login",
             "/error/**",
             "/css/**",
@@ -106,7 +107,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/home/**")
                         .authenticated()
                         .requestMatchers("/document/**")
-                        .hasAnyAuthority(RoleAuthorization.CODE_ADMIN, RoleAuthorization.CODE_MODERATOR)
+                        .hasAnyAuthority(RoleAuthorization.CODE_ADMIN, RoleAuthorization.CODE_DOCTOR)
                         .anyRequest()
                         .authenticated()
                 )

@@ -9,7 +9,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +34,7 @@ public class AuthApi {
 
     private final MessageProvider messageProvider;
 
-    /*----------For test-------------*/
+    /*-------------[TEST]-------------*/
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     /*-------------------------------*/
@@ -62,6 +61,7 @@ public class AuthApi {
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(extraData);
     }
 
+    /*-------------[TEST]-------------*/
     @PostMapping("/api/users/test-creation")
     public ResponseEntity testCreation() {
         User newUser = new User()
@@ -73,5 +73,6 @@ public class AuthApi {
         userRepository.save(newUser);
         return ResponseEntity.ok().build();
     }
+    /*-------------------------------*/
 
 }

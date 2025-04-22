@@ -1,5 +1,6 @@
 package com.bsdclinic;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
+@Getter
 public class UserPrincipal implements UserDetails {
 
     private final String userId;
@@ -35,6 +37,7 @@ public class UserPrincipal implements UserDetails {
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(roleCode);
             authorities.add(authority);
         }
+
         return new UserPrincipal(
                 userId,
                 username,
@@ -42,26 +45,6 @@ public class UserPrincipal implements UserDetails {
                 authorities
         );
     }
-
-    public String getId() {
-        return userId;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
-
 
     @Override
     public boolean isAccountNonExpired() {

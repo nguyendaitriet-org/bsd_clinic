@@ -46,12 +46,12 @@ public class AuthApi {
                 loginParam.getPassword())
         );
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
-        String accessToken = jwtService.generateToken(principal.getId().toString(), principal.getUsername());
+        String accessToken = jwtService.generateToken(principal.getUserId(), principal.getUsername());
         ResponseCookie cookie = ResponseCookie.from("JWT", accessToken)
                 .httpOnly(false)
                 .secure(false)
                 .path("/")
-                .maxAge(SecurityConfiguration.tokenExpirationTime)
+                .maxAge(SecurityConfiguration.TOKEN_EXPIRATION_TIME)
                 .build();
 
         Map<String, String> extraData = new HashMap<>();
@@ -65,13 +65,13 @@ public class AuthApi {
     @PostMapping("/api/users/test-creation")
     public ResponseEntity testCreation() {
         User newUser = new User()
-                .setEmail("test@gmail.com")
-                .setPassword("72tAelf8zVxrg_1BvJw4o")
+                .setEmail("admin@gmail.com")
+                .setPassword(passwordEncoder.encode("72tAelf8zVxrg_1BvJw4o"))
                 .setStatus("ACTIVE")
                 .setRoleId("1QhKeQzl3Ti16qL-vCdws")
                 .setFullName("Test User");
         userRepository.save(newUser);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(messageProvider.getMessage("message.create.success"));
     }
     /*-------------------------------*/
 

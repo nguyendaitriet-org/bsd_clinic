@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 
-
 @Service(SecurityBeanName.USER_SECURITY_SERVICE)
 @RequiredArgsConstructor
 public class AuthUserDetailService implements UserDetailsService {
@@ -26,7 +25,7 @@ public class AuthUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         IUserResult user = userRepository.findByEmailWithRole(email);
 
-        if (user.getStatus().equals(UserStatus.BLOCKED.getValue())) {
+        if (user.getStatus().equals(UserStatus.BLOCKED.name())) {
             throw new ForbiddenException("error.403");
         }
 

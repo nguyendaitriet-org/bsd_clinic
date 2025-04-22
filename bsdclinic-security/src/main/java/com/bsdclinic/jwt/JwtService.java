@@ -22,7 +22,7 @@ public class JwtService {
         return Jwts.builder()
                 .subject(username)
                 .issuedAt(new Date())
-                .expiration(new Date((new Date()).getTime() + JWT_TOKEN_VALIDITY * SecurityConfiguration.tokenExpirationTime))
+                .expiration(new Date((new Date()).getTime() + JWT_TOKEN_VALIDITY * SecurityConfiguration.TOKEN_EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .claim("userId", userId)
                 .compact();

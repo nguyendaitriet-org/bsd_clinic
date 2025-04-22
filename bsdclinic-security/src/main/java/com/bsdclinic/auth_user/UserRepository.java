@@ -10,12 +10,10 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, String> {
     @Query("""
             SELECT
-                u.userId,
-                u.fullName,
-                u.email,
-                u.password,
-                u.phone,
-                u.status,
+                u.userId AS userId,
+                u.email AS email,
+                u.password AS password,
+                u.status AS status,
                 r.code AS role
             FROM User AS u
             INNER JOIN Role AS r ON u.roleId = r.roleId

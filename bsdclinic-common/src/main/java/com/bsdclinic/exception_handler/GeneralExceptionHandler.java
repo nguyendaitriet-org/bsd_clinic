@@ -2,28 +2,37 @@ package com.bsdclinic.exception_handler;
 
 import com.bsdclinic.exception_handler.exception.ForbiddenException;
 import com.bsdclinic.exception_handler.exception.UnauthorizedException;
+import com.bsdclinic.message.MessageProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
+@RequiredArgsConstructor
 public class GeneralExceptionHandler {
+    private final MessageProvider messageProvider;
+
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<ErrorDetails> handleUnauthorized(UnauthorizedException ex, HttpServletRequest request) {
         ErrorDetails response = new ErrorDetails(
                 HttpStatus.UNAUTHORIZED.value(),
-                "error.401",
+                messageProvider.getMessage("error.401"),
                 null
         );
 
@@ -34,11 +43,30 @@ public class GeneralExceptionHandler {
     public ResponseEntity<ErrorDetails> handleForbidden(ForbiddenException ex, HttpServletRequest request) {
         ErrorDetails response = new ErrorDetails(
                 HttpStatus.FORBIDDEN.value(),
-                "error.403",
+                messageProvider.getMessage("error.403"),
                 null
         );
 
         return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorDetails> handleValidation(MethodArgumentNotValidException ex, HttpServletRequest request) {
+        Map<String, String> errorMessages = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .collect(Collectors.toMap(
+                        FieldError::getField,
+                        fieldError -> Optional.ofNullable(fieldError.getDefaultMessage()).orElse("Invalid value"),
+                        (existing, replacement) -> existing
+                ));
+
+        ErrorDetails response = new ErrorDetails(
+                HttpStatus.BAD_REQUEST.value(),
+                messageProvider.getMessage("error.400"),
+                errorMessages
+        );
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler ({ConstraintViolationException.class})
@@ -54,7 +82,11 @@ public class GeneralExceptionHandler {
             String errorMessage = violation.getMessage();
             errorDetails.put(mainProperty, errorMessage);
         }
-        ErrorDetails response = new ErrorDetails(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), errorDetails);
+        ErrorDetails response = new ErrorDetails(
+                HttpStatus.BAD_REQUEST.value(),
+                messageProvider.getMessage("error.400"),
+                errorDetails
+        );
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }

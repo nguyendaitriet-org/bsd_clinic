@@ -37,7 +37,19 @@ import java.util.LinkedHashMap;
 @RequiredArgsConstructor
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfiguration {
-    public static final int tokenExpirationTime = 60 * 60 * 24 * 30;
+    public static final int TOKEN_EXPIRATION_TIME = 60 * 60 * 24 * 30;
+
+    public static final String[] ENDPOINTS_WHITELIST = {
+            /*-------------[TEST]-------------*/
+            "/api/users/test-creation",
+            /*--------------------------------*/
+            "/api/login",
+            "/error/**",
+            "/css/**",
+            "/js/**",
+            "/img/**",
+            "/messages/**"
+    };
 
     private final AuthUserDetailService authUserDetailService;
     private final UserJwtAuthenticationFilter userFilter;
@@ -86,18 +98,6 @@ public class SecurityConfiguration {
         return new RequestMatcherDelegatingAccessDeniedHandler(handlers, defaultHandler);
     }
 
-    public static String[] ENDPOINTS_WHITELIST = {
-            /*-------------[TEST]-------------*/
-            "/api/users/test-creation",
-            /*--------------------------------*/
-            "/api/login",
-            "/error/**",
-            "/css/**",
-            "/js/**",
-            "/img/**",
-            "/messages/**"
-    };
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -106,11 +106,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(ENDPOINTS_WHITELIST)
                         .permitAll()
-                        .requestMatchers("/home/**")
-                        .authenticated()
-                        .requestMatchers("/document/**")
-                        .hasAnyAuthority(RoleAuthorization.CODE_ADMIN, RoleAuthorization.CODE_DOCTOR)
-                        .anyRequest()
+                        .requestMatchers("/admin/**")
                         .authenticated()
                 )
                 .exceptionHandling(configurer -> configurer
@@ -118,12 +114,12 @@ public class SecurityConfiguration {
                         .authenticationEntryPoint(authenticationEntryPoint())
                 )
                 .formLogin(configurer -> configurer
-                        .loginPage("/login")
+                        .loginPage("/admin/login")
                         .permitAll()
                 )
                 .logout(configurer -> configurer
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/admin/login")
                         .deleteCookies("JWT")
                         .invalidateHttpSession(true)
                 );

@@ -50,6 +50,17 @@ public class GeneralExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ErrorDetails> handleNotFound(UnauthorizedException ex, HttpServletRequest request) {
+        ErrorDetails response = new ErrorDetails(
+                HttpStatus.NOT_FOUND.value(),
+                messageProvider.getMessage("error.404"),
+                null
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorDetails> handleValidation(MethodArgumentNotValidException ex, HttpServletRequest request) {
         Map<String, String> errorMessages = ex.getBindingResult()

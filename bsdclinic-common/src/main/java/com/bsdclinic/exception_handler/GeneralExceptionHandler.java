@@ -1,6 +1,7 @@
 package com.bsdclinic.exception_handler;
 
 import com.bsdclinic.exception_handler.exception.ForbiddenException;
+import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.exception_handler.exception.UnauthorizedException;
 import com.bsdclinic.message.MessageProvider;
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,8 +51,8 @@ public class GeneralExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
 
-    @ExceptionHandler(UnauthorizedException.class)
-    public ResponseEntity<ErrorDetails> handleNotFound(UnauthorizedException ex, HttpServletRequest request) {
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorDetails> handleNotFound(NotFoundException ex, HttpServletRequest request) {
         ErrorDetails response = new ErrorDetails(
                 HttpStatus.NOT_FOUND.value(),
                 messageProvider.getMessage("error.404"),

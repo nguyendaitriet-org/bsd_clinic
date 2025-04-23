@@ -1,6 +1,6 @@
 package com.bsdclinic.error_handler;
 
-import com.bsdclinic.Result;
+import com.bsdclinic.response.Result;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;

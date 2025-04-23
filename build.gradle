@@ -69,5 +69,8 @@ subprojects {
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
         implementation("org.liquibase:liquibase-core:4.31.1")
+
+        implementation("org.mapstruct:mapstruct:1.6.3")
+        implementation("org.mapstruct:mapstruct-processor:1.6.3")
     }
 }

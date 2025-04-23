@@ -1,4 +1,4 @@
-package com.bsdclinic;
+package com.bsdclinic.response;
 
 import java.io.Serializable;
 import java.util.Map;

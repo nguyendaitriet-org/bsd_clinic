@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title th:text="#{title.login}"></title>
+    <th:block th:replace="~{admin/layout/head :: login-head}"></th:block>
+</head>
+<body>
+<div class="wrapper">
+
+    <div class="main-panel">
+
+        <div class="container">
+            <div class="page-inner">
+                <div class="page-header">
+                    <h4 class="page-title">Dashboard</h4>
+                    <ul class="breadcrumbs">
+                        <li class="nav-home">
+                            <a href="#">
+                                <i class="icon-home"></i>
+                            </a>
+                        </li>
+                        <li class="separator">
+                            <i class="icon-arrow-right"></i>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">Pages</a>
+                        </li>
+                        <li class="separator">
+                            <i class="icon-arrow-right"></i>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">Starter Page</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="page-category">Inner page content goes here</div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://www.themekita.com"> ThemeKita </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"> Help </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"> Licenses </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright ms-auto">
+                    2024, made with <i class="fa fa-heart heart text-danger"></i> by
+                    <a href="http://www.themekita.com">ThemeKita</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<th:block th:replace="~{admin/layout/script :: login-script}"></th:block>
+
+</body>
+</html>

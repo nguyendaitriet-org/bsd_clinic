@@ -50,7 +50,10 @@ public class SecurityConfiguration {
             "/js/**",
             "/img/**",
             "/messages/**",
-            "/admin/assets/**"
+            "/admin/assets/**",
+            "/admin/custom/**",
+            "/client/assets/**",
+            "/client/custom/**"
     };
 
     private final AuthUserDetailService authUserDetailService;

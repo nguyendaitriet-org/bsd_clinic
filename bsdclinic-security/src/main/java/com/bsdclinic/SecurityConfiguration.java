@@ -43,12 +43,14 @@ public class SecurityConfiguration {
             /*-------------[TEST]-------------*/
             "/api/users/test-creation",
             /*--------------------------------*/
+            "/login",
             "/api/login",
             "/error/**",
             "/css/**",
             "/js/**",
             "/img/**",
-            "/messages/**"
+            "/messages/**",
+            "/admin/assets/**"
     };
 
     private final AuthUserDetailService authUserDetailService;
@@ -114,12 +116,12 @@ public class SecurityConfiguration {
                         .authenticationEntryPoint(authenticationEntryPoint())
                 )
                 .formLogin(configurer -> configurer
-                        .loginPage("/admin/login")
+                        .loginPage("/login")
                         .permitAll()
                 )
                 .logout(configurer -> configurer
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-                        .logoutSuccessUrl("/admin/login")
+                        .logoutSuccessUrl("/login")
                         .deleteCookies("JWT")
                         .invalidateHttpSession(true)
                 );

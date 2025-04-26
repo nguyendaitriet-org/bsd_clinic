@@ -1,0 +1,18 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.13.xsd">
+    <changeSet id="25042025_2" author="trung.phanduc" context="Create PK">
+        <sql>
+            ALTER TABLE taken_medicines
+            ADD CONSTRAINT pk_taken_medicines
+            PRIMARY KEY (prescription_id, medicine_id);
+        </sql>
+        <sql>
+            ALTER TABLE chosen_medical_services
+            ADD CONSTRAINT pk_chosen_medical_services
+            PRIMARY KEY (medical_record_id, medical_service_id);
+
+        </sql>
+    </changeSet>
+</databaseChangeLog>

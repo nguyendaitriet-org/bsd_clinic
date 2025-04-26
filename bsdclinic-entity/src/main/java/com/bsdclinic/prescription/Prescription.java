@@ -29,10 +29,10 @@ public class Prescription extends BaseEntity {
     @Column(name = "external_medicines", columnDefinition = "jsonb")
     private List<ExternalMedicine> externalMedicines;
 
-    @Column(name = "instruction", columnDefinition = "text")
+    @Column(name = "instruction")
     private String instruction;
 
-    @Column(name = "re_examination", columnDefinition = "text")
+    @Column(name = "re_examination")
     private String reExamination;
 
     @PrePersist

@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Setter
 public class PurchasedMedicine {
     private String title;
-    private int purchasedQuantity;
+    private Integer purchasedQuantity;
     private BigDecimal unitPrice;
     private BigDecimal purchasedTotalPrice;
 }

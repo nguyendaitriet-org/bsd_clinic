@@ -114,6 +114,8 @@ public class SecurityConfiguration {
                         .permitAll()
                         .requestMatchers("/admin/**")
                         .authenticated()
+                        .anyRequest()
+                        .authenticated()
                 )
                 .exceptionHandling(configurer -> configurer
                         .accessDeniedHandler(accessDeniedHandler())

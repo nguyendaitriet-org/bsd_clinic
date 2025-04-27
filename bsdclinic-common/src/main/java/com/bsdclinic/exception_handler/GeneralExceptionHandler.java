@@ -33,7 +33,7 @@ public class GeneralExceptionHandler {
     public ResponseEntity<ErrorDetails> handleUnauthorized(UnauthorizedException ex, HttpServletRequest request) {
         ErrorDetails response = new ErrorDetails(
                 HttpStatus.UNAUTHORIZED.value(),
-                messageProvider.getMessage("error.401"),
+                ex.getMessage(),
                 null
         );
 

@@ -55,7 +55,7 @@ public class AuthApi {
                 .build();
 
         Map<String, String> extraData = new HashMap<>();
-        extraData.put("redirectUrl", "/");
+        extraData.put("redirectUrl", "/admin");
         extraData.put("message", messageProvider.getMessage("message.login.success"));
 
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(extraData);

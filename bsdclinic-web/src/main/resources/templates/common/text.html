@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<th:block th:fragment="texts">
+    <script th:inline="javascript">
+        var ERROR_403 = [[#{error.403}]];
+
+        // Element
+        var createButton = [[#{button.create}]];
+
+        // Datatable message
+        var resultCount = [[#{datatable.resultCount}]];
+        var noResult = [[#{datatable.noResult}]];
+        var menuLength = [[#{datatable.menuLength}]];
+        var emptyTable = [[#{datatable.emptyTable}]];
+
+        // Authorization
+        var isAdminOrModerator = [[${isAdminOrModerator}]];
+    </script>
+</th:block>

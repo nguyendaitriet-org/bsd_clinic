@@ -52,6 +52,7 @@ public class SecurityConfiguration {
             "/messages/**",
             "/admin/assets/**",
             "/admin/custom/**",
+            "/common/**",
             "/client/assets/**",
             "/client/custom/**"
     };

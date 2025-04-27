@@ -4,6 +4,8 @@ import com.bsdclinic.SecurityBeanName;
 import com.bsdclinic.UserPrincipal;
 import com.bsdclinic.dto.IUserResult;
 import com.bsdclinic.exception_handler.exception.ForbiddenException;
+import com.bsdclinic.exception_handler.exception.UnauthorizedException;
+import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.user.UserStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,13 +22,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthUserDetailService implements UserDetailsService {
     private final UserRepository userRepository;
+    private final MessageProvider messageProvider;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         IUserResult user = userRepository.findByEmailWithRole(email);
 
+        if (user == null) {
+            throw new UnauthorizedException(messageProvider.getMessage("message.login.invalid_email"));
+        }
+
         if (user.getStatus().equals(UserStatus.BLOCKED.name())) {
-            throw new ForbiddenException("error.403");
+            throw new ForbiddenException(messageProvider.getMessage("error.403"));
         }
 
         List<GrantedAuthority> authorities = Collections.singletonList(

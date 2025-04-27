@@ -1,6 +1,6 @@
 package com.bsdclinic;
 
-import com.bsdclinic.auth_user.UserRepository;
+import com.bsdclinic.auth_user.UserSecurityRepository;
 import com.bsdclinic.dto.LoginParam;
 import com.bsdclinic.jwt.JwtService;
 import com.bsdclinic.message.MessageProvider;
@@ -36,7 +36,7 @@ public class AuthApi {
 
     /*-------------[TEST]-------------*/
     private final PasswordEncoder passwordEncoder;
-    private final UserRepository userRepository;
+    private final UserSecurityRepository userSecurityRepository;
     /*-------------------------------*/
 
     @PostMapping("/api/login")
@@ -70,7 +70,7 @@ public class AuthApi {
                 .setStatus("ACTIVE")
                 .setRoleId("1QhKeQzl3Ti16qL-vCdws")
                 .setFullName("Test User");
-        userRepository.save(newUser);
+        userSecurityRepository.save(newUser);
         return ResponseEntity.ok(messageProvider.getMessage("message.create.success"));
     }
     /*-------------------------------*/

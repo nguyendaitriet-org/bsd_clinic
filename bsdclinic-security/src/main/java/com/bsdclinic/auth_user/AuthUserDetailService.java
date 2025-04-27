@@ -21,12 +21,12 @@ import java.util.List;
 @Service(SecurityBeanName.USER_SECURITY_SERVICE)
 @RequiredArgsConstructor
 public class AuthUserDetailService implements UserDetailsService {
-    private final UserRepository userRepository;
+    private final UserSecurityRepository userSecurityRepository;
     private final MessageProvider messageProvider;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        IUserResult user = userRepository.findByEmailWithRole(email);
+        IUserResult user = userSecurityRepository.findByEmailWithRole(email);
 
         if (user == null) {
             throw new UnauthorizedException(messageProvider.getMessage("message.login.invalid_email"));

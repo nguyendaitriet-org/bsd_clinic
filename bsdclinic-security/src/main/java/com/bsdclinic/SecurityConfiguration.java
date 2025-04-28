@@ -40,15 +40,8 @@ public class SecurityConfiguration {
     public static final int TOKEN_EXPIRATION_TIME = 60 * 60 * 24 * 30;
 
     public static final String[] ENDPOINTS_WHITELIST = {
-            /*-------------[TEST]-------------*/
-            "/api/users/test-creation",
-            /*--------------------------------*/
             "/api/login",
             "/error/**",
-            "/css/**",
-            "/js/**",
-            "/img/**",
-            "/messages/**",
             "/admin/assets/**",
             "/admin/custom/**",
             "/common/**",

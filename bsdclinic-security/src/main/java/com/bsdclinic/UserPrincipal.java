@@ -1,16 +1,15 @@
 package com.bsdclinic;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 
 @Getter
+@Setter
 public class UserPrincipal implements UserDetails {
 
     private final String userId;
@@ -29,21 +28,6 @@ public class UserPrincipal implements UserDetails {
         this.username = username;
         this.password = password;
         this.authorities = authorities;
-    }
-
-    public static UserPrincipal build(String userId, String username, String passwordHash, String roleCode) {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        if (roleCode != null) {
-            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(roleCode);
-            authorities.add(authority);
-        }
-
-        return new UserPrincipal(
-                userId,
-                username,
-                passwordHash,
-                authorities
-        );
     }
 
     @Override

@@ -43,7 +43,6 @@ public class SecurityConfiguration {
             /*-------------[TEST]-------------*/
             "/api/users/test-creation",
             /*--------------------------------*/
-            "/login",
             "/api/login",
             "/error/**",
             "/css/**",

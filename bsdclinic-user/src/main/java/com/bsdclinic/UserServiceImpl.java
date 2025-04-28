@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-//    private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     @Override
     public void createUser(CreateUserRequest request) {
-//        User user = userMapper.toEntity(request);
-        User user = new User();
+        User user = userMapper.toEntity(request);
+//        User user = new User();
         user.setStatus(UserStatus.ACTIVE.name());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 

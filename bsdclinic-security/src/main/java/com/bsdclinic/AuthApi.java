@@ -34,11 +34,6 @@ public class AuthApi {
 
     private final MessageProvider messageProvider;
 
-    /*-------------[TEST]-------------*/
-    private final PasswordEncoder passwordEncoder;
-    private final UserSecurityRepository userSecurityRepository;
-    /*-------------------------------*/
-
     @PostMapping("/api/login")
     public ResponseEntity uniLogin(@Valid @RequestBody LoginParam loginParam) {
         Authentication authentication = userAuthenticationProvider.authenticate(
@@ -61,19 +56,4 @@ public class AuthApi {
 
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(extraData);
     }
-
-    /*-------------[TEST]-------------*/
-    @PostMapping("/api/users/test-creation")
-    public ResponseEntity testCreation() {
-        User newUser = new User()
-                .setEmail("admin@gmail.com")
-                .setPassword(passwordEncoder.encode("72tAelf8zVxrg_1BvJw4o"))
-                .setStatus("ACTIVE")
-                .setRoleId("1QhKeQzl3Ti16qL-vCdws")
-                .setFullName("Test User");
-        userSecurityRepository.save(newUser);
-        return ResponseEntity.ok(messageProvider.getMessage("message.create.success"));
-    }
-    /*-------------------------------*/
-
 }

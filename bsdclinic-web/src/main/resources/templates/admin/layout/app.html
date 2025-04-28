@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="vi">
+<head>
+    <title th:text="#{title.app.admin}"></title>
+    <th:block th:replace="~{admin/layout/head :: app-head}"></th:block>
+    <th:block layout:fragment="content-style"></th:block>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <th:block th:replace="~{admin/layout/sidebar :: app-sidebar}"></th:block>
+    <!-- End Sidebar -->
+
+    <div class="main-panel">
+        <!-- Header -->
+        <th:block th:replace="~{admin/layout/navbar :: app-navbar}"></th:block>
+        <!-- End Header -->
+
+        <div class="container">
+            <div class="page-inner">
+                <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+                    <div>
+                        <h3 class="fw-bold mb-3">
+                            <th:block layout:fragment="content-title">Content Title</th:block>
+                        </h3>
+                        <h6 class="op-7 mb-2">
+                            <th:block layout:fragment="content-title-note">Content Title Note</th:block>
+                        </h6>
+                    </div>
+                    <div class="ms-md-auto py-2 py-md-0">
+                        <th:block layout:fragment="content-button">
+                            <a href="#" class="btn btn-label-info btn-round me-2">Button 1</a>
+                            <a href="#" class="btn btn-primary btn-round">Button 2</a>
+                        </th:block>
+                    </div>
+                </div>
+                <th:block layout:fragment="content-body">
+                    Content body
+                </th:block>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <th:block th:replace="~{admin/layout/footer :: app-footer}"></th:block>
+        <!-- End Footer -->
+    </div>
+</div>
+<th:block th:replace="~{admin/layout/script :: app-script}"></th:block>
+</body>
+</html>

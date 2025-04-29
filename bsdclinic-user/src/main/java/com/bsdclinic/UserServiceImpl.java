@@ -1,6 +1,7 @@
 package com.bsdclinic;
 
 import com.bsdclinic.dto.request.CreateUserRequest;
+import com.bsdclinic.dto.response.IUserResponse;
 import com.bsdclinic.user.Role;
 import com.bsdclinic.user.User;
 import com.bsdclinic.user.UserStatus;
@@ -19,6 +20,11 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
+    public List<Role> getAllRoles() {
+        return roleRepository.findAll();
+    }
+
+    @Override
     public void createUser(CreateUserRequest request) {
         User user = userMapper.toEntity(request);
         user.setStatus(UserStatus.ACTIVE.name());
@@ -28,7 +34,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Role> getAllRoles() {
-        return roleRepository.findAll();
+    public IUserResponse getUserById(String userId) {
+        return userRepository.findByIdRole(userId);
     }
 }

@@ -1,21 +1,21 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
 
 <th:block th:fragment="login-head">
-    <link rel="icon" th:href="@{admin/assets/img/favicon.ico}" type="image/x-icon" />
+    <link rel="icon" th:href="@{/admin/assets/img/favicon.ico}" type="image/x-icon" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{common/css/style.css}"/>
-    <link rel="stylesheet" th:href="@{admin/custom/css/login.css}"/>
+    <link rel="stylesheet" th:href="@{/common/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/admin/custom/css/login.css}"/>
 </th:block>
 
 <th:block th:fragment="app-head">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 
-    <link rel="icon" th:href="@{admin/assets/img/favicon.ico}" type="image/x-icon" />
+    <link rel="icon" th:href="@{/admin/assets/img/favicon.ico}" type="image/x-icon" />
 
     <!-- Fonts and icons -->
-    <script th:src="@{admin/assets/js/plugin/webfont/webfont.min.js}"></script>
+    <script th:src="@{/admin/assets/js/plugin/webfont/webfont.min.js}"></script>
     <script>
         WebFont.load({
             google: {"families":["Public Sans:300,400,500,600,700"]},
@@ -26,7 +26,7 @@
                     "Font Awesome 5 Brands",
                     "simple-line-icons"
                 ],
-                urls: ['admin/assets/css/fonts.min.css']
+                urls: ['/admin/assets/css/fonts.min.css']
             },
             active: function() {
                 sessionStorage.fonts = true;
@@ -34,10 +34,10 @@
         });
     </script>
 
-    <link rel="stylesheet" th:href="@{admin/assets/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{admin/assets/css/plugins.min.css}">
-    <link rel="stylesheet" th:href="@{admin/assets/css/kaiadmin.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/assets/css/plugins.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/assets/css/kaiadmin.min.css}">
 
-    <link rel="stylesheet" th:href="@{common/css/style.css}"/>
-    <link rel="stylesheet" th:href="@{admin/custom/css/admin.css}"/>
+    <link rel="stylesheet" th:href="@{/common/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/admin/custom/css/admin.css}"/>
 </th:block>

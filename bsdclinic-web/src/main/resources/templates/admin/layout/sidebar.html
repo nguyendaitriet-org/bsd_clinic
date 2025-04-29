@@ -6,8 +6,10 @@
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="dark">
                 <div class="logo">
-                    <img th:src="@{admin/assets/img/icon.png}" alt="navbar brand" class="navbar-brand" height="20">
-                    <div class="gradient-title my-auto h3 text-uppercase ms-2 fw-bolder" th:text="#{title.app}"></div>
+                    <a th:href="@{/admin}" class="d-flex">
+                        <img th:src="@{/admin/assets/img/icon.png}" alt="navbar brand" class="navbar-brand my-auto" height="20">
+                        <div class="gradient-title my-auto h3 text-uppercase ms-2 fw-bolder" th:text="#{title.app}"></div>
+                    </a>
                 </div>
                 <div class="nav-toggle">
                     <button class="btn btn-toggle toggle-sidebar">

@@ -1,0 +1,17 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/layout/app}"
+>
+
+<th:block layout:fragment="content-title" th:text="#{title.user.management}"></th:block>
+<th:block layout:fragment="content-title-note"></th:block>
+<th:block layout:fragment="content-button">
+    <button class="btn btn-primary btn-round" type="button" th:text="#{title.create}"
+            data-bs-toggle="modal" data-bs-target="#create-user-modal"></button>
+    <!-- User creation modal -->
+    <th:block th:replace="~{admin/user/component/creation_form :: create-user}"></th:block>
+</th:block>
+
+<th:block layout:fragment="content-body">
+</th:block>

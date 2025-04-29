@@ -1,0 +1,51 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<th:block th:fragment="create-user">
+    <div class="modal fade" id="create-user-modal" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 5%">
+        <div class="modal-dialog modal-dialog-top" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" th:text="#{title.user.create}"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="py-3 px-5">
+                        <div class="mb-3 with-validation">
+                            <label th:text="#{title.email}" class="required-field"></label>
+                            <input class="form-control mail-input" type="email" name="email">
+                        </div>
+                        <div class="mb-3 with-validation">
+                            <label th:text="#{title.full_name}" class="required-field"></label>
+                            <input class="form-control full-name-input" type="text" name="fullName">
+                        </div>
+                        <div class="mb-3 with-validation">
+                            <label th:text="#{title.phone_number}" class="required-field"></label>
+                            <input class="form-control phone-number-input" type="text" name="phoneNumber">
+                        </div>
+                        <div class="mb-3 with-validation">
+                            <label th:text="#{title.password}" class="required-field"></label>
+                            <input class="form-control password-input" type="password" name="password">
+                        </div>
+                        <div class="mb-3 with-validation">
+                            <label th:text="#{title.password_confirmation}" class="required-field"></label>
+                            <input class="form-control password-confirmation-input" type="password" name="passwordConfirmation">
+                        </div>
+                        <div class="mb-3 with-validation">
+                            <label th:text="#{title.role}" class="required-field"></label>
+                            <select name="role" class="form-control role-select" style="width: 100%"
+                                    th:data-label="#{placeholder.role}">
+                                <th:block th:each="userRole: ${userRoles}">
+                                    <option th:value="${userRole.code}" th:text="${userRole.title}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-save" th:text="#{title.save}"></button>
+                    <button type="button" class="btn btn-secondary" th:text="#{title.cancel}" data-bs-dismiss="modal"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

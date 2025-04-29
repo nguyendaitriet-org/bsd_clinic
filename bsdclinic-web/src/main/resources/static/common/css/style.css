@@ -45,3 +45,10 @@
         opacity: 0;
     }
 }
+/* --- End of validation error element --- */
+
+.required-field:after {
+    content: " *";
+    color: red;
+    font-weight: bold;
+}

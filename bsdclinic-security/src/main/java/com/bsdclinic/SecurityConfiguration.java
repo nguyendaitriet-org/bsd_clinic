@@ -42,9 +42,9 @@ public class SecurityConfiguration {
     public static final String[] ENDPOINTS_WHITELIST = {
             "/api/login",
             "/error/**",
+            "/common/**",
             "/admin/assets/**",
             "/admin/custom/**",
-            "/common/**",
             "/client/assets/**",
             "/client/custom/**"
     };

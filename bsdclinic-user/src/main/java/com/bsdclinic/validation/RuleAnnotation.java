@@ -19,4 +19,16 @@ public class RuleAnnotation {
 
         Class<? extends Payload>[] payload() default {};
     }
+    @Documented
+    @Target({ElementType.FIELD})
+    @Retention(RetentionPolicy.RUNTIME)
+    @Constraint(validatedBy = Validator.NotExistedRoleValidator.class)
+    @ReportAsSingleViolation
+    public @interface NotExistedRole {
+        String message() default "Role doesn't exist";
+
+        Class<?>[] groups() default {};
+
+        Class<? extends Payload>[] payload() default {};
+    }
 }

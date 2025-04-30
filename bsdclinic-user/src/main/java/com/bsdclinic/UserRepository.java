@@ -22,4 +22,6 @@ public interface UserRepository extends JpaRepository<User, String> {
             WHERE u.userId = :userId
     """)
     IUserResponse findByIdRole(String userId);
+
+    Object existsByRoleId(String roleId);
 }

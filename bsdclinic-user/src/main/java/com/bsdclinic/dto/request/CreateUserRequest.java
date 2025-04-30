@@ -1,5 +1,6 @@
 package com.bsdclinic.dto.request;
 
+import com.bsdclinic.validation.GeneralRuleAnnotation;
 import com.bsdclinic.validation.RuleAnnotation;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -9,6 +10,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@GeneralRuleAnnotation.FieldMatch(
+        first = "password",
+        second = "passwordConfirmation",
+        errorMessage = "{validation.no_match.password_confirmation}"
+)
 public class CreateUserRequest {
     @RuleAnnotation.ExistedEmail( message = "{message.login.invalid_email}")
     @NotBlank(message = "{validation.required.email}")
@@ -25,12 +31,13 @@ public class CreateUserRequest {
     private String phone;
 
     @NotBlank(message = "{validation.required.password}")
-    @Size(min = 6, max = 16, message = "{validation.required.password_character}")
+    @Size(min = 6, max = 16, message = "{validation.length.password}")
     private String password;
 
     @NotBlank(message = "{validation.required.password_confirmation}")
     private String passwordConfirmation;
 
+    @RuleAnnotation.NotExistedRole(message = "{validation.no_exist.role}")
     @NotBlank(message = "{validation.required.role}")
     private String roleId;
 }

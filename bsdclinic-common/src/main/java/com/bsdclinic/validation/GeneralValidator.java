@@ -2,7 +2,10 @@ package com.bsdclinic.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class GeneralValidator {
     public static class FieldMatchValidator implements ConstraintValidator<GeneralRuleAnnotation.FieldMatch, Object> {
@@ -38,4 +41,5 @@ public class GeneralValidator {
             return isValid;
         }
     }
+
 }

@@ -43,4 +43,16 @@ public class RuleAnnotation {
 
         Class<? extends Payload>[] payload() default {};
     }
+    @Documented
+    @Target({ElementType.METHOD, ElementType.FIELD})
+    @Retention(RetentionPolicy.RUNTIME)
+    @Constraint(validatedBy = Validator.CheckOldPasswordValidator.class)
+    @ReportAsSingleViolation
+    public @interface CheckOldPassword {
+        String message() default "Incorrect old password value";
+
+        Class<?>[] groups() default {};
+
+        Class<? extends Payload>[] payload() default {};
+    }
 }

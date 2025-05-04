@@ -35,7 +35,7 @@
                             <select name="role" class="form-control role-select" style="width: 100%"
                                     th:data-label="#{placeholder.role}">
                                 <th:block th:each="userRole: ${userRoles}">
-                                    <option th:value="${userRole.code}" th:text="${userRole.title}"></option>
+                                    <option th:value="${userRole.roleId}" th:text="${userRole.title}"></option>
                                 </th:block>
                             </select>
                         </div>

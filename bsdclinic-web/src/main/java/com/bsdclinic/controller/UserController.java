@@ -27,4 +27,5 @@ public class UserController {
     public String toIndex() {
         return "admin/user/index";
     }
+
 }

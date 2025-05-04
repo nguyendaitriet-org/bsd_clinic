@@ -13,7 +13,7 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
-            return Boolean.TRUE.equals(userRepository.existsByEmail(value));
+            return Boolean.FALSE.equals(userRepository.existsByEmail(value));
         }
     }
 
@@ -24,6 +24,15 @@ public class Validator {
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
             return Boolean.TRUE.equals(roleRepository.existsByRoleId(value));
+        }
+    }
+    @RequiredArgsConstructor
+    public static class ExistedPhoneValidator implements ConstraintValidator<RuleAnnotation.ExistedPhone, String> {
+        private final UserRepository userRepository;
+
+        @Override
+        public boolean isValid(String value, ConstraintValidatorContext context) {
+            return Boolean.FALSE.equals(userRepository.existsByPhone(value));
         }
     }
 }

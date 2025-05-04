@@ -16,13 +16,11 @@
 <th:block layout:fragment="content-body">
     <div class="mb-3 d-flex justify-content-between">
         <div class="col">
-            <div class="input-group">
-                <input id="search-input" type="search" class="form-control border-secondary border-1"
-                       th:placeholder="#{placeholder.find_user}">
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-outline-secondary">
-                        <i class="fa fa-search"></i>
-                    </button>
+            <div class="form-group p-0">
+                <div class="input-group">
+                    <button class="btn btn-black" type="button"><i class="fa fa-search"></i></button>
+                    <input id="search-input" type="search" class="form-control border-secondary border-1"
+                           th:placeholder="#{placeholder.find_user}">
                 </div>
             </div>
         </div>
@@ -43,13 +41,33 @@
                 </select>
             </div>
             <div>
-                <input id="creation-daterange-input" type="date" class="form-control border-secondary border-1 daterange"
+                <input id="creation-daterange-input" type="date"
+                       class="form-control border-secondary border-1 daterange text-dark"
                        th:placeholder="#{placeholder.find_user}">
             </div>
         </div>
         <div>
-            <button id="search-submit-btn" class="btn btn-black" type="button" th:text="#{title.apply}"></button>
+            <button id="submit-btn" class="btn btn-black" type="button" th:text="#{title.apply}"></button>
         </div>
+    </div>
+    <div>
+        <table id="user-list-table" class="table table-sm table-bordered table-hover dataTable">
+            <thead>
+            <tr class="text-center">
+                <th>#</th>
+                <th th:text="#{title.email}"></th>
+                <th th:text="#{title.full_name}"></th>
+                <th th:text="#{title.phone}"></th>
+                <th th:text="#{title.created_at}"></th>
+                <th th:text="#{title.role}"></th>
+                <th th:text="#{title.status}"></th>
+                <th th:text="#{title.action}"></th>
+            </tr>
+            </thead>
+            .
+            <tbody>
+            </tbody>
+        </table>
     </div>
 </th:block>
 

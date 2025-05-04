@@ -23,5 +23,8 @@ public interface UserRepository extends JpaRepository<User, String> {
     """)
     IUserResponse findByIdRole(String userId);
 
-    Object existsByRoleId(String roleId);
+    // Object existsByRoleId(String roleId);
+
+    boolean existsByPhone(String phone);
+
 }

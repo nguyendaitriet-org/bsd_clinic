@@ -16,7 +16,7 @@ import lombok.Setter;
         errorMessage = "{validation.no_match.password_confirmation}"
 )
 public class CreateUserRequest {
-    @RuleAnnotation.ExistedEmail( message = "{message.login.invalid_email}")
+    @RuleAnnotation.ExistedEmail( message = "{validation.exist.invalid_email}")
     @NotBlank(message = "{validation.required.email}")
     @Size(max = 255, message = "{validation.input.max_length.255}")
     @Pattern(regexp = "[\\w.%+-]+@[\\w.-]+\\.[A-Za-z]{2,}$", message = "{message.login.format_email}")
@@ -26,6 +26,7 @@ public class CreateUserRequest {
     @Size(max = 255, message = "{validation.input.max_length.255}")
     private String fullName;
 
+    @RuleAnnotation.ExistedPhone( message = "{validation.exist.invalid_phone}")
     @NotBlank(message = "{validation.required.phone}")
     @Size(max = 20, message = "{validation.input.max_length.20}")
     private String phone;

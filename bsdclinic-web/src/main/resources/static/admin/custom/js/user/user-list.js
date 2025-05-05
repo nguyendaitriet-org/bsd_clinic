@@ -21,22 +21,22 @@ export const UserList = (function () {
 
     const handleSearchSubmissionButton = () => {
         module.searchSubmitSelector.on('click', function () {
-            renderUserListTable();
+            const userFilter = getUserListFilter();
+            renderUserListTable(userFilter);
         });
     }
 
     const getUserListFilter = () => {
         return {
             keyword: module.searchInputSelector.val().trim(),
-            roles: module.roleSelectSelector.val(),
+            roleIds: module.roleSelectSelector.val(),
             status: module.statusSelectSelector.val(),
-            creationStartDate: module.creationDaterangeInputSelector.data('daterangepicker').startDate,
-            creationEndDate: module.creationDaterangeInputSelector.data('daterangepicker').endDate
+            createdFrom: module.creationDaterangeInputSelector.data('daterangepicker').startDate,
+            createdTo: module.creationDaterangeInputSelector.data('daterangepicker').endDate
         }
     }
 
-    const renderUserListTable = () => {
-        const userFilter = getUserListFilter();
+    const renderUserListTable = (userFilter) => {
         const userListDatatable = module.userListTableSelector.DataTable({
             ajax: {
                 contentType: 'application/json',
@@ -44,10 +44,10 @@ export const UserList = (function () {
                 url: module.findAllUsersByFilterUrl,
                 data: function (d) {
                     d.keyword = userFilter.keyword;
-                    d.roles = userFilter.roles;
+                    d.roleIds = userFilter.roleIds;
                     d.status = userFilter.status;
-                    d.creationStartDate = userFilter.creationStartDate;
-                    d.creationEndDate = userFilter.creationEndDate;
+                    d.createdFrom = userFilter.createdFrom;
+                    d.createdTo = userFilter.createdTo;
                     return JSON.stringify(d);
                 }
             },

@@ -19,6 +19,7 @@ public class RuleAnnotation {
 
         Class<? extends Payload>[] payload() default {};
     }
+
     @Documented
     @Target({ElementType.FIELD})
     @Retention(RetentionPolicy.RUNTIME)
@@ -31,13 +32,14 @@ public class RuleAnnotation {
 
         Class<? extends Payload>[] payload() default {};
     }
+
     @Documented
     @Target({ElementType.FIELD})
     @Retention(RetentionPolicy.RUNTIME)
     @Constraint(validatedBy = Validator.ExistedPhoneValidator.class)
     @ReportAsSingleViolation
     public @interface ExistedPhone {
-        String message() default "Phone` exist";
+        String message() default "Phone number exists";
 
         Class<?>[] groups() default {};
 

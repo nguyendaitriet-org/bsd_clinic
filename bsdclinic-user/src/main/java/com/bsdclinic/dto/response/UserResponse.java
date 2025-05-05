@@ -6,9 +6,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserResponse {
-    private String fullName;
+    private String userId;
     private String email;
+    private String fullName;
     private String phone;
+    private String createdAt;
+    private String roleId;
     private String status;
-    private String role;
 }

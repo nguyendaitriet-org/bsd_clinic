@@ -1,6 +1,7 @@
 :root {
     --brand-gradient: linear-gradient(90deg, #5f00ff, #ff61a6, #ffc074);
     --brand-gradient-hover: linear-gradient(90deg, #4a00e0, #ff4e9b, #ffaa5e);
+    --grey: #999999
 }
 
 .gradient-title {
@@ -30,4 +31,8 @@
 
 .modal-footer {
     border-top:none;
+}
+
+.text-grey {
+    color: var(--grey)
 }

@@ -89,8 +89,8 @@ export const DatatableAttribute = (function () {
         infoEmpty: noResult,
         lengthMenu: menuLength,
         paginate: {
-            previous: `<i class="fa fa-angle-left"></i>`,
-            next: `<i class="fa fa-angle-right"></i>`
+            previous: previousPage,
+            next: nextPage
         },
         aria: {
             paginate: {
@@ -167,4 +167,10 @@ export const LocalStorage = (function () {
     }
 
     return module;
+})();
+
+export const Constant = (function () {
+    return {
+        minDateFilter: "2010-01-01"
+    };
 })();

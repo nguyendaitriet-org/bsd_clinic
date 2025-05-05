@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserApi {
     private final UserService userService;
 
-    @GetMapping
+    @PostMapping("list")
     @RoleAuthorization.AdminAuthorization
     public ResponseEntity getUsersByFilter(
             @RequestBody UserFilter userFilter,

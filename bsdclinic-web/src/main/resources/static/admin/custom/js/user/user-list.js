@@ -1,26 +1,39 @@
-import {DatatableAttribute} from "/common/js/app.js";
+import {DatatableAttribute, Constant} from "/common/js/app.js";
 
 export const UserList = (function () {
     const module = {
-        findAllUsersByFilterUrl: '/api/users',
+        findAllUsersByFilterUrl: '/api/users/list',
 
         searchInputSelector: $('#search-input'),
         roleSelectSelector: $('#role-select'),
         statusSelectSelector: $('#status-select'),
         creationDaterangeInputSelector: $('#creation-daterange-input'),
-        searchSubmitSelector: $('#submit-btn'),
+        searchSubmitButtonSelector: $('#submit-btn'),
+        cancelSearchButtonSelector: $('#cancel-btn'),
 
         userListTableSelector: $('#user-list-table'),
 
     };
 
     module.init = () => {
-        renderUserListTable();
+        renderUserListTable({createdFrom: Constant.minDateFilter});
         handleSearchSubmissionButton();
+        handleCancelSearchButton();
+    }
+
+    const handleCancelSearchButton = () => {
+        module.cancelSearchButtonSelector.on('click', function () {
+            renderUserListTable({createdFrom: Constant.minDateFilter});
+            module.searchInputSelector.val('');
+            module.roleSelectSelector.selectpicker('deselectAll');
+            module.statusSelectSelector.selectpicker('deselectAll');
+            module.creationDaterangeInputSelector.data('daterangepicker').setStartDate(new Date());
+            module.creationDaterangeInputSelector.data('daterangepicker').setEndDate(new Date());
+        })
     }
 
     const handleSearchSubmissionButton = () => {
-        module.searchSubmitSelector.on('click', function () {
+        module.searchSubmitButtonSelector.on('click', function () {
             const userFilter = getUserListFilter();
             renderUserListTable(userFilter);
         });
@@ -36,7 +49,15 @@ export const UserList = (function () {
         }
     }
 
+    const toRoleMap = (userRoles) => {
+        return userRoles.reduce((acc, role) => {
+            acc[role.roleId] = role.title;
+            return acc;
+        }, {});
+    }
+
     const renderUserListTable = (userFilter) => {
+        const roleMap = toRoleMap(userRoles);
         const userListDatatable = module.userListTableSelector.DataTable({
             ajax: {
                 contentType: 'application/json',
@@ -53,11 +74,12 @@ export const UserList = (function () {
             },
             columns: [
                 {data: null},
-                {data: 'username'},
+                {data: 'email'},
                 {data: 'fullName'},
-                {data: 'role'},
+                {data: 'phone'},
                 {data: 'createdAt'},
-                {data: 'isDisabled'},
+                {data: 'roleId'},
+                {data: 'status'},
                 {data: null},
             ],
             serverSide: true,
@@ -68,25 +90,20 @@ export const UserList = (function () {
             lengthChange: false,
             info: false,
             ordering: false,
-            pageLength: 10,
+            pageLength: 5,
             pagingType: 'simple_numbers',
             columnDefs: [
                 {
-                    targets: [0, 3, 4],
+                    targets: [0, 5, 6, 7],
                     className: "text-center"
                 },
                 {
-                    targets: -2,
+                    targets: 5,
                     className: "text-center",
-                    render: (data, type, row) => {
-                        return data ?
-                            `<span class="text-danger">${disabled}</span>` :
-                            `<span class="text-success">${active}</span>`;
-                    }
+                    render: (data, type, row) => roleMap[data]
                 },
                 {
                     targets: -1,
-                    className: "text-center",
                     render: () =>
                         `<button class="open-edit-user-modal-btn btn btn-sm btn-outline-primary border-0">
                             <i class="fa fa-edit"></i>
@@ -102,3 +119,6 @@ export const UserList = (function () {
     return module;
 })();
 
+(function () {
+    UserList.init();
+})();

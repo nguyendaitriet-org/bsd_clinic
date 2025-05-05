@@ -1,11 +1,22 @@
 package com.bsdclinic;
 
 import com.bsdclinic.dto.request.CreateUserRequest;
+import com.bsdclinic.dto.request.UserFilter;
 import com.bsdclinic.dto.response.IUserResponse;
+import com.bsdclinic.dto.response.UserResponse;
+import com.bsdclinic.repository.RoleRepository;
+import com.bsdclinic.repository.UserRepository;
+import com.bsdclinic.repository.UserSpecifications;
+import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.user.Role;
 import com.bsdclinic.user.User;
 import com.bsdclinic.user.UserStatus;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +42,31 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         userRepository.save(user);
+    }
+
+    @Override
+    public DatatableResponse getUserByFilter(UserFilter userFilter) {
+        Specification<User> userSpecification = UserSpecifications.withFilter(userFilter);
+        Pageable pageable = PageRequest.of(
+                userFilter.getStart() / userFilter.getLength(),
+                userFilter.getLength(),
+                Sort.by(Sort.Direction.DESC, "createdAt")
+        );
+
+        Page<User> users = userRepository.findAll(userSpecification, pageable);
+
+        List<UserResponse> userResponse = users.stream()
+                .map(userMapper::toDto)
+                .toList();
+
+        DatatableResponse<UserResponse> datatableResponse = new DatatableResponse<>();
+        datatableResponse.setData(userResponse);
+        datatableResponse.setDraw(userFilter.getDraw());
+        Long totalRecord = users.getTotalElements();
+        datatableResponse.setRecordsFiltered(totalRecord);
+        datatableResponse.setRecordsTotal(totalRecord);
+
+        return datatableResponse;
     }
 
     @Override

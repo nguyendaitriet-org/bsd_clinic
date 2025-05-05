@@ -2,8 +2,11 @@ package com.bsdclinic.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.commons.beanutils.BeanUtils;
 
+@NoArgsConstructor(access= AccessLevel.PRIVATE)
 public class GeneralValidator {
     public static class FieldMatchValidator implements ConstraintValidator<GeneralRuleAnnotation.FieldMatch, Object> {
         private String firstFieldName;

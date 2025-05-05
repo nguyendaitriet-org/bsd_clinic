@@ -6,5 +6,10 @@
 
     $('.selectpicker').selectpicker('setStyle', 'btn-outline-secondary');
 
-    $('.daterange').daterangepicker();
+    $('.daterange').daterangepicker({
+        autoUpdateInput: false,
+        locale: {
+            format: 'DD/MM/YYYY'
+        }
+    });
 })();

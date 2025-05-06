@@ -7,7 +7,7 @@ export const UserList = (function () {
         searchInputSelector: $('#search-input'),
         roleSelectSelector: $('#role-select'),
         statusSelectSelector: $('#status-select'),
-        creationDaterangeInputSelector: $('#creation-daterange-input'),
+        creationDateRangeInputSelector: $('#creation-daterange-input'),
         searchSubmitButtonSelector: $('#submit-btn'),
         cancelSearchButtonSelector: $('#cancel-btn'),
 
@@ -27,8 +27,8 @@ export const UserList = (function () {
             module.searchInputSelector.val('');
             module.roleSelectSelector.selectpicker('deselectAll');
             module.statusSelectSelector.selectpicker('deselectAll');
-            module.creationDaterangeInputSelector.data('daterangepicker').setStartDate(new Date());
-            module.creationDaterangeInputSelector.data('daterangepicker').setEndDate(new Date());
+            module.creationDateRangeInputSelector.data('daterangepicker').setStartDate(new Date());
+            module.creationDateRangeInputSelector.data('daterangepicker').setEndDate(new Date());
         })
     }
 
@@ -44,14 +44,14 @@ export const UserList = (function () {
             keyword: module.searchInputSelector.val().trim(),
             roleIds: module.roleSelectSelector.val(),
             status: module.statusSelectSelector.val(),
-            createdFrom: module.creationDaterangeInputSelector.data('daterangepicker').startDate,
-            createdTo: module.creationDaterangeInputSelector.data('daterangepicker').endDate
+            createdFrom: module.creationDateRangeInputSelector.data('daterangepicker').startDate,
+            createdTo: module.creationDateRangeInputSelector.data('daterangepicker').endDate
         }
     }
 
     const toRoleMap = (userRoles) => {
         return userRoles.reduce((acc, role) => {
-            acc[role.roleId] = role.title;
+            acc[role.roleId] = role.code;
             return acc;
         }, {});
     }
@@ -87,20 +87,25 @@ export const UserList = (function () {
             destroy: true,
             paging: true,
             searching: false,
-            lengthChange: false,
+            lengthChange: true,
             info: false,
             ordering: false,
-            pageLength: 5,
             pagingType: 'simple_numbers',
             columnDefs: [
                 {
-                    targets: [0, 5, 6, 7],
+                    targets: [0, 3, 4, 5, 6, 7],
                     className: "text-center"
                 },
                 {
                     targets: 5,
-                    className: "text-center",
-                    render: (data, type, row) => roleMap[data]
+                    render: (data, type, row) => {
+                        const roleCode = roleMap[data];
+                        return roleTitleMap[roleCode];
+                    }
+                },
+                {
+                    targets: 6,
+                    render: (data, type, row) => userStatusMap[data]
                 },
                 {
                     targets: -1,

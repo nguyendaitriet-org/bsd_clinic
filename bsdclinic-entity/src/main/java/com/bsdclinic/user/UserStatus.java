@@ -8,6 +8,6 @@ public enum UserStatus {
     BLOCKED;
 
     public static List<String> getAllNames() {
-        return Arrays.stream(RoleConstant.values()).map(RoleConstant::name).toList();
+        return Arrays.stream(UserStatus.values()).map(UserStatus::name).toList();
     }
 }

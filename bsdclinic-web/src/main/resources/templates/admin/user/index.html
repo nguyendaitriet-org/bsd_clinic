@@ -4,6 +4,10 @@
       layout:decorate="~{/admin/layout/app}"
 >
 
+<th:block layout:fragment="content-style">
+    <link rel="stylesheet" th:href="@{/admin/custom/css/user.css}"/>
+</th:block>
+
 <th:block layout:fragment="content-title" th:text="#{title.user.management}"></th:block>
 <th:block layout:fragment="content-title-note"></th:block>
 <th:block layout:fragment="content-button">
@@ -41,7 +45,7 @@
         </div>
         <div class="col-2 mx-3">
             <input id="creation-daterange-input" type="text"
-                   class="form-control border-secondary border-1 daterange text-grey"
+                   class="form-control border-secondary border-1 daterange text-grey padding-fixed"
                    th:placeholder="#{placeholder.created_range}">
         </div>
         <div class="btn-group float-end col-2">

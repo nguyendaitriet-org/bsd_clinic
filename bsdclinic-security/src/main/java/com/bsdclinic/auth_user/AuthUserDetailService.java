@@ -29,7 +29,7 @@ public class AuthUserDetailService implements UserDetailsService {
         IUserResult user = userSecurityRepository.findByEmailWithRole(email);
 
         if (user == null) {
-            throw new UnauthorizedException(messageProvider.getMessage("message.login.invalid_email"));
+            throw new UnauthorizedException(messageProvider.getMessage("validation.no_exist.email"));
         }
 
         if (user.getStatus().equals(UserStatus.BLOCKED.name())) {

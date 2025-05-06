@@ -2,10 +2,12 @@
 
 <th:block th:fragment="texts">
     <script th:inline="javascript">
+        // Error message
+        var ERROR_400 = [[#{error.400}]];
+        var ERROR_401 = [[#{error.401}]];
         var ERROR_403 = [[#{error.403}]];
-
-        // Element
-        var createButton = [[#{button.create}]];
+        var ERROR_404 = [[#{error.404}]];
+        var ERROR_500 = [[#{error.500}]];
 
         // Datatable
         var resultCount = [[#{datatable.result_count}]];
@@ -17,7 +19,7 @@
 
         // Message
         var createSuccess = [[#{message.create.success}]];
-        var badRequest = [[#{message.bad_request}]];
+        var operationSuccess = [[#{message.operate.success}]];
 
         // Object to view
         var userRoles = [[${userRoles}]];

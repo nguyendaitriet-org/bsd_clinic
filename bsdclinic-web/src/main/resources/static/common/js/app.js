@@ -7,18 +7,25 @@ export const App = (function () {
     };
 
     module.handleResponseMessageByStatusCode = (jqXHR) => {
-        let message = jqXHR.responseJSON.message;
         switch (jqXHR.status) {
+            case 400:
+                module.showErrorMessage(ERROR_400);
+                break;
             case 401:
+                module.showErrorMessage(ERROR_401);
+                break;
             case 403:
-                /* Do not use break to modify message in case 401 and 403 that can be null in response */
-                message = message ?? ERROR_403;
+                module.showErrorMessage(ERROR_403);
+                break;
+            case 404:
+                module.showErrorMessage(ERROR_404);
+                break;
             case 422:
             case 500:
-                module.showErrorMessage(message);
+                module.showErrorMessage(ERROR_500);
                 break;
             case 200:
-                module.showSuccessMessage(message);
+                module.showSuccessMessage(operationSuccess);
                 break;
         }
     }
@@ -73,9 +80,9 @@ export const App = (function () {
     }
 
     module.hideModalAfterAjax = () => {
-        $(document ).on( "ajaxSuccess", function() {
+        $(document).on("ajaxSuccess", function () {
             $('.modal').modal('hide');
-        } );
+        });
     }
 
     return module;

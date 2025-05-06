@@ -1,13 +1,12 @@
 package com.bsdclinic;
 
+import com.bsdclinic.dto.request.ChangePasswordRequest;
 import com.bsdclinic.dto.request.CreateUserRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,4 +20,14 @@ public class UserApi {
         userService.createUser(createUserRequest);
         return ResponseEntity.ok().build();
     }
+    @RoleAuthorization.AuthenticatedUser
+    @PutMapping("/change-password")
+    /* Update current user password */
+    public void changePassword(
+            @Valid @RequestBody ChangePasswordRequest changePasswordRequest,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        userService.changePassword(principal.getUserId(), changePasswordRequest.getNewPassword());
+    }
+
 }

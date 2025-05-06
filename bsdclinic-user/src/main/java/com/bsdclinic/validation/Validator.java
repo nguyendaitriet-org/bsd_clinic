@@ -6,6 +6,7 @@ import com.bsdclinic.UserRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -44,12 +45,17 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
-            /* Return true when the value is empty in order to avoid merging the same attribute error */
-            if (value.isEmpty()) return true;
+            if (StringUtils.isBlank(value)) {
+                context.buildConstraintViolationWithTemplate("{validation.required.old_password}").addConstraintViolation();
+                return false;
+            }
 
             UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            passwordEncoder.matches(value, principal.getPassword());
-            return passwordEncoder.matches(value, principal.getPassword());
+            if (!passwordEncoder.matches(value, principal.getPassword())) {
+                context.buildConstraintViolationWithTemplate("{validation.no_match.old_password}").addConstraintViolation();
+                return false;
+            }
+            return true;
         }
     }
 }

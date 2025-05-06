@@ -10,4 +10,5 @@ public interface UserService {
     List<Role> getAllRoles();
     void createUser(CreateUserRequest request);
     IUserResponse getUserById(String userId);
+    void changePassword(String userId, String newPassword);
 }

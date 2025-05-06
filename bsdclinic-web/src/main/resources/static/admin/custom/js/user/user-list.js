@@ -1,4 +1,6 @@
-import {DatatableAttribute, Constant} from "/common/js/app.js";
+import {DatatableAttribute} from "/common/js/app.js";
+import {DateTimePattern} from "/common/js/constant.js";
+import {DateTimeConverter} from "/common/js/datetime_util.js";
 
 export const UserList = (function () {
     const module = {
@@ -16,26 +18,32 @@ export const UserList = (function () {
     };
 
     module.init = () => {
-        renderUserListTable({createdFrom: Constant.minDateFilter});
+        initDateRangePicker();
+        renderUserListTable();
         handleSearchSubmissionButton();
         handleCancelSearchButton();
     }
 
+    const initDateRangePicker = () => {
+        module.userCreatedAtRangePicker = new Lightpick({
+            field: module.creationDateRangeInputSelector[0],
+            singleDate: false
+        });
+    }
+
     const handleCancelSearchButton = () => {
         module.cancelSearchButtonSelector.on('click', function () {
-            renderUserListTable({createdFrom: Constant.minDateFilter});
             module.searchInputSelector.val('');
             module.roleSelectSelector.selectpicker('deselectAll');
             module.statusSelectSelector.selectpicker('deselectAll');
-            module.creationDateRangeInputSelector.data('daterangepicker').setStartDate(new Date());
-            module.creationDateRangeInputSelector.data('daterangepicker').setEndDate(new Date());
+            module.userCreatedAtRangePicker.setDateRange(null, null)
+            renderUserListTable();
         })
     }
 
     const handleSearchSubmissionButton = () => {
         module.searchSubmitButtonSelector.on('click', function () {
-            const userFilter = getUserListFilter();
-            renderUserListTable(userFilter);
+            renderUserListTable();
         });
     }
 
@@ -44,8 +52,8 @@ export const UserList = (function () {
             keyword: module.searchInputSelector.val().trim(),
             roleIds: module.roleSelectSelector.val(),
             status: module.statusSelectSelector.val(),
-            createdFrom: module.creationDateRangeInputSelector.data('daterangepicker').startDate,
-            createdTo: module.creationDateRangeInputSelector.data('daterangepicker').endDate
+            createdFrom: DateTimeConverter.convertMomentToDateString(module.userCreatedAtRangePicker.getStartDate(), DateTimePattern.API_DATE_FORMAT),
+            createdTo: DateTimeConverter.convertMomentToDateString(module.userCreatedAtRangePicker.getEndDate(), DateTimePattern.API_DATE_FORMAT),
         }
     }
 
@@ -56,7 +64,9 @@ export const UserList = (function () {
         }, {});
     }
 
-    const renderUserListTable = (userFilter) => {
+    const renderUserListTable = () => {
+        const userFilter = getUserListFilter();
+        console.log('userFilter', userFilter)
         const roleMap = toRoleMap(userRoles);
         const userListDatatable = module.userListTableSelector.DataTable({
             ajax: {

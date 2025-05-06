@@ -175,9 +175,3 @@ export const LocalStorage = (function () {
 
     return module;
 })();
-
-export const Constant = (function () {
-    return {
-        minDateFilter: "2010-01-01"
-    };
-})();

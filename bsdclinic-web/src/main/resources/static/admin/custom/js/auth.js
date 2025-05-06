@@ -16,7 +16,7 @@ const LogIn = (function () {
     }
 
     const handleLogInSubmitButton = () => {
-        module.logInButtonSelector.on('click', function() {
+        module.logInButtonSelector.on('click', function () {
             const loginParam = {
                 email: module.emailInputSelector.val().trim(),
                 password: module.passwordInputSelector.val().trim(),
@@ -35,7 +35,7 @@ const LogIn = (function () {
             type: 'POST',
             url: module.logInUrl,
             data: JSON.stringify(loginParam),
-            beforeSend:  function () {
+            beforeSend: function () {
                 module.formLoginSelector.addClass("loading");
                 module.formLoginSelector.find(".error-text").remove();
                 module.formLoginSelector.find("button").prop('disabled', true);
@@ -43,7 +43,7 @@ const LogIn = (function () {
         })
             .done((response) => {
                 App.showSuccessMessage(response.message);
-                window.location.href = response.redirectUrl;
+                setTimeout(() => window.location.href = response.redirectUrl, 1000)
             })
             .fail((jqXHR) => {
                 FormHandler.handleServerValidationError(module.formLoginSelector, jqXHR)

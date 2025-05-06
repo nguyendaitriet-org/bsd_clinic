@@ -4,6 +4,10 @@
       layout:decorate="~{/admin/layout/app}"
 >
 
+<th:block layout:fragment="content-style">
+    <link rel="stylesheet" th:href="@{/admin/custom/css/user.css}"/>
+</th:block>
+
 <th:block layout:fragment="content-title" th:text="#{title.user.management}"></th:block>
 <th:block layout:fragment="content-title-note"></th:block>
 <th:block layout:fragment="content-button">
@@ -14,44 +18,44 @@
 </th:block>
 
 <th:block layout:fragment="content-body">
-    <div class="mb-3 d-flex justify-content-between">
-        <div class="col-4">
-            <div class="form-group p-0">
-                <div class="input-group">
-                    <button class="btn btn-black" type="button"><i class="fa fa-search"></i></button>
-                    <input id="search-input" type="search" class="form-control border-secondary border-1"
-                           th:placeholder="#{placeholder.find_user}">
-                </div>
+    <div class="mb-3 d-flex justify-content-between user-filter-area">
+        <div class="p-0 col">
+            <div class="input-group">
+                <button class="btn btn-black" type="button"><i class="fa fa-search"></i></button>
+                <input id="search-input" type="search" class="form-control border-secondary border-1"
+                       th:placeholder="#{placeholder.find_user}">
             </div>
         </div>
-        <div class="col-7 d-flex justify-content-evenly">
-            <div class="col-3">
-                <select id="role-select" class="selectpicker w-100 bg-white" th:data-none-selected-text="#{placeholder.role}"
-                        tabindex="-1" aria-hidden="true" data-actions-box="true" multiple>
-                    <th:block th:each="userRole: ${userRoles}">
-                        <option th:value="${userRole.roleId}" th:text="${userRole.title}"></option>
-                    </th:block>
-                </select>
-            </div>
-            <div class="col-3">
-                <select id="status-select" class="selectpicker w-100 bg-white" th:data-none-selected-text="#{placeholder.status}"
-                        tabindex="-1" aria-hidden="true" data-actions-box="true" multiple>
-                    <option value="ACTIVE" th:text="#{status.active}"></option>
-                    <option value="BLOCKED" th:text="#{status.blocked}"></option>
-                </select>
-            </div>
-            <div class="col-3">
-                <input id="creation-daterange-input" type="text"
-                       class="form-control border-secondary border-1 daterange text-grey"
-                       th:placeholder="#{placeholder.created_range}">
-            </div>
+        <div class="col-2 mx-3">
+            <select id="role-select" class="selectpicker w-100 bg-white"
+                    th:data-none-selected-text="#{placeholder.role}"
+                    tabindex="-1" aria-hidden="true" data-actions-box="true" multiple>
+                <th:block th:each="userRole: ${userRoles}">
+                    <option th:value="${userRole.roleId}" th:text="${userRole.title}"></option>
+                </th:block>
+            </select>
         </div>
-        <div class="col-1">
-            <button id="submit-btn" class="btn btn-black float-end" type="button" th:text="#{title.apply}"></button>
+        <div class="col-2">
+            <select id="status-select" class="selectpicker w-100 bg-white"
+                    th:data-none-selected-text="#{placeholder.status}"
+                    tabindex="-1" aria-hidden="true" data-actions-box="true" multiple>
+                <th:block th:each="userStatus: ${userStatusMap}">
+                    <option th:value="${userStatus.key}" th:text="${userStatus.value}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div class="col-2 mx-3">
+            <input id="creation-daterange-input" type="text"
+                   class="form-control border-secondary border-1 daterange text-grey padding-fixed"
+                   th:placeholder="#{placeholder.created_range}">
+        </div>
+        <div class="btn-group float-end col-2">
+            <button id="submit-btn" class="btn btn-black" type="button" th:text="#{title.apply}"></button>
+            <button id="cancel-btn" class="btn btn-secondary" type="button" th:text="#{title.cancel}"></button>
         </div>
     </div>
-    <div>
-        <table id="user-list-table" class="table table-sm table-bordered table-hover dataTable">
+    <div class="table-responsive">
+        <table id="user-list-table" class="table table-sm table-hover dataTable w-100">
             <thead>
             <tr class="text-center">
                 <th>#</th>
@@ -72,4 +76,5 @@
 
 <th:block layout:fragment="user-script">
     <script type="module" th:src="@{/admin/custom/js/user/user-creation.js}"></script>
+    <script type="module" th:src="@{/admin/custom/js/user/user-list.js}"></script>
 </th:block>

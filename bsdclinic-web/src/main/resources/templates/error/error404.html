@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/error/error-layout}" lang="en">
+
+<th:block layout:fragment="page-title">
+    <title th:text="#{error.404}"></title>
+</th:block>
+
+<th:block layout:fragment="page-content">
+    <div class="error-page">
+        <h2 class="headline text-warning">404</h2>
+        <div class="error-content">
+            <h3 th:text="#{message.page_not_found.title}"></h3>
+            <div th:text="#{message.page_not_found.content}"></div>
+            <div>
+                <a th:href="@{/admin}" th:text="#{message.return_homepage}"></a>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</html>

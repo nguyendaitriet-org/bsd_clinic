@@ -1,28 +1,49 @@
 import {DatatableAttribute} from "/common/js/app.js";
+import {DateTimePattern} from "/common/js/constant.js";
+import {DateTimeConverter} from "/common/js/datetime_util.js";
 
 export const UserList = (function () {
     const module = {
-        findAllUsersByFilterUrl: '/api/users',
+        findAllUsersByFilterUrl: '/api/users/list',
 
         searchInputSelector: $('#search-input'),
         roleSelectSelector: $('#role-select'),
         statusSelectSelector: $('#status-select'),
-        creationDaterangeInputSelector: $('#creation-daterange-input'),
-        searchSubmitSelector: $('#submit-btn'),
+        creationDateRangeInputSelector: $('#creation-daterange-input'),
+        searchSubmitButtonSelector: $('#submit-btn'),
+        cancelSearchButtonSelector: $('#cancel-btn'),
 
         userListTableSelector: $('#user-list-table'),
 
     };
 
     module.init = () => {
+        initDateRangePicker();
         renderUserListTable();
         handleSearchSubmissionButton();
+        handleCancelSearchButton();
+    }
+
+    const initDateRangePicker = () => {
+        module.userCreatedAtRangePicker = new Lightpick({
+            field: module.creationDateRangeInputSelector[0],
+            singleDate: false
+        });
+    }
+
+    const handleCancelSearchButton = () => {
+        module.cancelSearchButtonSelector.on('click', function () {
+            module.searchInputSelector.val('');
+            module.roleSelectSelector.selectpicker('deselectAll');
+            module.statusSelectSelector.selectpicker('deselectAll');
+            module.userCreatedAtRangePicker.setDateRange(null, null)
+            renderUserListTable();
+        })
     }
 
     const handleSearchSubmissionButton = () => {
-        module.searchSubmitSelector.on('click', function () {
-            const userFilter = getUserListFilter();
-            renderUserListTable(userFilter);
+        module.searchSubmitButtonSelector.on('click', function () {
+            renderUserListTable();
         });
     }
 
@@ -31,12 +52,22 @@ export const UserList = (function () {
             keyword: module.searchInputSelector.val().trim(),
             roleIds: module.roleSelectSelector.val(),
             status: module.statusSelectSelector.val(),
-            createdFrom: module.creationDaterangeInputSelector.data('daterangepicker').startDate,
-            createdTo: module.creationDaterangeInputSelector.data('daterangepicker').endDate
+            createdFrom: DateTimeConverter.convertMomentToDateString(module.userCreatedAtRangePicker.getStartDate(), DateTimePattern.API_DATE_FORMAT),
+            createdTo: DateTimeConverter.convertMomentToDateString(module.userCreatedAtRangePicker.getEndDate(), DateTimePattern.API_DATE_FORMAT),
         }
     }
 
-    const renderUserListTable = (userFilter) => {
+    const toRoleMap = (userRoles) => {
+        return userRoles.reduce((acc, role) => {
+            acc[role.roleId] = role.code;
+            return acc;
+        }, {});
+    }
+
+    const renderUserListTable = () => {
+        const userFilter = getUserListFilter();
+        console.log('userFilter', userFilter)
+        const roleMap = toRoleMap(userRoles);
         const userListDatatable = module.userListTableSelector.DataTable({
             ajax: {
                 contentType: 'application/json',
@@ -53,11 +84,12 @@ export const UserList = (function () {
             },
             columns: [
                 {data: null},
-                {data: 'username'},
+                {data: 'email'},
                 {data: 'fullName'},
-                {data: 'role'},
+                {data: 'phone'},
                 {data: 'createdAt'},
-                {data: 'isDisabled'},
+                {data: 'roleId'},
+                {data: 'status'},
                 {data: null},
             ],
             serverSide: true,
@@ -65,28 +97,28 @@ export const UserList = (function () {
             destroy: true,
             paging: true,
             searching: false,
-            lengthChange: false,
+            lengthChange: true,
             info: false,
             ordering: false,
-            pageLength: 10,
             pagingType: 'simple_numbers',
             columnDefs: [
                 {
-                    targets: [0, 3, 4],
+                    targets: [0, 3, 4, 5, 6, 7],
                     className: "text-center"
                 },
                 {
-                    targets: -2,
-                    className: "text-center",
+                    targets: 5,
                     render: (data, type, row) => {
-                        return data ?
-                            `<span class="text-danger">${disabled}</span>` :
-                            `<span class="text-success">${active}</span>`;
+                        const roleCode = roleMap[data];
+                        return roleTitleMap[roleCode];
                     }
                 },
                 {
+                    targets: 6,
+                    render: (data, type, row) => userStatusMap[data]
+                },
+                {
                     targets: -1,
-                    className: "text-center",
                     render: () =>
                         `<button class="open-edit-user-modal-btn btn btn-sm btn-outline-primary border-0">
                             <i class="fa fa-edit"></i>
@@ -102,3 +134,6 @@ export const UserList = (function () {
     return module;
 })();
 
+(function () {
+    UserList.init();
+})();

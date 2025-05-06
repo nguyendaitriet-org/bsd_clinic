@@ -51,12 +51,11 @@ export const UserCreation = (function () {
         })
             .done(() => {
                 App.showSuccessMessage(createSuccess);
-                location.reload();
+                setTimeout(() => location.reload(), 1000);
             })
             .fail((jqXHR) => {
-                App.showErrorMessage(badRequest)
-                FormHandler.handleServerValidationError(module.userCreationModalSelector, jqXHR)
                 App.handleResponseMessageByStatusCode(jqXHR);
+                FormHandler.handleServerValidationError(module.userCreationModalSelector, jqXHR)
             })
     }
 

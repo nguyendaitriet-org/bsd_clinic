@@ -1,5 +1,6 @@
 package com.bsdclinic;
 
+import com.bsdclinic.dto.request.ChangePasswordRequest;
 import com.bsdclinic.dto.request.CreateUserRequest;
 import com.bsdclinic.dto.request.UserFilter;
 import jakarta.validation.Valid;
@@ -30,4 +31,14 @@ public class UserApi {
         userService.createUser(createUserRequest);
         return ResponseEntity.ok().build();
     }
+    @RoleAuthorization.AuthenticatedUser
+    @PutMapping("/change-password")
+    /* Update current user password */
+    public void changePassword(
+            @Valid @RequestBody ChangePasswordRequest changePasswordRequest,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        userService.changePassword(principal.getUserId(), changePasswordRequest.getNewPassword());
+    }
+
 }

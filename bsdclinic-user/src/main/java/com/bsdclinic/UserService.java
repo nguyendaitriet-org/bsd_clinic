@@ -13,4 +13,5 @@ public interface UserService {
     void createUser(CreateUserRequest request);
     DatatableResponse getUserByFilter(UserFilter userFilter);
     IUserResponse getUserById(String userId);
+    void changePassword(String userId, String newPassword);
 }

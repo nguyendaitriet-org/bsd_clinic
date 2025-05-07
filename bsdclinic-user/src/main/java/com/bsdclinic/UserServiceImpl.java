@@ -4,6 +4,8 @@ import com.bsdclinic.dto.request.CreateUserRequest;
 import com.bsdclinic.dto.request.UserFilter;
 import com.bsdclinic.dto.response.IUserResponse;
 import com.bsdclinic.dto.response.UserResponse;
+import com.bsdclinic.exception_handler.exception.NotFoundException;
+import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.repository.RoleRepository;
 import com.bsdclinic.repository.UserRepository;
 import com.bsdclinic.repository.UserSpecifications;
@@ -29,6 +31,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
+    private final MessageProvider messageProvider;
 
     @Override
     public List<Role> getAllRoles() {
@@ -72,5 +75,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public IUserResponse getUserById(String userId) {
         return userRepository.findByIdRole(userId);
+    }
+    @Override
+    public void changePassword(String userId, String newPassword) {
+        String message = messageProvider.getMessage("validation.no_exist.user_id");
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(message + userId));
+        user.setPassword(passwordEncoder.encode(newPassword));
+
+        userRepository.save(user);
     }
 }

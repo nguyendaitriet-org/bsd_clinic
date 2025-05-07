@@ -57,6 +57,14 @@ export const App = (function () {
         });
     }
 
+    module.keepSidebarTabActive = () => {
+        const url = window.location;
+        const targetLinkSelector = $('.sidebar-content .nav-item a').filter(function () {
+            return this.href == url;
+        });
+        targetLinkSelector.closest('li').addClass('active');
+    }
+
     module.keepSidebarDropdownOpen = () => {
         const url = window.location;
         const targetLinkSelector = $('ul.nav-treeview a').filter(function () {

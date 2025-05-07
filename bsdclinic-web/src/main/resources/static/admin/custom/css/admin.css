@@ -40,3 +40,7 @@
 .table>tbody>tr>td, .table>tbody>tr>th {
     padding: 8px 12px !important;
 }
+
+.sidebar .nav-collapse {
+    margin-bottom: 3px;
+}

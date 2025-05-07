@@ -1,3 +1,5 @@
+import {App} from "/common/js/app.js";
+
 /* Init global events */
 (function () {
     $.ajaxSetup({
@@ -14,4 +16,7 @@
     });
 
     $('.selectpicker').selectpicker('setStyle', 'btn-outline-secondary');
+
+    App.keepSidebarDropdownOpen();
+    App.keepSidebarTabActive();
 })();

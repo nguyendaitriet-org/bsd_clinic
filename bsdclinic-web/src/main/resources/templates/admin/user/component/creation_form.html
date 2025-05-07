@@ -1,8 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
 
 <th:block th:fragment="create-user">
-    <div class="modal fade" id="create-user-modal" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 5%">
-        <div class="modal-dialog modal-dialog-top" role="document">
+    <div class="modal fade" id="create-user-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" th:text="#{title.user.create}"></h5>
@@ -35,7 +35,7 @@
                             <select name="role" class="form-control role-select" style="width: 100%"
                                     th:data-label="#{placeholder.role}">
                                 <th:block th:each="userRole: ${userRoles}">
-                                    <option th:value="${userRole.roleId}" th:text="${userRole.title}"></option>
+                                    <option th:value="${userRole.roleId}" th:text="${roleTitleMap[userRole.code]}"></option>
                                 </th:block>
                             </select>
                         </div>

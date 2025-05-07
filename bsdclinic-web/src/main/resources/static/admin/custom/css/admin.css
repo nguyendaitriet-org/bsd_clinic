@@ -36,3 +36,7 @@
 .text-grey {
     color: var(--grey)
 }
+
+.table>tbody>tr>td, .table>tbody>tr>th {
+    padding: 8px 12px !important;
+}

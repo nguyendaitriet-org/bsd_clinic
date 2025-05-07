@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserApi {
     private final UserService userService;
 
-    @PostMapping("list")
     @RoleAuthorization.AdminAuthorization
+    @PostMapping("/list")
     public ResponseEntity getUsersByFilter(
             @RequestBody UserFilter userFilter,
             @AuthenticationPrincipal UserPrincipal principal
@@ -25,20 +25,19 @@ public class UserApi {
         return ResponseEntity.ok(userService.getUserByFilter(userFilter));
     }
 
-    @PostMapping
     @RoleAuthorization.AdminAuthorization
+    @PostMapping
     public ResponseEntity createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
         userService.createUser(createUserRequest);
         return ResponseEntity.ok().build();
     }
+
     @RoleAuthorization.AuthenticatedUser
     @PutMapping("/change-password")
-    /* Update current user password */
     public void changePassword(
             @Valid @RequestBody ChangePasswordRequest changePasswordRequest,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
         userService.changePassword(principal.getUserId(), changePasswordRequest.getNewPassword());
     }
-
 }

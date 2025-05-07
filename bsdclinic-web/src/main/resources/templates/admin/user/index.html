@@ -13,8 +13,6 @@
 <th:block layout:fragment="content-button">
     <button class="btn btn-primary btn-round" type="button" th:text="#{title.create}"
             data-bs-toggle="modal" data-bs-target="#create-user-modal"></button>
-    <!-- User creation modal -->
-    <th:block th:replace="~{admin/user/component/creation_form :: create-user}"></th:block>
 </th:block>
 
 <th:block layout:fragment="content-body">
@@ -72,6 +70,8 @@
             </tbody>
         </table>
     </div>
+    <!-- User creation modal -->
+    <th:block th:replace="~{admin/user/component/creation_form :: create-user}"></th:block>
 </th:block>
 
 <th:block layout:fragment="user-script">

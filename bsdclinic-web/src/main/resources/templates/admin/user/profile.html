@@ -1,0 +1,21 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/layout/app}"
+>
+
+<th:block layout:fragment="content-style">
+    <link rel="stylesheet" th:href="@{/admin/custom/css/user.css}"/>
+</th:block>
+
+<th:block layout:fragment="content-title" th:text="#{title.user.profile}"></th:block>
+<th:block layout:fragment="content-title-note"></th:block>
+<th:block layout:fragment="content-button"></th:block>
+
+<th:block layout:fragment="content-body">
+
+</th:block>
+
+<th:block layout:fragment="user-script">
+
+</th:block>

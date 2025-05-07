@@ -66,7 +66,6 @@ export const UserList = (function () {
 
     const renderUserListTable = () => {
         const userFilter = getUserListFilter();
-        console.log('userFilter', userFilter)
         const roleMap = toRoleMap(userRoles);
         const userListDatatable = module.userListTableSelector.DataTable({
             ajax: {
@@ -115,7 +114,13 @@ export const UserList = (function () {
                 },
                 {
                     targets: 6,
-                    render: (data, type, row) => userStatusMap[data]
+                    render: (data, type, row) => {
+                        if (data == 'BLOCKED')
+                            return `<span class="btn btn-sm btn-round btn-danger">${userStatusMap[data]}</span>`
+                        if (data == 'ACTIVE')
+                            return `<span class="btn btn-sm btn-round btn-success">${userStatusMap[data]}</span>`
+                        return `<span class="btn btn-sm btn-round btn-danger">${userStatusMap[data]}</span>`
+                    }
                 },
                 {
                     targets: -1,

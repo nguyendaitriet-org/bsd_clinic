@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<th:block th:fragment="update-user">
+    <div class="modal fade" id="update-user-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" th:text="#{title.user.update}"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="py-3 px-5">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text col-4" th:text="#{title.email}"></span>
+                            <input type="text" class="form-control mail-input" disabled th:value="${user.email}">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text col-4" th:text="#{title.full_name}"></span>
+                            <input type="text" class="form-control full-name-input" disabled th:value="${user.fullName}">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text col-4" th:text="#{title.phone}"></span>
+                            <input type="text" class="form-control phone-input" disabled th:value="${user.phone}">
+                        </div>
+                        <div class="mb-3 with-validation">
+                            <label th:text="#{title.role}" class="required-field"></label>
+                            <select name="role" class="form-control role-select" style="width: 100%"
+                                    th:data-label="#{placeholder.role}">
+                                <th:block th:each="userRole: ${userRoles}">
+                                    <option th:value="${userRole.roleId}" th:text="${roleTitleMap[userRole.code]}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <div class="mb-3 with-validation">
+                            <label th:text="#{title.status}" class="required-field"></label>
+                            <select name="status" class="form-control status-select" style="width: 100%"
+                                    th:data-label="#{placeholder.role}">
+                                <th:block th:each="userStatus: ${userStatusMap}">
+                                    <option th:value="${userStatus.key}" th:text="${userStatus.value}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-save" th:text="#{title.save}"></button>
+                    <button type="button" class="btn btn-secondary" th:text="#{title.cancel}" data-bs-dismiss="modal"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

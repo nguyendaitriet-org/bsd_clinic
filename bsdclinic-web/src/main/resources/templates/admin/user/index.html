@@ -29,7 +29,7 @@
                     th:data-none-selected-text="#{placeholder.role}"
                     tabindex="-1" aria-hidden="true" data-actions-box="true" multiple>
                 <th:block th:each="userRole: ${userRoles}">
-                    <option th:value="${userRole.roleId}" th:text="${userRole.title}"></option>
+                    <option th:value="${userRole.roleId}" th:text="${roleTitleMap[userRole.code]}"></option>
                 </th:block>
             </select>
         </div>
@@ -53,7 +53,7 @@
         </div>
     </div>
     <div class="table-responsive">
-        <table id="user-list-table" class="table table-sm table-hover dataTable w-100">
+        <table id="user-list-table" class="table table-sm table-hover table-head-bg-black dataTable w-100">
             <thead>
             <tr class="text-center">
                 <th>#</th>
@@ -72,9 +72,12 @@
     </div>
     <!-- User creation modal -->
     <th:block th:replace="~{admin/user/component/creation_form :: create-user}"></th:block>
+    <!-- User updating modal -->
+    <th:block th:replace="~{admin/user/component/updating_form :: update-user}"></th:block>
 </th:block>
 
 <th:block layout:fragment="user-script">
     <script type="module" th:src="@{/admin/custom/js/user/user-creation.js}"></script>
     <script type="module" th:src="@{/admin/custom/js/user/user-list.js}"></script>
+    <script type="module" th:src="@{/admin/custom/js/user/user-updating.js}"></script>
 </th:block>

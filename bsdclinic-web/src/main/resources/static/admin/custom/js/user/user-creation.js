@@ -5,13 +5,13 @@ export const UserCreation = (function () {
     const module = {
         userCreationUrl: '/api/users',
 
-        emailSelector: $('.mail-input'),
-        fullNameSelector: $('.full-name-input'),
-        phoneSelector: $('.phone-input'),
-        passwordSelector: $('.password-input'),
-        passwordConfirmationSelector: $('.password-confirmation-input'),
-        roleSelectSelector: $('.role-select'),
-        saveButtonSelector: $('.btn-save'),
+        emailSelector: $('#create-user-modal .mail-input'),
+        fullNameSelector: $('#create-user-modal .full-name-input'),
+        phoneSelector: $('#create-user-modal .phone-input'),
+        passwordSelector: $('#create-user-modal .password-input'),
+        passwordConfirmationSelector: $('#create-user-modal .password-confirmation-input'),
+        roleSelectSelector: $('#create-user-modal .role-select'),
+        saveButtonSelector: $('#create-user-modal .btn-save'),
         userCreationModalSelector: $('#create-user-modal')
     };
 
@@ -50,6 +50,7 @@ export const UserCreation = (function () {
             data: JSON.stringify(userCreationData),
         })
             .done(() => {
+                module.userCreationModalSelector.modal('hide');
                 App.showSuccessMessage(createSuccess);
                 setTimeout(() => location.reload(), 1000);
             })

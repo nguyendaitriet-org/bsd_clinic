@@ -7,6 +7,7 @@ export const UserUpdating = (function () {
         userUpdatingUrl: '/api/users',
 
         userUpdatingModalSelector: $('#update-user-modal'),
+        userIdSelector: $('#update-user-modal .user-id-input'),
         emailSelector: $('#update-user-modal .mail-input'),
         fullNameSelector: $('#update-user-modal .full-name-input'),
         phoneSelector: $('#update-user-modal .phone-input'),
@@ -17,6 +18,7 @@ export const UserUpdating = (function () {
 
     module.init = () => {
         openEditUserModalButton();
+        handleSaveButton();
     }
 
     const openEditUserModalButton = () => {
@@ -28,11 +30,29 @@ export const UserUpdating = (function () {
     }
 
     const fillUserData = (data) => {
+        module.userIdSelector.val(data.userId);
         module.emailSelector.val(data.email);
         module.fullNameSelector.val(data.fullName);
         module.phoneSelector.val(data.phone);
         module.roleSelectSelector.val(data.roleId);
         module.statusSelectSelector.val(data.status);
+    }
+
+    const handleSaveButton = () => {
+        module.saveButtonSelector.on('click', function () {
+            const userUpdatingData = getUserUpdatingData();
+            updateUser(userUpdatingData);
+        })
+    }
+
+    const getUserUpdatingData = () => {
+        return (
+            {
+                userId: module.userIdSelector.val(),
+                roleId: module.roleSelectSelector.val(),
+                status: module.statusSelectSelector.val()
+            }
+        );
     }
 
     const updateUser = (userUpdatingData) => {
@@ -46,7 +66,7 @@ export const UserUpdating = (function () {
             data: JSON.stringify(userUpdatingData),
         })
             .done(() => {
-                App.showSuccessMessage(createSuccess);
+                App.showSuccessMessage(operationSuccess);
                 setTimeout(() => location.reload(), 1000);
             })
             .fail((jqXHR) => {

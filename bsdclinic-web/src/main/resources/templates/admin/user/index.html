@@ -27,7 +27,7 @@
         <div class="col-2 mx-3">
             <select id="role-select" class="selectpicker w-100 bg-white"
                     th:data-none-selected-text="#{placeholder.role}"
-                    tabindex="-1" aria-hidden="true" data-actions-box="true" multiple>
+                    tabindex="-1" data-actions-box="true" multiple>
                 <th:block th:each="userRole: ${userRoles}">
                     <option th:value="${userRole.roleId}" th:text="${roleTitleMap[userRole.code]}"></option>
                 </th:block>
@@ -36,7 +36,7 @@
         <div class="col-2">
             <select id="status-select" class="selectpicker w-100 bg-white"
                     th:data-none-selected-text="#{placeholder.status}"
-                    tabindex="-1" aria-hidden="true" data-actions-box="true" multiple>
+                    tabindex="-1" data-actions-box="true" multiple>
                 <th:block th:each="userStatus: ${userStatusMap}">
                     <option th:value="${userStatus.key}" th:text="${userStatus.value}"></option>
                 </th:block>

@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
 
 <th:block th:fragment="update-user">
-    <div class="modal fade" id="update-user-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="update-user-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
@@ -10,6 +10,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="py-3 px-5">
+                        <input type="hidden" class="user-id-input">
                         <div class="input-group mb-3">
                             <span class="input-group-text col-4" th:text="#{title.email}"></span>
                             <input type="text" class="form-control mail-input" disabled th:value="${user.email}">

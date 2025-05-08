@@ -23,9 +23,9 @@ export const FormHandler = (function () {
             .val('')
             .prop('checked', false)
             .prop('selected', false);
+        formSelector.find('.selectpicker').selectpicker('deselectAll');
         formSelector.find('select').val('');
         formSelector.find('textarea').val('');
-        $('.selectpicker').selectpicker('refresh');
     }
 
     module.clearAllErrors = (formSelector) => {

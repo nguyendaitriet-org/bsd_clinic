@@ -32,9 +32,9 @@ export const UserCreation = (function () {
                 email: module.emailSelector.val().trim(),
                 fullName: module.fullNameSelector.val().trim(),
                 phone:  module.phoneSelector.val().trim(),
-                password:  module.passwordSelector.val().trim(),
-                passwordConfirmation:  module.passwordConfirmationSelector.val().trim(),
-                roleId:  module.roleSelectSelector.val().trim()
+                password:  module.passwordSelector.val(),
+                passwordConfirmation:  module.passwordConfirmationSelector.val(),
+                roleId:  module.roleSelectSelector.val()
             }
         );
     }

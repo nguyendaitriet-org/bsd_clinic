@@ -13,6 +13,8 @@ public interface UserRepository extends JpaRepository<User, String>, JpaSpecific
 
     boolean existsByPhone(String phone);
 
+    boolean existsByUserId(String userId);
+
     @Query("""
             SELECT
                 u.email AS email,

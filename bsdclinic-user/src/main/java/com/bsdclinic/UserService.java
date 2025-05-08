@@ -1,6 +1,7 @@
 package com.bsdclinic;
 
 import com.bsdclinic.dto.request.CreateUserRequest;
+import com.bsdclinic.dto.request.UpdateUserByAdminRequest;
 import com.bsdclinic.dto.request.UserFilter;
 import com.bsdclinic.dto.response.IUserResponse;
 import com.bsdclinic.response.DatatableResponse;
@@ -14,4 +15,5 @@ public interface UserService {
     DatatableResponse getUserByFilter(UserFilter userFilter);
     IUserResponse getUserById(String userId);
     void changePassword(String userId, String newPassword);
+    void updateByAdmin(UpdateUserByAdminRequest request);
 }

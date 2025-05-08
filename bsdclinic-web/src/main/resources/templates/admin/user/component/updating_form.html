@@ -24,7 +24,7 @@
                         </div>
                         <div class="mb-3 with-validation">
                             <label th:text="#{title.role}" class="required-field"></label>
-                            <select name="role" class="form-control role-select" style="width: 100%"
+                            <select name="roleId" class="form-control role-select" style="width: 100%"
                                     th:data-label="#{placeholder.role}">
                                 <th:block th:each="userRole: ${userRoles}">
                                     <option th:value="${userRole.roleId}" th:text="${roleTitleMap[userRole.code]}"></option>

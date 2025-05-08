@@ -3,6 +3,7 @@ package com.bsdclinic.validation;
 import com.bsdclinic.UserPrincipal;
 import com.bsdclinic.repository.RoleRepository;
 import com.bsdclinic.repository.UserRepository;
+import com.bsdclinic.user.UserStatus;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.AccessLevel;
@@ -35,6 +36,23 @@ public class Validator {
     }
 
     @RequiredArgsConstructor
+    public static class NotExistedUserIdValidator implements ConstraintValidator<RuleAnnotation.NotExistedUserId, String> {
+        private final UserRepository userRepository;
+
+        @Override
+        public boolean isValid(String value, ConstraintValidatorContext context) {
+            return Boolean.TRUE.equals(userRepository.existsByUserId(value));
+        }
+    }
+
+    public static class NotExistedUserStatusValidator implements ConstraintValidator<RuleAnnotation.NotExistedUserStatus, String> {
+        @Override
+        public boolean isValid(String value, ConstraintValidatorContext context) {
+            return UserStatus.getAllNames().contains(value);
+        }
+    }
+
+    @RequiredArgsConstructor
     public static class ExistedPhoneValidator implements ConstraintValidator<RuleAnnotation.ExistedPhone, String> {
         private final UserRepository userRepository;
 
@@ -60,6 +78,7 @@ public class Validator {
                 context.buildConstraintViolationWithTemplate("{validation.no_match.old_password}").addConstraintViolation();
                 return false;
             }
+
             return true;
         }
     }

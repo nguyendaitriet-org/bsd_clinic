@@ -50,7 +50,6 @@ export const UserCreation = (function () {
             data: JSON.stringify(userCreationData),
         })
             .done(() => {
-                module.userCreationModalSelector.modal('hide');
                 App.showSuccessMessage(createSuccess);
                 setTimeout(() => location.reload(), 1000);
             })

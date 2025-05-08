@@ -1,4 +1,5 @@
 import {App} from "/common/js/app.js";
+import {FormHandler} from "/common/js/form.js";
 
 /* Init global events */
 (function () {
@@ -19,4 +20,9 @@ import {App} from "/common/js/app.js";
 
     App.keepSidebarDropdownOpen();
     App.keepSidebarTabActive();
+
+    $('.modal').on('hidden.bs.modal', function () {
+        FormHandler.clearAllInputs($(this));
+        FormHandler.clearAllErrors($(this));
+    })
 })();

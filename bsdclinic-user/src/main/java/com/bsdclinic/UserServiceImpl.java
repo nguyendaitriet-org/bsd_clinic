@@ -1,6 +1,7 @@
 package com.bsdclinic;
 
 import com.bsdclinic.dto.request.CreateUserRequest;
+import com.bsdclinic.dto.request.UpdateUserByAdminRequest;
 import com.bsdclinic.dto.request.UserFilter;
 import com.bsdclinic.dto.response.IUserResponse;
 import com.bsdclinic.dto.response.UserResponse;
@@ -76,13 +77,27 @@ public class UserServiceImpl implements UserService {
     public IUserResponse getUserById(String userId) {
         return userRepository.findByIdRole(userId);
     }
+
     @Override
     public void changePassword(String userId, String newPassword) {
-        String message = messageProvider.getMessage("validation.no_exist.user_id");
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException(message + userId));
+        User user = findById(userId);
         user.setPassword(passwordEncoder.encode(newPassword));
 
         userRepository.save(user);
+    }
+
+    @Override
+    public void updateByAdmin(UpdateUserByAdminRequest request) {
+        User user = findById(request.getUserId());
+        user.setRoleId(request.getRoleId());
+        user.setStatus(request.getStatus());
+
+        userRepository.save(user);
+    }
+
+    private User findById(String userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(
+                        messageProvider.getMessage("validation.no_exist.user_id") + " " + userId));
     }
 }

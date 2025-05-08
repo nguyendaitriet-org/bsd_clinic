@@ -2,11 +2,14 @@ package com.bsdclinic;
 
 import com.bsdclinic.dto.request.ChangePasswordRequest;
 import com.bsdclinic.dto.request.CreateUserRequest;
+import com.bsdclinic.dto.request.UpdateUserByAdminRequest;
 import com.bsdclinic.dto.request.UserFilter;
+import com.bsdclinic.validation.ValidationSequence;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -27,8 +30,15 @@ public class UserApi {
 
     @RoleAuthorization.AdminAuthorization
     @PostMapping
-    public ResponseEntity createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
-        userService.createUser(createUserRequest);
+    public ResponseEntity createUser(@RequestBody @Valid CreateUserRequest request) {
+        userService.createUser(request);
+        return ResponseEntity.ok().build();
+    }
+
+    @RoleAuthorization.AdminAuthorization
+    @PatchMapping
+    public ResponseEntity updateUserByAdmin(@RequestBody @Validated(ValidationSequence.class) UpdateUserByAdminRequest request) {
+        userService.updateByAdmin(request);
         return ResponseEntity.ok().build();
     }
 

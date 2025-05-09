@@ -55,7 +55,7 @@ public class GeneralExceptionHandler {
     public ResponseEntity<ErrorDetails> handleNotFound(NotFoundException ex, HttpServletRequest request) {
         ErrorDetails response = new ErrorDetails(
                 HttpStatus.NOT_FOUND.value(),
-                messageProvider.getMessage("error.404"),
+                ex.getMessage(),
                 null
         );
 

@@ -39,3 +39,7 @@ out/
 ### Personal Profile ###
 /bsdclinic-web/src/main/resources/application-triet.properties
 /bsdclinic-web/src/main/resources/application-trung.properties
+
+### Storage ###
+/storage/*
+!/storage/avatar/default.png

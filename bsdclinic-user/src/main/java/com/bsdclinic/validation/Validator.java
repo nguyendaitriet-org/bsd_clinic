@@ -10,8 +10,10 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor(access= AccessLevel.PRIVATE)
 public class Validator {
@@ -80,6 +82,43 @@ public class Validator {
             }
 
             return true;
+        }
+    }
+
+    public static class ValidAvatarValidator implements ConstraintValidator<RuleAnnotation.ValidAvatar, MultipartFile> {
+        private static final long MAX_AVATAR_SIZE = 2097152L;
+
+        @Override
+        public boolean isValid(MultipartFile avatar, ConstraintValidatorContext context) {
+            if (avatar.isEmpty()) {
+                context.buildConstraintViolationWithTemplate("{validation.required.avatar}")
+                        .addConstraintViolation();
+                return false;
+            }
+
+            context.disableDefaultConstraintViolation();
+
+            String contentType = avatar.getContentType();
+            if (!isSupportedContentType(contentType)) {
+                context.buildConstraintViolationWithTemplate("{validation.extension.avatar}")
+                        .addConstraintViolation();
+                return false;
+            }
+
+            long avatarSize = avatar.getSize();
+            if (avatarSize > MAX_AVATAR_SIZE) {
+                context.buildConstraintViolationWithTemplate("{validation.max_size.avatar}")
+                        .addConstraintViolation();
+                return false;
+            }
+
+            return true;
+        }
+
+        private boolean isSupportedContentType(String contentType) {
+            return contentType.equals("image/png")
+                    || contentType.equals("image/jpg")
+                    || contentType.equals("image/jpeg");
         }
     }
 }

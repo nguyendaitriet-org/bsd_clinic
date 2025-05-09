@@ -3,6 +3,7 @@ package com.bsdclinic;
 import com.bsdclinic.dto.request.CreateUserRequest;
 import com.bsdclinic.dto.request.UpdateUserByAdminRequest;
 import com.bsdclinic.dto.request.UserFilter;
+import com.bsdclinic.dto.response.AvatarResponse;
 import com.bsdclinic.dto.response.IUserResponse;
 import com.bsdclinic.dto.response.UserResponse;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
@@ -11,10 +12,12 @@ import com.bsdclinic.repository.RoleRepository;
 import com.bsdclinic.repository.UserRepository;
 import com.bsdclinic.repository.UserSpecifications;
 import com.bsdclinic.response.DatatableResponse;
+import com.bsdclinic.storage.LocalFileStorageService;
 import com.bsdclinic.user.Role;
 import com.bsdclinic.user.User;
 import com.bsdclinic.user.UserStatus;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,8 +25,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -33,6 +38,9 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final MessageProvider messageProvider;
+    private final LocalFileStorageService localFileStorageService;
+
+    private final String AVATAR_FOLDER = "avatar";
 
     @Override
     public List<Role> getAllRoles() {
@@ -93,6 +101,14 @@ public class UserServiceImpl implements UserService {
         user.setStatus(request.getStatus());
 
         userRepository.save(user);
+    }
+
+    @Override
+    public AvatarResponse saveAvatar(MultipartFile avatar, String userId) {
+        String fileName = userId + "." + FilenameUtils.getExtension(avatar.getOriginalFilename());
+        localFileStorageService.uploadFile(avatar, AVATAR_FOLDER, fileName);
+
+        return new AvatarResponse(fileName);
     }
 
     private User findById(String userId) {

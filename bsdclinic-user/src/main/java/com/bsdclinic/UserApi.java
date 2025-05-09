@@ -4,6 +4,8 @@ import com.bsdclinic.dto.request.ChangePasswordRequest;
 import com.bsdclinic.dto.request.CreateUserRequest;
 import com.bsdclinic.dto.request.UpdateUserByAdminRequest;
 import com.bsdclinic.dto.request.UserFilter;
+import com.bsdclinic.dto.response.AvatarResponse;
+import com.bsdclinic.validation.RuleAnnotation;
 import com.bsdclinic.validation.ValidationSequence;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,10 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/users")
+@Validated
 public class UserApi {
     private final UserService userService;
 
@@ -49,5 +54,14 @@ public class UserApi {
             @AuthenticationPrincipal UserPrincipal principal
     ) {
         userService.changePassword(principal.getUserId(), changePasswordRequest.getNewPassword());
+    }
+
+    @RoleAuthorization.AuthenticatedUser
+    @PostMapping("/avatar")
+    public AvatarResponse saveAvatar(
+            @RequestParam @RuleAnnotation.ValidAvatar MultipartFile avatar,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        return userService.saveAvatar(avatar, principal.getUserId());
     }
 }

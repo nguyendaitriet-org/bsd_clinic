@@ -84,4 +84,17 @@ public class RuleAnnotation {
 
         Class<? extends Payload>[] payload() default {};
     }
+
+    @Documented
+    @Target({ElementType.PARAMETER, ElementType.METHOD, ElementType.FIELD})
+    @Retention(RetentionPolicy.RUNTIME)
+    @Constraint(validatedBy = Validator.ValidAvatarValidator.class)
+    @ReportAsSingleViolation
+    public @interface ValidAvatar {
+        String message() default "Invalid avatar";
+
+        Class<?>[] groups() default {};
+
+        Class<? extends Payload>[] payload() default {};
+    }
 }

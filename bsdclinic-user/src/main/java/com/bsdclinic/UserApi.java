@@ -5,15 +5,17 @@ import com.bsdclinic.dto.request.CreateUserRequest;
 import com.bsdclinic.dto.request.UpdateUserByAdminRequest;
 import com.bsdclinic.dto.request.UserFilter;
 import com.bsdclinic.dto.response.AvatarResponse;
+import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.validation.RuleAnnotation;
 import com.bsdclinic.validation.ValidationSequence;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 
 @RequiredArgsConstructor
@@ -25,26 +27,24 @@ public class UserApi {
 
     @RoleAuthorization.AdminAuthorization
     @PostMapping("/list")
-    public ResponseEntity getUsersByFilter(
+    public DatatableResponse getUsersByFilter(
             @RequestBody UserFilter userFilter,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
         userFilter.setCurrentUserId(principal.getUserId());
-        return ResponseEntity.ok(userService.getUserByFilter(userFilter));
+        return userService.getUserByFilter(userFilter);
     }
 
     @RoleAuthorization.AdminAuthorization
     @PostMapping
-    public ResponseEntity createUser(@RequestBody @Valid CreateUserRequest request) {
+    public void createUser(@RequestBody @Valid CreateUserRequest request) {
         userService.createUser(request);
-        return ResponseEntity.ok().build();
     }
 
     @RoleAuthorization.AdminAuthorization
     @PatchMapping
-    public ResponseEntity updateUserByAdmin(@RequestBody @Validated(ValidationSequence.class) UpdateUserByAdminRequest request) {
+    public void updateUserByAdmin(@RequestBody @Validated(ValidationSequence.class) UpdateUserByAdminRequest request) {
         userService.updateByAdmin(request);
-        return ResponseEntity.ok().build();
     }
 
     @RoleAuthorization.AuthenticatedUser
@@ -63,5 +63,11 @@ public class UserApi {
             @AuthenticationPrincipal UserPrincipal principal
     ) {
         return userService.saveAvatar(avatar, principal.getUserId());
+    }
+
+    @RoleAuthorization.AuthenticatedUser
+    @GetMapping(value = "/avatar")
+    public byte[] getAvatar(@AuthenticationPrincipal UserPrincipal principal) throws IOException {
+        return userService.getAvatar(principal.getUserId()).getContentAsByteArray();
     }
 }

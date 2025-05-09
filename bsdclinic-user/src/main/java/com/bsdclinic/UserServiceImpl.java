@@ -18,6 +18,7 @@ import com.bsdclinic.user.User;
 import com.bsdclinic.user.UserStatus;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +29,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     private final MessageProvider messageProvider;
     private final LocalFileStorageService localFileStorageService;
 
-    private final String AVATAR_FOLDER = "avatar";
+    private static final String AVATAR_FOLDER = "avatar";
 
     @Override
     public List<Role> getAllRoles() {
@@ -106,9 +106,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public AvatarResponse saveAvatar(MultipartFile avatar, String userId) {
         String fileName = userId + "." + FilenameUtils.getExtension(avatar.getOriginalFilename());
+        localFileStorageService.deleteFilesByBaseName(userId, AVATAR_FOLDER);
         localFileStorageService.uploadFile(avatar, AVATAR_FOLDER, fileName);
 
         return new AvatarResponse(fileName);
+    }
+
+    @Override
+    public Resource getAvatar(String userId) {
+        Resource avatarResource = localFileStorageService.downloadFileByBaseName(userId, AVATAR_FOLDER);
+        if (avatarResource == null) {
+            return localFileStorageService.downloadFile("default.png", AVATAR_FOLDER);
+        }
+        return avatarResource;
     }
 
     private User findById(String userId) {

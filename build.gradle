@@ -38,6 +38,9 @@ subprojects {
         compileOnly {
             extendsFrom annotationProcessor
         }
+        implementation {
+            exclude group: 'commons-logging', module: 'commons-logging'
+        }
     }
 
     dependencies {

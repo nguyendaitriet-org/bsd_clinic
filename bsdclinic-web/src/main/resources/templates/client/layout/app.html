@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="vi">
+<head>
+    <title th:text="#{title.app.admin}"></title>
+    <th:block th:replace="~{client/layout/head :: app-head}"></th:block>
+    <th:block layout:fragment="content-style"></th:block>
+</head>
+<body>
+<th:block th:replace="~{common/toast :: message-toast}"></th:block>
+
+<!-- Spinner Start -->
+<th:block th:replace="~{client/component/spinner :: spinner}"></th:block>
+<!-- Spinner End -->
+
+<!-- Topbar Start -->
+<th:block th:replace="~{client/layout/topbar :: app-topbar}"></th:block>
+<!-- Topbar End -->
+
+<!-- Navbar & Hero Start -->
+<th:block th:replace="~{client/layout/navbar :: app-navbar}"></th:block>
+<!-- Navbar & Hero End -->
+
+<!-- Modal Search Start -->
+<th:block th:replace="~{client/component/search_modal :: search_modal}"></th:block>
+<!-- Modal Search End -->
+
+<!-- Body Start -->
+<th:block layout:fragment="content-body">
+    Content body
+</th:block>
+<!-- Body End -->
+
+<!-- Footer Start -->
+<th:block th:replace="~{client/layout/footer :: app-footer}"></th:block>
+<!-- Footer End -->
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+<th:block th:replace="~{common/text :: texts}"></th:block>
+
+<th:block th:replace="~{client/layout/script :: app-script}"></th:block>
+
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.bsdclinic.controller;
 
 import com.bsdclinic.UserPrincipal;
 import com.bsdclinic.UserService;
+import com.bsdclinic.controller.url.WebUrl;
 import com.bsdclinic.dto.response.IUserResponse;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.user.RoleConstant;
@@ -34,5 +35,10 @@ public class ModelToViewHandler {
     @ModelAttribute("userStatusMap")
     public Map<String, String> getUserStatus() {
         return messageProvider.getMessageMap("user.status", UserStatus.getAllNames());
+    }
+
+    @ModelAttribute("webUrl")
+    public WebUrl getWebUrl() {
+        return new WebUrl();
     }
 }

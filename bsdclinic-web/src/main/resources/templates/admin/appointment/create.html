@@ -112,8 +112,11 @@
                         <input id="search-input" type="search" class="form-control border-secondary border-1"
                                th:placeholder="#{placeholder.subscriber}">
                     </div>
-                    <button id="search-btn" class="btn btn-black col-2 ms-5" type="button"
-                            th:text="#{title.apply}"></button>
+                    <div class="col-3">
+                        <button id="search-btn" class="btn btn-black float-end" type="button"
+                                th:text="#{title.apply}"></button>
+                    </div>
+
                 </div>
                 <div class="table-responsive">
                     <table id="patient-list-table"

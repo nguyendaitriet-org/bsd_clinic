@@ -17,23 +17,22 @@
 <th:block layout:fragment="content-button"></th:block>
 
 <th:block layout:fragment="content-body">
-    <div class="card col-md-6 mx-auto">
+    <div class="card col-5 mx-auto">
         <div class="card-body text-center">
             <!-- Avatar -->
-            <div class="mb-3">
-                <label for="user-avatar" class="d-block">
-                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Avatar" class="rounded-circle"
-                         style="width: 100px; height: 100px; object-fit: cover;">
-                    <div>
-                        <i class="bi bi-upload text-primary fs-4"></i>
-                    </div>
-                </label>
-                <input id="user-avatar" name="avatar" type="file" accept="image/*" hidden>
-                <div class="form-text">Avatar</div>
+            <div class="avatar-wrapper mb-5">
+                <div class="with-validation">
+                    <input name="avatar" type="hidden" disabled/>
+                </div>
+                <img class="profile-pic" th:src="@{'/api/users/avatar'}" alt=""/>
+                <div class="upload-button">
+                    <i class="fas fa-arrow-circle-up" aria-hidden="true"></i>
+                </div>
+                <input id="user-avatar" name="avatar" class="file-upload" type="file" accept="image/*"/>
             </div>
 
-            <!-- Thông tin -->
-            <div class="text-start">
+            <!-- User Info -->
+            <div class="text-start col-10 mx-auto">
                 <div class="row mb-2">
                     <label class="col-4 fw-bold" for="user-email" th:text="#{title.email}"></label>
                     <div class="col-6 input-text" th:text="${user.email}"></div>
@@ -42,10 +41,9 @@
                                name="email" th:value="${user.email}">
                     </div>
                     <div class="col-2 text-end">
-                        <i class="bi bi-pencil-square text-warning edit-icon"></i>
+                        <i class=" btn btn-outline-warning btn-sm bi bi-pencil-square edit-icon"></i>
                     </div>
                 </div>
-
                 <div class="row mb-2">
                     <label class="col-4 fw-bold" for="full-name" th:text="#{title.full_name}"></label>
                     <div class="col-6 input-text" th:text="${user.fullName}"></div>
@@ -54,10 +52,9 @@
                                name="email" th:value="${user.fullName}">
                     </div>
                     <div class="col-2 text-end">
-                        <i class="bi bi-pencil-square text-warning edit-icon"></i>
+                        <i class=" btn btn-outline-warning btn-sm bi bi-pencil-square edit-icon"></i>
                     </div>
                 </div>
-
                 <div class="row mb-2">
                     <label class="col-4 fw-bold" for="phone" th:text="#{title.phone}"></label>
                     <div class="col-6 input-text" th:text="${user.phone}"></div>
@@ -66,35 +63,32 @@
                                name="email" th:value="${user.phone}">
                     </div>
                     <div class="col-2 text-end">
-                        <i class="bi bi-pencil-square text-warning edit-icon"></i>
+                        <i class="btn btn-outline-warning btn-sm bi bi-pencil-square edit-icon"></i>
                     </div>
                 </div>
-
-                <div class="row mb-2">
-                    <label class="col-4 fw-bold" >Vai trò</label>
-                    <div class="col-8" th:text="${user.role}"></div>
+                <div class="row mb-4">
+                    <label class="col-4 fw-bold" th:text="#{title.role}"></label>
+                    <div class="col-8" th:text="${roleTitleMap[user.role]}"></div>
                 </div>
-
-                <div class="row mb-3">
-                    <label class="col-4 fw-bold">Ngày tạo</label>
-                    <div class="col-8" th:text="${user.createdAt}"></div>
+                <div class="row mb-2">
+                    <label class="col-4 fw-bold" th:text="#{title.created_at}"></label>
+                    <div class="col-8" th:text="${#temporals.format(user.createdAt, 'dd/MM/yyyy')}"></div>
                 </div>
             </div>
 
-            <div class="position-relative mt-3" style="height: 40px;">
-
-                <div class="position-absolute top-0 start-50 translate-middle-x d-flex gap-2">
-                    <button class="btn btn-primary">Lưu</button>
-                    <button class="btn btn-secondary cancel-btn">Hủy</button>
+            <div class="d-flex col-10 mx-auto my-5 justify-content-between">
+                <div class="col-3"></div>
+                <div class="col d-flex justify-content-center gap-2">
+                    <button class="btn btn-primary" th:text="#{title.save}"></button>
+                    <button class="btn btn-secondary cancel-btn" th:text="#{title.cancel}"></button>
                 </div>
-
-                <div class="position-absolute top-0 end-0">
-                    <button class="btn btn-black">Đổi mật khẩu</button>
+                <div class="col-3">
+                    <button class="btn btn-black float-end" th:text="#{title.change_password}"></button>
                 </div>
             </div>
         </div>
+        <div class="card-footer bg-black"></div>
     </div>
-
 </th:block>
 
 <th:block layout:fragment="user-script">

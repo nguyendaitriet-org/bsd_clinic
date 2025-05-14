@@ -67,12 +67,12 @@ export const App = (function () {
 
     module.keepSidebarDropdownOpen = () => {
         const url = window.location;
-        const targetLinkSelector = $('ul.nav-treeview a').filter(function () {
+        const targetLinkSelector = $('.sidebar-content .nav-item .collapse a').filter(function () {
             return this.href == url;
         });
-        targetLinkSelector.addClass('active');
-        targetLinkSelector.closest('ul').css('display', 'block');
-        targetLinkSelector.closest('li.menu-dropdown').addClass('menu-dropdown menu-is-opening');
+        targetLinkSelector.closest('li').addClass('active');
+        targetLinkSelector.closest('.nav-item').addClass('active');
+        targetLinkSelector.closest('.collapse').addClass('show');
     }
 
     module.disableElementsInAjaxProgress = () => {

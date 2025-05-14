@@ -1,0 +1,157 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/layout/app}"
+>
+
+<th:block layout:fragment="content-style">
+</th:block>
+
+<th:block layout:fragment="content-title" th:text="#{title.appointment.creation}"></th:block>
+<th:block layout:fragment="content-title-note"></th:block>
+<th:block layout:fragment="content-button"></th:block>
+
+<th:block layout:fragment="content-body">
+    <div class="d-flex justify-content-between">
+        <div class="card w-40">
+            <div class="card-header bg-black custom-card-header" th:text="#{title.appointment.form}"></div>
+            <div class="card-body appointment-register">
+                <div class="h5" th:text="#{title.subscriber}"></div>
+                <hr>
+                <div class="form-group">
+                    <label class="required-field" for="subscriber-name" th:text="#{title.full_name}"></label>
+                    <input type="text" class="form-control" id="subscriber-name" name="subscriberName"
+                           th:placeholder="#{placeholder.full_name}">
+                </div>
+                <div class="form-group">
+                    <label class="required-field" for="subscriber-phone" th:text="#{title.phone}"></label>
+                    <input type="text" class="form-control" id="subscriber-phone" name="subscriberPhone"
+                           th:placeholder="#{placeholder.phone}">
+                </div>
+                <div class="form-group">
+                    <label class="required-field" for="subscriber-email" th:text="#{title.email}"></label>
+                    <input type="text" class="form-control" id="subscriber-email" name="subscriberEmail"
+                           th:placeholder="#{placeholder.email}">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="self-register">
+                    <label class="form-check-label" for="self-register" th:text="#{title.subscriber.self_register}">
+                    </label>
+                </div>
+                <div class="h5 mt-3" th:text="#{title.patient}"></div>
+                <hr>
+                <div class="form-group">
+                    <label class="required-field" for="patient-name" th:text="#{title.full_name}"></label>
+                    <input type="text" class="form-control" id="patient-name" name="patientName"
+                           th:placeholder="#{placeholder.full_name}">
+                </div>
+                <div class="form-group">
+                    <label for="patient-phone" th:text="#{title.phone}"></label>
+                    <input type="text" class="form-control" id="patient-phone" name="patientPhone"
+                           th:placeholder="#{placeholder.phone}">
+                </div>
+                <div class="form-group">
+                    <label for="patient-email" th:text="#{title.email}"></label>
+                    <input type="text" class="form-control" id="patient-email" name="patientEmail"
+                           th:placeholder="#{placeholder.email}">
+                </div>
+                <div class="form-group">
+                    <label for="patient-address" th:text="#{title.address}"></label>
+                    <input type="text" class="form-control" id="patient-address" name="patient"
+                           th:placeholder="#{placeholder.address}">
+                </div>
+                <div class="form-group">
+                    <label class="required-field" for="subscriber-relation"
+                           th:text="#{title.patient.subscriber_relation}"></label>
+                    <input type="text" class="form-control" id="subscriber-relation" name="subscriberRelation"
+                           th:placeholder="#{placeholder.subscriber_relation}">
+                </div>
+                <div class="form-group">
+                    <label class="required-field" for="visit-reason" th:text="#{title.visit_reason}"></label>
+                    <input type="text" class="form-control" id="visit-reason" name="visitReason"
+                           th:placeholder="#{placeholder.visit_reason}">
+                </div>
+                <div class="form-group">
+                    <label class="required-field" th:text="#{title.gender}"></label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="male" checked>
+                        <label class="form-check-label" for="male" th:text="#{gender.male}"></label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="female">
+                        <label class="form-check-label" for="female" th:text="#{gender.female}"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="required-field" for="patient-birthday" th:text="#{title.birthday}"></label>
+                    <input type="date" class="form-control" id="patient-birthday" name="patientBirthday"
+                           th:placeholder="#{placeholder.visit_reason}">
+                </div>
+                <div class="form-group">
+                    <label th:text="#{title.doctor}" class="required-field"></label>
+                    <select name="doctor" class="form-control doctor-select" style="width: 100%"
+                            th:data-label="#{placeholder.doctor}">
+                        <option>Bac si 1</option>
+                        <option>Bac si 2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group float-end">
+                    <button id="submit-btn" class="btn btn-black" type="button" th:text="#{title.create}"></button>
+                    <button id="cancel-btn" class="btn btn-secondary" type="button" th:text="#{title.cancel}"></button>
+                </div>
+            </div>
+        </div>
+        <div class="card w-55">
+            <div class="card-header bg-black custom-card-header" th:text="#{title.subscriber.list}"></div>
+            <div class="card-body">
+                <div class="mb-3 d-flex">
+                    <div class="input-group col">
+                        <button class="btn btn-black" type="button"><i class="fa fa-search"></i></button>
+                        <input id="search-input" type="search" class="form-control border-secondary border-1"
+                               th:placeholder="#{placeholder.subscriber}">
+                    </div>
+                    <button id="search-btn" class="btn btn-black col-2 ms-5" type="button"
+                            th:text="#{title.apply}"></button>
+                </div>
+                <div class="table-responsive">
+                    <table id="patient-list-table"
+                           class="table table-sm table-hover table-head-bg-black dataTable w-100">
+                        <thead>
+                        <tr class="text-center p-12">
+                            <th class="w-8">#</th>
+                            <th th:text="#{title.email}"></th>
+                            <th th:text="#{title.full_name}"></th>
+                            <th class="w-22" th:text="#{title.phone}"></th>
+                            <th class="w-15" th:text="#{title.action}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>nguyenvana@gmail.com</td>
+                            <td>Nguyễn Lê Phương</td>
+                            <td>0123659874</td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-info border-0" data-bs-toggle="tooltip" type="button"
+                                            data-bs-placement="bottom" th:data-bs-title="#{title.self}">
+                                        <i class="fas fa-arrow-left"></i>
+                                    </button>
+                                    <button class="btn btn-outline-warning border-0" data-bs-toggle="tooltip" type="button"
+                                            data-bs-placement="bottom" th:data-bs-title="#{title.detail}">
+                                        <i class="fas fa-users"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="appointment-script"></th:block>

@@ -7,14 +7,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class AdminSiteController {
+public class HomePageController {
+    @GetMapping({"/", ""})
+    public String toClientHomePage() {
+        return "client/index";
+    }
+
     @GetMapping("/login")
-    public String toLoginPage(@AuthenticationPrincipal UserPrincipal principal) {
+    public String toAdminLoginPage(@AuthenticationPrincipal UserPrincipal principal) {
         return principal != null ? "redirect:/admin" : "admin/auth/login";
     }
 
     @GetMapping("/admin")
-    public ModelAndView toHomePage() {
+    public ModelAndView toAdminHomePage() {
         return new ModelAndView("admin/index");
     }
 }

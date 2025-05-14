@@ -37,7 +37,7 @@
     color: var(--grey)
 }
 
-.table>tbody>tr>td, .table>tbody>tr>th {
+.table>tbody>tr>td, .table>thead>tr>th {
     padding: 8px 12px !important;
 }
 

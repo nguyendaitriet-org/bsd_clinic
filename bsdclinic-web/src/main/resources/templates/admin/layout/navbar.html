@@ -38,7 +38,7 @@
                     <li class="nav-item topbar-user dropdown hidden-caret">
                         <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
                             <div class="avatar-sm">
-                                <img th:src="@{/api/users/avatar}" alt="..." class="avatar-img rounded-circle">
+                                <img th:src="@{${webUrl.API_USER_AVATAR}}" alt="..." class="avatar-img rounded-circle">
                             </div>
                             <span class="profile-username">
                                 <span class="op-7" th:text="#{title.user.greeting}"></span>
@@ -50,7 +50,7 @@
                                 <li>
                                     <div class="user-box">
                                         <div class="avatar-lg">
-                                            <img th:src="@{/api/users/avatar}" alt="image profile" class="avatar-img rounded">
+                                            <img th:src="@{${webUrl.API_USER_AVATAR}}" alt="image profile" class="avatar-img rounded">
                                         </div>
                                         <div class="u-text">
                                             <h4 th:text="${user.fullName}"></h4>
@@ -60,9 +60,9 @@
                                 </li>
                                 <li>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" th:href="@{/admin/users/profile}" th:text="#{title.user.profile}"></a>
+                                    <a class="dropdown-item" th:href="@{${webUrl.ADMIN_USERS_PROFILE}}" th:text="#{title.user.profile}"></a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" th:href="@{/logout}" th:text="#{title.logout}"></a>
+                                    <a class="dropdown-item" th:href="@{${webUrl.LOGOUT}}" th:text="#{title.logout}"></a>
                                 </li>
                             </div>
                         </ul>

@@ -21,7 +21,8 @@ public interface UserRepository extends JpaRepository<User, String>, JpaSpecific
                 u.phone AS phone,
                 u.fullName AS fullName,
                 u.status AS status,
-                r.code AS role
+                r.code AS role,
+                u.createdAt AS createdAt
             FROM User AS u
             INNER JOIN Role AS r ON u.roleId = r.roleId
             WHERE u.userId = :userId

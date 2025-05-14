@@ -12,7 +12,7 @@ import {FormHandler} from "/common/js/form.js";
         complete: function () {
             $('form').find("button").prop('disabled', false);
             $('.modal').find('button').prop('disabled', false);
-            $('.modal').userCreationModalSelector.modal('hide');
+            $('.modal').modal('hide');
         }
     });
 

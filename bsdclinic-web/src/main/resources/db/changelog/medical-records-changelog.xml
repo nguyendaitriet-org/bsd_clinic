@@ -3,9 +3,10 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.13.xsd">
 
-    <include file="/db/function/nano-id-function-changelog.xml"></include>
-    <include file="/db/changelog/init-schema-changelog.xml"></include>
-    <include file="/db/changelog/appointments-changelog.xml"></include>
-    <include file="/db/changelog/medical-records-changelog.xml"></include>
-
+    <changeSet id="13052025_2" author="triet.nguyendai" context="Drop column patient_address">
+        <sql>
+                ALTER TABLE medical_records
+                DROP COLUMN patient_address;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

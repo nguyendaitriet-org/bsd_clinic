@@ -28,7 +28,7 @@ public class UserController {
         return "admin/user/index";
     }
 
-    @RoleAuthorization.AdminAuthorization
+    @RoleAuthorization.AuthenticatedUser
     @GetMapping("/profile")
     public String toProfile() {
         return "admin/user/profile";

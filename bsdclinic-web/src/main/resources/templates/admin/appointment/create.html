@@ -119,7 +119,7 @@
 
                 </div>
                 <div class="table-responsive">
-                    <table id="patient-list-table"
+                    <table id="subscriber-list-table"
                            class="table table-sm table-hover table-head-bg-black dataTable w-100">
                         <thead>
                         <tr class="text-center p-12">
@@ -142,7 +142,25 @@
                                             data-bs-placement="bottom" th:data-bs-title="#{title.self}">
                                         <i class="fas fa-arrow-left"></i>
                                     </button>
-                                    <button class="btn btn-outline-warning border-0" data-bs-toggle="tooltip" type="button"
+                                    <button class="btn btn-outline-warning border-0 appointment-list-btn" data-bs-toggle="tooltip" type="button"
+                                            data-bs-placement="bottom" th:data-bs-title="#{title.detail}">
+                                        <i class="fas fa-users"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>nguyenvana@gmail.com</td>
+                            <td>Nguyễn Lê Phương</td>
+                            <td>0123659874</td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-info border-0" data-bs-toggle="tooltip" type="button"
+                                            data-bs-placement="bottom" th:data-bs-title="#{title.self}">
+                                        <i class="fas fa-arrow-left"></i>
+                                    </button>
+                                    <button class="btn btn-outline-warning border-0 appointment-list-btn" data-bs-toggle="tooltip" type="button"
                                             data-bs-placement="bottom" th:data-bs-title="#{title.detail}">
                                         <i class="fas fa-users"></i>
                                     </button>
@@ -155,6 +173,10 @@
             </div>
         </div>
     </div>
+    <!-- Appointment list modal -->
+    <th:block th:replace="~{admin/appointment/component/appointment_list_modal :: appointment-list}"></th:block>
 </th:block>
 
-<th:block layout:fragment="appointment-script"></th:block>
+<th:block layout:fragment="appointment-script">
+    <script type="module" th:src="@{/admin/custom/js/appointment/appointment-list.js}"></script>
+</th:block>

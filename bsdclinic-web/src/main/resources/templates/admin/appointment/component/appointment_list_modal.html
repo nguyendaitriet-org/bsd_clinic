@@ -1,0 +1,65 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<th:block th:fragment="appointment-list">
+    <div class="modal fade" id="appointment-list-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" th:text="#{title.appointment.list}"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table id="appointment-list-table"
+                               class="table table-sm table-head-bg-black dataTable w-100">
+                            <thead>
+                            <tr class="text-center p-12">
+                                <th th:text="#{title.select}"></th>
+                                <th>#</th>
+                                <th th:text="#{title.patient.name}"></th>
+                                <th th:text="#{title.gender}"></th>
+                                <th th:text="#{title.phone}"></th>
+                                <th th:text="#{title.address}"></th>
+                                <th th:text="#{title.registered_at}"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="text-center">
+                                    <label>
+                                        <input type="radio" class="option-input radio" name="example"/>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>Nguyễn Lê Phương</td>
+                                <td>Nam</td>
+                                <td>03241285743</td>
+                                <td>Address</td>
+                                <td>20/12/2022</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <label>
+                                        <input type="radio" class="option-input radio" name="example"/>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>Nguyễn Lê Phương</td>
+                                <td>Nam</td>
+                                <td>03241285743</td>
+                                <td>Address</td>
+                                <td>20/12/2022</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-confirm" th:text="#{title.confirm}"></button>
+                    <button type="button" class="btn btn-secondary" th:text="#{title.cancel}"
+                            data-bs-dismiss="modal"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

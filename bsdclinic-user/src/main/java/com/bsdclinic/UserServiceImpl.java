@@ -3,6 +3,7 @@ package com.bsdclinic;
 import com.bsdclinic.dto.request.CreateUserRequest;
 import com.bsdclinic.dto.request.UpdateUserByAdminRequest;
 import com.bsdclinic.dto.request.UserFilter;
+import com.bsdclinic.dto.request.UserInfoRequest;
 import com.bsdclinic.dto.response.AvatarResponse;
 import com.bsdclinic.dto.response.IUserResponse;
 import com.bsdclinic.dto.response.UserResponse;
@@ -125,5 +126,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(
                         messageProvider.getMessage("validation.no_exist.user_id") + " " + userId));
+    }
+
+    public void updateUserInfo(String userId, UserInfoRequest userInfoRequest){
+        User user = findById(userId);
+        user = userMapper.toEntity(userInfoRequest, user);
+        userRepository.save(user);
     }
 }

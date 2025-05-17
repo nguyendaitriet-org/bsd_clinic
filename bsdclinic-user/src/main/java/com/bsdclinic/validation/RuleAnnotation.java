@@ -97,4 +97,26 @@ public class RuleAnnotation {
 
         Class<? extends Payload>[] payload() default {};
     }
+
+    @Documented
+    @Target({ElementType.PARAMETER, ElementType.METHOD, ElementType.FIELD})
+    @Retention(RetentionPolicy.RUNTIME)
+    @Constraint(validatedBy = Validator.UniqueEmailExceptCurrentValidator.class)
+    @ReportAsSingleViolation
+    public @interface UniqueEmailExceptCurrent {
+        String message() default "Email already in use";
+        Class<?>[] groups() default {};
+        Class<? extends Payload>[] payload() default {};
+    }
+
+    @Documented
+    @Target({ElementType.PARAMETER, ElementType.METHOD, ElementType.FIELD})
+    @Retention(RetentionPolicy.RUNTIME)
+    @Constraint(validatedBy = Validator.UniquePhoneExceptCurrentValidator.class)
+    @ReportAsSingleViolation
+    public @interface UniquePhoneExceptCurrent {
+        String message() default "Phone number already in use";
+        Class<?>[] groups() default {};
+        Class<? extends Payload>[] payload() default {};
+    }
 }

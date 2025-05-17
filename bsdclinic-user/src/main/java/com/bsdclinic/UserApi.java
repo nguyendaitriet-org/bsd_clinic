@@ -1,9 +1,6 @@
 package com.bsdclinic;
 
-import com.bsdclinic.dto.request.ChangePasswordRequest;
-import com.bsdclinic.dto.request.CreateUserRequest;
-import com.bsdclinic.dto.request.UpdateUserByAdminRequest;
-import com.bsdclinic.dto.request.UserFilter;
+import com.bsdclinic.dto.request.*;
 import com.bsdclinic.dto.response.AvatarResponse;
 import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.validation.RuleAnnotation;
@@ -69,5 +66,11 @@ public class UserApi {
     @GetMapping(value = "/avatar")
     public byte[] getAvatar(@AuthenticationPrincipal UserPrincipal principal) throws IOException {
         return userService.getAvatar(principal.getUserId()).getContentAsByteArray();
+    }
+
+    @RoleAuthorization.AuthenticatedUser
+    @PatchMapping(value = "/profile")
+    public void updateUserInfo(@AuthenticationPrincipal UserPrincipal principal, @RequestBody @Valid UserInfoRequest request) throws IOException {
+        userService.updateUserInfo(principal.getUserId(),request);
     }
 }

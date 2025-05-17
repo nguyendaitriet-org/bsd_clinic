@@ -3,6 +3,7 @@ package com.bsdclinic;
 import com.bsdclinic.dto.request.CreateUserRequest;
 import com.bsdclinic.dto.request.UpdateUserByAdminRequest;
 import com.bsdclinic.dto.request.UserFilter;
+import com.bsdclinic.dto.request.UserInfoRequest;
 import com.bsdclinic.dto.response.AvatarResponse;
 import com.bsdclinic.dto.response.IUserResponse;
 import com.bsdclinic.response.DatatableResponse;
@@ -21,4 +22,5 @@ public interface UserService {
     void updateByAdmin(UpdateUserByAdminRequest request);
     AvatarResponse saveAvatar(MultipartFile avatar, String userId);
     Resource getAvatar(String userId);
+    void updateUserInfo(String userId, UserInfoRequest userInfoRequest);
 }

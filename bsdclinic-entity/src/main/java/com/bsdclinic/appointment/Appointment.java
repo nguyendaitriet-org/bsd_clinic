@@ -37,11 +37,14 @@ public class Appointment extends BaseEntity {
     @Column(name = "patient_birthday")
     private LocalDate patientBirthday;
 
+    @Column(name = "patient_address")
+    private String patientAddress;
+
     @Column(name = "visit_reason")
     private String visitReason;
 
-    @Column(name = "subscriber_relation")
-    private String subscriberRelation;
+    @Column(name = "relation_with_subscriber")
+    private String relationWithSubscriber;
 
     @Column(name = "doctor_id")
     private String doctorId;

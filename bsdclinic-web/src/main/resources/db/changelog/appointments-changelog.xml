@@ -9,4 +9,11 @@
                 ADD COLUMN patient_address VARCHAR(255);
         </sql>
     </changeSet>
+
+    <changeSet id="17052025_1" author="triet.nguyendai" context="Rename column subscriber_relation">
+        <sql>
+            ALTER TABLE appointments
+            RENAME COLUMN subscriber_relation TO relation_with_subscriber;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

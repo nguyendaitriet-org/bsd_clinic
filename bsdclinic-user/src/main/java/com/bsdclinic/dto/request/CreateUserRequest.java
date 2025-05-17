@@ -2,6 +2,7 @@ package com.bsdclinic.dto.request;
 
 import com.bsdclinic.validation.GeneralRuleAnnotation;
 import com.bsdclinic.validation.RuleAnnotation;
+import com.bsdclinic.validation.ValidationConstant;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -18,8 +19,8 @@ import lombok.Setter;
 public class CreateUserRequest {
     @NotBlank(message = "{validation.required.email}")
     @Size(max = 255, message = "{validation.input.max_length.255}")
-    @Pattern(regexp = "[\\w.%+-]+@[\\w.-]+\\.[A-Za-z]{2,}$", message = "{validation.format.email}")
-    @RuleAnnotation.ExistedEmail( message = "{validation.existed.email}")
+    @Pattern(regexp = ValidationConstant.EMAIL_PATTERN, message = "{validation.format.email}")
+    @RuleAnnotation.UniqueEmail( message = "{validation.existed.email}")
     private String email;
 
     @NotBlank(message = "{validation.required.full_name}")

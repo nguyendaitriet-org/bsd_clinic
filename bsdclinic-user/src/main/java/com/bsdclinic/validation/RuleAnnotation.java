@@ -10,9 +10,9 @@ public class RuleAnnotation {
     @Documented
     @Target({ElementType.FIELD})
     @Retention(RetentionPolicy.RUNTIME)
-    @Constraint(validatedBy = Validator.ExistedEmailValidator.class)
+    @Constraint(validatedBy = Validator.UniqueEmailValidator.class)
     @ReportAsSingleViolation
-    public @interface ExistedEmail {
+    public @interface UniqueEmail {
         String message() default "Email exists";
 
         Class<?>[] groups() default {};

@@ -22,9 +22,6 @@ public class MedicalRecord extends BaseEntity {
     @Column(name = "appointment_id")
     private String appointmentId;
 
-    @Column(name = "patient_address")
-    private String patientAddress;
-
     @Column(name = "medical_history")
     private String medicalHistory;
 

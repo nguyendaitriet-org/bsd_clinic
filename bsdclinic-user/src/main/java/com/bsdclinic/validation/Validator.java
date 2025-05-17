@@ -1,7 +1,6 @@
 package com.bsdclinic.validation;
 
 import com.bsdclinic.UserPrincipal;
-import com.bsdclinic.dto.request.UserInfoRequest;
 import com.bsdclinic.repository.RoleRepository;
 import com.bsdclinic.repository.UserRepository;
 import com.bsdclinic.user.UserStatus;
@@ -11,16 +10,14 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor(access= AccessLevel.PRIVATE)
 public class Validator {
     @RequiredArgsConstructor
-    public static class ExistedEmailValidator implements ConstraintValidator<RuleAnnotation.ExistedEmail, String> {
+    public static class UniqueEmailValidator implements ConstraintValidator<RuleAnnotation.UniqueEmail, String> {
         private final UserRepository userRepository;
 
         @Override

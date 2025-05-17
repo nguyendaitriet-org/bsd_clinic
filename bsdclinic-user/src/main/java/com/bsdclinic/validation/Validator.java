@@ -1,6 +1,7 @@
 package com.bsdclinic.validation;
 
 import com.bsdclinic.UserPrincipal;
+import com.bsdclinic.dto.request.UserInfoRequest;
 import com.bsdclinic.repository.RoleRepository;
 import com.bsdclinic.repository.UserRepository;
 import com.bsdclinic.user.UserStatus;
@@ -13,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor(access= AccessLevel.PRIVATE)
@@ -119,6 +121,36 @@ public class Validator {
             return contentType.equals("image/png")
                     || contentType.equals("image/jpg")
                     || contentType.equals("image/jpeg");
+        }
+    }
+
+    @RequiredArgsConstructor
+    public static class UniqueEmailExceptCurrentValidator implements ConstraintValidator<RuleAnnotation.UniqueEmailExceptCurrent, String> {
+
+        private final UserRepository userRepository;
+
+        @Override
+        public boolean isValid(String value, ConstraintValidatorContext context) {
+            if (StringUtils.isBlank(value)) {
+                return true;
+            }
+            UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            return !userRepository.existsByEmailAndUserIdNot(value, principal.getUserId());
+        }
+    }
+
+    @RequiredArgsConstructor
+    public static class UniquePhoneExceptCurrentValidator implements ConstraintValidator<RuleAnnotation.UniquePhoneExceptCurrent, String> {
+
+        private final UserRepository userRepository;
+
+        @Override
+        public boolean isValid(String value, ConstraintValidatorContext context) {
+            if (StringUtils.isBlank(value)) {
+                return true;
+            }
+            UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            return !userRepository.existsByPhoneAndUserIdNot(value, principal.getUserId());
         }
     }
 }

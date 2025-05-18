@@ -19,7 +19,7 @@ export const UserList = (function () {
 
     module.init = () => {
         initDateRangePicker();
-        renderUserListTable();
+        module.renderUserListTable();
         handleSearchSubmissionButton();
         handleCancelSearchButton();
     }
@@ -37,13 +37,13 @@ export const UserList = (function () {
             module.roleSelectSelector.selectpicker('deselectAll');
             module.statusSelectSelector.selectpicker('deselectAll');
             module.userCreatedAtRangePicker.setDateRange(null, null)
-            renderUserListTable();
+            module.renderUserListTable();
         })
     }
 
     const handleSearchSubmissionButton = () => {
         module.searchSubmitButtonSelector.on('click', function () {
-            renderUserListTable();
+            module.renderUserListTable();
         });
     }
 
@@ -64,14 +64,14 @@ export const UserList = (function () {
         }, {});
     }
 
-    const renderUserListTable = () => {
+    module.renderUserListTable = () => {
         const userFilter = getUserListFilter();
         const roleMap = toRoleMap(userRoles);
         const userListDatatable = module.userListTableSelector.DataTable({
             ajax: {
                 contentType: 'application/json',
                 type: 'POST',
-                url: module.findAllUsersByFilterUrl,
+                url: API_ADMIN_USER_LIST,
                 data: function (d) {
                     d.keyword = userFilter.keyword;
                     d.roleIds = userFilter.roleIds;

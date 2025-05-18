@@ -1,10 +1,9 @@
 import {App} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
+import {UserList} from "./user-list.js";
 
 export const UserCreation = (function () {
     const module = {
-        userCreationUrl: '/api/users',
-
         emailSelector: $('#create-user-modal .mail-input'),
         fullNameSelector: $('#create-user-modal .full-name-input'),
         phoneSelector: $('#create-user-modal .phone-input'),
@@ -46,12 +45,12 @@ export const UserCreation = (function () {
                 "content-type": "application/json"
             },
             type: 'POST',
-            url: module.userCreationUrl,
+            url: API_ADMIN_USER_ENDPOINT,
             data: JSON.stringify(userCreationData),
         })
             .done(() => {
                 App.showSuccessMessage(createSuccess);
-                setTimeout(() => location.reload(), 1000);
+                setTimeout(() => UserList.renderUserListTable(), 1000);
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);

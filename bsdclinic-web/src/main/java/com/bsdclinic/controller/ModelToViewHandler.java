@@ -2,7 +2,7 @@ package com.bsdclinic.controller;
 
 import com.bsdclinic.UserPrincipal;
 import com.bsdclinic.UserService;
-import com.bsdclinic.controller.url.WebUrl;
+import com.bsdclinic.url.WebUrl;
 import com.bsdclinic.dto.response.IUserResponse;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.user.RoleConstant;

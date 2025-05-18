@@ -3,6 +3,7 @@ package com.bsdclinic;
 import com.bsdclinic.dto.request.*;
 import com.bsdclinic.dto.response.AvatarResponse;
 import com.bsdclinic.response.DatatableResponse;
+import com.bsdclinic.url.WebUrl;
 import com.bsdclinic.validation.RuleAnnotation;
 import com.bsdclinic.validation.ValidationSequence;
 import jakarta.validation.Valid;
@@ -17,7 +18,7 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping(WebUrl.API_ADMIN_USER_ENDPOINT)
 @Validated
 public class UserApi {
     private final UserService userService;

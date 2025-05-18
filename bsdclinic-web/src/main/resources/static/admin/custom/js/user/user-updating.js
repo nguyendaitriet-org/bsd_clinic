@@ -4,8 +4,6 @@ import {UserList} from "./user-list.js";
 
 export const UserUpdating = (function () {
     const module = {
-        userUpdatingUrl: '/api/users',
-
         userUpdatingModalSelector: $('#update-user-modal'),
         userIdSelector: $('#update-user-modal .user-id-input'),
         emailSelector: $('#update-user-modal .mail-input'),
@@ -62,12 +60,12 @@ export const UserUpdating = (function () {
                 "content-type": "application/json"
             },
             type: 'PATCH',
-            url: module.userUpdatingUrl,
+            url: API_ADMIN_USER_ENDPOINT,
             data: JSON.stringify(userUpdatingData),
         })
             .done(() => {
                 App.showSuccessMessage(operationSuccess);
-                setTimeout(() => location.reload(), 1000);
+                setTimeout(() => UserList.renderUserListTable(), 1000);
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);

@@ -3,8 +3,6 @@ import {FormHandler} from "/common/js/form.js";
 
 export const UserProfile = (function () {
     const module = {
-        userAvatarUrl: '/api/users/avatar',
-
         editIconSelector: $('.edit-icon'),
         cancelButtonSelector: $('.cancel-btn'),
 
@@ -80,7 +78,7 @@ export const UserProfile = (function () {
 
     const updateAvatar = (avatarFormData) => {
         $.ajax({
-            url: module.userAvatarUrl,
+            url: API_ADMIN_USER_AVATAR,
             data: avatarFormData,
             type: 'POST',
             processData: false,
@@ -91,7 +89,7 @@ export const UserProfile = (function () {
             .done(() => {
                 App.showSuccessMessage(operationSuccess);
                 module.updateAvatarButtonSelector.prop('hidden', true);
-                module.navbarProfileAvatarSelector.prop('src', module.userAvatarUrl);
+                module.navbarProfileAvatarSelector.prop('src', API_ADMIN_USER_AVATAR);
             })
             .fail((jqXHR) => {
                 FormHandler.handleServerValidationError(module.userAvatarAreaSelector, jqXHR)

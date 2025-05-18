@@ -24,7 +24,7 @@
                 <div class="with-validation">
                     <input name="avatar" type="hidden" disabled/>
                 </div>
-                <img class="profile-pic" th:src="@{'/api/users/avatar'}" alt=""/>
+                <img class="profile-pic" th:src="@{${webUrl.API_ADMIN_USER_AVATAR}}" alt=""/>
                 <div class="upload-button">
                     <i class="fas fa-arrow-circle-up" aria-hidden="true"></i>
                 </div>

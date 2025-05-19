@@ -7,5 +7,6 @@
     <include file="/db/changelog/init-schema-changelog.xml"></include>
     <include file="/db/changelog/appointments-changelog.xml"></include>
     <include file="/db/changelog/medical-records-changelog.xml"></include>
+    <include file="/db/changelog/subscribers-changelog.xml"></include>
 
 </databaseChangeLog>

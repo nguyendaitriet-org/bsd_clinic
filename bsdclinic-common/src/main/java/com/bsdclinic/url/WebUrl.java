@@ -13,6 +13,8 @@ public class WebUrl {
     public static final String API_ADMIN_ENDPOINT = "/api/admin";
     public static final String API_CLIENT_ENDPOINT = "/api/client";
 
+    public static final String API_ADMIN_LOGIN = API_ADMIN_ENDPOINT + LOGIN;
+
     // Admin - User API
     public static final String API_ADMIN_USER_ENDPOINT = API_ADMIN_ENDPOINT + "/users";
     public static final String API_ADMIN_USER_LIST = API_ADMIN_USER_ENDPOINT + "/list";

@@ -1,6 +1,11 @@
 package com.bsdclinic.exception_handler.exception;
 
-public class UnauthorizedException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.UNAUTHORIZED)
+public class UnauthorizedException extends AuthenticationException {
     public UnauthorizedException(String message) {
         super(message);
     }

@@ -2,17 +2,17 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/error/error-layout}" lang="en">
 
 <th:block layout:fragment="page-title">
-    <title th:text="#{error.404}"></title>
+    <title th:text="#{error.401}"></title>
 </th:block>
 
 <th:block layout:fragment="page-content">
     <div class="error-page">
-        <h2 class="headline text-warning">404</h2>
+        <h2 class="headline text-warning">401</h2>
         <div class="error-content">
-            <h3 th:text="#{message.page_not_found.title}"></h3>
-            <div th:text="#{message.page_not_found.content}"></div>
+            <h3 th:text="#{error.401}"></h3>
+            <div th:text="#{message.unauthorized.content}"></div>
             <div>
-                <a th:href="@{${webUrl.CLIENT_HOME}}" th:text="#{message.return_homepage}"></a>
+                <a th:href="@{${webUrl.LOGIN}}" th:text="#{message.return_login_page}"></a>
             </div>
         </div>
     </div>

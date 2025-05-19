@@ -12,7 +12,7 @@
             <h3 th:text="#{error.403}"></h3>
             <div th:text="#{message.forbidden.content}"></div>
             <div>
-                <a th:href="@{/admin}" th:text="#{message.return_homepage}"></a>
+                <a th:href="@{${webUrl.ADMIN_HOME}}" th:text="#{message.return_homepage}"></a>
             </div>
         </div>
     </div>

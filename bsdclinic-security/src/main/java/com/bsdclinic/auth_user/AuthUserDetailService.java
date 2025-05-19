@@ -3,7 +3,6 @@ package com.bsdclinic.auth_user;
 import com.bsdclinic.SecurityBeanName;
 import com.bsdclinic.UserPrincipal;
 import com.bsdclinic.dto.IUserResult;
-import com.bsdclinic.exception_handler.exception.ForbiddenException;
 import com.bsdclinic.exception_handler.exception.UnauthorizedException;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.user.UserStatus;
@@ -28,12 +27,8 @@ public class AuthUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         IUserResult user = userSecurityRepository.findByEmailWithRole(email);
 
-        if (user == null) {
-            throw new UnauthorizedException(messageProvider.getMessage("validation.no_exist.email"));
-        }
-
-        if (user.getStatus().equals(UserStatus.BLOCKED.name())) {
-            throw new ForbiddenException(messageProvider.getMessage("error.403"));
+        if (user == null || user.getStatus().equals(UserStatus.BLOCKED.name())) {
+            throw new UnauthorizedException(messageProvider.getMessage("message.user.not_existed_or_blocked"));
         }
 
         List<GrantedAuthority> authorities = Collections.singletonList(

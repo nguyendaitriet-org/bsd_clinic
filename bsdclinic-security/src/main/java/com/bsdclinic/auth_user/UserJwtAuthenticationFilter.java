@@ -2,6 +2,9 @@ package com.bsdclinic.auth_user;
 
 import com.bsdclinic.SecurityBeanName;
 
+import com.bsdclinic.error_handler.CustomAccessDeniedHandler;
+import com.bsdclinic.error_handler.CustomAuthenticationEntryPoint;
+import com.bsdclinic.exception_handler.exception.UnauthorizedException;
 import com.bsdclinic.jwt.JWTUser;
 import com.bsdclinic.jwt.JwtService;
 import jakarta.servlet.FilterChain;
@@ -28,6 +31,7 @@ import static com.bsdclinic.SecurityConfiguration.ENDPOINTS_WHITELIST;
 @RequiredArgsConstructor
 public class UserJwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     @Qualifier(SecurityBeanName.USER_SECURITY_SERVICE)
     private final AuthUserDetailService userDetailsService;
@@ -51,18 +55,21 @@ public class UserJwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        try {
+            if (jwtService.validateJwtToken(accessToken)) {
+                JWTUser jwtUser = jwtService.getPrincipalFromJwtToken(accessToken);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(jwtUser.getUsername());
 
-        if (jwtService.validateJwtToken(accessToken)) {
-            JWTUser jwtUser = jwtService.getPrincipalFromJwtToken(accessToken);
-            UserDetails userDetails = userDetailsService.loadUserByUsername(jwtUser.getUsername());
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+            filterChain.doFilter(request, response);
+        } catch (UnauthorizedException ex) {
+            customAuthenticationEntryPoint.commence(request, response, new UnauthorizedException(ex.getMessage()));
         }
-        filterChain.doFilter(request, response);
     }
 
     @Override
@@ -71,7 +78,7 @@ public class UserJwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    protected boolean shouldNotFilter(HttpServletRequest request) {
         return Stream.of(ENDPOINTS_WHITELIST).anyMatch(x -> {
             AntPathRequestMatcher matcher = new AntPathRequestMatcher(x);
             return matcher.matches(request);

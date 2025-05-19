@@ -12,7 +12,7 @@
             <h3 th:text="#{message.server_error.title}"></h3>
             <div th:text="#{message.server_error.content}"></div>
             <div>
-                <a th:href="@{/admin}" th:text="#{message.return_homepage}"></a>
+                <a th:href="@{${webUrl.CLIENT_HOME}}" th:text="#{message.return_homepage}"></a>
             </div>
         </div>
     </div>

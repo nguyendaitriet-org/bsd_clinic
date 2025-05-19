@@ -30,14 +30,14 @@ public class GeneralExceptionHandler {
     private final MessageProvider messageProvider;
 
     @ExceptionHandler(UnauthorizedException.class)
-    public ResponseEntity<ErrorDetails> handleUnauthorized(UnauthorizedException ex, HttpServletRequest request) {
-        ErrorDetails response = new ErrorDetails(
+    public ResponseEntity<ErrorDetails> handleUnauthorized(UnauthorizedException ex) {
+        ErrorDetails errorDetails = new ErrorDetails(
                 HttpStatus.UNAUTHORIZED.value(),
                 ex.getMessage(),
                 null
         );
 
-        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(ForbiddenException.class)
@@ -81,7 +81,7 @@ public class GeneralExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler ({ConstraintViolationException.class})
+    @ExceptionHandler({ConstraintViolationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ResponseEntity<ErrorDetails> handleConstraintViolationException(ConstraintViolationException ex) {
         Map<String, String> errorDetails = new HashMap<>();

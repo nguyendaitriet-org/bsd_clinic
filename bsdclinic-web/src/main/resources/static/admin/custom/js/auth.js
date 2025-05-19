@@ -3,7 +3,6 @@ import {App} from "/common/js/app.js";
 
 const LogIn = (function () {
     const module = {
-        logInUrl: '/api/login',
         logInButtonSelector: $('#login-button'),
         emailInputSelector: $('#email'),
         passwordInputSelector: $('#password'),
@@ -33,7 +32,7 @@ const LogIn = (function () {
                 "content-type": "application/json"
             },
             type: 'POST',
-            url: module.logInUrl,
+            url: API_ADMIN_LOGIN,
             data: JSON.stringify(loginParam),
             beforeSend: function () {
                 module.formLoginSelector.addClass("loading");

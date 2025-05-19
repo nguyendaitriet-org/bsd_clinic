@@ -20,10 +20,10 @@ public class CustomErrorController implements ErrorController {
             if (statusCode == HttpStatus.FORBIDDEN.value()) {
                 return "error/error403";
             }
-            if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                return "error/error500";
+            if (statusCode == HttpStatus.UNAUTHORIZED.value()) {
+                return "error/error401";
             }
         }
-        return "error";
+        return "error/error500";
     }
 }

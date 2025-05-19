@@ -12,7 +12,7 @@ export const App = (function () {
                 module.showErrorMessage(ERROR_400);
                 break;
             case 401:
-                module.showErrorMessage(ERROR_401);
+                module.showErrorMessage(jqXHR.responseJSON.message);
                 break;
             case 403:
                 module.showErrorMessage(ERROR_403);

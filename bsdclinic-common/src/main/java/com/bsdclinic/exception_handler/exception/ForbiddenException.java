@@ -1,6 +1,11 @@
 package com.bsdclinic.exception_handler.exception;
 
-public class ForbiddenException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.FORBIDDEN)
+public class ForbiddenException extends AccessDeniedException {
     public ForbiddenException(String message) {
         super(message);
     }

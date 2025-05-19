@@ -2,8 +2,9 @@ package com.bsdclinic;
 
 import com.bsdclinic.auth_user.AuthUserDetailService;
 import com.bsdclinic.auth_user.UserJwtAuthenticationFilter;
-import com.bsdclinic.error_handler.RestfulAccessDeniedHandler;
-import com.bsdclinic.error_handler.RestfulAuthenticationEntryPoint;
+import com.bsdclinic.error_handler.CustomAccessDeniedHandler;
+import com.bsdclinic.error_handler.CustomAuthenticationEntryPoint;
+import com.bsdclinic.url.WebUrl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -19,18 +20,9 @@ import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMap
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.access.AccessDeniedHandlerImpl;
-import org.springframework.security.web.access.RequestMatcherDelegatingAccessDeniedHandler;
-import org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
-
-import java.util.LinkedHashMap;
 
 @Configuration
 @EnableWebSecurity
@@ -40,8 +32,9 @@ public class SecurityConfiguration {
     public static final int TOKEN_EXPIRATION_TIME = 60 * 60 * 24 * 30;
 
     public static final String[] ENDPOINTS_WHITELIST = {
-            "/",
-            "/api/login",
+            WebUrl.CLIENT_HOME,
+            WebUrl.LOGIN,
+            WebUrl.API_ADMIN_LOGIN,
             "/error/**",
             "/common/**",
             "/admin/assets/**",
@@ -55,6 +48,8 @@ public class SecurityConfiguration {
     private final PasswordEncoder passwordEncoder;
     protected final MessageSource messageSource;
     protected final ObjectMapper objectMapper;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     @Configuration
     public static class PasswordEncoderConfiguration {
@@ -80,23 +75,6 @@ public class SecurityConfiguration {
         return authorityMapper;
     }
 
-    public AuthenticationEntryPoint authenticationEntryPoint() {
-        LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> entryPoints = new LinkedHashMap<>() {{
-            put(new AntPathRequestMatcher("/api/**"), new RestfulAuthenticationEntryPoint(messageSource, objectMapper));
-        }};
-        DelegatingAuthenticationEntryPoint defaultEntryPoint = new DelegatingAuthenticationEntryPoint(entryPoints);
-        defaultEntryPoint.setDefaultEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"));
-        return defaultEntryPoint;
-    }
-
-    public AccessDeniedHandler accessDeniedHandler() {
-        LinkedHashMap<RequestMatcher, AccessDeniedHandler> handlers = new LinkedHashMap<>() {{
-            put(new AntPathRequestMatcher("/api/**"), new RestfulAccessDeniedHandler(messageSource, objectMapper));
-        }};
-        AccessDeniedHandler defaultHandler = new AccessDeniedHandlerImpl();
-        return new RequestMatcherDelegatingAccessDeniedHandler(handlers, defaultHandler);
-    }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -111,16 +89,16 @@ public class SecurityConfiguration {
                         .authenticated()
                 )
                 .exceptionHandling(configurer -> configurer
-                        .accessDeniedHandler(accessDeniedHandler())
-                        .authenticationEntryPoint(authenticationEntryPoint())
+                        .accessDeniedHandler(customAccessDeniedHandler)
+                        .authenticationEntryPoint(customAuthenticationEntryPoint)
                 )
                 .formLogin(configurer -> configurer
-                        .loginPage("/login")
+                        .loginPage(WebUrl.LOGIN)
                         .permitAll()
                 )
                 .logout(configurer -> configurer
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl(WebUrl.LOGIN)
                         .deleteCookies("JWT")
                         .invalidateHttpSession(true)
                 );

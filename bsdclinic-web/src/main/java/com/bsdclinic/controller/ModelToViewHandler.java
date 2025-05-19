@@ -37,6 +37,11 @@ public class ModelToViewHandler {
         return messageProvider.getMessageMap("user.status", UserStatus.getAllNames());
     }
 
+    @ModelAttribute("genderMap")
+    public Map<String, String> getGender() {
+        return messageProvider.getMessageMap("gender", UserStatus.getAllNames());
+    }
+
     @ModelAttribute("webUrl")
     public WebUrl getWebUrl() {
         return new WebUrl();

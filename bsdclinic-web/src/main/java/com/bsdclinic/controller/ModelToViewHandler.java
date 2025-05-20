@@ -5,6 +5,7 @@ import com.bsdclinic.UserService;
 import com.bsdclinic.url.WebUrl;
 import com.bsdclinic.dto.response.IUserResponse;
 import com.bsdclinic.message.MessageProvider;
+import com.bsdclinic.user.Gender;
 import com.bsdclinic.user.RoleConstant;
 import com.bsdclinic.user.UserStatus;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ public class ModelToViewHandler {
 
     @ModelAttribute("genderMap")
     public Map<String, String> getGender() {
-        return messageProvider.getMessageMap("gender", UserStatus.getAllNames());
+        return messageProvider.getMessageMap("gender", Gender.getAllNames());
     }
 
     @ModelAttribute("webUrl")

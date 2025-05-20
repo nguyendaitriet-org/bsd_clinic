@@ -27,7 +27,8 @@ export const UserList = (function () {
     const initDateRangePicker = () => {
         module.userCreatedAtRangePicker = new Lightpick({
             field: module.creationDateRangeInputSelector[0],
-            singleDate: false
+            singleDate: false,
+            lang: 'vi'
         });
     }
 

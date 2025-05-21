@@ -24,4 +24,8 @@ public class WebUrl {
 
     // Admin - Appointment API
     public static final String API_ADMIN_APPOINTMENT = API_ADMIN_ENDPOINT + "/appointments";
+
+    // Client - Appointment API
+    public static final String API_CLIENT_APPOINTMENT = API_CLIENT_ENDPOINT + "/appointments";
+    public static final String API_CLIENT_APPOINTMENT_REGISTER_DATE = API_CLIENT_APPOINTMENT + "/available-slots";
 }

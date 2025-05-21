@@ -16,4 +16,11 @@
             RENAME COLUMN subscriber_relation TO relation_with_subscriber;
         </sql>
     </changeSet>
+
+    <changeSet id="20052025_1" author="triet.nguyendai" context="Add column register_date and register_time">
+        <sql>
+            ALTER TABLE appointments ADD COLUMN register_date DATE;
+            ALTER TABLE appointments ADD COLUMN register_time VARCHAR(20);
+        </sql>
+    </changeSet>
 </databaseChangeLog>

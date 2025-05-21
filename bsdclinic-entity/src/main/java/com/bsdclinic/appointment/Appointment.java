@@ -52,6 +52,12 @@ public class Appointment extends BaseEntity {
     @Column(name = "action_status")
     private String actionStatus;
 
+    @Column(name = "register_date")
+    private LocalDate registerDate;
+
+    @Column(name = "register_time")
+    private String registerTime;
+
     @PrePersist
     public void prePersist() {
         if (appointmentId == null) {

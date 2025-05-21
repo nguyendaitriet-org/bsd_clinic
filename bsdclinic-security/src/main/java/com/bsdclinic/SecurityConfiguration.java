@@ -35,6 +35,7 @@ public class SecurityConfiguration {
             WebUrl.CLIENT_HOME,
             WebUrl.LOGIN,
             WebUrl.API_ADMIN_LOGIN,
+            "/api/client/**",
             "/error/**",
             "/common/**",
             "/admin/assets/**",

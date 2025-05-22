@@ -1,0 +1,6 @@
+plugins {
+    id 'war'
+}
+
+group = 'com.bsdclinic'
+version = '1.0.0'

@@ -1,0 +1,25 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.13.xsd">
+
+    <changeSet id="22052025_1" author="triet.nguyendai" context="Create clinic_info table">
+        <sql>
+            CREATE TABLE IF NOT EXISTS clinic_info (
+                clinic_info_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
+                name VARCHAR(255),
+                address VARCHAR(255),
+                phone VARCHAR(20),
+                email VARCHAR(255),
+                working_hours JSONB,
+                website VARCHAR(255),
+                introduction TEXT,
+                slogan TEXT,
+                description TEXT,
+                is_active BOOLEAN,
+                register_time_range INT,
+                CONSTRAINT clinic_info_pr PRIMARY KEY (clinic_info_id)
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>

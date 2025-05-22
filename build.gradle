@@ -82,5 +82,6 @@ subprojects {
         implementation 'org.apache.commons:commons-lang3:3.14.0'
         implementation 'commons-beanutils:commons-beanutils:1.9.4'
 
+        implementation 'io.hypersistence:hypersistence-utils-hibernate-60:3.9.4'
     }
 }

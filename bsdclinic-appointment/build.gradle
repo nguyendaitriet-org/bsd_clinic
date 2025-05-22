@@ -4,3 +4,7 @@ plugins {
 
 group = 'com.bsdclinic'
 version = '1.0.0'
+
+dependencies {
+    implementation project(':bsdclinic-clinic-info')
+}

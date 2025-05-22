@@ -5,9 +5,7 @@ import com.bsdclinic.auth_user.UserJwtAuthenticationFilter;
 import com.bsdclinic.error_handler.CustomAccessDeniedHandler;
 import com.bsdclinic.error_handler.CustomAuthenticationEntryPoint;
 import com.bsdclinic.url.WebUrl;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -47,8 +45,6 @@ public class SecurityConfiguration {
     private final AuthUserDetailService authUserDetailService;
     private final UserJwtAuthenticationFilter userFilter;
     private final PasswordEncoder passwordEncoder;
-    protected final MessageSource messageSource;
-    protected final ObjectMapper objectMapper;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 

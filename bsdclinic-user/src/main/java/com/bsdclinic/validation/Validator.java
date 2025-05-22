@@ -14,7 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
-@NoArgsConstructor(access= AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Validator {
     @RequiredArgsConstructor
     public static class UniqueEmailValidator implements ConstraintValidator<RuleAnnotation.UniqueEmail, String> {
@@ -22,6 +22,7 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
+            context.disableDefaultConstraintViolation();
             return Boolean.FALSE.equals(userRepository.existsByEmail(value));
         }
     }
@@ -32,6 +33,7 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
+            context.disableDefaultConstraintViolation();
             return Boolean.TRUE.equals(roleRepository.existsByRoleId(value));
         }
     }
@@ -42,6 +44,7 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
+            context.disableDefaultConstraintViolation();
             return Boolean.TRUE.equals(userRepository.existsByUserId(value));
         }
     }
@@ -49,6 +52,7 @@ public class Validator {
     public static class NotExistedUserStatusValidator implements ConstraintValidator<RuleAnnotation.NotExistedUserStatus, String> {
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
+            context.disableDefaultConstraintViolation();
             return UserStatus.getAllNames().contains(value);
         }
     }
@@ -59,6 +63,7 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
+            context.disableDefaultConstraintViolation();
             return Boolean.FALSE.equals(userRepository.existsByPhone(value));
         }
     }
@@ -69,6 +74,8 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
+            context.disableDefaultConstraintViolation();
+
             if (StringUtils.isBlank(value)) {
                 context.buildConstraintViolationWithTemplate("{validation.required.old_password}").addConstraintViolation();
                 return false;
@@ -89,6 +96,8 @@ public class Validator {
 
         @Override
         public boolean isValid(MultipartFile avatar, ConstraintValidatorContext context) {
+            context.disableDefaultConstraintViolation();
+
             if (avatar.isEmpty()) {
                 context.buildConstraintViolationWithTemplate("{validation.required.avatar}")
                         .addConstraintViolation();
@@ -128,6 +137,8 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
+            context.disableDefaultConstraintViolation();
+
             if (StringUtils.isBlank(value)) {
                 return true;
             }
@@ -143,6 +154,8 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
+            context.disableDefaultConstraintViolation();
+
             if (StringUtils.isBlank(value)) {
                 return true;
             }

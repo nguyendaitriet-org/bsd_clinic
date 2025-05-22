@@ -51,6 +51,9 @@ public class ClinicInfo {
     @Column(name = "is_active")
     private Boolean isActive;
 
+    @Column(name = "register_time_range")
+    private Integer registerTimeRange;
+
     @PrePersist
     public void prePersist() {
         if (clinicInfoId == null) {

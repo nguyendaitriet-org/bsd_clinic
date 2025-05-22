@@ -26,7 +26,9 @@ public class ClientAppointmentServiceImpl implements ClientAppointmentService {
 
     @Override
     public AvailableAppointmentSlot getAvailableSlots(LocalDate registerDate) {
-        List<String> allTimeSlots = generateTimeSlots(registerDate, 15);
+        ClinicInfoDto clinicInfoDto = clinicInfoService.getClinicInfo();
+        Map<String, List<ClinicInfo.TimeRange>> workingSchedule = clinicInfoDto.getWorkingHours();
+        List<String> allTimeSlots = generateTimeSlots(registerDate, clinicInfoDto.getRegisterTimeRange(), workingSchedule);
         List<String> reservedTimes = appointmentRepository.findRegisterTimesByRegisterDay(registerDate);
         List<String> availableTimeSlots = allTimeSlots.stream()
                 .filter(time -> !reservedTimes.contains(time))
@@ -39,11 +41,13 @@ public class ClientAppointmentServiceImpl implements ClientAppointmentService {
                 .build();
     }
 
-    private List<String> generateTimeSlots(LocalDate date, int intervalMinutes) {
+    private List<String> generateTimeSlots(
+            LocalDate date,
+            Integer intervalMinutes,
+            Map<String, List<ClinicInfo.TimeRange>> workingSchedule
+    ) {
         DayOfWeek day = date.getDayOfWeek();
-        ClinicInfoDto clinicInfoDto = clinicInfoService.getClinicInfo();
-        Map<String, List<ClinicInfo.TimeRange>> workingHoursMap = clinicInfoDto.getWorkingHours();
-        List<ClinicInfo.TimeRange> workingHours = workingHoursMap.get(day.name());
+        List<ClinicInfo.TimeRange> workingHours = workingSchedule.get(day.name());
         if (workingHours == null) return List.of();
 
         List<String> slots = new ArrayList<>();

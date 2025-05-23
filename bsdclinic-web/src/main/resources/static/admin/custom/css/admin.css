@@ -44,3 +44,7 @@
 .sidebar .nav-collapse {
     margin-bottom: 3px;
 }
+
+.bootstrap-select .dropdown-toggle:focus {
+    outline: none!important;
+}

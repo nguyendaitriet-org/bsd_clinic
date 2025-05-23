@@ -1,6 +1,7 @@
 package com.bsdclinic.url;
 
 public class WebUrl {
+    // Page
     public static final String CLIENT_HOME = "/";
     public static final String ADMIN_HOME = "/admin";
     public static final String ADMIN_USERS_INDEX = "/admin/users";
@@ -9,10 +10,14 @@ public class WebUrl {
     public static final String ADMIN_APPOINTMENT_CREATE = "/admin/appointments/create";
     public static final String LOGIN = "/login";
     public static final String LOGOUT = "/logout";
+    public static final String ERROR = "/error";
+    public static final String ADMIN_CLINIC_INFO = "/admin/clinic-info";
 
+    // API base
     public static final String API_ADMIN_ENDPOINT = "/api/admin";
     public static final String API_CLIENT_ENDPOINT = "/api/client";
 
+    // Admin - Login
     public static final String API_ADMIN_LOGIN = API_ADMIN_ENDPOINT + LOGIN;
 
     // Admin - User API

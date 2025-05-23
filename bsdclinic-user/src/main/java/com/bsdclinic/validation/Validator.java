@@ -22,7 +22,6 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
-            context.disableDefaultConstraintViolation();
             return Boolean.FALSE.equals(userRepository.existsByEmail(value));
         }
     }
@@ -33,7 +32,6 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
-            context.disableDefaultConstraintViolation();
             return Boolean.TRUE.equals(roleRepository.existsByRoleId(value));
         }
     }
@@ -44,7 +42,6 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
-            context.disableDefaultConstraintViolation();
             return Boolean.TRUE.equals(userRepository.existsByUserId(value));
         }
     }
@@ -52,7 +49,6 @@ public class Validator {
     public static class NotExistedUserStatusValidator implements ConstraintValidator<RuleAnnotation.NotExistedUserStatus, String> {
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
-            context.disableDefaultConstraintViolation();
             return UserStatus.getAllNames().contains(value);
         }
     }
@@ -63,7 +59,6 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
-            context.disableDefaultConstraintViolation();
             return Boolean.FALSE.equals(userRepository.existsByPhone(value));
         }
     }
@@ -137,8 +132,6 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
-            context.disableDefaultConstraintViolation();
-
             if (StringUtils.isBlank(value)) {
                 return true;
             }
@@ -154,8 +147,6 @@ public class Validator {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
-            context.disableDefaultConstraintViolation();
-
             if (StringUtils.isBlank(value)) {
                 return true;
             }

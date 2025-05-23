@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/layout/app}">
+
+<th:block layout:fragment="content-style">
+
+</th:block>
+
+<body>
+<th:block layout:fragment="content-title" th:text="#{title.clinic_info}"></th:block>
+
+<th:block layout:fragment="content-title-note"></th:block>
+
+<th:block layout:fragment="content-button"></th:block>
+
+<th:block layout:fragment="content-body">
+    <div class="card col-md-6 col-sm-8 mx-auto">
+        <div class="card-body text-center">
+            <!-- User Info -->
+            <div class="mx-auto">
+
+            </div>
+
+            <div class="d-flex col-11 mx-auto my-5 justify-content-between">
+                <div class="col-3"></div>
+                <div class="col d-flex justify-content-center gap-2">
+                    <button class="btn btn-primary" th:text="#{title.save}"></button>
+                    <button class="btn btn-secondary cancel-btn" th:text="#{title.cancel}"></button>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-black float-end" th:text="#{title.change_password}"></button>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-black"></div>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="user-script">
+    <script type="module" th:src="@{/admin/custom/js/clinic_info/script.js}"></script>
+</th:block>
+</body>
+</html>

@@ -4,6 +4,8 @@ import com.bsdclinic.clinic_info.ClinicInfo;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.message.MessageProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,7 @@ public class ClinicInfoServiceImpl implements ClinicInfoService {
     private final MessageProvider messageProvider;
 
     @Override
+    @Cacheable(value = "clinicInfo")
     public ClinicInfoDto getClinicInfo() {
         List<ClinicInfo> clinicInfo = clinicInfoRepository.findAll();
         if (clinicInfo.isEmpty()) {
@@ -23,5 +26,11 @@ public class ClinicInfoServiceImpl implements ClinicInfoService {
         }
 
         return clinicInfoMapper.toDto(clinicInfo.getFirst());
+    }
+
+    @Override
+    @CacheEvict(value = "clinicInfo", allEntries = true)
+    public void evictClinicInfoCache() {
+        // This method will clear all entries in the 'clinicInfo' cache.
     }
 }

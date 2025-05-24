@@ -5,6 +5,7 @@
       layout:decorate="~{/admin/layout/app}">
 
 <th:block layout:fragment="content-style">
+    <link th:href="@{/admin/assets/plugin/tempus-dominus/tempus-dominus.min.css}" rel="stylesheet">
 
 </th:block>
 
@@ -16,22 +17,117 @@
 <th:block layout:fragment="content-button"></th:block>
 
 <th:block layout:fragment="content-body">
-    <div class="card col-md-6 col-sm-8 mx-auto">
-        <div class="card-body text-center">
+    <div class="card col-md-8 col-sm-10 mx-auto">
+        <div class="card-header bg-black text-white rounded-top-3">
+            <h4 th:text="#{title.clinic_info.edit}"></h4>
+        </div>
+        <div class="card-body">
             <!-- User Info -->
-            <div class="mx-auto">
+            <div class="mx-auto py-3 px-5">
+                <div class="mb-3 with-validation">
+                    <label th:text="#{title.clinic_info.name}" class="required-field" for="name"></label>
+                    <input class="form-control" type="text" name="name" id="name">
+                </div>
+                <div class="mb-3 with-validation">
+                    <label th:text="#{title.address}" class="required-field" for="address"></label>
+                    <input class="form-control" type="text" name="address" id="address">
+                </div>
+                <div class="mb-3 with-validation">
+                    <label th:text="#{title.phone}" class="required-field" for="phone"></label>
+                    <input class="form-control" type="text" name="phone" id="phone">
+                </div>
+                <div class="mb-3 with-validation">
+                    <label th:text="#{title.email}" for="email"></label>
+                    <input class="form-control" type="email" name="email" id="email">
+                </div>
+                <div class="mb-3 with-validation">
+                    <label th:text="#{title.website}"></label>
+                    <input class="form-control" type="text" name="website">
+                </div>
+                <div class="mb-3 with-validation">
+                    <label th:text="#{title.introduction}" for="introduction"></label>
+                    <textarea class="form-control" name="introduction" id="introduction"></textarea>
+                </div>
+                <div class="mb-3 with-validation">
+                    <label th:text="#{title.slogan}" for="slogan"></label>
+                    <textarea class="form-control" name="slogan" id="slogan"></textarea>
+                </div>
+                <div class="mb-3 with-validation">
+                    <label th:text="#{title.introduction}" for="description"></label>
+                    <textarea class="form-control" name="description" id="description"></textarea>
+                </div>
+                <div class="mb-3 with-validation">
+                    <label class="required-field me-3" th:text="#{title.status}"></label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio"
+                               name="isActive" id="active" value="1" checked/>
+                        <label class="form-check-label" th:for="active"
+                               th:text="#{title.active}"></label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio"
+                               name="isActive" id="closed" value="1"/>
+                        <label class="form-check-label" th:for="closed"
+                               th:text="#{title.closed}"></label>
+                    </div>
+                </div>
+                <div class="mb-3 with-validation">
+                    <label th:text="#{title.clinic_info.register_time_range}" for="register-time-range" class="required-field"></label>
+                    <input class="form-control" type="number" name="registerTimeRange" id="register-time-range">
+                </div>
+                <div class="mb-3 with-validation">
+                    <label class="required-field me-3 mb-1" th:text="#{title.clinic_info.working_hours}"></label>
+                    <div class="d-flex gap-3">
+                        <div class="col-3">
+                            <select class="form-control">
+                                <option value="MONDAY">Thứ hai</option>
+                                <option value="TUESDAY">Thứ ba</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input class="form-control col-10" type="text" id="time-range-output" readonly>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="d-flex gap-2 align-items-end">
+                    <div class="col">
+                        <label for="startTime" class="form-label" th:text="#{title.start_time}"></label>
+                        <div class="input-group" id="start-time-picker" data-td-target-input="nearest"
+                             data-td-target-toggle="nearest">
+                            <input type="text" class="form-control form-control-sm" id="startTime" data-td-target="#startTimePicker"/>
+                            <span class="input-group-text" data-td-toggle="datetimepicker"
+                                  data-td-target="#start-time-picker">
+                                <i class="far fa-clock"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="endTime" class="form-label" th:text="#{title.end_time}"></label>
+                        <div class="input-group" id="end-time-picker" data-td-target-input="nearest"
+                             data-td-target-toggle="nearest">
+                            <input type="text" class="form-control form-control-sm" id="endTime" data-td-target="#endTimePicker"/>
+                            <span class="input-group-text" data-td-toggle="datetimepicker"
+                                  data-td-target="#end-time-picker">
+                            <i class="far fa-clock"></i>
+                          </span>
+                        </div>
+                    </div>
+                    <div class="col-2 btn-group">
+                        <button type="button" class="btn btn-sm btn-success" id="btn-add-time"
+                                data-bs-toggle="tooltip" th:data-bs-title="#{title.clinic_info.working_hours.add}">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-dark" id="btn-clear-time"
+                                data-bs-toggle="tooltip" th:data-bs-title="#{title.clinic_info.working_hours.remove}">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-
-            <div class="d-flex col-11 mx-auto my-5 justify-content-between">
-                <div class="col-3"></div>
-                <div class="col d-flex justify-content-center gap-2">
+            <div class="d-flex col-11 mx-auto my-5 justify-content-center gap-4">
                     <button class="btn btn-primary" th:text="#{title.save}"></button>
                     <button class="btn btn-secondary cancel-btn" th:text="#{title.cancel}"></button>
-                </div>
-                <div class="col-3">
-                    <button class="btn btn-black float-end" th:text="#{title.change_password}"></button>
-                </div>
             </div>
         </div>
         <div class="card-footer bg-black"></div>
@@ -39,7 +135,8 @@
 
 </th:block>
 
-<th:block layout:fragment="user-script">
+<th:block layout:fragment="clinic-info-script">
+    <script th:src="@{/admin/assets/plugin/tempus-dominus/tempus-dominus.min.js}"></script>
     <script type="module" th:src="@{/admin/custom/js/clinic_info/script.js}"></script>
 </th:block>
 </body>

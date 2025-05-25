@@ -5,6 +5,7 @@ export const UserProfile = (function () {
     const module = {
         editIconSelector: $('.edit-icon'),
         cancelButtonSelector: $('.cancel-btn'),
+        saveProfileButtonSelector: $('.save-profile-btn'),
 
         userAvatarAreaSelector: $('.avatar-wrapper'),
         userAvatarImageSelector: $('.profile-pic'),
@@ -12,6 +13,11 @@ export const UserProfile = (function () {
         updateAvatarButtonSelector: $('#update-avatar-btn'),
         fileUploadInputSelector: $('.file-upload'),
         uploadButtonSelector: $('.upload-button'),
+
+        userProfileAreaSelector: $('.profile-area'),
+        userFullNameInputSelector: $('#user-full-name'),
+        userEmailInputSelector: $('#user-email'),
+        userPhoneInputSelector: $('#user-phone'),
 
         navbarProfileAvatarSelector: $('img.avatar-img'),
     };
@@ -21,12 +27,59 @@ export const UserProfile = (function () {
         handleCancelButton();
         handleAvatarUpload();
         handleUpdateAvatarButton();
+        handleSaveProfileButton();
+        toggleSaveButtonState();
+    }
+
+    /* TODO: Disable nút Lưu khi chưa có ô profile input nào được mở
+    *  Khi có bất kì ô input nào được mở thì enable nút Lưu
+    *  Bổ sung thêm ở handleCancelButton(), disable nút Lưu
+    *  */
+    const toggleSaveButtonState = () => {
+        const anyEditVisible = $('.edit-input').filter(function () {
+            return !$(this).prop('hidden');
+        }).length > 0;
+
+        module.saveProfileButtonSelector.prop('disabled', !anyEditVisible);
+    };
+
+
+
+
+    const handleSaveProfileButton = () =>{
+        module.saveProfileButtonSelector.on('click', function (){
+            const params = {
+                email: module.userEmailInputSelector.val().trim(),
+                fullName: module.userFullNameInputSelector.val().trim(),
+                phone: module.userPhoneInputSelector.val().trim()
+            };
+            console.log('profile-params', params);
+
+            $.ajax({
+                url: API_ADMIN_USER_PROFILE,
+                headers: {
+                    "accept": "application/json",
+                    "content-type": "application/json"
+                },
+                type: 'PATCH',
+                data: JSON.stringify(params),
+            })
+                .done(() => {
+                    App.showSuccessMessage(operationSuccess);
+                    setTimeout(() => location.reload(), 1000)
+                })
+                .fail((jqXHR) => {
+                    FormHandler.handleServerValidationError(module.userProfileAreaSelector, jqXHR)
+                    App.handleResponseMessageByStatusCode(jqXHR);
+                })
+        })
     }
 
     const handleEditIcon = () => {
         module.editIconSelector.on('click', function () {
             $(this).closest('div').siblings('.input-text').prop('hidden', true);
             $(this).closest('div').siblings('.edit-input').prop('hidden', false);
+            toggleSaveButtonState();
         });
     }
 
@@ -43,6 +96,7 @@ export const UserProfile = (function () {
                 const originalValue = $(this).siblings('.input-text').text();
                 input.val(originalValue);
             });
+            toggleSaveButtonState();
         });
     };
 

@@ -42,7 +42,7 @@
                 </div>
                 <div class="mb-3 with-validation">
                     <label th:text="#{title.website}"></label>
-                    <input class="form-control" type="text" name="website">
+                    <input class="form-control" type="text" name="website" id="website">
                 </div>
                 <div class="mb-3 with-validation">
                     <label th:text="#{title.introduction}" for="introduction"></label>
@@ -53,22 +53,14 @@
                     <textarea class="form-control" name="slogan" id="slogan"></textarea>
                 </div>
                 <div class="mb-3 with-validation">
-                    <label th:text="#{title.introduction}" for="description"></label>
+                    <label th:text="#{title.description}" for="description"></label>
                     <textarea class="form-control" name="description" id="description"></textarea>
                 </div>
                 <div class="mb-3 with-validation">
-                    <label class="required-field me-3" th:text="#{title.status}"></label>
+                    <label class="me-3" th:text="#{title.status}"></label>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio"
-                               name="isActive" id="active" value="1" checked/>
-                        <label class="form-check-label" th:for="active"
-                               th:text="#{title.active}"></label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio"
-                               name="isActive" id="closed" value="1"/>
-                        <label class="form-check-label" th:for="closed"
-                               th:text="#{title.closed}"></label>
+                        <input class="form-check-input" type="checkbox" name="isActive" id="is-active"/>
+                        <label class="form-check-label" for="is-active" th:text="#{title.active}"></label>
                     </div>
                 </div>
                 <div class="mb-3 with-validation">
@@ -79,9 +71,10 @@
                     <label class="required-field me-3 mb-1" th:text="#{title.clinic_info.working_hours}"></label>
                     <div class="d-flex gap-3">
                         <div class="col-3">
-                            <select class="form-control">
-                                <option value="MONDAY">Thứ hai</option>
-                                <option value="TUESDAY">Thứ ba</option>
+                            <select class="form-control" id="day-option">
+                                <th:block th:each="dayOfWeek: ${dayOfWeekMap}">
+                                    <option th:value="${dayOfWeek.key}" th:text="${dayOfWeek.value}"></option>
+                                </th:block>
                             </select>
                         </div>
                         <div class="col">
@@ -121,6 +114,10 @@
                         <button type="button" class="btn btn-sm btn-dark" id="btn-clear-time"
                                 data-bs-toggle="tooltip" th:data-bs-title="#{title.clinic_info.working_hours.remove}">
                             <i class="fas fa-times"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary" id="btn-reset-time"
+                                data-bs-toggle="tooltip" th:data-bs-title="#{title.clinic_info.working_hours.reset}">
+                            <i class="fas fa-redo-alt"></i>
                         </button>
                     </div>
                 </div>

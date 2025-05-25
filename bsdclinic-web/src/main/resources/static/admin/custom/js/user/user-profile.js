@@ -31,10 +31,6 @@ export const UserProfile = (function () {
         toggleSaveButtonState();
     }
 
-    /* TODO: Disable nút Lưu khi chưa có ô profile input nào được mở
-    *  Khi có bất kì ô input nào được mở thì enable nút Lưu
-    *  Bổ sung thêm ở handleCancelButton(), disable nút Lưu
-    *  */
     const toggleSaveButtonState = () => {
         const anyEditVisible = $('.edit-input').filter(function () {
             return !$(this).prop('hidden');
@@ -42,9 +38,6 @@ export const UserProfile = (function () {
 
         module.saveProfileButtonSelector.prop('disabled', !anyEditVisible);
     };
-
-
-
 
     const handleSaveProfileButton = () =>{
         module.saveProfileButtonSelector.on('click', function (){
@@ -83,10 +76,6 @@ export const UserProfile = (function () {
         });
     }
 
-    /*
-    * Hiện lại tất cả các ô input text có giá trị cũ
-    * Ẩn tất cả các ô edit input và thay lại bằng giá trị cũ
-    * */
     const handleCancelButton = () => {
         module.cancelButtonSelector.on('click', function () {
             $('.edit-input').prop('hidden', true);

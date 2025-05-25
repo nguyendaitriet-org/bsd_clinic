@@ -2,6 +2,7 @@ package com.bsdclinic.controller;
 
 import com.bsdclinic.UserPrincipal;
 import com.bsdclinic.UserService;
+import com.bsdclinic.clinic_info.DayOfWeek;
 import com.bsdclinic.url.WebUrl;
 import com.bsdclinic.dto.response.IUserResponse;
 import com.bsdclinic.message.MessageProvider;
@@ -41,6 +42,11 @@ public class ModelToViewHandler {
     @ModelAttribute("genderMap")
     public Map<String, String> getGender() {
         return messageProvider.getMessageMap("gender", Gender.getAllNames());
+    }
+
+    @ModelAttribute("dayOfWeekMap")
+    public Map<String, String> getDayOfWeek() {
+        return messageProvider.getMessageMap("day", DayOfWeek.getAllNames());
     }
 
     @ModelAttribute("webUrl")

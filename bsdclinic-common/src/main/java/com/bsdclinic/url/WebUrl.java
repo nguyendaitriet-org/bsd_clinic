@@ -17,25 +17,28 @@ public class WebUrl {
     public static final String API_ADMIN_ENDPOINT = "/api/admin";
     public static final String API_CLIENT_ENDPOINT = "/api/client";
 
-    // Admin - Login
+    // API Admin - Login
     public static final String API_ADMIN_LOGIN = API_ADMIN_ENDPOINT + LOGIN;
 
-    // Admin - User API
+    // API Admin - User
     public static final String API_ADMIN_USER_ENDPOINT = API_ADMIN_ENDPOINT + "/users";
     public static final String API_ADMIN_USER_LIST = API_ADMIN_USER_ENDPOINT + "/list";
     public static final String API_ADMIN_USER_AVATAR = API_ADMIN_USER_ENDPOINT + "/avatar";
     public static final String API_ADMIN_USER_PROFILE = API_ADMIN_USER_ENDPOINT + "/profile";
     public static final String API_ADMIN_USER_CHANGE_PASSWORD = API_ADMIN_USER_ENDPOINT+ "/change-password";
 
-    // Admin - Appointment API
+    // API Admin - Appointment
     public static final String API_ADMIN_APPOINTMENT = API_ADMIN_ENDPOINT + "/appointments";
 
-    // Client - Appointment API
+    // API Client - Appointment
     public static final String API_CLIENT_APPOINTMENT = API_CLIENT_ENDPOINT + "/appointments";
     public static final String API_CLIENT_APPOINTMENT_REGISTER_DATE = API_CLIENT_APPOINTMENT + "/available-slots";
 
-    // Client - Clinic info API
+    // API Client - Clinic info
     public static final String API_CLIENT_CLINIC_INFO = API_CLIENT_ENDPOINT + "/clinic-info";
-    public static final String API_CLIENT_UPDATE_CLINIC_INFO = API_CLIENT_CLINIC_INFO + "/{clinicInfoId}";
+
+    // API Admin - Clinic info
+    public static final String API_ADMIN_CLINIC_INFO = API_ADMIN_ENDPOINT + "/clinic-info";
+    public static final String API_ADMIN_UPDATE_CLINIC_INFO = API_ADMIN_CLINIC_INFO + "/{clinicInfoId}";
 
 }

@@ -40,6 +40,17 @@ export const App = (function () {
         module.errorToastSelector.toast('show');
     }
 
+    module.showSweetAlert = (type, title, content) => {
+        swal(title, content, {
+            icon : type,
+            buttons: {
+                confirm: {
+                    className : 'btn btn-success'
+                }
+            },
+        });
+    }
+
     module.clearAllModalInputsAfterClosing = () => {
         $('.modal').on('hidden.bs.modal', function () {
             FormHandler.clearAllInputs($(this));

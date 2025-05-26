@@ -6,7 +6,13 @@
 
 <th:block layout:fragment="content-style">
     <link th:href="@{/admin/assets/plugin/tempus-dominus/tempus-dominus.min.css}" rel="stylesheet">
-
+    <style>
+        #time-range-select-area .with-validation .error-text {
+            left: unset;
+            bottom: unset;
+            top: 70%;
+        }
+    </style>
 </th:block>
 
 <body>
@@ -23,7 +29,7 @@
         </div>
         <div class="card-body">
             <!-- User Info -->
-            <div class="mx-auto py-3 px-5">
+            <form class="mx-auto py-3 px-5" id="clinic-info-form">
                 <div class="mb-3 with-validation">
                     <label th:text="#{title.clinic_info.name}" class="required-field" for="name"></label>
                     <input class="form-control" type="text" name="name" id="name">
@@ -64,7 +70,8 @@
                     </div>
                 </div>
                 <div class="mb-3 with-validation">
-                    <label th:text="#{title.clinic_info.register_time_range}" for="register-time-range" class="required-field"></label>
+                    <label th:text="#{title.clinic_info.register_time_range}" for="register-time-range"
+                           class="required-field"></label>
                     <input class="form-control" type="number" name="registerTimeRange" id="register-time-range">
                 </div>
                 <div class="mb-3 with-validation">
@@ -83,12 +90,13 @@
                     </div>
                 </div>
 
-                <div class="d-flex gap-2 align-items-end">
+                <div class="d-flex gap-2 align-items-end" id="time-range-select-area">
                     <div class="col">
-                        <label for="startTime" class="form-label" th:text="#{title.start_time}"></label>
-                        <div class="input-group" id="start-time-picker" data-td-target-input="nearest"
+                        <label for="start-time" class="form-label" th:text="#{title.start_time}"></label>
+                        <div class="input-group with-validation" id="start-time-picker" data-td-target-input="nearest"
                              data-td-target-toggle="nearest">
-                            <input type="text" class="form-control form-control-sm" id="startTime" data-td-target="#startTimePicker"/>
+                            <input type="text" class="form-control form-control-sm" name="startTime"
+                                   id="start-time" data-td-target="#startTimePicker"/>
                             <span class="input-group-text" data-td-toggle="datetimepicker"
                                   data-td-target="#start-time-picker">
                                 <i class="far fa-clock"></i>
@@ -96,10 +104,11 @@
                         </div>
                     </div>
                     <div class="col">
-                        <label for="endTime" class="form-label" th:text="#{title.end_time}"></label>
-                        <div class="input-group" id="end-time-picker" data-td-target-input="nearest"
+                        <label for="end-time" class="form-label" th:text="#{title.end_time}"></label>
+                        <div class="input-group with-validation" id="end-time-picker" data-td-target-input="nearest"
                              data-td-target-toggle="nearest">
-                            <input type="text" class="form-control form-control-sm" id="endTime" data-td-target="#endTimePicker"/>
+                            <input type="text" class="form-control form-control-sm" name="endTime"
+                                   id="end-time" data-td-target="#endTimePicker"/>
                             <span class="input-group-text" data-td-toggle="datetimepicker"
                                   data-td-target="#end-time-picker">
                             <i class="far fa-clock"></i>
@@ -121,11 +130,11 @@
                         </button>
                     </div>
                 </div>
-            </div>
-            <div class="d-flex col-11 mx-auto my-5 justify-content-center gap-4">
-                    <button class="btn btn-primary" th:text="#{title.save}"></button>
-                    <button class="btn btn-secondary cancel-btn" th:text="#{title.cancel}"></button>
-            </div>
+                <div class="d-flex mx-auto my-5 justify-content-center gap-4">
+                    <button class="btn btn-primary" th:text="#{title.save}" type="submit"></button>
+                    <button class="btn btn-secondary cancel-btn" th:text="#{title.cancel}" type="button"></button>
+                </div>
+            </form>
         </div>
         <div class="card-footer bg-black"></div>
     </div>

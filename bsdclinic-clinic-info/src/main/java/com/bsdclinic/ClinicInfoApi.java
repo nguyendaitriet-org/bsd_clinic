@@ -15,8 +15,8 @@ public class ClinicInfoApi {
         return clinicInfoService.getClinicInfo();
     }
 
-    @PutMapping(WebUrl.API_CLIENT_UPDATE_CLINIC_INFO)
     @RoleAuthorization.AdminAuthorization
+    @PutMapping(WebUrl.API_ADMIN_UPDATE_CLINIC_INFO)
     public void updateClinicInfo(
             @PathVariable String clinicInfoId,
             @RequestBody @Valid ClinicInfoDto request

@@ -2,5 +2,5 @@ package com.bsdclinic;
 
 public interface ClinicInfoService {
     ClinicInfoDto getClinicInfo();
-    void evictClinicInfoCache();
+    void updateClinicInfo(String clinicInfoId, ClinicInfoDto clinicInfo);
 }

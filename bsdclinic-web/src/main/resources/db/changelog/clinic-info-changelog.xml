@@ -22,4 +22,10 @@
             );
         </sql>
     </changeSet>
+    <changeSet id="26052025_1" author="triet.nguyendai" context="Add new colum updated_at">
+        <sql>
+            ALTER TABLE clinic_info
+            ADD COLUMN updated_at TIMESTAMP;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

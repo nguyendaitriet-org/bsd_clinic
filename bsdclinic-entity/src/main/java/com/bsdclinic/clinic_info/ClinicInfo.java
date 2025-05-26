@@ -1,12 +1,16 @@
 package com.bsdclinic.clinic_info;
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
+import com.bsdclinic.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.Instant;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +57,10 @@ public class ClinicInfo {
 
     @Column(name = "register_time_range")
     private Integer registerTimeRange;
+
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Instant updatedAt;
 
     @PrePersist
     public void prePersist() {

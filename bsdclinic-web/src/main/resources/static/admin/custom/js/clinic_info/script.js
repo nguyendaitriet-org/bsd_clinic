@@ -3,6 +3,8 @@ import {FormHandler} from "/common/js/form.js";
 
 export const ClinicInfo = (function () {
     const module = {
+        clinicInfoForm: $('#clinic-info-form'),
+
         clinicNameSelector: $('#name'),
         clinicAddressSelector: $('#address'),
         clinicPhoneSelector: $('#phone'),
@@ -15,8 +17,11 @@ export const ClinicInfo = (function () {
         clinicRegisterTimeRangeSelector: $('#register-time-range'),
         clinicDayOptionSelector: $('#day-option'),
 
+        timeRangeSelectAreaSelector: $('#time-range-select-area'),
         startTimeSelector: $('#start-time-picker'),
+        startTimeInputSelector: $('#start-time'),
         endTimeSelector: $('#end-time-picker'),
+        endTimeInputSelector: $('#end-time'),
         selectTimeRangeSelector: $('#select-time-range'),
         timeRangeOutputSelector: $('#time-range-output'),
         addTimeButtonSelector: $('#btn-add-time'),
@@ -50,6 +55,7 @@ export const ClinicInfo = (function () {
         handleAddTimeButton();
         handleClearTimeButton();
         handleResetTimeButton();
+        handleSubmittingClinicInfoForm();
     }
 
     const initTimeSelect = () => {
@@ -63,10 +69,10 @@ export const ClinicInfo = (function () {
             url: API_CLIENT_CLINIC_INFO,
         })
             .done((clinicInfo) => {
-                console.log(clinicInfo)
                 renderClinicInfo(clinicInfo);
                 module.workingHours = {...clinicInfo.workingHours};
                 module.workingHoursRequest = {...clinicInfo.workingHours};
+                module.clinicInfoId = clinicInfo.clinicInfoId;
                 renderWorkingHours(clinicInfo.workingHours);
             })
             .fail((jqXHR) => {
@@ -129,7 +135,10 @@ export const ClinicInfo = (function () {
             const startTime = module.startTimePicker.dates.lastPicked;
             const endTime = module.endTimePicker.dates.lastPicked;
 
-            if (!startTime || !endTime) return;
+            if (!startTime || !endTime) {
+                handleEmptyTimeRangeSelect(startTime, endTime);
+                return;
+            }
 
             /* Convert picked datetime to pattern 'HH:mm' */
             const formatTime = dateTimeParam => {
@@ -139,15 +148,46 @@ export const ClinicInfo = (function () {
                     minute: '2-digit',
                     hour12: false
                 });
-            }
+            };
 
-            const timeRange =`${formatTime(startTime)}-${formatTime(endTime)}`;
+            const timeRange = `${formatTime(startTime)}-${formatTime(endTime)}`;
             const oldTimeRangeOutput = module.timeRangeOutputSelector.val();
             const outputResult = oldTimeRangeOutput +
                 (oldTimeRangeOutput ? `,${timeRange}` : timeRange);
 
             module.timeRangeOutputSelector.val(outputResult);
+
+            /* Update the working hours request for updating clinic info API */
+            const selectedDay = module.clinicDayOptionSelector.val();
+            module.workingHoursRequest[selectedDay] = convertToWorkingHoursRequest(outputResult);
         });
+    }
+
+    const convertToWorkingHoursRequest = (workingHoursString) => {
+        return workingHoursString.split(',').map(range => {
+            const [start, end] = range.split('-');
+            return { start, end };
+        });
+    }
+
+    const handleEmptyTimeRangeSelect = (startTime, endTime) => {
+        const errors = {};
+
+        if (!startTime) {
+            errors.startTime = requiredStartTime;
+        }
+        if (!endTime) {
+            errors.endTime = requiredEndTime;
+        }
+
+        if (Object.keys(errors).length > 0) {
+            const errorResponse = {
+                responseJSON: {
+                    errors
+                }
+            };
+            FormHandler.handleServerValidationError(module.timeRangeSelectAreaSelector, errorResponse);
+        }
     }
 
     const handleClearTimeButton = () => {
@@ -161,8 +201,42 @@ export const ClinicInfo = (function () {
             /* Select the first option and get its value */
             const selectedDay = module.clinicDayOptionSelector.prop('selectedIndex', 0).val();
             renderWorkingHoursBySelectedDay(selectedDay, module.workingHours);
+
             module.workingHoursRequest = {...module.workingHours};
+
+            module.startTimePicker.dates.clear();
+            module.startTimeInputSelector.val('');
+            module.endTimePicker.dates.clear();
+            module.endTimeInputSelector.val('');
         });
+    }
+
+    const handleSubmittingClinicInfoForm = () => {
+        module.clinicInfoForm.on('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const clinicInfoParams = Object.fromEntries(formData);
+            clinicInfoParams.workingHours = {...module.workingHoursRequest};
+            clinicInfoParams.isActive = module.clinicIsActiveSelector.prop('checked');
+
+            $.ajax({
+                headers: {
+                    "accept": "application/json",
+                    "content-type": "application/json"
+                },
+                type: 'PUT',
+                url: API_ADMIN_UPDATE_CLINIC_INFO.replace('{clinicInfoId}', module.clinicInfoId),
+                data: JSON.stringify(clinicInfoParams),
+            })
+                .done(() => {
+                    App.showSweetAlert('success', operationSuccess, '');
+                    setTimeout(() => location.reload(), 1000);
+                })
+                .fail((jqXHR) => {
+                    App.handleResponseMessageByStatusCode(jqXHR);
+                    FormHandler.handleServerValidationError(module.clinicInfoForm, jqXHR)
+                })
+        })
     }
 
     return module;

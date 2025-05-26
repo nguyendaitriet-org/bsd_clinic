@@ -36,5 +36,6 @@ public class WebUrl {
 
     // Client - Clinic info API
     public static final String API_CLIENT_CLINIC_INFO = API_CLIENT_ENDPOINT + "/clinic-info";
+    public static final String API_CLIENT_UPDATE_CLINIC_INFO = API_CLIENT_CLINIC_INFO + "/{clinicInfoId}";
 
 }

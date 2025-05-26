@@ -30,7 +30,14 @@ public class ClinicInfoServiceImpl implements ClinicInfoService {
 
     @Override
     @CacheEvict(value = "clinicInfo", allEntries = true)
-    public void evictClinicInfoCache() {
-        // This method will clear all entries in the 'clinicInfo' cache.
+    public void updateClinicInfo(String clinicInfoId, ClinicInfoDto request) {
+        if (Boolean.FALSE.equals(clinicInfoRepository.existsByClinicInfoId(clinicInfoId))) {
+            throw new NotFoundException(messageProvider.getMessage("validation.no_exist.clinic_id"));
+        }
+
+        ClinicInfo clinicInfo = clinicInfoMapper.toEntity(request);
+        clinicInfo.setClinicInfoId(clinicInfoId);
+
+        clinicInfoRepository.save(clinicInfo);
     }
 }

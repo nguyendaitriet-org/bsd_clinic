@@ -1,0 +1,164 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/client/layout/app}"
+>
+<th:block layout:fragment="content-style">
+    <link rel="stylesheet" th:href="@{/client/custom/css/appointment.css}"/>
+</th:block>
+
+<th:block layout:fragment="content-body">
+    <!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb">
+        <div class="container text-center py-5" style="max-width: 900px;">
+            <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s"
+                th:text="#{title.appointment.register}"
+            ></h4>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <div class="container-fluid bg-light about py-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
+                    <div class="about-item-content bg-white rounded p-5 h-100 position-relative">
+                        <h4 class="text-primary" th:text="#{title.subscriber.info}"></h4>
+                        <form action="">
+                            <div class="form-holder">
+                                <label for="subscriber-name">
+                                    <span class="fas fa-user"></span>
+                                </label>
+                                <input type="text" class="form-control-custom" id="subscriber-name"
+                                       name="subscriberName"
+                                       th:placeholder="#{placeholder.full_name.required}">
+                            </div>
+                            <div class="form-holder">
+                                <label for="subscriber-phone">
+                                    <span class="fas fa-phone"></span>
+                                </label>
+                                <input type="text" class="form-control-custom" id="subscriber-phone"
+                                       name="subscriberPhone"
+                                       th:placeholder="#{placeholder.phone.required}">
+                            </div>
+                            <div class="form-holder">
+                                <label for="subscriber-email">
+                                    <span class="fas fa-envelope"></span>
+                                </label>
+                                <input type="text" class="form-control-custom" id="subscriber-email"
+                                       name="subscriberEmail"
+                                       th:placeholder="#{placeholder.email.required}">
+                            </div>
+                            <div class="form-check mt-4">
+                                <input class="form-check-input" type="checkbox" value="" id="self-register">
+                                <label class="form-check-label" for="self-register"
+                                       th:text="#{title.subscriber.self_register}"></label>
+                            </div>
+                            <div class="d-flex gap-3 mt-3">
+                                <div class="form-holder col">
+                                    <label for="register-date">
+                                        <span class="far fa-calendar-alt"></span>
+                                    </label>
+                                    <input type="text" class="form-control-custom" id="register-date"
+                                           name="registerDate"
+                                           th:placeholder="#{placeholder.register_date.required}"/>
+                                </div>
+                                <div class="form-holder col">
+                                    <label for="register-time">
+                                        <span class="far fa-clock"></span>
+                                    </label>
+                                    <select class="form-control-custom text-muted" id="register-time">
+                                        <option class="text-muted" th:text="#{placeholder.register_time.required}" disabled selected></option>
+                                        <option>12:30</option>
+                                        <option>13:00</option>
+                                        <option>13:30</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                        <button th:text="#{title.submit}"
+                           class="btn btn-lg btn-primary rounded-pill py-2 px-5 flex-shrink-0 mb-5 position-absolute bottom-0 start-50 translate-middle">
+                        </button>
+                    </div>
+                </div>
+                <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
+                    <div class="bg-white rounded p-5 h-100">
+                        <h4 class="text-primary" th:text="#{title.patient.info}"></h4>
+                        <form action="">
+                            <div class="form-holder">
+                                <label for="patient-name">
+                                    <span class="fas fa-user"></span>
+                                </label>
+                                <input type="text" class="form-control-custom" id="patient-name" name="patientName"
+                                       th:placeholder="#{placeholder.full_name.required}">
+                            </div>
+                            <div class="form-holder">
+                                <label for="patient-phone">
+                                    <span class="fas fa-phone"></span>
+                                </label>
+                                <input type="text" class="form-control-custom" id="patient-phone" name="patientPhone"
+                                       th:placeholder="#{placeholder.phone}">
+                            </div>
+                            <div class="form-holder">
+                                <label for="patient-email">
+                                    <span class="fas fa-envelope"></span>
+                                </label>
+                                <input type="text" class="form-control-custom" id="patient-email" name="patientEmail"
+                                       th:placeholder="#{placeholder.email}">
+                            </div>
+                            <div class="form-group mb-3">
+                                <span class="required-field me-3" th:text="#{title.gender}"></span>
+                                <th:block th:each="gender, iter : ${genderMap}">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               name="patientGender"
+                                               th:id="${gender.key}"
+                                               th:value="${gender.key}"
+                                               th:checked="${iter.index == 0}">
+                                        <label class="form-check-label"
+                                               th:for="${gender.key}"
+                                               th:text="${gender.value}"></label>
+                                    </div>
+                                </th:block>
+                            </div>
+                            <div class="form-holder">
+                                <label for="patient-birthday">
+                                    <span class="far fa-calendar-alt"></span>
+                                </label>
+                                <input type="text" class="form-control-custom" id="patient-birthday" name="patientBirthday"
+                                       th:placeholder="#{placeholder.birthday.required}"/>
+                            </div>
+                            <div class="form-holder">
+                                <label for="patient-address">
+                                    <span class="fas fa-map-marker-alt"></span>
+                                </label>
+                                <input type="text" class="form-control-custom" id="patient-address"
+                                       name="patientAddress"
+                                       th:placeholder="#{placeholder.address}">
+                            </div>
+                            <div class="form-holder">
+                                <label for="subscriber-relation" >
+                                    <span class="fas fa-people-arrows"></span>
+                                </label>
+                                <input type="text" class="form-control-custom" id="subscriber-relation" name="subscriberRelation"
+                                       th:placeholder="#{placeholder.subscriber_relation.required}">
+                            </div>
+                            <div class="form-holder">
+                                <label for="visit-reason">
+                                    <span class="fas fa-exclamation"></span>
+                                </label>
+                                <input type="text" class="form-control-custom" id="visit-reason" name="visitReason"
+                                       th:placeholder="#{placeholder.visit_reason.required}">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="appointment-script">
+    <script type="module" th:src="@{/client/custom/js/appointment/create.js}"></script>
+</th:block>

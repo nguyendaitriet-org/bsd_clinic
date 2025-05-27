@@ -230,7 +230,6 @@
     }
 
     .navbar .navbar-nav .nav-btn {
-        width: 100%;
         display: flex;
         margin-left: auto;
     }
@@ -345,7 +344,7 @@
 .bg-breadcrumb {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(rgba(1, 95, 201, 0.9), rgba(0, 0, 0, 0.2)), url(../img/bg-breadcrumb.jpg);
+    background: linear-gradient(rgba(1, 95, 201, 0.9), rgba(0, 0, 0, 0.2)), url(/client/assets/img/bg-breadcrumb.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

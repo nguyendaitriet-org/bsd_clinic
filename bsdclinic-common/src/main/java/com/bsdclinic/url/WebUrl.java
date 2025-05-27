@@ -8,10 +8,12 @@ public class WebUrl {
     public static final String ADMIN_USERS_PROFILE = "/admin/users/profile";
     public static final String ADMIN_APPOINTMENT_INDEX = "/admin/appointments";
     public static final String ADMIN_APPOINTMENT_CREATE = "/admin/appointments/create";
+    public static final String ADMIN_CLINIC_INFO = "/admin/clinic-info";
     public static final String LOGIN = "/login";
     public static final String LOGOUT = "/logout";
     public static final String ERROR = "/error";
-    public static final String ADMIN_CLINIC_INFO = "/admin/clinic-info";
+
+    public static final String CLIENT_APPOINTMENT_CREATE = "/client/appointments/create";
 
     // API base
     public static final String API_ADMIN_ENDPOINT = "/api/admin";

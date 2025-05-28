@@ -89,16 +89,45 @@
                     <button class="btn btn-secondary cancel-btn" th:text="#{title.cancel}"></button>
                 </div>
                 <div class="col-3">
-                    <button class="btn btn-black float-end" th:text="#{title.change_password}"></button>
+                    <button class="btn btn-black float-end" data-bs-toggle="modal" data-bs-target="#change-password-modal"
+                            th:text="#{title.change_password}" id="open-change-password"></button>
                 </div>
             </div>
         </div>
         <div class="card-footer bg-black"></div>
     </div>
+
+<!--    <div id="change-password-modal" class="modal" style="display: none;">-->
+<!--        <div class="modal-content">-->
+<!--            <h5 class="text-center mb-3" th:text="#{title.change_password}"></h5>-->
+<!--            <form id="change-password-form">-->
+<!--                <div class="mb-2">-->
+<!--                    <label for="old-password" class="form-label" th:text="#{title.change_password.old_password}"></label>-->
+<!--                    <input type="password" class="form-control" id="old-password" required>-->
+<!--                </div>-->
+<!--                <div class="mb-2">-->
+<!--                    <label for="new-password" class="form-label" th:text="#{title.change_password.new_password}"></label>-->
+<!--                    <input type="password" class="form-control" id="new-password" required>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="confirm-password" class="form-label" th:text="#{title.change_password.confirmation_password}"></label>-->
+<!--                    <input type="password" class="form-control" id="confirm-password" required>-->
+<!--                </div>-->
+<!--                <div class="d-flex justify-content-between">-->
+<!--                    <button type="submit" id="save-password-btn" class="btn btn-primary" th:text="#{title.save}" disabled></button>-->
+<!--                    <button type="button" id="cancel-password-btn" class="btn btn-secondary" th:text="#{title.cancel}"></button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+    <!-- Change password modal -->
+    <th:block th:replace="~{admin/user/component/change_pass_form :: change-password}"></th:block>
+
 </th:block>
 
 <th:block layout:fragment="user-script">
     <script type="module" th:src="@{/admin/custom/js/user/user-profile.js}"></script>
+    <script type="module" th:src="@{/admin/custom/js/user/user-change-password.js}"></script>
 </th:block>
 </body>
 </html>

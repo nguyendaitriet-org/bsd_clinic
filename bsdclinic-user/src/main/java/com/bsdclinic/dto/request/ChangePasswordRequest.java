@@ -18,7 +18,7 @@ public class ChangePasswordRequest {
     @RuleAnnotation.CheckOldPassword
     private String oldPassword;
 
-    @NotBlank(message = "validation.required.new_password")
+    @NotBlank(message = "{validation.required.new_password}")
     @Size(min = 6, max = 16, message = "{validation.length.password}")
     private String newPassword;
 

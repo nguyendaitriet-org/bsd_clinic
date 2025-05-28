@@ -1,10 +1,11 @@
 import {App} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
+import AdminAppointmentCreation from "/admin/custom/js/appointment/appointment-create.js";
 
 export const AppointmentCreation = (function () {
     const module = {
-        registerDateSelector: $('#register-date'),
         patientBirthdaySelector: $('#patient-birthday'),
+        registerDateSelector: $('#register-date'),
         registerTimeSelector: $('#register-time')
     };
 
@@ -12,13 +13,15 @@ export const AppointmentCreation = (function () {
         initDatePicker();
         toggleSelectMutedClass();
         toggleSelectMutedClass();
+        AdminAppointmentCreation.toggleSelfRegisterCheckbox();
     }
 
     const initDatePicker = () => {
         module.registerDate = new Lightpick({
             field: module.registerDateSelector[0],
             lang: 'vi',
-            minDate: moment()
+            minDate: moment(),
+            onSelect: handleRegisterDateChange
         });
 
         module.patientBirthday = new Lightpick({
@@ -36,6 +39,31 @@ export const AppointmentCreation = (function () {
             } else {
                 $(this).removeClass('text-muted');
             }
+        })
+    }
+
+    const getAvailableRegisterTime = (registerDate) => {
+        return $.ajax({
+            url: API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS,
+            data: {registerDate}
+        })
+            .fail((jqXHR) => {
+                App.handleResponseMessageByStatusCode(jqXHR);
+            })
+    }
+
+    const handleRegisterDateChange = (dateMoment) => {
+        const formattedDate = dateMoment.format('YYYY-MM-DD');
+        getAvailableRegisterTime(formattedDate).then((response) => {
+            /* Re-select the first option */
+            module.registerTimeSelector.children().first().prop('selected', true);
+            module.registerTimeSelector.addClass('text-muted');
+            /* Remove all options except the first */
+            module.registerTimeSelector.children().slice(1).remove();
+            /* Render new options from the response */
+            const availableSlots = response.availableSlots;
+            const options = availableSlots.map(slot => new Option(slot, slot));
+            module.registerTimeSelector.append(options);
         })
     }
 

@@ -20,6 +20,12 @@ export const UserProfile = (function () {
         userPhoneInputSelector: $('#user-phone'),
 
         navbarProfileAvatarSelector: $('img.avatar-img'),
+
+        changePasswordModalSelector: $('#change-password-modal'),
+        oldPasswordSelector: $('input[name="oldPassword"]'),
+        newPasswordSelector: $('input[name="newPassword"]'),
+        passwordConfirmationSelector: $('input[name="newPasswordConfirmation"]'),
+        savePasswordButtonSelector: $('.btn-save-password')
     };
 
     module.init = () => {
@@ -29,6 +35,7 @@ export const UserProfile = (function () {
         handleUpdateAvatarButton();
         handleSaveProfileButton();
         toggleSaveButtonState();
+        handleSavePasswordBtn();
     }
 
     const toggleSaveButtonState = () => {
@@ -39,14 +46,13 @@ export const UserProfile = (function () {
         module.saveProfileButtonSelector.prop('disabled', !anyEditVisible);
     };
 
-    const handleSaveProfileButton = () =>{
-        module.saveProfileButtonSelector.on('click', function (){
+    const handleSaveProfileButton = () => {
+        module.saveProfileButtonSelector.on('click', function () {
             const params = {
                 email: module.userEmailInputSelector.val().trim(),
                 fullName: module.userFullNameInputSelector.val().trim(),
                 phone: module.userPhoneInputSelector.val().trim()
             };
-            console.log('profile-params', params);
 
             $.ajax({
                 url: API_ADMIN_USER_PROFILE,
@@ -139,6 +145,37 @@ export const UserProfile = (function () {
                 App.handleResponseMessageByStatusCode(jqXHR);
             })
     }
+
+    /* Handle password change */
+    const handleSavePasswordBtn = () => {
+        module.savePasswordButtonSelector.on('click', function () {
+            const params = {
+                oldPassword: module.oldPasswordSelector.val(),
+                newPassword: module.newPasswordSelector.val(),
+                newPasswordConfirmation: module.passwordConfirmationSelector.val(),
+            }
+            $.ajax({
+                url: API_ADMIN_USER_CHANGE_PASSWORD,
+                headers: {
+                    "accept": "application/json",
+                    "content-type": "application/json"
+                },
+                type: 'PUT',
+                data: JSON.stringify(params),
+            })
+                .done(() => {
+                    App.showSuccessMessage(operationSuccess);
+                    module.changePasswordModalSelector.modal('hide');
+                    FormHandler.clearAllInputs(module.changePasswordModalSelector);
+                })
+                .fail((jqXHR) => {
+                    FormHandler.handleServerValidationError(module.changePasswordModalSelector, jqXHR)
+                    App.handleResponseMessageByStatusCode(jqXHR);
+                })
+        })
+
+    }
+
 
     return module;
 })();

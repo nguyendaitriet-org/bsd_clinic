@@ -34,7 +34,7 @@ public class WebUrl {
 
     // API Client - Appointment
     public static final String API_CLIENT_APPOINTMENT = API_CLIENT_ENDPOINT + "/appointments";
-    public static final String API_CLIENT_APPOINTMENT_REGISTER_DATE = API_CLIENT_APPOINTMENT + "/available-slots";
+    public static final String API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS = API_CLIENT_APPOINTMENT + "/available-slots";
 
     // API Client - Clinic info
     public static final String API_CLIENT_CLINIC_INFO = API_CLIENT_ENDPOINT + "/clinic-info";

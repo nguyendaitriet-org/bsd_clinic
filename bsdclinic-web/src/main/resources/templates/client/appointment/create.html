@@ -54,7 +54,7 @@
                                 <label class="form-check-label" for="self-register"
                                        th:text="#{title.subscriber.self_register}"></label>
                             </div>
-                            <div class="d-flex gap-3 mt-3">
+                            <div class="d-flex gap-3 mt-3 mb-5">
                                 <div class="form-holder col">
                                     <label for="register-date">
                                         <span class="far fa-calendar-alt"></span>
@@ -69,15 +69,12 @@
                                     </label>
                                     <select class="form-control-custom text-muted" id="register-time">
                                         <option class="text-muted" th:text="#{placeholder.register_time.required}" disabled selected></option>
-                                        <option>12:30</option>
-                                        <option>13:00</option>
-                                        <option>13:30</option>
                                     </select>
                                 </div>
                             </div>
                         </form>
                         <button th:text="#{title.submit}"
-                           class="btn btn-lg btn-primary rounded-pill py-2 px-5 flex-shrink-0 mb-5 position-absolute bottom-0 start-50 translate-middle">
+                           class="btn btn-lg btn-primary rounded-pill py-2 px-5 flex-shrink-0 position-absolute bottom-0 start-50 translate-middle">
                         </button>
                     </div>
                 </div>
@@ -138,10 +135,10 @@
                                        th:placeholder="#{placeholder.address}">
                             </div>
                             <div class="form-holder">
-                                <label for="subscriber-relation" >
+                                <label for="relation-with-subscriber" >
                                     <span class="fas fa-people-arrows"></span>
                                 </label>
-                                <input type="text" class="form-control-custom" id="subscriber-relation" name="subscriberRelation"
+                                <input type="text" class="form-control-custom" id="relation-with-subscriber" name="relationWithSubscriber"
                                        th:placeholder="#{placeholder.subscriber_relation.required}">
                             </div>
                             <div class="form-holder">

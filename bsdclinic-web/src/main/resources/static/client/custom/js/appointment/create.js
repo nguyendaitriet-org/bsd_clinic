@@ -2,6 +2,7 @@ import {App} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 import AdminAppointmentCreation from "/admin/custom/js/appointment/appointment-create.js";
 import {DateTimePattern} from "/common/js/constant.js";
+import {DateTimeConverter} from "/common/js/datetime_util.js";
 
 export const AppointmentCreation = (function () {
     const module = {
@@ -18,17 +19,29 @@ export const AppointmentCreation = (function () {
     }
 
     const initDatePicker = () => {
-        module.registerDate = new Lightpick({
-            field: module.registerDateSelector[0],
-            lang: 'vi',
-            minDate: moment(),
-            onSelect: handleRegisterDateChange
-        });
+        /* Get clinic day-offs then disable them on date picker */
+        getClinicDayOffs().then((clinicInfo) => {
+            const formattedDayOffs = clinicInfo.dayOffs.map(dayOff => DateTimeConverter.convertToDisplayPattern(dayOff));
+            module.registerDatePicker = new Lightpick({
+                field: module.registerDateSelector[0],
+                lang: 'vi',
+                minDate: moment(),
+                disableDates: formattedDayOffs,
+                onSelect: handleRegisterDateChange,
+            });
+        })
 
-        module.patientBirthday = new Lightpick({
+        module.patientBirthdayPicker = new Lightpick({
             field: module.patientBirthdaySelector[0],
             lang: 'vi',
         });
+    }
+
+    const getClinicDayOffs = () => {
+        return $.ajax({
+            type: 'GET',
+            url: API_CLIENT_CLINIC_INFO,
+        })
     }
 
     const toggleSelectMutedClass = () => {

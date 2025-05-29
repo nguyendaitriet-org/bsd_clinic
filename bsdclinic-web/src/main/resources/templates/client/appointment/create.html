@@ -63,12 +63,14 @@
                                            name="registerDate"
                                            th:placeholder="#{placeholder.register_date.required}"/>
                                 </div>
-                                <div class="form-holder col">
+                                <div class="form-holder col-6">
                                     <label for="register-time">
                                         <span class="far fa-clock"></span>
                                     </label>
                                     <select class="form-control-custom text-muted" id="register-time">
-                                        <option class="text-muted" th:text="#{placeholder.register_time.required}" disabled selected></option>
+                                        <option class="text-muted" th:text="#{placeholder.register_time.required}"
+                                                disabled selected>
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -131,8 +133,7 @@
                                     <span class="fas fa-map-marker-alt"></span>
                                 </label>
                                 <input type="text" class="form-control-custom" id="patient-address"
-                                       name="patientAddress"
-                                       th:placeholder="#{placeholder.address}">
+                                       name="patientAddress" th:placeholder="#{placeholder.address}">
                             </div>
                             <div class="form-holder">
                                 <label for="relation-with-subscriber" >

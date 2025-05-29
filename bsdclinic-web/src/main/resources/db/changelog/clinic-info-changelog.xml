@@ -28,4 +28,10 @@
             ADD COLUMN updated_at TIMESTAMP;
         </sql>
     </changeSet>
+    <changeSet id="29052025_1" author="triet.nguyendai" context="Add new colum day_offs">
+        <sql>
+            ALTER TABLE clinic_info
+            ADD COLUMN day_offs JSONB;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

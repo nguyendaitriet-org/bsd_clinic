@@ -90,9 +90,8 @@ export const ClinicInfo = (function () {
                 module.workingHoursRequest = {...clinicInfo.workingHours};
                 renderWorkingHours(module.workingHours);
 
-                // TODO: Mock data
-                module.dayOffs = ['2025-04-30', '2025-05-01'];
-                module.dayOffsRequest = ['2025-04-30', '2025-05-01', '2025-05-29', '2025-05-30'];
+                module.dayOffs = [...clinicInfo.dayOffs];
+                module.dayOffsRequest = [...clinicInfo.dayOffs];
                 renderDayOffs(module.dayOffs);
                 handleEmptyDayOffDropdown();
             })
@@ -364,8 +363,9 @@ export const ClinicInfo = (function () {
             e.preventDefault();
             const formData = new FormData(this);
             const clinicInfoParams = Object.fromEntries(formData);
-            clinicInfoParams.workingHours = {...module.workingHoursRequest};
+            clinicInfoParams.workingHours = module.workingHoursRequest;
             clinicInfoParams.isActive = module.clinicIsActiveSelector.prop('checked');
+            clinicInfoParams.dayOffs = module.dayOffsRequest;
 
             $.ajax({
                 headers: {

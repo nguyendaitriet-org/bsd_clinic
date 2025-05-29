@@ -11,6 +11,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,10 @@ public class ClinicInfo {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private Instant updatedAt;
+
+    @Column(name = "day_offs", columnDefinition = "json")
+    @Type(JsonType.class)
+    private List<LocalDate> dayOffs;
 
     @PrePersist
     public void prePersist() {

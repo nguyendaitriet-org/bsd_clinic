@@ -7,6 +7,7 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -51,4 +52,6 @@ public class ClinicInfoDto {
 
     @NotEmpty(message = "{validation.required.working_hours}")
     private Map<String, List<ClinicInfo.TimeRange>> workingHours;
+
+    private List<LocalDate> dayOffs;
 }

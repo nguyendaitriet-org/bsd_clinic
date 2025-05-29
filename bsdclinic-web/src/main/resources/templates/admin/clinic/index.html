@@ -6,38 +6,7 @@
 
 <th:block layout:fragment="content-style">
     <link th:href="@{/admin/assets/plugin/tempus-dominus/tempus-dominus.min.css}" rel="stylesheet">
-    <style>
-        #time-range-select-area .with-validation .error-text {
-            left: unset;
-            bottom: unset;
-            top: 70%;
-        }
-
-        #day-off-list-area .dropdown-menu {
-            overflow-y: auto;
-            max-height: 200px;
-        }
-
-        #day-off-list-area .dropdown-item-text {
-            padding: 0.5rem 1rem
-        }
-
-        label {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        @keyframes blink-border {
-            0% { border-color: #86b7fe; }
-            50% { border-color: transparent; }
-            100% { border-color: #86b7fe; }
-        }
-
-        .blink-border {
-            border: 2px solid #86b7fe;
-            animation: blink-border 0.6s ease-in-out 1;
-        }
-    </style>
+    <link th:href="@{/admin/custom/css/clinic_info.css}" rel="stylesheet">
 </th:block>
 
 <body>

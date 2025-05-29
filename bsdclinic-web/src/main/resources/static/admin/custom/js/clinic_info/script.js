@@ -1,6 +1,7 @@
 import {App} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 import {DateTimePattern} from "/common/js/constant.js";
+import {DateTimeConverter} from "/common/js/datetime_util.js";
 
 export const ClinicInfo = (function () {
     const module = {
@@ -57,28 +58,28 @@ export const ClinicInfo = (function () {
 
     module.init = () => {
         module.dropdownMenuSelector = module.dayOffListAreaSelector.find('.dropdown-menu');
-
-        getClinicInfo();
-
         initTimeSelect();
-        handleOnChangeDayOption();
-        handleEndTimeLimit();
-        handleAddTimeButton();
-        handleClearTimeButton();
-        handleResetTimeButton();
-
         initDayOffPicker();
-        handleAddDayOffButton();
-        handleRemoveDayOffButton();
-        handleResetDayOffButton();
 
-        handleSubmittingClinicInfoForm();
+        getClinicInfo().then(() => {
+            handleOnChangeDayOption();
+            handleEndTimeLimit();
+            handleAddTimeButton();
+            handleClearTimeButton();
+            handleResetTimeButton();
+
+            handleAddDayOffButton();
+            handleRemoveDayOffButton();
+            handleResetDayOffButton();
+
+            handleSubmittingClinicInfoForm();
+        });
     }
 
     /*--- Clinic info rendering ---*/
 
     const getClinicInfo = () => {
-        $.ajax({
+        return $.ajax({
             type: 'GET',
             url: API_CLIENT_CLINIC_INFO,
         })
@@ -245,14 +246,14 @@ export const ClinicInfo = (function () {
             field: module.dayOffInputSelector[0],
             singleDate: false,
             lang: 'vi',
-            minDate: moment()
+            minDate: moment(),
         });
     }
 
     const DayOffDropdownItem = (text, value) => `
         <li data-value="${value}">
-            <span class="dropdown-item-text">
-                <span>${text}</span>
+            <span class="dropdown-item-text d-flex justify-content-between">
+                <span class="my-auto me-2">${text}</span>
                 <span class="btn btn-sm btn-outline-danger border-0 btn-remove-day-off">X</span>
             </span>
         </li>
@@ -268,12 +269,12 @@ export const ClinicInfo = (function () {
 
     const renderDayOffs = (dayOffs) => {
         const dropdownItems = dayOffs.map(dayOff => {
-            const dayOffDate = new Date(dayOff);
-            const displayFormatDate = new Intl.DateTimeFormat('en-GB').format(dayOffDate);
+            const displayFormatDate = DateTimeConverter.convertToDisplayPattern(dayOff)
             return DayOffDropdownItem(displayFormatDate, dayOff);
         })
-
         module.dropdownMenuSelector.prepend(dropdownItems);
+
+        disableDatePickerByDayOffs(dayOffs);
     }
 
     const handleAddDayOffButton = () => {
@@ -354,6 +355,11 @@ export const ClinicInfo = (function () {
             renderDayOffs(module.dayOffs);
             clearDayOffPick();
         })
+    }
+
+    const disableDatePickerByDayOffs = (dayOffs) => {
+        const displayPatternDates = dayOffs.map(dayOff => DateTimeConverter.convertToDisplayPattern(dayOff));
+        module.dayOffPicker.setDisableDates(displayPatternDates);
     }
 
     /*--- Form submission ---*/

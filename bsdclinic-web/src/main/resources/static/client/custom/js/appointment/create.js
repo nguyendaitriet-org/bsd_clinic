@@ -1,6 +1,7 @@
 import {App} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 import AdminAppointmentCreation from "/admin/custom/js/appointment/appointment-create.js";
+import {DateTimePattern} from "/common/js/constant.js";
 
 export const AppointmentCreation = (function () {
     const module = {
@@ -53,7 +54,7 @@ export const AppointmentCreation = (function () {
     }
 
     const handleRegisterDateChange = (dateMoment) => {
-        const formattedDate = dateMoment.format('YYYY-MM-DD');
+        const formattedDate = dateMoment.format(DateTimePattern.API_DATE_FORMAT);
         getAvailableRegisterTime(formattedDate).then((response) => {
             /* Re-select the first option */
             module.registerTimeSelector.children().first().prop('selected', true);

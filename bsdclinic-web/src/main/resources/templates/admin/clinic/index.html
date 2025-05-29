@@ -12,6 +12,31 @@
             bottom: unset;
             top: 70%;
         }
+
+        #day-off-list-area .dropdown-menu {
+            overflow-y: auto;
+            max-height: 200px;
+        }
+
+        #day-off-list-area .dropdown-item-text {
+            padding: 0.5rem 1rem
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes blink-border {
+            0% { border-color: #86b7fe; }
+            50% { border-color: transparent; }
+            100% { border-color: #86b7fe; }
+        }
+
+        .blink-border {
+            border: 2px solid #86b7fe;
+            animation: blink-border 0.6s ease-in-out 1;
+        }
     </style>
 </th:block>
 
@@ -75,7 +100,7 @@
                     <input class="form-control" type="number" name="registerTimeRange" id="register-time-range">
                 </div>
                 <div class="mb-3 with-validation">
-                    <label class="required-field me-3 mb-1" th:text="#{title.clinic_info.working_hours}"></label>
+                    <label class="required-field me-3" th:text="#{title.clinic_info.working_hours}"></label>
                     <div class="d-flex gap-3">
                         <div class="col-3">
                             <select class="form-control" id="day-option">
@@ -89,10 +114,9 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="d-flex gap-2 align-items-end" id="time-range-select-area">
+                <div class="d-flex gap-2 align-items-end mb-3" id="time-range-select-area">
                     <div class="col">
-                        <label for="start-time" class="form-label" th:text="#{title.start_time}"></label>
+                        <label for="start-time" th:text="#{title.start_time}"></label>
                         <div class="input-group with-validation" id="start-time-picker" data-td-target-input="nearest"
                              data-td-target-toggle="nearest">
                             <input type="text" class="form-control form-control-sm" name="startTime"
@@ -104,7 +128,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <label for="end-time" class="form-label" th:text="#{title.end_time}"></label>
+                        <label for="end-time" th:text="#{title.end_time}"></label>
                         <div class="input-group with-validation" id="end-time-picker" data-td-target-input="nearest"
                              data-td-target-toggle="nearest">
                             <input type="text" class="form-control form-control-sm" name="endTime"
@@ -130,6 +154,31 @@
                         </button>
                     </div>
                 </div>
+                <div class="mb-3 with-validation">
+                    <label th:text="#{title.clinic_info.day_off}" for="day-off"></label>
+                    <div class="d-flex gap-3">
+                        <div class="col">
+                            <input id="day-off" type="text" class="form-control padding-fixed"
+                                   th:placeholder="#{placeholder.day_off}">
+                        </div>
+                        <button type="button" class="btn btn-success col-1" id="btn-add-day-off"
+                                data-bs-toggle="tooltip" th:data-bs-title="#{title.clinic_info.day_off.add}">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="btn-group dropdown col-xl-4 col-sm-auto" id="day-off-list-area">
+                            <button class="form-control dropdown-toggle text-grey"
+                                    th:text="#{placeholder.day_off.list}"
+                                    data-bs-auto-close="outside" type="button" data-bs-toggle="dropdown">
+                            </button>
+                            <ul class="dropdown-menu" role="menu" data-popper-placement="bottom-start">
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-primary col-1" id="btn-reset-day-off"
+                                data-bs-toggle="tooltip" th:data-bs-title="#{title.clinic_info.day_off.reset}">
+                            <i class="fas fa-redo-alt"></i>
+                        </button>
+                    </div>
+                </div>
                 <div class="d-flex mx-auto my-5 justify-content-center gap-4">
                     <button class="btn btn-primary" th:text="#{title.save}" type="submit"></button>
                     <button class="btn btn-secondary cancel-btn" th:text="#{title.cancel}" type="button"></button>
@@ -138,7 +187,6 @@
         </div>
         <div class="card-footer bg-black"></div>
     </div>
-
 </th:block>
 
 <th:block layout:fragment="clinic-info-script">

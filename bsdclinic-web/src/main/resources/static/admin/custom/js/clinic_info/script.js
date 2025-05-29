@@ -1,5 +1,6 @@
 import {App} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
+import {DateTimePattern} from "/common/js/constant.js";
 
 export const ClinicInfo = (function () {
     const module = {
@@ -28,6 +29,11 @@ export const ClinicInfo = (function () {
         clearTimeButtonSelector: $('#btn-clear-time'),
         resetTimeButtonSelector: $('#btn-reset-time'),
 
+        dayOffListAreaSelector: $('#day-off-list-area'),
+        dayOffInputSelector: $('#day-off'),
+        addDayOffButtonSelector: $('#btn-add-day-off'),
+        resetDayOffButtonSelector: $('#btn-reset-day-off'),
+
         initTimeSelectConfig: {
             display: {
                 components: {
@@ -39,29 +45,37 @@ export const ClinicInfo = (function () {
                 }
             },
             localization: {
-                format: 'HH:mm'
+                format: DateTimePattern.HOUR_MINUTE_FORMAT
             }
         },
 
         workingHours: null,
-        workingHoursRequest: null
+        workingHoursRequest: null,
+        dayOffs: null,
+        dayOffsRequest: null
     };
 
     module.init = () => {
-        initTimeSelect();
+        module.dropdownMenuSelector = module.dayOffListAreaSelector.find('.dropdown-menu');
+
         getClinicInfo();
+
+        initTimeSelect();
         handleOnChangeDayOption();
         handleEndTimeLimit();
         handleAddTimeButton();
         handleClearTimeButton();
         handleResetTimeButton();
+
+        initDayOffPicker();
+        handleAddDayOffButton();
+        handleRemoveDayOffButton();
+        handleResetDayOffButton();
+
         handleSubmittingClinicInfoForm();
     }
 
-    const initTimeSelect = () => {
-        module.startTimePicker = new tempusDominus.TempusDominus(module.startTimeSelector[0], module.initTimeSelectConfig);
-        module.endTimePicker = new tempusDominus.TempusDominus(module.endTimeSelector[0], module.initTimeSelectConfig);
-    }
+    /*--- Clinic info rendering ---*/
 
     const getClinicInfo = () => {
         $.ajax({
@@ -70,10 +84,17 @@ export const ClinicInfo = (function () {
         })
             .done((clinicInfo) => {
                 renderClinicInfo(clinicInfo);
+                module.clinicInfoId = clinicInfo.clinicInfoId;
+
                 module.workingHours = {...clinicInfo.workingHours};
                 module.workingHoursRequest = {...clinicInfo.workingHours};
-                module.clinicInfoId = clinicInfo.clinicInfoId;
-                renderWorkingHours(clinicInfo.workingHours);
+                renderWorkingHours(module.workingHours);
+
+                // TODO: Mock data
+                module.dayOffs = ['2025-04-30', '2025-05-01'];
+                module.dayOffsRequest = ['2025-04-30', '2025-05-01', '2025-05-29', '2025-05-30'];
+                renderDayOffs(module.dayOffs);
+                handleEmptyDayOffDropdown();
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);
@@ -108,6 +129,13 @@ export const ClinicInfo = (function () {
             workingHoursArray.push(`${workingHoursRange.start.substring(0, 5)}-${workingHoursRange.end.substring(0, 5)}`)
         }
         module.timeRangeOutputSelector.val(workingHoursArray.join(','))
+    }
+
+    /*--- Working hours handling ---*/
+
+    const initTimeSelect = () => {
+        module.startTimePicker = new tempusDominus.TempusDominus(module.startTimeSelector[0], module.initTimeSelectConfig);
+        module.endTimePicker = new tempusDominus.TempusDominus(module.endTimeSelector[0], module.initTimeSelectConfig);
     }
 
     const handleOnChangeDayOption = () => {
@@ -210,6 +238,126 @@ export const ClinicInfo = (function () {
             module.endTimeInputSelector.val('');
         });
     }
+
+    /*--- Day off handling ---*/
+
+    const initDayOffPicker = () => {
+        module.dayOffPicker = new Lightpick({
+            field: module.dayOffInputSelector[0],
+            singleDate: false,
+            lang: 'vi',
+            minDate: moment()
+        });
+    }
+
+    const DayOffDropdownItem = (text, value) => `
+        <li data-value="${value}">
+            <span class="dropdown-item-text">
+                <span>${text}</span>
+                <span class="btn btn-sm btn-outline-danger border-0 btn-remove-day-off">X</span>
+            </span>
+        </li>
+    `
+
+    const DayOffDropdownEmpty = (text) => `
+        <li class="empty-dropdown">
+            <span class="dropdown-item-text">
+                <span>${text}</span>
+            </span>
+        </li>
+    `
+
+    const renderDayOffs = (dayOffs) => {
+        const dropdownItems = dayOffs.map(dayOff => {
+            const dayOffDate = new Date(dayOff);
+            const displayFormatDate = new Intl.DateTimeFormat('en-GB').format(dayOffDate);
+            return DayOffDropdownItem(displayFormatDate, dayOff);
+        })
+
+        module.dropdownMenuSelector.prepend(dropdownItems);
+    }
+
+    const handleAddDayOffButton = () => {
+        module.addDayOffButtonSelector.on('click', function () {
+            const startDate = module.dayOffPicker.getStartDate();
+            const endDate = module.dayOffPicker.getEndDate();
+            if (!startDate || !endDate) {
+                // TODO: handle error message
+                return;
+            }
+
+            const pickedDateRangeList = getDateRangeList(startDate, endDate);
+            /* Use Set to merge arrays and remove duplicate values */
+            module.dayOffsRequest = [...new Set([...pickedDateRangeList, ...module.dayOffsRequest])];
+            module.dayOffsRequest = module.dayOffsRequest.sort((a, b) => new Date(a) - new Date(b))
+
+            if (module.dayOffsRequest.length > 0) {
+                module.dropdownMenuSelector.children().remove();
+                renderDayOffs(module.dayOffsRequest);
+            }
+
+            clearDayOffPick();
+            handleEmptyDayOffDropdown();
+            blinkBorder(module.dayOffListAreaSelector)
+        })
+    }
+
+    const blinkBorder = (elementSelector) => {
+        void elementSelector[0].offsetWidth;
+        elementSelector.addClass('blink-border');
+        setTimeout(() => {
+            elementSelector.removeClass('blink-border');
+        }, 700)
+    }
+
+    const clearDayOffPick = () => {
+        module.dayOffPicker.setDateRange(null, null);
+        module.dayOffInputSelector.val('');
+    }
+
+    const getDateRangeList = (startMoment, endMoment) => {
+        const dates = [];
+
+        const current = startMoment.clone().startOf('day');
+        const last = endMoment.clone().startOf('day');
+
+        while (current.isSameOrBefore(last)) {
+            dates.push(current.format(DateTimePattern.API_DATE_FORMAT));
+            current.add(1, 'day');
+        }
+
+        return dates;
+    }
+
+    const handleRemoveDayOffButton = () => {
+        module.dayOffListAreaSelector.on('click', '.btn-remove-day-off', function () {
+            const parentSpan = $(this).closest('li');
+            const removedValue = parentSpan.data('value');
+            module.dayOffsRequest = module.dayOffsRequest.filter(dayOff => dayOff !== removedValue);
+            parentSpan.remove();
+            handleEmptyDayOffDropdown();
+        });
+    }
+
+    const handleEmptyDayOffDropdown = () => {
+        const dayOffItemCount = module.dropdownMenuSelector.children().length;
+        if (dayOffItemCount === 0) {
+            module.dropdownMenuSelector.append(DayOffDropdownEmpty(emptyDayOffList));
+        } else {
+            module.dropdownMenuSelector.find('.empty-dropdown').remove();
+        }
+    }
+
+    const handleResetDayOffButton = () => {
+        module.resetDayOffButtonSelector.on('click', function () {
+            module.dayOffsRequest = [...module.dayOffs];
+            module.dropdownMenuSelector.children().remove();
+            renderDayOffs(module.dayOffs);
+            clearDayOffPick();
+        })
+    }
+
+    /*--- Form submission ---*/
 
     const handleSubmittingClinicInfoForm = () => {
         module.clinicInfoForm.on('submit', function (e) {

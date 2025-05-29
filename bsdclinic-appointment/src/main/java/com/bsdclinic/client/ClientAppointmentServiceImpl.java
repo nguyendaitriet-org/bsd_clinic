@@ -51,10 +51,18 @@ public class ClientAppointmentServiceImpl implements ClientAppointmentService {
         if (workingHours == null) return List.of();
 
         List<String> slots = new ArrayList<>();
+        LocalTime nowPlusOneHour = null;
+
+        if (date.equals(LocalDate.now())) {
+            nowPlusOneHour = LocalTime.now().plusHours(1);
+        }
+
         for (ClinicInfo.TimeRange range : workingHours) {
             LocalTime current = range.start();
             while (!current.plusMinutes(intervalMinutes).isAfter(range.end())) {
-                slots.add(current.format(TIME_FORMATTER));
+                if (nowPlusOneHour == null || current.isAfter(nowPlusOneHour)) {
+                    slots.add(current.format(TIME_FORMATTER));
+                }
                 current = current.plusMinutes(intervalMinutes);
             }
         }

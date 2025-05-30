@@ -5,6 +5,7 @@ import com.bsdclinic.ClinicInfoDto;
 import com.bsdclinic.ClinicInfoService;
 import com.bsdclinic.client.response.AvailableAppointmentSlot;
 import com.bsdclinic.clinic_info.ClinicInfo;
+import com.bsdclinic.constant.DateTimePattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,6 @@ import java.util.Map;
 public class ClientAppointmentServiceImpl implements ClientAppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final ClinicInfoService clinicInfoService;
-
-    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
     @Override
     public AvailableAppointmentSlot getAvailableSlots(LocalDate registerDate) {
@@ -61,11 +60,12 @@ public class ClientAppointmentServiceImpl implements ClientAppointmentService {
             LocalTime current = range.start();
             while (!current.plusMinutes(intervalMinutes).isAfter(range.end())) {
                 if (nowPlusOneHour == null || current.isAfter(nowPlusOneHour)) {
-                    slots.add(current.format(TIME_FORMATTER));
+                    slots.add(current.format(DateTimeFormatter.ofPattern(DateTimePattern.HOUR_MINUTE)));
                 }
                 current = current.plusMinutes(intervalMinutes);
             }
         }
+
         return slots;
     }
 }

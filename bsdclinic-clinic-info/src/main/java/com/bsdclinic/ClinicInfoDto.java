@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -54,4 +55,8 @@ public class ClinicInfoDto {
     private Map<String, List<ClinicInfo.TimeRange>> workingHours;
 
     private List<LocalDate> dayOffs;
+
+    public List<LocalDate> getDayOffs() {
+        return dayOffs == null ? List.of() : dayOffs;
+    }
 }

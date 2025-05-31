@@ -8,29 +8,100 @@ import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
-@NoArgsConstructor(access= AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Validator {
-    public static class ValidDateValidator implements ConstraintValidator<RuleAnnotation.ValidDate, String> {
+    public static class ValidRegisterDateValidator implements ConstraintValidator<AppointmentRuleAnnotation.ValidRegisterDate, String> {
         @Override
         public boolean isValid(String date, ConstraintValidatorContext context) {
             context.disableDefaultConstraintViolation();
 
             if (StringUtils.isBlank(date)) {
-                context.buildConstraintViolationWithTemplate("{validation.required.date}")
+                context.buildConstraintViolationWithTemplate("{validation.required.register_date}")
                         .addConstraintViolation();
                 return false;
             }
 
+            LocalDate localDate;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DateTimePattern.DEFAULT_DATE)
                     .withResolverStyle(ResolverStyle.STRICT);
             try {
-                LocalDate.parse(date, formatter);
+                localDate = LocalDate.parse(date, formatter);
             } catch (DateTimeParseException e) {
-                context.buildConstraintViolationWithTemplate("{validation.invalid.date}")
+                context.buildConstraintViolationWithTemplate("{validation.invalid.register_date}")
+                        .addConstraintViolation();
+                return false;
+            }
+
+            if (localDate.isBefore(LocalDate.now().atStartOfDay().toLocalDate())) {
+                context.buildConstraintViolationWithTemplate("{validation.limit.register_date}")
+                        .addConstraintViolation();
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    public static class ValidRegisterHourValidator implements ConstraintValidator<AppointmentRuleAnnotation.ValidRegisterHour, String> {
+        @Override
+        public boolean isValid(String hour, ConstraintValidatorContext context) {
+            context.disableDefaultConstraintViolation();
+
+            if (StringUtils.isBlank(hour)) {
+                context.buildConstraintViolationWithTemplate("{validation.required.register_time}")
+                        .addConstraintViolation();
+                return false;
+            }
+
+            LocalTime localTime;
+            try {
+                localTime = LocalTime.parse(hour, DateTimeFormatter.ofPattern(DateTimePattern.HOUR_MINUTE));
+            } catch (DateTimeParseException e) {
+                context.buildConstraintViolationWithTemplate("{validation.invalid.register_time}")
+                        .addConstraintViolation();
+                return false;
+            }
+
+            if (localTime.isBefore(LocalTime.now())) {
+                context.buildConstraintViolationWithTemplate("{validation.limit.register_time}")
+                        .addConstraintViolation();
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    public static class ValidBirthdayValidator implements ConstraintValidator<AppointmentRuleAnnotation.ValidBirthday, String> {
+        @Override
+        public boolean isValid(String birthdayString, ConstraintValidatorContext context) {
+            context.disableDefaultConstraintViolation();
+
+            if (StringUtils.isBlank(birthdayString)) {
+                context.buildConstraintViolationWithTemplate("{validation.required.birthday}")
+                        .addConstraintViolation();
+                return false;
+            }
+
+            LocalDate birthdayDate;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DateTimePattern.DEFAULT_DATE)
+                    .withResolverStyle(ResolverStyle.STRICT);
+            try {
+                birthdayDate = LocalDate.parse(birthdayString, formatter);
+            } catch (DateTimeParseException e) {
+                context.buildConstraintViolationWithTemplate("{validation.invalid.birthday}")
+                        .addConstraintViolation();
+                return false;
+            }
+
+            if (birthdayDate.isBefore(ValidationConstant.SYSTEM_MIN_DATE) &&
+                birthdayDate.isAfter(LocalDate.now().atStartOfDay().toLocalDate())) {
+                context.buildConstraintViolationWithTemplate("{validation.limit.birthday}")
                         .addConstraintViolation();
                 return false;
             }

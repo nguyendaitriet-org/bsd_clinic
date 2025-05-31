@@ -2,17 +2,19 @@ package com.bsdclinic.controller;
 
 import com.bsdclinic.UserPrincipal;
 import com.bsdclinic.UserService;
+import com.bsdclinic.appointment.ActionStatus;
 import com.bsdclinic.clinic_info.DayOfWeek;
 import com.bsdclinic.url.WebUrl;
 import com.bsdclinic.dto.response.IUserResponse;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.user.Gender;
 import com.bsdclinic.user.RoleConstant;
-import com.bsdclinic.user.UserStatus;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.HandlerMapping;
 
 import java.util.Map;
 
@@ -29,16 +31,6 @@ public class ModelToViewHandler {
         return principal != null ? userService.getUserById(principal.getUserId()) : null;
     }
 
-    @ModelAttribute("roleTitleMap")
-    public Map<String, String> getRoleTitles() {
-        return messageProvider.getMessageMap("role", RoleConstant.getAllNames());
-    }
-
-    @ModelAttribute("userStatusMap")
-    public Map<String, String> getUserStatus() {
-        return messageProvider.getMessageMap("user.status", UserStatus.getAllNames());
-    }
-
     @ModelAttribute("genderMap")
     public Map<String, String> getGender() {
         return messageProvider.getMessageMap("gender", Gender.getAllNames());
@@ -53,4 +45,22 @@ public class ModelToViewHandler {
     public WebUrl getWebUrl() {
         return new WebUrl();
     }
+
+    @ModelAttribute
+    public void addAminAttributes(Map<String, Object> model, HttpServletRequest request) {
+        String path = (String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
+        if (path != null && path.startsWith(WebUrl.ADMIN_HOME)) {
+            model.put("roleTitleMap", getRoleTitles());
+            model.put("appointmentActionMap", getAppointmentStatus());
+        }
+    }
+
+    public Map<String, String> getRoleTitles() {
+        return messageProvider.getMessageMap("role", RoleConstant.getAllNames());
+    }
+
+    public Map<String, String> getAppointmentStatus() {
+        return messageProvider.getMessageMap("appointment.action_status", ActionStatus.getAllNames());
+    }
+
 }

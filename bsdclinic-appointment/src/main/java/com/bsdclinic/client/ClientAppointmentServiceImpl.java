@@ -6,6 +6,7 @@ import com.bsdclinic.ClinicInfoService;
 import com.bsdclinic.client.response.AvailableAppointmentSlot;
 import com.bsdclinic.clinic_info.ClinicInfo;
 import com.bsdclinic.constant.DateTimePattern;
+import com.bsdclinic.dto.AppointmentDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -67,5 +68,10 @@ public class ClientAppointmentServiceImpl implements ClientAppointmentService {
         }
 
         return slots;
+    }
+
+    @Override
+    public void createNewAppointment(AppointmentDto appointmentDto) {
+
     }
 }

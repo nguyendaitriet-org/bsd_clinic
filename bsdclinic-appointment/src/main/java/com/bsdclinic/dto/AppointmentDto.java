@@ -2,6 +2,7 @@ package com.bsdclinic.dto;
 
 import com.bsdclinic.validation.AppointmentRuleAnnotation;
 import com.bsdclinic.validation.ValidationConstant;
+import com.bsdclinic.validation.group.OnAdminCreate;
 import com.bsdclinic.validation.group.OnClientCreate;
 import com.bsdclinic.validation.group.OnCommonCreate;
 import jakarta.validation.constraints.NotBlank;
@@ -61,5 +62,7 @@ public class AppointmentDto {
     @AppointmentRuleAnnotation.ValidBirthday(groups = OnCommonCreate.class)
     private String patientBirthday;
 
+    @NotBlank(message = "{validation.required.doctor_id}", groups = OnAdminCreate.class)
+    @AppointmentRuleAnnotation.ValidDoctorId(groups = OnAdminCreate.class)
     private String doctorId;
 }

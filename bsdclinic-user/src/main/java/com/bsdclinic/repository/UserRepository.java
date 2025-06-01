@@ -21,6 +21,7 @@ public interface UserRepository extends JpaRepository<User, String>, JpaSpecific
 
     @Query("""
             SELECT
+                u.userId AS userId,
                 u.email AS email,
                 u.phone AS phone,
                 u.fullName AS fullName,

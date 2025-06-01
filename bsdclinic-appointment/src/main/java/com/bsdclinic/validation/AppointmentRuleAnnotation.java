@@ -10,7 +10,7 @@ public class AppointmentRuleAnnotation {
     @Documented
     @Target({ElementType.PARAMETER, ElementType.FIELD})
     @Retention(RetentionPolicy.RUNTIME)
-    @Constraint(validatedBy = Validator.ValidRegisterDateValidator.class)
+    @Constraint(validatedBy = AppointmentValidator.ValidRegisterDateValidator.class)
     @ReportAsSingleViolation
     public @interface ValidRegisterDate {
         String message() default "Invalid register date";
@@ -23,7 +23,7 @@ public class AppointmentRuleAnnotation {
     @Documented
     @Target({ElementType.PARAMETER, ElementType.FIELD})
     @Retention(RetentionPolicy.RUNTIME)
-    @Constraint(validatedBy = Validator.ValidRegisterHourValidator.class)
+    @Constraint(validatedBy = AppointmentValidator.ValidRegisterHourValidator.class)
     @ReportAsSingleViolation
     public @interface ValidRegisterHour {
         String message() default "Invalid register hour";
@@ -36,10 +36,23 @@ public class AppointmentRuleAnnotation {
     @Documented
     @Target({ElementType.PARAMETER, ElementType.FIELD})
     @Retention(RetentionPolicy.RUNTIME)
-    @Constraint(validatedBy = Validator.ValidBirthdayValidator.class)
+    @Constraint(validatedBy = AppointmentValidator.ValidBirthdayValidator.class)
     @ReportAsSingleViolation
     public @interface ValidBirthday {
         String message() default "Invalid birthday";
+
+        Class<?>[] groups() default {};
+
+        Class<? extends Payload>[] payload() default {};
+    }
+
+    @Documented
+    @Target({ElementType.PARAMETER, ElementType.FIELD})
+    @Retention(RetentionPolicy.RUNTIME)
+    @Constraint(validatedBy = AppointmentValidator.ExistedDoctorIdValidator.class)
+    @ReportAsSingleViolation
+    public @interface ValidDoctorId {
+        String message() default "Invalid doctor";
 
         Class<?>[] groups() default {};
 

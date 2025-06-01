@@ -1,5 +1,6 @@
 package com.bsdclinic;
 
+import com.bsdclinic.admin.AdminAppointmentService;
 import com.bsdclinic.client.ClientAppointmentService;
 import com.bsdclinic.client.response.AvailableAppointmentSlot;
 import com.bsdclinic.dto.AppointmentDto;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 @Validated
 public class AppointmentApi {
     private final ClientAppointmentService clientAppointmentService;
+    private final AdminAppointmentService adminAppointmentService;
 
     @GetMapping(WebUrl.API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS)
     public AvailableAppointmentSlot getAvailableSlots(@RequestParam @AppointmentRuleAnnotation.ValidRegisterDate String registerDate) {
@@ -37,6 +39,6 @@ public class AppointmentApi {
     public void createAppointmentByAdmin(
             @RequestBody @Validated({OnAdminCreate.class, OnCommonCreate.class}) AppointmentDto request
     ) {
-        clientAppointmentService.createNewAppointment(request);
+        adminAppointmentService.createNewAppointment(request);
     }
 }

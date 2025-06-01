@@ -9,4 +9,5 @@ public interface IUserResponse {
     String getStatus();
     String getRole();
     Instant getCreatedAt();
+    String getUserId();
 }

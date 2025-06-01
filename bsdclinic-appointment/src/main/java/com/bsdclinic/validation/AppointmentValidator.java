@@ -1,10 +1,14 @@
 package com.bsdclinic.validation;
 
 import com.bsdclinic.constant.DateTimePattern;
+import com.bsdclinic.dto.response.IUserResponse;
+import com.bsdclinic.repository.UserRepository;
+import com.bsdclinic.user.RoleConstant;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
@@ -14,7 +18,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Validator {
+public class AppointmentValidator {
     public static class ValidRegisterDateValidator implements ConstraintValidator<AppointmentRuleAnnotation.ValidRegisterDate, String> {
         @Override
         public boolean isValid(String date, ConstraintValidatorContext context) {
@@ -102,6 +106,32 @@ public class Validator {
             if (birthdayDate.isBefore(ValidationConstant.SYSTEM_MIN_DATE) &&
                 birthdayDate.isAfter(LocalDate.now().atStartOfDay().toLocalDate())) {
                 context.buildConstraintViolationWithTemplate("{validation.limit.birthday}")
+                        .addConstraintViolation();
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    @RequiredArgsConstructor
+    public static class ExistedDoctorIdValidator implements ConstraintValidator<AppointmentRuleAnnotation.ValidDoctorId, String> {
+        private final UserRepository userRepository;
+
+        @Override
+        public boolean isValid(String doctorId, ConstraintValidatorContext context) {
+            context.disableDefaultConstraintViolation();
+
+            IUserResponse user = userRepository.findByIdRole(doctorId);
+
+            if (user == null) {
+                context.buildConstraintViolationWithTemplate("{validation.no_exist.doctor_id}")
+                        .addConstraintViolation();
+                return false;
+            }
+
+            if (!user.getRole().equals(RoleConstant.DOCTOR.name())) {
+                context.buildConstraintViolationWithTemplate("{validation.invalid.doctor}")
                         .addConstraintViolation();
                 return false;
             }

@@ -21,7 +21,7 @@ public class AppointmentDto {
 
     @NotBlank(message = "{validation.required.full_name}", groups = OnCommonCreate.class)
     @Size(max = 255, message = "{validation.input.max_length.255}", groups = OnCommonCreate.class)
-    private String subscriberFullName;
+    private String subscriberName;
 
     @NotBlank(message = "{validation.required.phone}", groups = OnCommonCreate.class)
     @Size(max = 20, message = "{validation.input.max_length.20}", groups = OnCommonCreate.class)
@@ -39,7 +39,7 @@ public class AppointmentDto {
 
     @NotBlank(message = "{validation.required.full_name}", groups = OnCommonCreate.class)
     @Size(max = 255, message = "{validation.input.max_length.255}", groups = OnCommonCreate.class)
-    private String patientFullName;
+    private String patientName;
 
     @Size(max = 20, message = "{validation.input.max_length.20}", groups = OnCommonCreate.class)
     private String patientPhone;

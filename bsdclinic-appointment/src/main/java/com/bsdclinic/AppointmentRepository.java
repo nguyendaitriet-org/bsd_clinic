@@ -12,4 +12,6 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment, String> {
     @Query("SELECT a.registerTime FROM Appointment a WHERE a.registerDate = :registerDate")
     List<String> findRegisterTimesByRegisterDay(LocalDate registerDate);
+
+    boolean existsByRegisterDateAndRegisterTime(LocalDate registerDate, String registerTime);
 }

@@ -9,9 +9,8 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AppointmentMapper {
-
     @Mapping(target = "email", source = "subscriberEmail")
-    @Mapping(target = "name", source = "subscriberFullName")
+    @Mapping(target = "name", source = "subscriberName")
     @Mapping(target = "phone", source = "subscriberPhone")
     Subscriber toSubscriber(AppointmentDto request);
 

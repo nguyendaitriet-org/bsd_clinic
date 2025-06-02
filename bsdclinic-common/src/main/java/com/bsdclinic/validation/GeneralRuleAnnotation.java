@@ -2,8 +2,6 @@ package com.bsdclinic.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import jakarta.validation.ReportAsSingleViolation;
-import jakarta.validation.Validator;
 
 import java.lang.annotation.*;
 
@@ -56,7 +54,5 @@ public class GeneralRuleAnnotation {
         @interface List {
             GeneralRuleAnnotation.FieldMatch[] value();
         }
-
-
    }
 }

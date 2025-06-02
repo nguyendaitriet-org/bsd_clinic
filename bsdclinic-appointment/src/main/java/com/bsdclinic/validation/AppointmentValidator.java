@@ -4,12 +4,16 @@ import com.bsdclinic.constant.DateTimePattern;
 import com.bsdclinic.dto.response.IUserResponse;
 import com.bsdclinic.repository.UserRepository;
 import com.bsdclinic.user.RoleConstant;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -103,8 +107,8 @@ public class AppointmentValidator {
                 return false;
             }
 
-            if (birthdayDate.isBefore(ValidationConstant.SYSTEM_MIN_DATE) &&
-                birthdayDate.isAfter(LocalDate.now().atStartOfDay().toLocalDate())) {
+            if (birthdayDate.isBefore(ValidationConstant.SYSTEM_MIN_DATE) ||
+                    birthdayDate.isAfter(LocalDate.now().atStartOfDay().toLocalDate())) {
                 context.buildConstraintViolationWithTemplate("{validation.limit.birthday}")
                         .addConstraintViolation();
                 return false;

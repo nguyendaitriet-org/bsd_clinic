@@ -41,13 +41,22 @@ export const App = (function () {
     }
 
     module.showSweetAlert = (type, title, content) => {
-        swal(title, content, {
-            icon : type,
-            buttons: {
-                confirm: {
-                    className : 'btn btn-success'
-                }
-            },
+        Swal.fire({
+            icon: type,
+            title: title,
+            text: content,
+            timer: 1000
+        });
+    }
+
+    module.showSweetAlertConfirmation = (type, title, content) => {
+        return Swal.fire({
+            icon: type,
+            title: title,
+            text: content,
+            showCancelButton: true,
+            confirmButtonText: acceptTitle,
+            denyButtonText: closeTitle
         });
     }
 

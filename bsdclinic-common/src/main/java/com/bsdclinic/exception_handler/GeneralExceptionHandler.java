@@ -1,5 +1,6 @@
 package com.bsdclinic.exception_handler;
 
+import com.bsdclinic.exception_handler.exception.BadRequestException;
 import com.bsdclinic.exception_handler.exception.ForbiddenException;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.exception_handler.exception.UnauthorizedException;
@@ -62,6 +63,17 @@ public class GeneralExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorDetails> handleBadRequest(BadRequestException ex) {
+        ErrorDetails errorDetails = new ErrorDetails(
+                HttpStatus.BAD_REQUEST.value(),
+                messageProvider.getMessage("error.400"),
+                ex.getErrors()
+        );
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorDetails> handleValidation(MethodArgumentNotValidException ex, HttpServletRequest request) {
         Map<String, String> errorMessages = ex.getBindingResult()
@@ -78,6 +90,7 @@ public class GeneralExceptionHandler {
                 messageProvider.getMessage("error.400"),
                 errorMessages
         );
+
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 

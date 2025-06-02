@@ -32,15 +32,19 @@ public class WebUrl {
     // API Admin - Appointment
     public static final String API_ADMIN_APPOINTMENT = API_ADMIN_ENDPOINT + "/appointments";
 
+    // API Admin - Appointment
+    public static final String API_ADMIN_SUBSCRIBER = API_ADMIN_ENDPOINT + "/subscribers";
+    public static final String API_ADMIN_SUBSCRIBER_LIST = API_ADMIN_SUBSCRIBER + "/list";
+
+    // API Admin - Clinic info
+    public static final String API_ADMIN_CLINIC_INFO = API_ADMIN_ENDPOINT + "/clinic-info";
+    public static final String API_ADMIN_UPDATE_CLINIC_INFO = API_ADMIN_CLINIC_INFO + "/{clinicInfoId}";
+
+
     // API Client - Appointment
     public static final String API_CLIENT_APPOINTMENT = API_CLIENT_ENDPOINT + "/appointments";
     public static final String API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS = API_CLIENT_APPOINTMENT + "/available-slots";
 
     // API Client - Clinic info
     public static final String API_CLIENT_CLINIC_INFO = API_CLIENT_ENDPOINT + "/clinic-info";
-
-    // API Admin - Clinic info
-    public static final String API_ADMIN_CLINIC_INFO = API_ADMIN_ENDPOINT + "/clinic-info";
-    public static final String API_ADMIN_UPDATE_CLINIC_INFO = API_ADMIN_CLINIC_INFO + "/{clinicInfoId}";
-
 }

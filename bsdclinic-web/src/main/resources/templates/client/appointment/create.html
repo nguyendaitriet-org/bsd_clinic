@@ -20,12 +20,12 @@
 
     <div class="container-fluid bg-light about py-5">
         <div class="container py-5">
-            <div class="row g-5">
-                <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
-                    <div class="about-item-content bg-white rounded p-5 h-100 position-relative">
-                        <h4 class="text-primary" th:text="#{title.subscriber.info}"></h4>
-                        <form action="">
-                            <div class="form-holder">
+            <form id="appointment-register-form">
+                <div class="row g-5">
+                    <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
+                        <div class="about-item-content bg-white rounded p-5 h-100 position-relative">
+                            <h4 class="text-primary mb-4" th:text="#{title.subscriber.info}"></h4>
+                            <div class="form-holder with-validation">
                                 <label for="subscriber-name">
                                     <span class="fas fa-user"></span>
                                 </label>
@@ -33,7 +33,7 @@
                                        name="subscriberName"
                                        th:placeholder="#{placeholder.full_name.required}">
                             </div>
-                            <div class="form-holder">
+                            <div class="form-holder with-validation">
                                 <label for="subscriber-phone">
                                     <span class="fas fa-phone"></span>
                                 </label>
@@ -41,7 +41,7 @@
                                        name="subscriberPhone"
                                        th:placeholder="#{placeholder.phone.required}">
                             </div>
-                            <div class="form-holder">
+                            <div class="form-holder with-validation">
                                 <label for="subscriber-email">
                                     <span class="fas fa-envelope"></span>
                                 </label>
@@ -55,7 +55,7 @@
                                        th:text="#{title.subscriber.self_register}"></label>
                             </div>
                             <div class="d-flex gap-3 mt-3 mb-5">
-                                <div class="form-holder col">
+                                <div class="form-holder with-validation col">
                                     <label for="register-date">
                                         <span class="far fa-calendar-alt"></span>
                                     </label>
@@ -63,42 +63,40 @@
                                            name="registerDate"
                                            th:placeholder="#{placeholder.register_date.required}"/>
                                 </div>
-                                <div class="form-holder col-6">
+                                <div class="form-holder with-validation col-6">
                                     <label for="register-time">
                                         <span class="far fa-clock"></span>
                                     </label>
-                                    <select class="form-control-custom text-muted" id="register-time">
+                                    <select class="form-control-custom text-muted" id="register-time" name="registerTime">
                                         <option class="text-muted" th:text="#{placeholder.register_time.required}"
                                                 disabled selected>
                                         </option>
                                     </select>
                                 </div>
                             </div>
-                        </form>
-                        <button th:text="#{title.submit}"
-                           class="btn btn-lg btn-primary rounded-pill py-2 px-5 flex-shrink-0 position-absolute bottom-0 start-50 translate-middle">
-                        </button>
+                            <button th:text="#{title.submit}"
+                                    class="btn btn-lg btn-primary rounded-pill py-2 px-5 flex-shrink-0 position-absolute bottom-0 start-50 translate-middle">
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
-                    <div class="bg-white rounded p-5 h-100">
-                        <h4 class="text-primary" th:text="#{title.patient.info}"></h4>
-                        <form action="">
-                            <div class="form-holder">
+                    <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
+                        <div class="bg-white rounded p-5 h-100">
+                            <h4 class="text-primary mb-4" th:text="#{title.patient.info}"></h4>
+                            <div class="form-holder with-validation">
                                 <label for="patient-name">
                                     <span class="fas fa-user"></span>
                                 </label>
                                 <input type="text" class="form-control-custom" id="patient-name" name="patientName"
                                        th:placeholder="#{placeholder.full_name.required}">
                             </div>
-                            <div class="form-holder">
+                            <div class="form-holder with-validation">
                                 <label for="patient-phone">
                                     <span class="fas fa-phone"></span>
                                 </label>
                                 <input type="text" class="form-control-custom" id="patient-phone" name="patientPhone"
                                        th:placeholder="#{placeholder.phone}">
                             </div>
-                            <div class="form-holder">
+                            <div class="form-holder with-validation">
                                 <label for="patient-email">
                                     <span class="fas fa-envelope"></span>
                                 </label>
@@ -121,38 +119,40 @@
                                     </div>
                                 </th:block>
                             </div>
-                            <div class="form-holder">
+                            <div class="form-holder with-validation">
                                 <label for="patient-birthday">
                                     <span class="far fa-calendar-alt"></span>
                                 </label>
-                                <input type="text" class="form-control-custom" id="patient-birthday" name="patientBirthday"
+                                <input type="text" class="form-control-custom" id="patient-birthday"
+                                       name="patientBirthday"
                                        th:placeholder="#{placeholder.birthday.required}"/>
                             </div>
-                            <div class="form-holder">
+                            <div class="form-holder with-validation">
                                 <label for="patient-address">
                                     <span class="fas fa-map-marker-alt"></span>
                                 </label>
                                 <input type="text" class="form-control-custom" id="patient-address"
                                        name="patientAddress" th:placeholder="#{placeholder.address}">
                             </div>
-                            <div class="form-holder">
-                                <label for="relation-with-subscriber" >
+                            <div class="form-holder with-validation">
+                                <label for="relation-with-subscriber">
                                     <span class="fas fa-people-arrows"></span>
                                 </label>
-                                <input type="text" class="form-control-custom" id="relation-with-subscriber" name="relationWithSubscriber"
+                                <input type="text" class="form-control-custom" id="relation-with-subscriber"
+                                       name="relationWithSubscriber"
                                        th:placeholder="#{placeholder.subscriber_relation.required}">
                             </div>
-                            <div class="form-holder">
+                            <div class="form-holder with-validation">
                                 <label for="visit-reason">
                                     <span class="fas fa-exclamation"></span>
                                 </label>
                                 <input type="text" class="form-control-custom" id="visit-reason" name="visitReason"
                                        th:placeholder="#{placeholder.visit_reason.required}">
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </th:block>

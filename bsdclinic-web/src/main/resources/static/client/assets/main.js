@@ -10,11 +10,9 @@
         }, 1);
     };
     spinner(0);
-    
-    
+
     // Initiate the wowjs
     new WOW().init();
-    
 
     // Sticky Navbar
     $(window).scroll(function () {
@@ -24,7 +22,6 @@
             $('.nav-bar').removeClass('sticky-top shadow-sm').css('top', '-100px');
         }
     });
-
 
     // Header carousel
     $(".header-carousel").owlCarousel({
@@ -42,8 +39,6 @@
             '<i class="bi bi-arrow-right"></i>'
         ],
     });
-
-
 
     // testimonial carousel
     $(".testimonial-carousel").owlCarousel({
@@ -78,13 +73,11 @@
         }
     });
 
-
     // Facts counter
     $('[data-toggle="counter-up"]').counterUp({
         delay: 5,
         time: 2000
     });
-
 
    // Back to top button
    $(window).scroll(function () {
@@ -99,6 +92,10 @@
         return false;
     });
 
-
+    const url = window.location;
+    const targetLinkSelector = $('.navbar-collapse .navbar-nav a').filter(function () {
+        return this.href == url;
+    });
+    targetLinkSelector.addClass('active');
 })(jQuery);
 

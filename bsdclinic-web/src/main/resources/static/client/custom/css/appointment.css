@@ -123,3 +123,9 @@ form label{
     color: #999ca3!important;
     font-size: 0.9rem!important;
 }
+.with-validation .error-text {
+    bottom: unset;
+    left: 40%;
+    top: 130%;
+}
+

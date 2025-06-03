@@ -4,6 +4,7 @@ import com.bsdclinic.admin.AdminAppointmentService;
 import com.bsdclinic.client.ClientAppointmentService;
 import com.bsdclinic.client.response.AvailableAppointmentSlot;
 import com.bsdclinic.dto.AppointmentDto;
+import com.bsdclinic.dto.request.AppointmentFilter;
 import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.subscriber.SubscriberFilter;
 import com.bsdclinic.subscriber.SubscriberService;
@@ -26,6 +27,7 @@ public class AppointmentApi {
     private final AdminAppointmentService adminAppointmentService;
     private final SubscriberService subscriberService;
 
+    /*--------------------- CLIENT API ----------------------*/
     @GetMapping(WebUrl.API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS)
     public AvailableAppointmentSlot getAvailableSlots(@RequestParam @AppointmentRuleAnnotation.ValidRegisterDate String registerDate) {
         return clientAppointmentService.getAvailableSlots(LocalDate.parse(registerDate));
@@ -37,7 +39,10 @@ public class AppointmentApi {
     ) {
         clientAppointmentService.createNewAppointment(request);
     }
+    /*------------------------------------------------------*/
 
+
+    /*--------------------- ADMIN API ----------------------*/
     @RoleAuthorization.AuthenticatedUser
     @PostMapping(WebUrl.API_ADMIN_APPOINTMENT)
     public void createAppointmentByAdmin(
@@ -51,4 +56,11 @@ public class AppointmentApi {
     public DatatableResponse getSubscribersByFilter(@RequestBody SubscriberFilter subscriberFilter) {
         return subscriberService.getSubscribersByFilter(subscriberFilter);
     }
+
+    @RoleAuthorization.AuthenticatedUser
+    @PostMapping(WebUrl.API_ADMIN_APPOINTMENT_LIST)
+    public DatatableResponse getAppointmentsByFilter(@RequestBody AppointmentFilter appointmentFilter) {
+        return adminAppointmentService.getAppointmentsByFilter(appointmentFilter);
+    }
+    /*------------------------------------------------------*/
 }

@@ -15,7 +15,6 @@ import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.subscriber.Subscriber;
 import com.bsdclinic.subscriber.SubscriberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;

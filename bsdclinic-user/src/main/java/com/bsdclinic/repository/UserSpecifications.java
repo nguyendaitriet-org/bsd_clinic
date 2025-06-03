@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserSpecifications {
-
     public static Specification<User> withFilter(UserFilter filter) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();

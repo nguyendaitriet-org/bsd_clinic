@@ -133,14 +133,15 @@ export const DatatableAttribute = (function () {
                 next: 'Next'
             }
         },
-        emptyTable: emptyTable
+        emptyTable: emptyTable,
+        search: searchTitle
     }
 
     /* Create increment number for ordinal column of datatable */
-    module.renderOrdinalColumn = (datatableSelector) => {
+    module.renderOrdinalColumn = (datatableSelector, columnIndex) => {
         datatableSelector.on('draw.dt', function () {
             const PageInfo = datatableSelector.page.info();
-            datatableSelector.column(0, {page: 'current'}).nodes().each(function (cell, i) {
+            datatableSelector.column(columnIndex, {page: 'current'}).nodes().each(function (cell, i) {
                 cell.innerHTML = i + 1 + PageInfo.start;
             });
         });

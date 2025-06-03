@@ -134,7 +134,7 @@ export const UserList = (function () {
             language: DatatableAttribute.language
         });
 
-        DatatableAttribute.renderOrdinalColumn(userListDatatable);
+        DatatableAttribute.renderOrdinalColumn(userListDatatable, 0);
     }
 
     return module;

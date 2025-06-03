@@ -50,5 +50,3 @@ const AppointmentCreation = (function () {
     AppointmentCreation.init();
 })();
 
-export default AppointmentCreation;
-

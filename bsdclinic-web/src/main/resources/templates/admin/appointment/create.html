@@ -5,6 +5,15 @@
 >
 
 <th:block layout:fragment="content-style">
+    <style>
+        #subscriber-list-table_wrapper {
+            padding: 0;
+        }
+
+        .card-body {
+            padding: 2rem!important;
+        }
+    </style>
 </th:block>
 
 <th:block layout:fragment="content-title" th:text="#{title.appointment.creation}"></th:block>
@@ -12,8 +21,8 @@
 <th:block layout:fragment="content-button"></th:block>
 
 <th:block layout:fragment="content-body">
-    <div class="d-flex justify-content-between">
-        <div class="card w-40">
+    <div class="d-flex gap-5">
+        <div class="card col-5">
             <div class="card-header bg-black custom-card-header" th:text="#{title.appointment.form}"></div>
             <div class="card-body appointment-register">
                 <div class="h5" th:text="#{title.subscriber}"></div>
@@ -101,27 +110,28 @@
                     </select>
                 </div>
             </div>
-            <div class="card-footer">
+            <div class="card-footer px-5 py-3">
                 <div class="btn-group float-end">
                     <button id="submit-btn" class="btn btn-black" type="button" th:text="#{title.create}"></button>
                     <button id="cancel-btn" class="btn btn-secondary" type="button" th:text="#{title.cancel}"></button>
                 </div>
             </div>
         </div>
-        <div class="card w-55">
+        <div class="card col">
             <div class="card-header bg-black custom-card-header" th:text="#{title.subscriber.list}"></div>
             <div class="card-body">
-                <div class="mb-3 d-flex">
+                <div class="mb-5 d-flex">
                     <div class="input-group col">
-                        <button class="btn btn-black" type="button"><i class="fa fa-search"></i></button>
-                        <input id="search-input" type="search" class="form-control border-secondary border-1"
+                        <label class="btn btn-black" type="button" for="search-subscriber-input">
+                            <i class="fa fa-search"></i>
+                        </label>
+                        <input id="search-subscriber-input" type="search" class="form-control border-secondary border-1"
                                th:placeholder="#{placeholder.subscriber}">
                     </div>
-                    <div class="col-3">
-                        <button id="search-btn" class="btn btn-black float-end" type="button"
+                    <div class="col-2">
+                        <button id="search-subscriber-btn" class="btn btn-black float-end" type="button"
                                 th:text="#{title.apply}"></button>
                     </div>
-
                 </div>
                 <div class="table-responsive">
                     <table id="subscriber-list-table"
@@ -135,44 +145,7 @@
                             <th class="w-15" th:text="#{title.action}"></th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>nguyenvana@gmail.com</td>
-                            <td>Nguyễn Lê Phương</td>
-                            <td>0123659874</td>
-                            <td>
-                                <div class="btn-group btn-group-sm">
-                                    <button class="btn btn-outline-info border-0" data-bs-toggle="tooltip" type="button"
-                                            data-bs-placement="bottom" th:data-bs-title="#{title.self}">
-                                        <i class="fas fa-arrow-left"></i>
-                                    </button>
-                                    <button class="btn btn-outline-warning border-0 appointment-list-btn" data-bs-toggle="tooltip" type="button"
-                                            data-bs-placement="bottom" th:data-bs-title="#{title.detail}">
-                                        <i class="fas fa-users"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>nguyenvana@gmail.com</td>
-                            <td>Nguyễn Lê Phương</td>
-                            <td>0123659874</td>
-                            <td>
-                                <div class="btn-group btn-group-sm">
-                                    <button class="btn btn-outline-info border-0" data-bs-toggle="tooltip" type="button"
-                                            data-bs-placement="bottom" th:data-bs-title="#{title.self}">
-                                        <i class="fas fa-arrow-left"></i>
-                                    </button>
-                                    <button class="btn btn-outline-warning border-0 appointment-list-btn" data-bs-toggle="tooltip" type="button"
-                                            data-bs-placement="bottom" th:data-bs-title="#{title.detail}">
-                                        <i class="fas fa-users"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -185,4 +158,5 @@
 <th:block layout:fragment="appointment-script">
     <script type="module" th:src="@{/admin/custom/js/appointment/appointment-list.js}"></script>
     <script type="module" th:src="@{/admin/custom/js/appointment/appointment-create.js}"></script>
+    <script type="module" th:src="@{/admin/custom/js/appointment/subscriber.js}"></script>
 </th:block>

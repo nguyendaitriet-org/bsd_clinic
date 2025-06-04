@@ -43,14 +43,6 @@
                         <h4 class="text-section" th:text="#{title.feature}"></h4>
                     </li>
 
-                    <!-- User -->
-                    <li class="nav-item">
-                        <a th:href="@{${webUrl.ADMIN_USERS_INDEX}}">
-                            <i class="fas fa-user-friends"></i>
-                            <p th:text="#{title.user.management}"></p>
-                        </a>
-                    </li>
-
                     <!-- Appointment -->
                     <li class="nav-item">
                         <a data-bs-toggle="collapse" href="#appointment">
@@ -61,7 +53,7 @@
                         <div class="collapse" id="appointment">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="#">
+                                    <a th:href="@{${webUrl.ADMIN_APPOINTMENT_INDEX}}">
                                         <span class="sub-item" th:text="#{title.appointment.list}"></span>
                                     </a>
                                 </li>
@@ -162,6 +154,14 @@
                                 </li>
                             </ul>
                         </div>
+                    </li>
+
+                    <!-- User -->
+                    <li class="nav-item">
+                        <a th:href="@{${webUrl.ADMIN_USERS_INDEX}}">
+                            <i class="fas fa-user-friends"></i>
+                            <p th:text="#{title.user.management}"></p>
+                        </a>
                     </li>
 
                     <!-- Clinic Info -->

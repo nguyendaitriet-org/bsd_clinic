@@ -7,8 +7,10 @@ export const Subscriber = (function () {
         subscriberListTableSelector: $('#subscriber-list-table'),
         searchSubscriberInputSelector: $('#search-subscriber-input'),
         searchSubscriberButtonSelector: $('#search-subscriber-btn'),
+        resetSubscriberButtonSelector: $('#reset-subscriber-btn'),
 
         datatableInitConfig: {
+            data: [],
             bJQueryUI: true,
             destroy: true,
             paging: true,
@@ -24,10 +26,18 @@ export const Subscriber = (function () {
     module.init = () => {
         initDatatable();
         handleSearchSubscriberButton();
+        handleResetSubscriberButton();
     }
 
     const initDatatable = () => {
         module.subscriberListTable = module.subscriberListTableSelector.DataTable(module.datatableInitConfig);
+    }
+
+    const handleResetSubscriberButton = () => {
+        module.resetSubscriberButtonSelector.on('click', function () {
+            module.subscriberListTable.destroy();
+            initDatatable();
+        })
     }
 
     const handleSearchSubscriberButton = () => {

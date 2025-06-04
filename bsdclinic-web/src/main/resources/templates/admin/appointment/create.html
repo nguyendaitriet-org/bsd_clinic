@@ -120,17 +120,20 @@
         <div class="card col">
             <div class="card-header bg-black custom-card-header" th:text="#{title.subscriber.list}"></div>
             <div class="card-body">
-                <div class="mb-5 d-flex">
-                    <div class="input-group col col-sm">
+                <div class="mb-5 d-flex gap-5">
+                    <div class="input-group col">
                         <label class="btn btn-black" type="button" for="search-subscriber-input">
                             <i class="fa fa-search"></i>
                         </label>
                         <input id="search-subscriber-input" type="search" class="form-control border-secondary border-1"
-                               th:placeholder="#{placeholder.subscriber}">
+                               th:placeholder="#{placeholder.find_subscriber}">
                     </div>
-                    <div class="col-2 col-sm-3">
+                    <div class="col-2 col-sm-auto btn-group">
                         <button id="search-subscriber-btn" class="btn btn-black float-end" type="button"
                                 th:text="#{title.apply}"></button>
+                        <button id="reset-subscriber-btn" class="btn btn-danger" type="button">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="table-responsive">

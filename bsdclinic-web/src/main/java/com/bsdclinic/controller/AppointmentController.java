@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AppointmentController {
     @RoleAuthorization.AuthenticatedUser
+    @GetMapping(WebUrl.ADMIN_APPOINTMENT_INDEX)
+    public String toAdminIndexPage() {
+        return "admin/appointment/index";
+    }
+
+    @RoleAuthorization.AuthenticatedUser
     @GetMapping(WebUrl.ADMIN_APPOINTMENT_CREATE)
     public String toAdminCreatePage() {
         return "admin/appointment/create";

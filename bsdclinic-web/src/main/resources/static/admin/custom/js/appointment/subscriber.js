@@ -58,14 +58,14 @@ export const Subscriber = (function () {
                     },
                     {
                         targets: -1,
-                        render: () =>
+                        render: (data, type, row) =>
                             `<div class="btn-group btn-group-sm">
                             <button class="btn btn-outline-info border-0" data-bs-toggle="tooltip" type="button"
                                     data-bs-placement="bottom" data-bs-title="${selfTitle}">
                                 <i class="fas fa-arrow-left"></i>
                             </button>
                             <button class="btn btn-outline-warning border-0 appointment-list-btn" data-bs-toggle="tooltip" type="button"
-                                    data-bs-placement="bottom" data-bs-title="${detailTitle}">
+                                    data-bs-placement="bottom" data-bs-title="${detailTitle}" data-subscriber-id="${row.subscriberId}">
                                 <i class="fas fa-users"></i>
                             </button>
                         </div>`
@@ -75,7 +75,7 @@ export const Subscriber = (function () {
                 ...module.datatableInitConfig
             });
 
-            DatatableAttribute.renderOrdinalColumn(module.subscriberListTable);
+            DatatableAttribute.renderOrdinalColumn(module.subscriberListTable, 0);
         });
     }
 

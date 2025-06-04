@@ -10,46 +10,20 @@
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive">
-                        <table id="appointment-list-table"
+                        <table id="appointments-for-create-table"
                                class="table table-sm table-head-bg-black dataTable w-100">
                             <thead>
                             <tr class="text-center p-12">
-                                <th th:text="#{title.select}"></th>
+                                <th class="w-10" th:text="#{title.select}"></th>
                                 <th>#</th>
                                 <th th:text="#{title.patient.name}"></th>
                                 <th th:text="#{title.gender}"></th>
-                                <th th:text="#{title.phone}"></th>
+                                <th class="w-15"  th:text="#{title.phone}"></th>
                                 <th th:text="#{title.address}"></th>
                                 <th th:text="#{title.registered_at}"></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="text-center">
-                                    <label>
-                                        <input type="radio" class="option-input radio" name="example"/>
-                                    </label>
-                                </td>
-                                <td>1</td>
-                                <td>Nguyễn Lê Phương</td>
-                                <td>Nam</td>
-                                <td>03241285743</td>
-                                <td>Address</td>
-                                <td>20/12/2022</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">
-                                    <label>
-                                        <input type="radio" class="option-input radio" name="example"/>
-                                    </label>
-                                </td>
-                                <td>1</td>
-                                <td>Nguyễn Lê Phương</td>
-                                <td>Nam</td>
-                                <td>03241285743</td>
-                                <td>Address</td>
-                                <td>20/12/2022</td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>

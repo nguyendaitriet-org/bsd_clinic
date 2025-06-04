@@ -31,8 +31,9 @@ public class WebUrl {
 
     // API Admin - Appointment
     public static final String API_ADMIN_APPOINTMENT = API_ADMIN_ENDPOINT + "/appointments";
+    public static final String API_ADMIN_APPOINTMENT_LIST = API_ADMIN_APPOINTMENT + "/list";
 
-    // API Admin - Appointment
+    // API Admin - Subscriber
     public static final String API_ADMIN_SUBSCRIBER = API_ADMIN_ENDPOINT + "/subscribers";
     public static final String API_ADMIN_SUBSCRIBER_LIST = API_ADMIN_SUBSCRIBER + "/list";
 

@@ -7,7 +7,6 @@ import com.bsdclinic.appointment.Appointment;
 import com.bsdclinic.dto.AppointmentDto;
 import com.bsdclinic.dto.request.AppointmentFilter;
 import com.bsdclinic.dto.response.AppointmentResponse;
-import com.bsdclinic.dto.response.UserResponse;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.response.DatatableResponse;

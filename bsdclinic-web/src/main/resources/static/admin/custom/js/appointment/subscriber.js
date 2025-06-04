@@ -44,6 +44,10 @@ export const Subscriber = (function () {
                         return JSON.stringify(d);
                     }
                 },
+                initComplete: function (settings, json) {
+                    const tooltipTrigger = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+                    [...tooltipTrigger].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+                },
                 columns: [
                     {data: null},
                     {data: 'subscriberEmail'},
@@ -60,15 +64,15 @@ export const Subscriber = (function () {
                         targets: -1,
                         render: (data, type, row) =>
                             `<div class="btn-group btn-group-sm">
-                            <button class="btn btn-outline-info border-0" data-bs-toggle="tooltip" type="button"
-                                    data-bs-placement="bottom" data-bs-title="${selfTitle}">
-                                <i class="fas fa-arrow-left"></i>
-                            </button>
-                            <button class="btn btn-outline-warning border-0 appointment-list-btn" data-bs-toggle="tooltip" type="button"
-                                    data-bs-placement="bottom" data-bs-title="${detailTitle}" data-subscriber-id="${row.subscriberId}">
-                                <i class="fas fa-users"></i>
-                            </button>
-                        </div>`
+                                <button class="btn btn-outline-info border-0 self-filling-btn" data-bs-toggle="tooltip" type="button"
+                                        data-bs-placement="bottom" data-bs-title="${selfTitle}">
+                                    <i class="fas fa-arrow-left"></i>
+                                </button>
+                                <button class="btn btn-outline-warning border-0 appointment-list-btn" data-bs-toggle="tooltip" type="button"
+                                        data-bs-placement="bottom" data-bs-title="${detailTitle}" data-subscriber-id="${row.subscriberId}">
+                                    <i class="fas fa-users"></i>
+                                </button>
+                            </div>`
                     },
                 ],
                 serverSide: true,

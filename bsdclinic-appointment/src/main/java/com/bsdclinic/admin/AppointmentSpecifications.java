@@ -13,13 +13,15 @@ public class AppointmentSpecifications {
     public static Specification<Appointment> withFilter(AppointmentFilter filter) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
+
             String subscriberId = filter.getSubscriberId();
             if (StringUtils.hasText(subscriberId)) {
                 predicates.add(root.get("subscriberId").in(List.of(subscriberId)));
             }
 
-            if (StringUtils.hasText(filter.getKeyword())) {
-                String keyword = "%" + filter.getKeyword().toLowerCase() + "%";
+            String keywordInput = resolveKeywordInput(filter);
+            if (StringUtils.hasText(keywordInput)) {
+                String keyword = "%" + keywordInput.toLowerCase() + "%";
                 predicates.add(cb.or(
                     cb.like(cb.lower(root.get("patientName")), keyword),
                     cb.like(cb.lower(root.get("patientPhone")), keyword),
@@ -27,7 +29,21 @@ public class AppointmentSpecifications {
                 ));
             }
 
+            if (StringUtils.hasText(filter.getPatientPhone())) {
+                predicates.add(cb.equal(root.get("patientPhone"), filter.getPatientPhone()));
+            }
+
             return cb.and(predicates.toArray(new Predicate[0]));
         };
+    }
+
+    private static String resolveKeywordInput(AppointmentFilter filter) {
+        if (filter.getSearch() != null && StringUtils.hasText(filter.getSearch().getValue())) {
+            return filter.getSearch().getValue();
+        }
+        if (StringUtils.hasText(filter.getKeyword())) {
+            return filter.getKeyword();
+        }
+        return "";
     }
 }

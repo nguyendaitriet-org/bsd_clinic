@@ -48,3 +48,20 @@
 .bootstrap-select .dropdown-toggle:focus {
     outline: none!important;
 }
+
+.action-status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 0.85rem;
+}
+
+.status-PENDING    { background-color: #FACC15; color: #000; }
+.status-REJECTED   { background-color: #EF4444; color: #fff; }
+.status-ACCEPTED   { background-color: #22C55E; color: #fff; }
+.status-CHECKED_IN { background-color: #3B82F6; color: #fff; }
+.status-EXAMINING  { background-color: #6366F1; color: #fff; }
+.status-ADVANCED   { background-color: #8B5CF6; color: #fff; }
+.status-FINISHED   { background-color: #6B7280; color: #fff; }
+.status-PAID       { background-color: #10B981; color: #fff; }
+.status-UNPAID     { background-color: #FB923C; color: #000; }

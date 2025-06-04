@@ -45,7 +45,8 @@ export const AppointmentList = (function () {
                 {data: 'patientGender'},
                 {data: 'patientPhone'},
                 {data: 'patientAddress'},
-                {data: 'registerDate'}
+                {data: 'registerDate'},
+                {data: 'actionStatus'}
             ],
             serverSide: true,
             bJQueryUI: true,
@@ -61,7 +62,7 @@ export const AppointmentList = (function () {
             pagingType: 'simple_numbers',
             columnDefs: [
                 {
-                    targets: [0, 1, 3, 4, 6],
+                    targets: [0, 1, 3, 4, 6, 7],
                     className: "text-center"
                 },
                 {
@@ -71,7 +72,14 @@ export const AppointmentList = (function () {
                 {
                     targets: 3,
                     render: (data, type, row) => genderMap[data]
-                }
+                },
+                {
+                    targets: 7,
+                    render: (data, type, row) => {
+                        const statusTitle = appointmentStatusMap[data];
+                        return `<span class="action-status-badge action-status-${data}">${statusTitle}</span>`
+                    }
+                },
             ],
             language: DatatableAttribute.language
         });

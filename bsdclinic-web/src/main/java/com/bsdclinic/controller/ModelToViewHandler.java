@@ -51,7 +51,7 @@ public class ModelToViewHandler {
         String path = (String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
         if (path != null && path.startsWith(WebUrl.ADMIN_HOME)) {
             model.put("roleTitleMap", getRoleTitles());
-            model.put("appointmentActionMap", getAppointmentStatus());
+            model.put("appointmentStatusMap", getAppointmentStatus());
         }
     }
 

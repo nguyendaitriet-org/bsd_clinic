@@ -5,7 +5,7 @@ import lombok.*;
 @Getter
 @Setter
 public class DatatablePagination {
-    private Integer draw;              // current page
-    private Integer start;             // start from
-    private Integer length;            // number of records each page
+    private Integer draw = 1;              // current page
+    private Integer start = 0;             // start from
+    private Integer length = 1;            // number of records each page
 }

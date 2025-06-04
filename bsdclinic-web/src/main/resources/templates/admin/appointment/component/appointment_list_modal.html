@@ -15,12 +15,12 @@
                             <thead>
                             <tr class="text-center p-12">
                                 <th class="w-10" th:text="#{title.select}"></th>
-                                <th>#</th>
+                                <th class="w-5">#</th>
                                 <th th:text="#{title.patient.name}"></th>
-                                <th th:text="#{title.gender}"></th>
-                                <th class="w-15"  th:text="#{title.phone}"></th>
+                                <th class="w-10" th:text="#{title.gender}"></th>
+                                <th class="w-15" th:text="#{title.phone}"></th>
                                 <th th:text="#{title.address}"></th>
-                                <th th:text="#{title.registered_at}"></th>
+                                <th class="w-15" th:text="#{title.registered_at}"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -29,7 +29,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-confirm" th:text="#{title.confirm}"></button>
+                    <button type="button" class="btn btn-primary btn-confirm-select-appointment"
+                            th:text="#{title.confirm}"></button>
                     <button type="button" class="btn btn-secondary" th:text="#{title.cancel}"
                             data-bs-dismiss="modal"></button>
                 </div>

@@ -105,8 +105,8 @@
     right: 0;
     bottom: 0;
     left: 0;
-    height: 40px;
-    width: 40px;
+    height: 2.5rem;
+    width: 2.5rem;
     transition: all 0.15s ease-out 0s;
     background: #cbd1d8;
     border: none;
@@ -124,10 +124,10 @@
     background: #40e0d0;
 }
 .option-input:checked::before {
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     display:flex;
-    font-size: 25px;
+    font-size: 1.8rem;
     position: absolute;
     align-items:center;
     justify-content:center;

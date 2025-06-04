@@ -2,11 +2,11 @@ import {Subscriber} from "/admin/custom/js/appointment/subscriber.js";
 import {DatatableAttribute} from "/common/js/app.js";
 import {App} from "/common/js/app.js";
 
-export const AppointmentList = (function () {
+const AppointmentListForCreation = (function () {
     const module = {
         appointmentListModalSelector: $('#appointment-list-modal'),
         appointmentsForCreateTableSelector: $('#appointments-for-create-table'),
-        confirmSelectAppointmentButton: $('.btn-confirm-select-appointment')
+        confirmSelectAppointmentButton: $('.btn-confirm-select-appointment'),
     };
 
     module.init = () => {
@@ -157,6 +157,12 @@ export const AppointmentList = (function () {
     return module;
 })();
 
+const AppointmentList = (function () {
+    const module = {}
+
+    return module;
+})();
+
 (function () {
-    AppointmentList.init();
+    AppointmentListForCreation.init();
 })();

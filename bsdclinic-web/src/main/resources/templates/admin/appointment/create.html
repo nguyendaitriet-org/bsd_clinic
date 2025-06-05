@@ -101,8 +101,9 @@
                     <label th:text="#{title.doctor}" class="required-field"></label>
                     <select name="doctor" class="form-control doctor-select" style="width: 100%"
                             th:data-label="#{placeholder.doctor}">
-                        <option>Bac si 1</option>
-                        <option>Bac si 2</option>
+                        <th:block th:each="doctor: ${doctors}">
+                            <option th:value="${doctor.userId}" th:text="${doctor.fullName}"></option>
+                        </th:block>
                     </select>
                 </div>
             </div>

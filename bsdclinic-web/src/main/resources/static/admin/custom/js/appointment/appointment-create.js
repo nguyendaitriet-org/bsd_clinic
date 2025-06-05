@@ -75,7 +75,7 @@ export const AppointmentCreation = (function () {
 
             relationWithSubscriber: module.relationWithSubscriberSelector.val().trim(),
             visitReason: module.visitReasonSelector.val().trim(),
-            doctor: module.doctorSelector.val()
+            doctorId: module.doctorSelector.val()
         };
     };
 

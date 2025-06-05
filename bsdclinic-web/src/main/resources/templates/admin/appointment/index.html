@@ -27,8 +27,8 @@
             <select id="doctor-select" class="selectpicker w-100 bg-white"
                     th:data-none-selected-text="#{placeholder.doctor}"
                     tabindex="-1" data-actions-box="true" multiple>
-                <th:block th:each="userRole: ${userRoles}">
-                    <option th:value="${userRole.roleId}" th:text="${roleTitleMap[userRole.code]}"></option>
+                <th:block th:each="doctor: ${doctors}">
+                    <option th:value="${doctor.userId}" th:text="${doctor.fullName}"></option>
                 </th:block>
             </select>
         </div>
@@ -36,8 +36,8 @@
             <select id="status-select" class="selectpicker w-100 bg-white"
                     th:data-none-selected-text="#{placeholder.status}"
                     tabindex="-1" data-actions-box="true" multiple>
-                <th:block th:each="userStatus: ${userStatusMap}">
-                    <option th:value="${userStatus.key}" th:text="${userStatus.value}"></option>
+                <th:block th:each="appointmentStatus: ${appointmentStatusMap}">
+                    <option th:value="${appointmentStatus.key}" th:text="${appointmentStatus.value}"></option>
                 </th:block>
             </select>
         </div>

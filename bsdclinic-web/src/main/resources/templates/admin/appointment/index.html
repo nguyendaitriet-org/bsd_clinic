@@ -9,7 +9,7 @@
 <th:block layout:fragment="content-title" th:text="#{title.appointment.list}"></th:block>
 <th:block layout:fragment="content-title-note"></th:block>
 <th:block layout:fragment="content-button">
-    <button class="btn btn-primary btn-round" type="button" th:text="#{title.refresh}"></button>
+    <button id="refresh-btn" class="btn btn-primary btn-round" type="button" th:text="#{title.refresh}"></button>
 </th:block>
 
 <th:block layout:fragment="content-body">
@@ -72,5 +72,8 @@
 </th:block>
 
 <th:block layout:fragment="appointment-script">
-    <script type="module" th:src="@{/admin/custom/js/appointment/appointment-list.js}"></script>
+    <script type="module">
+        import {AppointmentList} from '/admin/custom/js/appointment/appointment-list.js';
+        AppointmentList.init();
+    </script>
 </th:block>

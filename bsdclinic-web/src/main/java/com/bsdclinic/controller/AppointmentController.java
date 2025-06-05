@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,6 +23,15 @@ public class AppointmentController {
     @ModelAttribute("doctors")
     public List<IUserSelectResponse> getDoctors() {
         return userService.getUsersForSelectByRoles(List.of(RoleConstant.DOCTOR.name()));
+    }
+
+    @ModelAttribute("doctorMap")
+    public Map<String, String> getDoctorMap() {
+        return userService.getUsersForSelectByRoles(List.of(RoleConstant.DOCTOR.name())).stream()
+                .collect(Collectors.toMap(
+                        IUserSelectResponse::getUserId,
+                        IUserSelectResponse::getFullName
+                ));
     }
 
     @RoleAuthorization.AuthenticatedUser

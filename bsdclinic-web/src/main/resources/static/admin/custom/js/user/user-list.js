@@ -74,12 +74,7 @@ export const UserList = (function () {
                 type: 'POST',
                 url: API_ADMIN_USER_LIST,
                 data: function (d) {
-                    d.keyword = userFilter.keyword;
-                    d.roleIds = userFilter.roleIds;
-                    d.status = userFilter.status;
-                    d.createdFrom = userFilter.createdFrom;
-                    d.createdTo = userFilter.createdTo;
-                    return JSON.stringify(d);
+                    return JSON.stringify({...d, ...userFilter});
                 }
             },
             columns: [

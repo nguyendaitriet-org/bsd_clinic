@@ -1,8 +1,10 @@
 import {Subscriber} from "/admin/custom/js/appointment/subscriber.js";
 import {DatatableAttribute} from "/common/js/app.js";
 import {App} from "/common/js/app.js";
+import {DateTimeConverter} from "/common/js/datetime_util.js";
+import {DateTimePattern} from "/common/js/constant.js";
 
-const AppointmentListForCreation = (function () {
+export const AppointmentListForCreation = (function () {
     const module = {
         appointmentListModalSelector: $('#appointment-list-modal'),
         appointmentsForCreateTableSelector: $('#appointments-for-create-table'),
@@ -157,13 +159,25 @@ const AppointmentListForCreation = (function () {
     return module;
 })();
 
-const AppointmentList = (function () {
+export const AppointmentList = (function () {
     const module = {
+        searchInputSelector: $('#search-input'),
+        doctorInputSelector: $('#doctor-select'),
+        statusInputSelector: $('#status-select'),
         registerDateInputSelector: $('#register-date-input'),
+        appointmentListTableSelector: $('#appointment-list-table'),
+
+        submitFilterButtonSelector: $('#submit-btn'),
+        cancelFilterButtonSelector: $('#cancel-btn'),
+        refreshTableButtonSelector: $('#refresh-btn'),
     }
 
     module.init = () => {
         initDateRangePicker();
+        renderAppointmentsTable();
+        handleSubmitFilterButton();
+        handleRefreshTableButton();
+        handleCancelFilterButton();
     }
 
     const initDateRangePicker = () => {
@@ -174,10 +188,102 @@ const AppointmentList = (function () {
         });
     }
 
-    return module;
-})();
+    const getAppointmentFilter = () => {
+        return ({
+            keyword: module.searchInputSelector.val().trim(),
+            doctorIds: module.doctorInputSelector.val(),
+            actionStatus: module.statusInputSelector.val(),
+            registerDateFrom: DateTimeConverter.convertMomentToDateString(module.registerDatePicker.getStartDate(), DateTimePattern.API_DATE_FORMAT),
+            registerDateTo: DateTimeConverter.convertMomentToDateString(module.registerDatePicker.getEndDate(), DateTimePattern.API_DATE_FORMAT),
+        })
+    }
 
-(function () {
-    AppointmentListForCreation.init();
-    AppointmentList.init();
+    const handleCancelFilterButton = () => {
+        module.cancelFilterButtonSelector.on('click', function () {
+            module.searchInputSelector.val('');
+            module.doctorInputSelector.selectpicker('deselectAll');
+            module.statusInputSelector.selectpicker('deselectAll');
+            module.registerDatePicker.setDateRange(null, null)
+            renderAppointmentsTable();
+        })
+    }
+
+    const handleSubmitFilterButton = () => {
+        module.submitFilterButtonSelector.on('click', function () {
+            renderAppointmentsTable();
+        })
+    }
+
+    const handleRefreshTableButton = () => {
+        module.refreshTableButtonSelector.on('click', function () {
+            renderAppointmentsTable();
+        })
+    }
+
+    const renderAppointmentsTable = () => {
+        const appointmentFilter = getAppointmentFilter();
+        const appointmentsDatatable = module.appointmentListTableSelector.DataTable({
+            ajax: {
+                contentType: 'application/json',
+                type: 'POST',
+                url: API_ADMIN_APPOINTMENT_LIST,
+                data: function (d) {
+                    return JSON.stringify({...d, ...appointmentFilter});
+                }
+            },
+            columns: [
+                {data: null},
+                {data: 'patientName'},
+                {data: 'patientPhone'},
+                {data: 'patientEmail'},
+                {data: 'registerDate'},
+                {data: 'actionStatus'},
+                {data: 'doctorId'},
+                {data: null}
+            ],
+            serverSide: true,
+            bJQueryUI: true,
+            destroy: true,
+            paging: true,
+            searching: false,
+            lengthChange: true,
+            info: false,
+            ordering: false,
+            pagingType: 'simple_numbers',
+            columnDefs: [
+                {
+                    targets: [0, 4, 5, 6, 7],
+                    className: "text-center"
+                },
+                {
+                    targets: 4,
+                    createdCell: (td, cellData) => $(td).html(DateTimeConverter.convertToDisplayPattern(cellData))
+                },
+                {
+                    targets: 5,
+                    createdCell: (td, cellData) => {
+                        const statusTitle = appointmentStatusMap[cellData];
+                        const content = `<span class="action-status-badge action-status-${cellData}">${statusTitle}</span>`;
+                        $(td).html(content);
+                    }
+                },
+                {
+                    targets: 6,
+                    createdCell: (td, cellData) => $(td).html(doctorMap[cellData])
+                },
+                {
+                    targets: -1,
+                    createdCell: (td, cellData) => {
+                        const detailButton = `<button class="btn btn-sm btn-outline-dark">${detailTitle}</button>`
+                        $(td).html(detailButton)
+                    }
+                },
+            ],
+            language: DatatableAttribute.language
+        });
+
+        DatatableAttribute.renderOrdinalColumn(appointmentsDatatable, 0);
+    }
+
+    return module;
 })();

@@ -1,6 +1,7 @@
 package com.bsdclinic;
 
 import com.bsdclinic.clinic_info.ClinicInfo;
+import com.bsdclinic.constant.CacheKey;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.message.MessageProvider;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class ClinicInfoServiceImpl implements ClinicInfoService {
     private final MessageProvider messageProvider;
 
     @Override
-    @Cacheable(value = "clinicInfo")
+    @Cacheable(value = CacheKey.CLINIC_INFO)
     public ClinicInfoDto getClinicInfo() {
         List<ClinicInfo> clinicInfo = clinicInfoRepository.findAll();
         if (clinicInfo.isEmpty()) {
@@ -29,7 +30,7 @@ public class ClinicInfoServiceImpl implements ClinicInfoService {
     }
 
     @Override
-    @CacheEvict(value = "clinicInfo", allEntries = true)
+    @CacheEvict(value = CacheKey.CLINIC_INFO, allEntries = true)
     public void updateClinicInfo(String clinicInfoId, ClinicInfoDto request) {
         if (Boolean.FALSE.equals(clinicInfoRepository.existsByClinicInfoId(clinicInfoId))) {
             throw new NotFoundException(messageProvider.getMessage("validation.no_exist.clinic_id"));

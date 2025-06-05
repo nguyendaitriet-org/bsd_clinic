@@ -15,9 +15,9 @@ public class SubscriberSpecifications {
             if (StringUtils.hasText(filter.getKeyword())) {
                 String keyword = "%" + filter.getKeyword().toLowerCase() + "%";
                 predicates.add(cb.or(
-                    cb.like(cb.lower(root.get("name")), keyword),
-                    cb.like(cb.lower(root.get("email")), keyword),
-                    cb.like(cb.lower(root.get("phone")), keyword)
+                    cb.like(cb.lower(root.get(Subscriber_.NAME)), keyword),
+                    cb.like(cb.lower(root.get(Subscriber_.EMAIL)), keyword),
+                    cb.like(cb.lower(root.get(Subscriber_.PHONE)), keyword)
                 ));
             }
 

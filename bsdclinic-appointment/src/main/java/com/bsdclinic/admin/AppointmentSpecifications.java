@@ -1,11 +1,14 @@
 package com.bsdclinic.admin;
 
+import com.bsdclinic.appointment.ActionStatus;
 import com.bsdclinic.appointment.Appointment;
+import com.bsdclinic.appointment.Appointment_;
 import com.bsdclinic.dto.request.AppointmentFilter;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,21 +19,52 @@ public class AppointmentSpecifications {
 
             String subscriberId = filter.getSubscriberId();
             if (StringUtils.hasText(subscriberId)) {
-                predicates.add(root.get("subscriberId").in(List.of(subscriberId)));
+                predicates.add(root.get(Appointment_.SUBSCRIBER_ID).in(List.of(subscriberId)));
             }
 
             String keywordInput = resolveKeywordInput(filter);
             if (StringUtils.hasText(keywordInput)) {
                 String keyword = "%" + keywordInput.toLowerCase() + "%";
                 predicates.add(cb.or(
-                    cb.like(cb.lower(root.get("patientName")), keyword),
-                    cb.like(cb.lower(root.get("patientPhone")), keyword),
-                    cb.like(cb.lower(root.get("patientEmail")), keyword)
+                    cb.like(cb.lower(root.get(Appointment_.PATIENT_EMAIL)), keyword),
+                    cb.like(cb.lower(root.get(Appointment_.PATIENT_PHONE)), keyword),
+                    cb.like(cb.lower(root.get(Appointment_.PATIENT_EMAIL)), keyword)
                 ));
             }
 
             if (StringUtils.hasText(filter.getPatientPhone())) {
-                predicates.add(cb.equal(root.get("patientPhone"), filter.getPatientPhone()));
+                predicates.add(cb.equal(root.get(Appointment_.PATIENT_PHONE), filter.getPatientPhone()));
+            }
+
+            List<String> doctorIds = filter.getDoctorIds();
+            if (doctorIds != null && !doctorIds.isEmpty()) {
+                predicates.add(root.get(Appointment_.DOCTOR_ID).in(doctorIds));
+            }
+
+            List<String> actionStatus = filter.getActionStatus();
+            if (actionStatus != null && !actionStatus.isEmpty()) {
+                predicates.add(root.get(Appointment_.ACTION_STATUS).in(actionStatus));
+            }
+
+            LocalDate registerDateFrom = filter.getRegisterDateFrom();
+            if (registerDateFrom != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get(Appointment_.REGISTER_DATE), registerDateFrom));
+            }
+
+            LocalDate registerDateTo = filter.getRegisterDateTo();
+            if (registerDateTo != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get(Appointment_.REGISTER_DATE), registerDateTo));
+            }
+
+            if (query != null) {
+                query.orderBy(
+                    // First order by: PENDING status first (using CASE WHEN)
+                    cb.asc(cb.selectCase()
+                            .when(cb.equal(root.get(Appointment_.ACTION_STATUS), ActionStatus.PENDING.name()), 0)
+                            .otherwise(1)),
+                    // Second order by: latest registerDate (descending)
+                    cb.desc(root.get(Appointment_.REGISTER_DATE))
+                );
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));

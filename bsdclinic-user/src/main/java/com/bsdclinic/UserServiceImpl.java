@@ -1,5 +1,6 @@
 package com.bsdclinic;
 
+import com.bsdclinic.constant.CacheKey;
 import com.bsdclinic.dto.request.CreateUserRequest;
 import com.bsdclinic.dto.request.UpdateUserByAdminRequest;
 import com.bsdclinic.dto.request.UserFilter;
@@ -20,6 +21,8 @@ import com.bsdclinic.user.User;
 import com.bsdclinic.user.UserStatus;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -50,6 +53,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @CacheEvict(value = CacheKey.USERS_FOR_SELECT, allEntries = true)
     public void createUser(CreateUserRequest request) {
         User user = userMapper.toEntity(request);
         user.setStatus(UserStatus.ACTIVE.name());
@@ -97,6 +101,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @CacheEvict(value = CacheKey.USERS_FOR_SELECT, allEntries = true)
     public void updateByAdmin(UpdateUserByAdminRequest request) {
         User user = findById(request.getUserId());
         user.setRoleId(request.getRoleId());
@@ -129,6 +134,7 @@ public class UserServiceImpl implements UserService {
                         messageProvider.getMessage("validation.no_exist.user_id") + " " + userId));
     }
 
+    @Override
     public void updateUserInfo(String userId, UserInfoRequest userInfoRequest){
         User user = findById(userId);
         user = userMapper.toEntity(userInfoRequest, user);
@@ -136,6 +142,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Cacheable(value = CacheKey.USERS_FOR_SELECT)
     public List<IUserSelectResponse> getUsersForSelectByRoles(List<String> roleCodes) {
         return userRepository.findUsersForSelectByRoles(roleCodes);
     }

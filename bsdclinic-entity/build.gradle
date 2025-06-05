@@ -7,4 +7,5 @@ version = '1.0.0'
 
 dependencies {
     implementation 'com.aventrix.jnanoid:jnanoid:2.0.0'
+    annotationProcessor 'org.hibernate:hibernate-jpamodelgen:6.6.11.Final'
 }

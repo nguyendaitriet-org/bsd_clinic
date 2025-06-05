@@ -2,6 +2,7 @@ package com.bsdclinic.repository;
 
 import com.bsdclinic.dto.request.UserFilter;
 import com.bsdclinic.user.User;
+import com.bsdclinic.user.User_;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
@@ -18,34 +19,34 @@ public class UserSpecifications {
             List<Predicate> predicates = new ArrayList<>();
 
             /* Exclude the current logged-in user */
-            predicates.add(cb.not(root.get("id").in(List.of(filter.getCurrentUserId()))));
+            predicates.add(cb.not(root.get(User_.USER_ID).in(List.of(filter.getCurrentUserId()))));
 
             if (StringUtils.hasText(filter.getKeyword())) {
                 String keyword = "%" + filter.getKeyword().toLowerCase() + "%";
                 predicates.add(cb.or(
-                    cb.like(cb.lower(root.get("fullName")), keyword),
-                    cb.like(cb.lower(root.get("email")), keyword),
-                    cb.like(cb.lower(root.get("phone")), keyword)
+                    cb.like(cb.lower(root.get(User_.FULL_NAME)), keyword),
+                    cb.like(cb.lower(root.get(User_.EMAIL)), keyword),
+                    cb.like(cb.lower(root.get(User_.PHONE)), keyword)
                 ));
             }
 
             if (filter.getRoleIds() != null && !filter.getRoleIds().isEmpty()) {
-                predicates.add(root.get("roleId").in(filter.getRoleIds()));
+                predicates.add(root.get(User_.ROLE_ID).in(filter.getRoleIds()));
             }
 
             if (filter.getStatus() != null && !filter.getStatus().isEmpty()) {
-                predicates.add(root.get("status").in(filter.getStatus()));
+                predicates.add(root.get(User_.STATUS).in(filter.getStatus()));
             }
 
             ZoneId zone = ZoneId.systemDefault();
             if (filter.getCreatedFrom() != null) {
                 Instant from = filter.getCreatedFrom().atStartOfDay(zone).toInstant();
-                predicates.add(cb.greaterThanOrEqualTo(root.get("createdAt"), from));
+                predicates.add(cb.greaterThanOrEqualTo(root.get(User_.CREATED_AT), from));
             }
 
             if (filter.getCreatedTo() != null) {
                 Instant to = filter.getCreatedTo().atTime(LocalTime.MAX).atZone(zone).toInstant();
-                predicates.add(cb.lessThanOrEqualTo(root.get("createdAt"), to));
+                predicates.add(cb.lessThanOrEqualTo(root.get(User_.CREATED_AT), to));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));

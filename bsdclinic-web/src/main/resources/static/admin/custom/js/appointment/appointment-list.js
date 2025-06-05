@@ -158,11 +158,26 @@ const AppointmentListForCreation = (function () {
 })();
 
 const AppointmentList = (function () {
-    const module = {}
+    const module = {
+        registerDateInputSelector: $('#register-date-input'),
+    }
+
+    module.init = () => {
+        initDateRangePicker();
+    }
+
+    const initDateRangePicker = () => {
+        module.registerDatePicker = new Lightpick({
+            field: module.registerDateInputSelector[0],
+            singleDate: false,
+            lang: 'vi'
+        });
+    }
 
     return module;
 })();
 
 (function () {
     AppointmentListForCreation.init();
+    AppointmentList.init();
 })();

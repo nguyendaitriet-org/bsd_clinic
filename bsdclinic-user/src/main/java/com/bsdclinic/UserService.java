@@ -6,6 +6,7 @@ import com.bsdclinic.dto.request.UserFilter;
 import com.bsdclinic.dto.request.UserInfoRequest;
 import com.bsdclinic.dto.response.AvatarResponse;
 import com.bsdclinic.dto.response.IUserResponse;
+import com.bsdclinic.dto.response.IUserSelectResponse;
 import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.user.Role;
 import org.springframework.core.io.Resource;
@@ -23,4 +24,5 @@ public interface UserService {
     AvatarResponse saveAvatar(MultipartFile avatar, String userId);
     Resource getAvatar(String userId);
     void updateUserInfo(String userId, UserInfoRequest userInfoRequest);
+    List<IUserSelectResponse> getUsersForSelectByRoles(List<String> roleCodes);
 }

@@ -6,6 +6,7 @@ import com.bsdclinic.dto.request.UserFilter;
 import com.bsdclinic.dto.request.UserInfoRequest;
 import com.bsdclinic.dto.response.AvatarResponse;
 import com.bsdclinic.dto.response.IUserResponse;
+import com.bsdclinic.dto.response.IUserSelectResponse;
 import com.bsdclinic.dto.response.UserResponse;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.message.MessageProvider;
@@ -132,5 +133,10 @@ public class UserServiceImpl implements UserService {
         User user = findById(userId);
         user = userMapper.toEntity(userInfoRequest, user);
         userRepository.save(user);
+    }
+
+    @Override
+    public List<IUserSelectResponse> getUsersForSelectByRoles(List<String> roleCodes) {
+        return userRepository.findUsersForSelectByRoles(roleCodes);
     }
 }

@@ -118,6 +118,17 @@ public class AppointmentValidator {
         }
     }
 
+    public static class ValidPhone implements ConstraintValidator<AppointmentRuleAnnotation.ValidPhone, String> {
+        private static final String PHONE_REGEX = "^(\\+84|84|0)?[0-9]{9,10}$";
+        @Override
+        public boolean isValid(String value, ConstraintValidatorContext context) {
+            if (value == null || value.trim().isEmpty()) {
+                return true;
+            }
+            return value.matches(PHONE_REGEX);
+        }
+    }
+
     @RequiredArgsConstructor
     public static class ExistedDoctorIdValidator implements ConstraintValidator<AppointmentRuleAnnotation.ValidDoctorId, String> {
         private final UserRepository userRepository;

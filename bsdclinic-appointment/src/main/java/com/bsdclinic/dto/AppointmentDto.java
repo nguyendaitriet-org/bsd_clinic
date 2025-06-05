@@ -43,6 +43,8 @@ public class AppointmentDto {
     @Size(max = 255, message = "{validation.input.max_length.255}", groups = OnCommonCreate.class)
     private String patientName;
 
+    @NotBlank(message = "{validation.required.phone}", groups = OnCommonCreate.class)
+    @AppointmentRuleAnnotation.ValidPhone(groups = OnCommonCreate.class)
     @Size(max = 20, message = "{validation.input.max_length.20}", groups = OnCommonCreate.class)
     private String patientPhone;
 

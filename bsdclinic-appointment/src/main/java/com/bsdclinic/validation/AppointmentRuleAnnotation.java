@@ -58,4 +58,17 @@ public class AppointmentRuleAnnotation {
 
         Class<? extends Payload>[] payload() default {};
     }
+
+    @Documented
+    @Target({ElementType.PARAMETER, ElementType.FIELD})
+    @Retention(RetentionPolicy.RUNTIME)
+    @Constraint(validatedBy = AppointmentValidator.ValidPhone.class)
+    @ReportAsSingleViolation
+    public @interface ValidPhone {
+        String message() default "Số điện thoại sai định dạng";
+
+        Class<?>[] groups() default {};
+
+        Class<? extends Payload>[] payload() default {};
+    }
 }

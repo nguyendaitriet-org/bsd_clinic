@@ -126,6 +126,12 @@ public class AppointmentValidator {
         public boolean isValid(String doctorId, ConstraintValidatorContext context) {
             context.disableDefaultConstraintViolation();
 
+            if (StringUtils.isBlank(doctorId)) {
+                context.buildConstraintViolationWithTemplate("{validation.required.doctor_id}")
+                        .addConstraintViolation();
+                return false;
+            }
+
             IUserResponse user = userRepository.findByIdRole(doctorId);
 
             if (user == null) {

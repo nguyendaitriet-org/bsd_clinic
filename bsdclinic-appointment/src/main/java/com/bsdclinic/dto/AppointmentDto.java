@@ -35,19 +35,24 @@ public class AppointmentDto {
     @AppointmentRuleAnnotation.ValidRegisterHour(groups = OnClientCreate.class)
     private String registerTime;
 
-    @Null
-    @Size(max = 255, message = "{validation.input.max_length.255}", groups = OnCommonCreate.class)
-    @Pattern(regexp = ValidationConstant.EMAIL_PATTERN, message = "{validation.format.email}", groups = OnCommonCreate.class)
-    private String patientEmail;
-
     @NotBlank(message = "{validation.required.full_name}", groups = OnCommonCreate.class)
     @Size(max = 255, message = "{validation.input.max_length.255}", groups = OnCommonCreate.class)
     private String patientName;
 
-    @NotBlank(message = "{validation.required.phone}", groups = OnCommonCreate.class)
     @Size(max = 20, message = "{validation.input.max_length.20}", groups = OnCommonCreate.class)
     @Pattern(regexp = ValidationConstant.PHONE_NUMBER_PATTERN, message = "{validation.invalid.phone}", groups = OnCommonCreate.class)
     private String patientPhone;
+
+    @Size(max = 255, message = "{validation.input.max_length.255}", groups = OnCommonCreate.class)
+    @Pattern(regexp = ValidationConstant.EMAIL_PATTERN, message = "{validation.format.email}", groups = OnCommonCreate.class)
+    private String patientEmail;
+
+    @NotBlank(message = "{validation.required.gender}", groups = OnCommonCreate.class)
+    @Pattern(regexp = ValidationConstant.GENDER_PATTERN, message = "{validation.invalid.gender}", groups = OnCommonCreate.class)
+    private String patientGender;
+
+    @AppointmentRuleAnnotation.ValidBirthday(groups = OnCommonCreate.class)
+    private String patientBirthday;
 
     @Size(max = 255, message = "{validation.input.max_length.255}", groups = OnCommonCreate.class)
     private String patientAddress;
@@ -60,14 +65,6 @@ public class AppointmentDto {
     @Size(max = 255, message = "{validation.input.max_length.255}", groups = OnCommonCreate.class)
     private String visitReason;
 
-    @NotBlank(message = "{validation.required.gender}", groups = OnCommonCreate.class)
-    @Pattern(regexp = ValidationConstant.GENDER_PATTERN, message = "{validation.invalid.gender}", groups = OnCommonCreate.class)
-    private String patientGender;
-
-    @AppointmentRuleAnnotation.ValidBirthday(groups = OnCommonCreate.class)
-    private String patientBirthday;
-
-    @NotBlank(message = "{validation.required.doctor_id}", groups = OnAdminCreate.class)
     @AppointmentRuleAnnotation.ValidDoctorId(groups = OnAdminCreate.class)
     private String doctorId;
 }

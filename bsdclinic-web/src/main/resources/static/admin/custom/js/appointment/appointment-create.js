@@ -5,6 +5,8 @@ import {DateTimePattern} from "/common/js/constant.js";
 
 export const AppointmentCreation = (function () {
     const module = {
+        appointmentCreationAreaSelector: $('.appointment-creation-area'),
+
         subscriberNameSelector: $('#subscriber-name'),
         subscriberPhoneSelector: $('#subscriber-phone'),
         subscriberEmailSelector: $('#subscriber-email'),
@@ -17,17 +19,19 @@ export const AppointmentCreation = (function () {
         patientAddressSelector: $('#patient-address'),
         relationWithSubscriberSelector: $('#relation-with-subscriber'),
         visitReasonSelector: $('#visit-reason'),
-        doctorSelector: $('select[name="doctor"]'),
+        doctorSelector: $('select[name="doctorId"]'),
 
         appointmentCreateSelector: $('#create-appointment'),
         selfRegisterSelector: $('#self-register'),
-        submitBtn: $('#submit-btn')
+        submitButtonSelector: $('#submit-btn'),
+        cancelButtonSelector: $('#cancel-btn')
     };
 
     module.init = () => {
         initDatePicker();
         module.toggleSelfRegisterCheckbox();
         handleSubmitButton();
+        handleCancelButton();
     };
 
     const initDatePicker = () => {
@@ -38,12 +42,9 @@ export const AppointmentCreation = (function () {
     };
 
     module.toggleSelfRegisterCheckbox = () => {
-        module.selfRegisterSelector.on('click', function () {
+        module.selfRegisterSelector.on('change', function () {
             if (this.checked) {
-                module.patientNameSelector.val(module.subscriberNameSelector.val().trim());
-                module.patientPhoneSelector.val(module.subscriberPhoneSelector.val().trim());
-                module.patientEmailSelector.val(module.subscriberEmailSelector.val().trim());
-                module.relationWithSubscriberSelector.val(selfRegister);
+                module.fillPatientInfoBySubscriber();
             } else {
                 module.patientNameSelector.val('');
                 module.patientPhoneSelector.val('');
@@ -53,9 +54,17 @@ export const AppointmentCreation = (function () {
         });
     };
 
+    module.fillPatientInfoBySubscriber = () => {
+        module.patientNameSelector.val(module.subscriberNameSelector.val().trim());
+        module.patientPhoneSelector.val(module.subscriberPhoneSelector.val().trim());
+        module.patientEmailSelector.val(module.subscriberEmailSelector.val().trim());
+        module.relationWithSubscriberSelector.val(selfRegister);
+    }
+
     const handleSubmitButton = () => {
-        module.submitBtn.on('click', function () {
+        module.submitButtonSelector.on('click', function () {
             const appointmentData = getAppointmentData();
+
             createAppointment(appointmentData);
         });
     };
@@ -99,11 +108,14 @@ export const AppointmentCreation = (function () {
             });
     };
 
-    return module;
-})();
+    const handleCancelButton = () => {
+        module.cancelButtonSelector.on('click', function () {
+            FormHandler.clearAllInputs(module.appointmentCreationAreaSelector);
+            module.patientBirthdayPicker.setDate(null);
+        })
+    }
 
-(function () {
-    AppointmentCreation.init();
+    return module;
 })();
 
 export default AppointmentCreation;

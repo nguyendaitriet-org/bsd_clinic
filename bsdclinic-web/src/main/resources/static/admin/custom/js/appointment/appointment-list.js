@@ -1,4 +1,5 @@
 import {Subscriber} from "/admin/custom/js/appointment/subscriber.js";
+import AppointmentCreation from "/admin/custom/js/appointment/appointment-create.js";
 import {DatatableAttribute} from "/common/js/app.js";
 import {App} from "/common/js/app.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
@@ -120,8 +121,37 @@ export const AppointmentListForCreation = (function () {
     }
 
     const renderAppointmentDataToCreateForm = (appointmentDataForCreation) => {
-        // TODO: Add logic
         console.log('appointmentData', appointmentDataForCreation);
+        AppointmentCreation.subscriberNameSelector.val(appointmentDataForCreation.subscriberName);
+        AppointmentCreation.subscriberPhoneSelector.val(appointmentDataForCreation.subscriberPhone);
+        AppointmentCreation.subscriberEmailSelector.val(appointmentDataForCreation.subscriberEmail);
+
+        if (appointmentDataForCreation.subscriberPhone === appointmentDataForCreation.patientPhone) {
+            AppointmentCreation.selfRegisterSelector.prop('checked', true);
+        } else {
+            AppointmentCreation.selfRegisterSelector.prop('checked', false);
+        }
+
+        /* Use the patient name to determine the subscriber has self-registered yet */
+        if (appointmentDataForCreation.patientName) {
+            AppointmentCreation.patientNameSelector.val(appointmentDataForCreation.patientName);
+            AppointmentCreation.patientPhoneSelector.val(appointmentDataForCreation.patientPhone);
+            AppointmentCreation.patientEmailSelector.val(appointmentDataForCreation.patientEmail);
+            AppointmentCreation.patientGenderSelector
+                .filter(`[value="${appointmentDataForCreation.patientGender}"]`)
+                .prop('checked', true);
+            AppointmentCreation.patientBirthdayPicker.setDate(DateTimeConverter.convertToDisplayPattern(appointmentDataForCreation.patientBirthday));
+            AppointmentCreation.patientAddressSelector.val(appointmentDataForCreation.patientAddress);
+            AppointmentCreation.relationWithSubscriberSelector.val(appointmentDataForCreation.relationWithSubscriber);
+        } else {
+            AppointmentCreation.patientGenderSelector
+                .filter(`[value="${appointmentDataForCreation.patientGender}"]`)
+                .prop('checked', false);
+            AppointmentCreation.patientBirthdayPicker.setDate(null);
+            AppointmentCreation.patientAddressSelector.val('');
+            AppointmentCreation.relationWithSubscriberSelector.val('');
+            AppointmentCreation.fillPatientInfoBySubscriber();
+        }
     }
 
     const handleConfirmSelectAppointmentButton = () => {
@@ -139,6 +169,8 @@ export const AppointmentListForCreation = (function () {
                     ...currentAppointmentData
                 }
                 renderAppointmentDataToCreateForm(appointmentDataForCreation);
+                module.appointmentListModalSelector.modal('hide');
+                App.showSweetAlert('success', operationSuccess, '');
             }
         })
     }

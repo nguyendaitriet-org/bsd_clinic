@@ -20,7 +20,7 @@
     <div class="d-flex gap-5 justify-content-between">
         <div class="card col-5" id="create-appointment">
             <div class="card-header bg-black custom-card-header" th:text="#{title.appointment.form}"></div>
-            <div class="card-body appointment-register">
+            <div class="card-body appointment-creation-area">
                 <div class="h5" th:text="#{title.subscriber}"></div>
                 <hr>
                 <div class="form-group with-validation" >
@@ -93,8 +93,9 @@
                 </div>
                 <div class="form-group with-validation">
                     <label th:text="#{title.doctor}" class="required-field"></label>
-                    <select name="doctor" class="form-control doctor-select" style="width: 100%"
+                    <select name="doctorId" class="form-control doctor-select" style="width: 100%"
                             th:data-label="#{placeholder.doctor}">
+                        <option value="" th:text="#{placeholder.doctor}" selected></option>
                         <th:block th:each="doctor: ${doctors}">
                             <option th:value="${doctor.userId}" th:text="${doctor.fullName}"></option>
                         </th:block>
@@ -151,9 +152,11 @@
 
 <th:block layout:fragment="appointment-script">
     <script type="module">
+        import {AppointmentCreation} from '/admin/custom/js/appointment/appointment-create.js';
         import {AppointmentListForCreation} from '/admin/custom/js/appointment/appointment-list.js';
+
+        AppointmentCreation.init();
         AppointmentListForCreation.init();
     </script>
-    <script type="module" th:src="@{/admin/custom/js/appointment/appointment-create.js}"></script>
     <script type="module" th:src="@{/admin/custom/js/appointment/subscriber.js}"></script>
 </th:block>

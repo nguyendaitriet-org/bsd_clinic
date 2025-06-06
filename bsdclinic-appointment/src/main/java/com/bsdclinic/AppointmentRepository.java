@@ -1,6 +1,7 @@
 package com.bsdclinic;
 
 import com.bsdclinic.appointment.Appointment;
+import com.bsdclinic.dto.response.IAppointmentStatusCount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +16,11 @@ public interface AppointmentRepository extends JpaRepository<Appointment, String
     List<String> findRegisterTimesByRegisterDay(LocalDate registerDate);
 
     boolean existsByRegisterDateAndRegisterTime(LocalDate registerDate, String registerTime);
+
+    @Query("SELECT " +
+                "a.actionStatus AS actionStatus, " +
+                "COUNT(a.actionStatus) AS statusCount " +
+            "FROM Appointment a " +
+            "GROUP BY a.actionStatus")
+    List<IAppointmentStatusCount> getAppointmentStatusCount();
 }

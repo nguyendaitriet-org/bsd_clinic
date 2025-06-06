@@ -26,6 +26,7 @@ public class AppointmentDto {
 
     @NotBlank(message = "{validation.required.phone}", groups = OnCommonCreate.class)
     @Size(max = 20, message = "{validation.input.max_length.20}", groups = OnCommonCreate.class)
+    @Pattern(regexp = ValidationConstant.PHONE_NUMBER_PATTERN, message = "{validation.invalid.phone}", groups = OnCommonCreate.class)
     private String subscriberPhone;
 
     @AppointmentRuleAnnotation.ValidRegisterDate(groups = OnClientCreate.class)
@@ -43,7 +44,9 @@ public class AppointmentDto {
     @Size(max = 255, message = "{validation.input.max_length.255}", groups = OnCommonCreate.class)
     private String patientName;
 
+    @NotBlank(message = "{validation.required.phone}", groups = OnCommonCreate.class)
     @Size(max = 20, message = "{validation.input.max_length.20}", groups = OnCommonCreate.class)
+    @Pattern(regexp = ValidationConstant.PHONE_NUMBER_PATTERN, message = "{validation.invalid.phone}", groups = OnCommonCreate.class)
     private String patientPhone;
 
     @Size(max = 255, message = "{validation.input.max_length.255}", groups = OnCommonCreate.class)

@@ -17,92 +17,87 @@
 <th:block layout:fragment="content-button"></th:block>
 
 <th:block layout:fragment="content-body">
-    <div class="d-flex gap-5">
-        <div class="card col-5">
+    <div class="d-flex gap-5 justify-content-between">
+        <div class="card col-5" id="create-appointment">
             <div class="card-header bg-black custom-card-header" th:text="#{title.appointment.form}"></div>
             <div class="card-body appointment-register">
                 <div class="h5" th:text="#{title.subscriber}"></div>
                 <hr>
-                <div class="form-group">
+                <div class="form-group with-validation" >
                     <label class="required-field" for="subscriber-name" th:text="#{title.full_name}"></label>
                     <input type="text" class="form-control" id="subscriber-name" name="subscriberName"
                            th:placeholder="#{placeholder.full_name}">
                 </div>
-                <div class="form-group">
+                <div class="form-group with-validation">
                     <label class="required-field" for="subscriber-phone" th:text="#{title.phone}"></label>
                     <input type="text" class="form-control" id="subscriber-phone" name="subscriberPhone"
                            th:placeholder="#{placeholder.phone}">
                 </div>
-                <div class="form-group">
+                <div class="form-group with-validation">
                     <label class="required-field" for="subscriber-email" th:text="#{title.email}"></label>
                     <input type="text" class="form-control" id="subscriber-email" name="subscriberEmail"
                            th:placeholder="#{placeholder.email}">
                 </div>
-                <div class="form-check">
+                <div class="form-check with-validation">
                     <input class="form-check-input" type="checkbox" value="" id="self-register">
                     <label class="form-check-label" for="self-register" th:text="#{title.subscriber.self_register}">
                     </label>
                 </div>
                 <div class="h5 mt-3" th:text="#{title.patient}"></div>
                 <hr>
-                <div class="form-group">
+                <div class="form-group with-validation">
                     <label class="required-field" for="patient-name" th:text="#{title.full_name}"></label>
                     <input type="text" class="form-control" id="patient-name" name="patientName"
                            th:placeholder="#{placeholder.full_name}">
                 </div>
-                <div class="form-group">
+                <div class="form-group with-validation">
                     <label for="patient-phone" th:text="#{title.phone}"></label>
                     <input type="text" class="form-control" id="patient-phone" name="patientPhone"
                            th:placeholder="#{placeholder.phone}">
                 </div>
-                <div class="form-group">
+                <div class="form-group with-validation">
                     <label for="patient-email" th:text="#{title.email}"></label>
                     <input type="text" class="form-control" id="patient-email" name="patientEmail"
                            th:placeholder="#{placeholder.email}">
                 </div>
-                <div class="form-group">
+                <div class="form-group with-validation">
                     <label class="required-field" th:text="#{title.gender}"></label>
-                    <th:block th:each="gender, iter : ${genderMap}">
+                    <th:block th:each="gender : ${genderMap}">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input"
-                                   type="radio"
-                                   name="patientGender"
-                                   th:id="${gender.key}"
-                                   th:value="${gender.key}"
-                                   th:checked="${iter.index == 0}">
-                            <label class="form-check-label"
-                                   th:for="${gender.key}"
-                                   th:text="${gender.value}"></label>
+                            <input class="form-check-input" type="radio" name="patientGender"
+                                   th:id="${gender.key}" th:value="${gender.key}">
+                            <label class="form-check-label" th:for="${gender.key}" th:text="${gender.value}"></label>
                         </div>
                     </th:block>
                 </div>
-                <div class="form-group">
+                <div class="form-group with-validation">
                     <label class="required-field" for="patient-birthday" th:text="#{title.birthday}"></label>
                     <input type="text" class="form-control" id="patient-birthday" name="patientBirthday"
                            th:placeholder="#{placeholder.birthday}"/>
                 </div>
-                <div class="form-group">
+                <div class="form-group with-validation">
                     <label for="patient-address" th:text="#{title.address}"></label>
                     <input type="text" class="form-control" id="patient-address" name="patientAddress"
                            th:placeholder="#{placeholder.address}">
                 </div>
-                <div class="form-group">
+                <div class="form-group with-validation">
                     <label class="required-field" for="relation-with-subscriber"
                            th:text="#{title.patient.subscriber_relation}"></label>
                     <input type="text" class="form-control" id="relation-with-subscriber" name="relationWithSubscriber"
                            th:placeholder="#{placeholder.subscriber_relation}">
                 </div>
-                <div class="form-group">
+                <div class="form-group with-validation">
                     <label class="required-field" for="visit-reason" th:text="#{title.visit_reason}"></label>
                     <input type="text" class="form-control" id="visit-reason" name="visitReason"
                            th:placeholder="#{placeholder.visit_reason}">
                 </div>
-                <div class="form-group">
+                <div class="form-group with-validation">
                     <label th:text="#{title.doctor}" class="required-field"></label>
                     <select name="doctor" class="form-control doctor-select" style="width: 100%"
                             th:data-label="#{placeholder.doctor}">
-                        <option>Bac si 1</option>
-                        <option>Bac si 2</option>
+                        <th:block th:each="doctor: ${doctors}">
+                            <option th:value="${doctor.userId}" th:text="${doctor.fullName}"></option>
+                        </th:block>
                     </select>
                 </div>
             </div>

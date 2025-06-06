@@ -1,8 +1,8 @@
 package com.bsdclinic.subscriber;
 
 import com.bsdclinic.AppointmentMapper;
-import com.bsdclinic.dto.AppointmentDto;
-import com.bsdclinic.dto.response.UserResponse;
+import com.bsdclinic.exception_handler.exception.BadRequestException;
+import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.response.DatatableResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -12,12 +12,14 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class SubscriberServiceImpl implements SubscriberService {
     private final SubscriberRepository subscriberRepository;
     private final AppointmentMapper appointmentMapper;
+    private final MessageProvider messageProvider;
 
     @Override
     public DatatableResponse getSubscribersByFilter(SubscriberFilter subscriberFilter) {
@@ -37,5 +39,13 @@ public class SubscriberServiceImpl implements SubscriberService {
         datatableResponse.setRecordsTotal(totalRecord);
 
         return datatableResponse;
+    }
+
+    public void checkDuplicateSubscriberEmail (String email) {
+        boolean isSubscriberEmailExisted = subscriberRepository.existsByEmail(email);
+        if (isSubscriberEmailExisted) {
+            Map<String, String> errors = Map.of("subscriberEmail", messageProvider.getMessage("validation.existed.email"));
+            throw new BadRequestException(errors);
+        }
     }
 }

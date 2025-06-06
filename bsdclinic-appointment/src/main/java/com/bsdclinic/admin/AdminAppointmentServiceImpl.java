@@ -12,6 +12,7 @@ import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.subscriber.Subscriber;
 import com.bsdclinic.subscriber.SubscriberRepository;
+import com.bsdclinic.subscriber.SubscriberService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -29,16 +31,19 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
     private final SubscriberRepository subscriberRepository;
     private final AppointmentMapper appointmentMapper;
     private final MessageProvider messageProvider;
+    private final SubscriberService subscriberService;
 
     @Override
     public void createNewAppointment(AppointmentDto appointmentDto) {
         Subscriber subscriber = subscriberRepository.findByPhone(appointmentDto.getSubscriberPhone());
         if (subscriber == null) {
+            subscriberService.checkDuplicateSubscriberEmail(appointmentDto.getSubscriberEmail());
             Subscriber newSubscriber = appointmentMapper.toSubscriber(appointmentDto);
             subscriber = subscriberRepository.save(newSubscriber);
         }
 
         Appointment newAppointment = appointmentMapper.toAppointment(appointmentDto);
+        newAppointment.setRegisterDate(LocalDate.now());
         newAppointment.setSubscriberId(subscriber.getSubscriberId());
         newAppointment.setActionStatus(ActionStatus.CHECKED_IN.name());
 

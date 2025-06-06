@@ -6,6 +6,7 @@ import com.bsdclinic.ClinicInfoDto;
 import com.bsdclinic.ClinicInfoService;
 import com.bsdclinic.appointment.ActionStatus;
 import com.bsdclinic.appointment.Appointment;
+import com.bsdclinic.appointment.Appointment_;
 import com.bsdclinic.client.response.AvailableAppointmentSlot;
 import com.bsdclinic.clinic_info.ClinicInfo;
 import com.bsdclinic.constant.DateTimePattern;
@@ -14,6 +15,7 @@ import com.bsdclinic.exception_handler.exception.BadRequestException;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.subscriber.Subscriber;
 import com.bsdclinic.subscriber.SubscriberRepository;
+import com.bsdclinic.subscriber.SubscriberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,7 @@ public class ClientAppointmentServiceImpl implements ClientAppointmentService {
     private final SubscriberRepository subscriberRepository;
     private final AppointmentMapper appointmentMapper;
     private final MessageProvider messageProvider;
+    private final SubscriberService subscriberService;
 
     @Override
     public AvailableAppointmentSlot getAvailableSlots(LocalDate registerDate) {
@@ -88,11 +91,12 @@ public class ClientAppointmentServiceImpl implements ClientAppointmentService {
                 LocalDate.parse(appointmentDto.getRegisterDate()),
                 appointmentDto.getRegisterTime()
         )) {
-            Map<String, String> errors = Map.of("registerTime", messageProvider.getMessage("validation.picked.register_time"));
+            Map<String, String> errors = Map.of(Appointment_.REGISTER_TIME, messageProvider.getMessage("validation.picked.register_time"));
             throw new BadRequestException(errors);
         }
 
         if (subscriber == null) {
+            subscriberService.checkDuplicateSubscriberEmail(appointmentDto.getSubscriberEmail());
             Subscriber newSubscriber = appointmentMapper.toSubscriber(appointmentDto);
             subscriber = subscriberRepository.save(newSubscriber);
         }

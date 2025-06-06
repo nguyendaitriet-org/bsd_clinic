@@ -7,6 +7,7 @@ import com.bsdclinic.appointment.Appointment;
 import com.bsdclinic.dto.AppointmentDto;
 import com.bsdclinic.dto.request.AppointmentFilter;
 import com.bsdclinic.dto.response.AppointmentResponse;
+import com.bsdclinic.dto.response.IAppointmentStatusCount;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.response.DatatableResponse;
@@ -22,7 +23,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -74,5 +78,22 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
         datatableResponse.setRecordsTotal(totalRecord);
 
         return datatableResponse;
+    }
+
+    @Override
+    public Map<String, Integer> getAppointmentStatusCount() {
+        Map<String, Integer> appointmentStatusCount = appointmentRepository.getAppointmentStatusCount()
+                .stream()
+                .collect(Collectors.toMap(
+                        IAppointmentStatusCount::getActionStatus,
+                        IAppointmentStatusCount::getStatusCount
+                ));
+
+        return Arrays.stream(ActionStatus.values())
+                .map(Enum::name)
+                .collect(Collectors.toMap(
+                        actionStatus -> actionStatus,
+                        actionStatus -> appointmentStatusCount.getOrDefault(actionStatus, 0)
+                ));
     }
 }

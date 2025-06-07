@@ -1,0 +1,88 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<th:block th:fragment="appointment-detail">
+    <div class="modal fade" id="appointment-detail-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-top" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" th:text="#{title.appointment.detail}"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-black px-5">
+                    <h4 class="text-primary" th:text="#{title.patient.info}"></h4>
+                    <div class="ms-5 my-4 d-grid gap-3">
+                        <div class="d-flex">
+                            <div class="col-4 fw-bold fs-5" th:text="#{title.full_name}"></div>
+                            <div id="patient-name-text" class="col fs-5">Nguyễn Văn A</div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-4 fw-bold fs-5" th:text="#{title.birthday}"></div>
+                            <div id="patient-birthday-text" class="col fs-5">12/02/2000</div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-4 fw-bold fs-5" th:text="#{title.gender}"></div>
+                            <div id="patient-gender-text" class="col fs-5">Nam</div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-4 fw-bold fs-5" th:text="#{title.phone}"></div>
+                            <div id="patient-phone-text" class="col fs-5">012452532</div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-4 fw-bold fs-5" th:text="#{title.email}"></div>
+                            <div id="patient-email-text" class="col fs-5">nam@gmail.com</div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-4 fw-bold fs-5" th:text="#{title.address}"></div>
+                            <div id="patient-address-text" class="col fs-5"></div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-4 fw-bold fs-5" th:text="#{title.patient.subscriber_relation}"></div>
+                            <div id="patient-relation-text" class="col fs-5">Đăng kí khám cho bản thân</div>
+                        </div>
+                    </div>
+                    <h4 class="text-primary" th:text="#{title.subscriber.info}"></h4>
+                    <div class="ms-5 my-4 d-grid gap-3">
+                        <div class="d-flex">
+                            <div class="col-4 fw-bold fs-5" th:text="#{title.full_name}"></div>
+                            <div id="subscriber-name-text" class="col fs-5">Nguyễn Văn A</div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-4 fw-bold fs-5" th:text="#{title.phone}"></div>
+                            <div id="subscriber-phone-text" class="col fs-5">012452532</div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-4 fw-bold fs-5" th:text="#{title.email}"></div>
+                            <div id="subscriber-email-text" class="col fs-5">nam@gmail.com</div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-4 fw-bold fs-5" th:text="#{title.status}"></div>
+                            <div class="col fs-5 d-flex gap-3">
+                                <div class="action-status-badge action-status-UNPAID col-3">Chưa thanh toán</div>
+                                <label for="appointment-action-status" class="far fa-arrow-alt-circle-right m-auto text-center"></label>
+                                <div class="col">
+                                    <select class="form-control form-control-sm" id="appointment-action-status">
+                                        <option value="" th:text="#{placeholder.status}"></option>
+                                        <option>Đã thanh toán</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-4 fw-bold fs-5" th:text="#{title.doctor}"></div>
+                            <select class="form-control form-control-sm" id="doctor-selec">
+                                <option value="" th:text="#{placeholder.doctor}"></option>
+                                <option>Bác sĩ 1</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-save-appointment"
+                            th:text="#{title.save}"></button>
+                    <button type="button" class="btn btn-secondary" th:text="#{title.cancel}"
+                            data-bs-dismiss="modal"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

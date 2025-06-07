@@ -202,6 +202,8 @@ export const AppointmentList = (function () {
         submitFilterButtonSelector: $('#submit-btn'),
         cancelFilterButtonSelector: $('#cancel-btn'),
         refreshTableButtonSelector: $('#refresh-btn'),
+
+        appointmentDetailModalSelector: $('#appointment-detail-modal')
     }
 
     module.init = () => {
@@ -263,6 +265,7 @@ export const AppointmentList = (function () {
                     return JSON.stringify({...d, ...appointmentFilter});
                 }
             },
+            initComplete: () => handleAppointmentDetailButton(),
             columns: [
                 {data: null},
                 {data: 'patientName'},
@@ -306,7 +309,7 @@ export const AppointmentList = (function () {
                 {
                     targets: -1,
                     createdCell: (td, cellData) => {
-                        const detailButton = `<button class="btn btn-sm btn-outline-dark">${detailTitle}</button>`
+                        const detailButton = `<button class="btn-appointment-detail btn btn-sm btn-outline-dark">${detailTitle}</button>`
                         $(td).html(detailButton)
                     }
                 },
@@ -315,6 +318,12 @@ export const AppointmentList = (function () {
         });
 
         DatatableAttribute.renderOrdinalColumn(appointmentsDatatable, 0);
+    }
+
+    const handleAppointmentDetailButton = () => {
+        module.appointmentListTableSelector.on('click', '.btn-appointment-detail', function () {
+            module.appointmentDetailModalSelector.modal('show');
+        })
     }
 
     return module;

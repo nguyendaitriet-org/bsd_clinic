@@ -58,6 +58,8 @@
     border-radius: 4px;
     display: inline-block;
     font-size: 0.85rem;
+    text-align: center;
+    margin: auto;
 }
 
 .action-status-PENDING    { background-color: #FACC15; color: #000; }

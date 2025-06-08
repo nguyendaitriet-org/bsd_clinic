@@ -6,8 +6,6 @@ import com.bsdclinic.client.response.AvailableAppointmentSlot;
 import com.bsdclinic.dto.AppointmentDto;
 import com.bsdclinic.dto.request.AppointmentFilter;
 import com.bsdclinic.response.DatatableResponse;
-import com.bsdclinic.subscriber.SubscriberFilter;
-import com.bsdclinic.subscriber.SubscriberService;
 import com.bsdclinic.url.WebUrl;
 import com.bsdclinic.validation.AppointmentRuleAnnotation;
 import com.bsdclinic.validation.group.OnAdminCreate;
@@ -25,7 +23,6 @@ import java.time.LocalDate;
 public class AppointmentApi {
     private final ClientAppointmentService clientAppointmentService;
     private final AdminAppointmentService adminAppointmentService;
-    private final SubscriberService subscriberService;
 
     /*--------------------- CLIENT API ----------------------*/
     @GetMapping(WebUrl.API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS)
@@ -49,12 +46,6 @@ public class AppointmentApi {
             @RequestBody @Validated({OnAdminCreate.class, OnCommonCreate.class}) AppointmentDto request
     ) {
         adminAppointmentService.createNewAppointment(request);
-    }
-
-    @RoleAuthorization.AuthenticatedUser
-    @PostMapping(WebUrl.API_ADMIN_SUBSCRIBER_LIST)
-    public DatatableResponse getSubscribersByFilter(@RequestBody SubscriberFilter subscriberFilter) {
-        return subscriberService.getSubscribersByFilter(subscriberFilter);
     }
 
     @RoleAuthorization.AuthenticatedUser

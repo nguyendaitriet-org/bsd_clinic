@@ -2,6 +2,7 @@ package com.bsdclinic.subscriber;
 
 import com.bsdclinic.AppointmentMapper;
 import com.bsdclinic.exception_handler.exception.BadRequestException;
+import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.response.DatatableResponse;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -47,5 +49,14 @@ public class SubscriberServiceImpl implements SubscriberService {
             Map<String, String> errors = Map.of("subscriberEmail", messageProvider.getMessage("validation.existed.email"));
             throw new BadRequestException(errors);
         }
+    }
+
+    @Override
+    public SubscriberDto getSubscriberById(String id) {
+        Subscriber subscriber = subscriberRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.subscriber"))
+        );
+
+        return appointmentMapper.toSubscriberDto(subscriber);
     }
 }

@@ -13,65 +13,70 @@
                     <div class="ms-5 my-4 d-grid gap-3">
                         <div class="d-flex">
                             <div class="col-4 fw-bold fs-5" th:text="#{title.full_name}"></div>
-                            <div id="patient-name-text" class="col fs-5">Nguyễn Văn A</div>
+                            <div class="col fs-5 appointment-detail" data-attribute="patientName"></div>
                         </div>
                         <div class="d-flex">
                             <div class="col-4 fw-bold fs-5" th:text="#{title.birthday}"></div>
-                            <div id="patient-birthday-text" class="col fs-5">12/02/2000</div>
+                            <div class="col fs-5 appointment-detail" data-attribute="patientBirthday"></div>
                         </div>
                         <div class="d-flex">
                             <div class="col-4 fw-bold fs-5" th:text="#{title.gender}"></div>
-                            <div id="patient-gender-text" class="col fs-5">Nam</div>
+                            <div class="col fs-5 appointment-detail" data-attribute="patientGender"></div>
                         </div>
                         <div class="d-flex">
                             <div class="col-4 fw-bold fs-5" th:text="#{title.phone}"></div>
-                            <div id="patient-phone-text" class="col fs-5">012452532</div>
+                            <div class="col fs-5 appointment-detail" data-attribute="patientPhone"></div>
                         </div>
                         <div class="d-flex">
                             <div class="col-4 fw-bold fs-5" th:text="#{title.email}"></div>
-                            <div id="patient-email-text" class="col fs-5">nam@gmail.com</div>
+                            <div class="col fs-5 appointment-detail" data-attribute="patientEmail"></div>
                         </div>
                         <div class="d-flex">
                             <div class="col-4 fw-bold fs-5" th:text="#{title.address}"></div>
-                            <div id="patient-address-text" class="col fs-5"></div>
+                            <div class="col fs-5 appointment-detail" data-attribute="patientAddress"></div>
                         </div>
                         <div class="d-flex">
                             <div class="col-4 fw-bold fs-5" th:text="#{title.patient.subscriber_relation}"></div>
-                            <div id="patient-relation-text" class="col fs-5">Đăng kí khám cho bản thân</div>
+                            <div class="col fs-5 appointment-detail" data-attribute="relationWithSubscriber"></div>
                         </div>
                     </div>
                     <h4 class="text-primary" th:text="#{title.subscriber.info}"></h4>
                     <div class="ms-5 my-4 d-grid gap-3">
                         <div class="d-flex">
                             <div class="col-4 fw-bold fs-5" th:text="#{title.full_name}"></div>
-                            <div id="subscriber-name-text" class="col fs-5">Nguyễn Văn A</div>
+                            <div class="col fs-5 appointment-detail" data-attribute="subscriberName"></div>
                         </div>
                         <div class="d-flex">
                             <div class="col-4 fw-bold fs-5" th:text="#{title.phone}"></div>
-                            <div id="subscriber-phone-text" class="col fs-5">012452532</div>
+                            <div class="col fs-5 appointment-detail" data-attribute="subscriberPhone"></div>
                         </div>
                         <div class="d-flex">
                             <div class="col-4 fw-bold fs-5" th:text="#{title.email}"></div>
-                            <div id="subscriber-email-text" class="col fs-5">nam@gmail.com</div>
+                            <div class="col fs-5 appointment-detail" data-attribute="subscriberEmail"></div>
                         </div>
                         <div class="d-flex">
                             <div class="col-4 fw-bold fs-5" th:text="#{title.status}"></div>
                             <div class="col fs-5 d-flex gap-3">
-                                <div class="action-status-badge action-status-UNPAID col-3">Chưa thanh toán</div>
+                                <div id="appointment-detail-status" class="col-3">
+                                </div>
                                 <label for="appointment-action-status" class="far fa-arrow-alt-circle-right m-auto text-center"></label>
                                 <div class="col">
                                     <select class="form-control form-control-sm" id="appointment-action-status">
-                                        <option value="" th:text="#{placeholder.status}"></option>
-                                        <option>Đã thanh toán</option>
+                                        <option value="" th:text="#{placeholder.status}" disabled selected></option>
+                                        <th:block th:each="appointmentStatus: ${appointmentStatusMap}">
+                                            <option th:value="${appointmentStatus.key}" th:text="${appointmentStatus.value}"></option>
+                                        </th:block>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex">
                             <div class="col-4 fw-bold fs-5" th:text="#{title.doctor}"></div>
-                            <select class="form-control form-control-sm" id="doctor-selec">
+                            <select class="form-control form-control-sm" id="doctor-detail-select">
                                 <option value="" th:text="#{placeholder.doctor}"></option>
-                                <option>Bác sĩ 1</option>
+                                <th:block th:each="doctor: ${doctors}">
+                                    <option th:value="${doctor.userId}" th:text="${doctor.fullName}"></option>
+                                </th:block>
                             </select>
                         </div>
                     </div>

@@ -93,6 +93,16 @@ export const Subscriber = (function () {
         });
     }
 
+    module.getSubscriberById = (subscriberId) => {
+        return $.ajax({
+            type: 'GET',
+            url: API_ADMIN_SUBSCRIBER_DETAIL.replace('{subscriberId}', subscriberId)
+        })
+            .fail((jqXHR) => {
+                App.handleResponseMessageByStatusCode(jqXHR);
+            })
+    }
+
     return module;
 })();
 

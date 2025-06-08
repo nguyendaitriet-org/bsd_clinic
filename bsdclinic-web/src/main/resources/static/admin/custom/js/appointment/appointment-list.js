@@ -121,7 +121,6 @@ export const AppointmentListForCreation = (function () {
     }
 
     const renderAppointmentDataToCreateForm = (appointmentDataForCreation) => {
-        console.log('appointmentData', appointmentDataForCreation);
         AppointmentCreation.subscriberNameSelector.val(appointmentDataForCreation.subscriberName);
         AppointmentCreation.subscriberPhoneSelector.val(appointmentDataForCreation.subscriberPhone);
         AppointmentCreation.subscriberEmailSelector.val(appointmentDataForCreation.subscriberEmail);
@@ -323,7 +322,46 @@ export const AppointmentList = (function () {
     const handleAppointmentDetailButton = () => {
         module.appointmentListTableSelector.on('click', '.btn-appointment-detail', function () {
             module.appointmentDetailModalSelector.modal('show');
+            let currentAppointmentData = module.appointmentListTableSelector.DataTable()
+                .row($(this).closest('tr')).data();
+            Subscriber.getSubscriberById(currentAppointmentData.subscriberId).then((response) => {
+                currentAppointmentData = Object.assign(currentAppointmentData, response);
+                AppointmentDetail.renderAppointmentDetail(currentAppointmentData);
+            })
         })
+    }
+
+    return module;
+})();
+
+export const AppointmentDetail = (function () {
+    const module = {
+        appointmentDetailTextSelector: $('.appointment-detail'),
+        doctorSelector: $('#doctor-detail-select'),
+        appointmentDetailStatusSelector: $('#appointment-detail-status')
+    }
+
+    module.init = () => {
+    }
+
+    module.renderAppointmentDetail = ({actionStatus, doctorId, ...appointmentData}) => {
+        module.appointmentDetailTextSelector.each((index, element) => {
+            const attribute = $(element).data('attribute');
+            $(element).text(appointmentData[attribute]);
+            if (attribute === 'patientGender') {
+                $(element).text(genderMap[appointmentData[attribute]]);
+            }
+            if (attribute === 'patientBirthday') {
+                const date = DateTimeConverter.convertToDisplayPattern(appointmentData[attribute]);
+                $(element).text(date);
+            }
+        });
+
+        module.doctorSelector.val(doctorId);
+
+        module.appointmentDetailStatusSelector.html(
+        `<span class="action-status-badge action-status-${actionStatus} w-100">${appointmentStatusMap[actionStatus]}</span>`
+        )
     }
 
     return module;

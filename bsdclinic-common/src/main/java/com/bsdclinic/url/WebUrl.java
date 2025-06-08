@@ -36,6 +36,7 @@ public class WebUrl {
     // API Admin - Subscriber
     public static final String API_ADMIN_SUBSCRIBER = API_ADMIN_ENDPOINT + "/subscribers";
     public static final String API_ADMIN_SUBSCRIBER_LIST = API_ADMIN_SUBSCRIBER + "/list";
+    public static final String API_ADMIN_SUBSCRIBER_DETAIL = API_ADMIN_SUBSCRIBER + "/{subscriberId}";
 
     // API Admin - Clinic info
     public static final String API_ADMIN_CLINIC_INFO = API_ADMIN_ENDPOINT + "/clinic-info";

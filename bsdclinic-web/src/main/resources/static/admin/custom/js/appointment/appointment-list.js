@@ -338,7 +338,8 @@ export const AppointmentDetail = (function () {
     const module = {
         appointmentDetailTextSelector: $('.appointment-detail'),
         doctorSelector: $('#doctor-detail-select'),
-        appointmentDetailStatusSelector: $('#appointment-detail-status')
+        appointmentDetailStatusSelector: $('#appointment-detail-status'),
+        appointmentActionStatusSelector: $('#appointment-action-status'),
     }
 
     module.init = () => {
@@ -362,6 +363,8 @@ export const AppointmentDetail = (function () {
         module.appointmentDetailStatusSelector.html(
         `<span class="action-status-badge action-status-${actionStatus} w-100">${appointmentStatusMap[actionStatus]}</span>`
         )
+
+        module.appointmentActionStatusSelector.find(`option[value='${actionStatus}']`).remove();
     }
 
     return module;

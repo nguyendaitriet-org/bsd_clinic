@@ -6,7 +6,6 @@ import com.bsdclinic.validation.group.OnAdminCreate;
 import com.bsdclinic.validation.group.OnClientCreate;
 import com.bsdclinic.validation.group.OnCommonCreate;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -65,6 +64,7 @@ public class AppointmentDto {
     @Size(max = 255, message = "{validation.input.max_length.255}", groups = OnCommonCreate.class)
     private String visitReason;
 
+    @NotBlank(message = "{validation.required.doctor_id}", groups = OnAdminCreate.class)
     @AppointmentRuleAnnotation.ValidDoctorId(groups = OnAdminCreate.class)
     private String doctorId;
 }

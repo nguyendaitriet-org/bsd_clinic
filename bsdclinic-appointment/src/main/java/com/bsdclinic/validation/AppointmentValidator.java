@@ -1,5 +1,6 @@
 package com.bsdclinic.validation;
 
+import com.bsdclinic.appointment.ActionStatus;
 import com.bsdclinic.constant.DateTimePattern;
 import com.bsdclinic.dto.response.IUserResponse;
 import com.bsdclinic.repository.UserRepository;
@@ -127,9 +128,7 @@ public class AppointmentValidator {
             context.disableDefaultConstraintViolation();
 
             if (StringUtils.isBlank(doctorId)) {
-                context.buildConstraintViolationWithTemplate("{validation.required.doctor_id}")
-                        .addConstraintViolation();
-                return false;
+                return true;
             }
 
             IUserResponse user = userRepository.findByIdRole(doctorId);
@@ -147,6 +146,13 @@ public class AppointmentValidator {
             }
 
             return true;
+        }
+    }
+
+    public static class ValidAppointmentStatusValidator implements ConstraintValidator<AppointmentRuleAnnotation.ValidAppointmentStatus, String> {
+        @Override
+        public boolean isValid(String actionStatus, ConstraintValidatorContext context) {
+            return ActionStatus.getAllNames().contains(actionStatus);
         }
     }
 }

@@ -5,12 +5,14 @@ import com.bsdclinic.client.ClientAppointmentService;
 import com.bsdclinic.client.response.AvailableAppointmentSlot;
 import com.bsdclinic.dto.AppointmentDto;
 import com.bsdclinic.dto.request.AppointmentFilter;
+import com.bsdclinic.dto.request.AppointmentUpdate;
 import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.url.WebUrl;
 import com.bsdclinic.validation.AppointmentRuleAnnotation;
 import com.bsdclinic.validation.group.OnAdminCreate;
 import com.bsdclinic.validation.group.OnClientCreate;
 import com.bsdclinic.validation.group.OnCommonCreate;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +54,15 @@ public class AppointmentApi {
     @PostMapping(WebUrl.API_ADMIN_APPOINTMENT_LIST)
     public DatatableResponse getAppointmentsByFilter(@RequestBody AppointmentFilter appointmentFilter) {
         return adminAppointmentService.getAppointmentsByFilter(appointmentFilter);
+    }
+
+    @RoleAuthorization.AuthenticatedUser
+    @PatchMapping(WebUrl.API_ADMIN_APPOINTMENT_UPDATE)
+    public void updateAppointment(
+            @PathVariable String appointmentId,
+            @RequestBody @Valid AppointmentUpdate request
+    ) {
+        adminAppointmentService.updateAppointment(appointmentId, request);
     }
     /*------------------------------------------------------*/
 }

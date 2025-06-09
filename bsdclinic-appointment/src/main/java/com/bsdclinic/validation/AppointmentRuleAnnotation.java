@@ -58,4 +58,17 @@ public class AppointmentRuleAnnotation {
 
         Class<? extends Payload>[] payload() default {};
     }
+
+    @Documented
+    @Target({ElementType.PARAMETER, ElementType.FIELD})
+    @Retention(RetentionPolicy.RUNTIME)
+    @Constraint(validatedBy = AppointmentValidator.ValidAppointmentStatusValidator.class)
+    @ReportAsSingleViolation
+    public @interface ValidAppointmentStatus {
+        String message() default "Invalid action status";
+
+        Class<?>[] groups() default {};
+
+        Class<? extends Payload>[] payload() default {};
+    }
 }

@@ -6,6 +6,7 @@ import com.bsdclinic.appointment.ActionStatus;
 import com.bsdclinic.appointment.Appointment;
 import com.bsdclinic.dto.AppointmentDto;
 import com.bsdclinic.dto.request.AppointmentFilter;
+import com.bsdclinic.dto.request.AppointmentUpdate;
 import com.bsdclinic.dto.response.AppointmentResponse;
 import com.bsdclinic.dto.response.IAppointmentStatusCount;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
@@ -95,5 +96,16 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
                         actionStatus -> actionStatus,
                         actionStatus -> appointmentStatusCount.getOrDefault(actionStatus, 0)
                 ));
+    }
+
+    @Override
+    public void updateAppointment(String appointmentId, AppointmentUpdate appointmentUpdate) {
+        Appointment appointment = getAppointmentById(appointmentId);
+        appointment = appointmentMapper.toAppointment(appointmentUpdate, appointment);
+        appointmentRepository.save(appointment);
+    }
+
+    private Appointment getAppointmentById(String appointmentId) {
+        return appointmentRepository.findById(appointmentId).orElseThrow(() -> new NotFoundException(messageProvider.getMessage("validation.no_exist.appointment")));
     }
 }

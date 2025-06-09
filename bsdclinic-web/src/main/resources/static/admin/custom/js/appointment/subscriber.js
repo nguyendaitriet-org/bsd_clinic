@@ -60,8 +60,8 @@ export const Subscriber = (function () {
                 },
                 columns: [
                     {data: null},
-                    {data: 'subscriberEmail'},
                     {data: 'subscriberName'},
+                    {data: 'subscriberEmail'},
                     {data: 'subscriberPhone'},
                     {data: null}
                 ],

@@ -3,45 +3,59 @@
 <th:block th:fragment="texts">
     <script th:inline="javascript">
         // Error message
-        var ERROR_400 = [[#{error.400}]];
-        var ERROR_401 = [[#{error.401}]];
-        var ERROR_403 = [[#{error.403}]];
-        var ERROR_404 = [[#{error.404}]];
-        var ERROR_500 = [[#{error.500}]];
+        const ERROR_400 = [[#{error.400}]];
+        const ERROR_401 = [[#{error.401}]];
+        const ERROR_403 = [[#{error.403}]];
+        const ERROR_404 = [[#{error.404}]];
+        const ERROR_500 = [[#{error.500}]];
 
         // Datatable
-        var resultCount = [[#{datatable.result_count}]];
-        var noResult = [[#{datatable.no_result}]];
-        var menuLength = [[#{datatable.menu_length}]];
-        var emptyTable = [[#{datatable.empty_table}]];
-        var previousPage = [[#{datatable.previous_page}]];
-        var nextPage = [[#{datatable.next_page}]];
+        const resultCount = [[#{datatable.result_count}]];
+        const noResult = [[#{datatable.no_result}]];
+        const menuLength = [[#{datatable.menu_length}]];
+        const emptyTable = [[#{datatable.empty_table}]];
+        const previousPage = [[#{datatable.previous_page}]];
+        const nextPage = [[#{datatable.next_page}]];
 
         // Title
-        var selfRegister = [[#{title.subscriber.self_register}]];
-        var emptyDayOffList = [[#{title.clinic_info.day_off.empty}]];
-        var acceptTitle = [[#{title.accept}]];
-        var closeTitle = [[#{title.close}]];
-        var confirmApplyTitle = [[#{title.confirm_apply}]];
-        var selfTitle = [[#{title.self}]];
-        var detailTitle = [[#{title.detail}]];
-        var searchTitle = [[#{title.search}]];
+        const selfRegister = [[#{title.subscriber.self_register}]];
+        const emptyDayOffList = [[#{title.clinic_info.day_off.empty}]];
+        const acceptTitle = [[#{title.accept}]];
+        const closeTitle = [[#{title.close}]];
+        const confirmApplyTitle = [[#{title.confirm_apply}]];
+        const selfTitle = [[#{title.self}]];
+        const detailTitle = [[#{title.detail}]];
+        const searchTitle = [[#{title.search}]];
+        const createRecordTitle = [[#{title.medical_record.create}]];
+        const seeRecordTitle = [[#{title.medical_record.see}]];
 
         // Message
-        var createSuccess = [[#{message.create.success}]];
-        var operationSuccess = [[#{message.operate.success}]];
+        const createSuccess = [[#{message.create.success}]];
+        const operationSuccess = [[#{message.operate.success}]];
 
         // Validation
-        var requiredStartTime = [[#{validation.required.start_time}]];
-        var requiredEndTime = [[#{validation.required.end_time}]];
+        const requiredStartTime = [[#{validation.required.start_time}]];
+        const requiredEndTime = [[#{validation.required.end_time}]];
 
         // Object to view
-        var userRoles = [[${userRoles}]];
-        var roleTitleMap = [[${roleTitleMap}]];
-        var userStatusMap = [[${userStatusMap}]];
-        var appointmentStatusMap = [[${appointmentStatusMap}]];
-        var appointmentStatusCount = [[${appointmentStatusCount}]];
-        var genderMap = [[${genderMap}]];
-        var doctorMap = [[${doctorMap}]];
+        const userRoles = [[${userRoles}]];
+        const roleTitleMap = [[${roleTitleMap}]];
+        const userStatusMap = [[${userStatusMap}]];
+        const appointmentStatusMap = [[${appointmentStatusMap}]];
+        const appointmentStatusCount = [[${appointmentStatusCount}]];
+        const genderMap = [[${genderMap}]];
+        const doctorMap = [[${doctorMap}]];
+
+        const appointmentStatusConstant = {
+            PENDING: "PENDING",
+            REJECTED: "REJECTED",
+            ACCEPTED: "ACCEPTED",
+            CHECKED_IN: "CHECKED_IN",
+            EXAMINING: "EXAMINING",
+            ADVANCED: "ADVANCED",
+            FINISHED: "FINISHED",
+            PAID: "PAID",
+            UNPAID: "UNPAID"
+        };
     </script>
 </th:block>

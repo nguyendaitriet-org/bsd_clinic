@@ -152,6 +152,10 @@ public class AppointmentValidator {
     public static class ValidAppointmentStatusValidator implements ConstraintValidator<AppointmentRuleAnnotation.ValidAppointmentStatus, String> {
         @Override
         public boolean isValid(String actionStatus, ConstraintValidatorContext context) {
+            if (StringUtils.isBlank(actionStatus)) {
+                return true;
+            }
+
             return ActionStatus.getAllNames().contains(actionStatus);
         }
     }

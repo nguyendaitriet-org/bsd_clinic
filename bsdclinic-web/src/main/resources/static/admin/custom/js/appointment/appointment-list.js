@@ -2,6 +2,7 @@ import {Subscriber} from "/admin/custom/js/appointment/subscriber.js";
 import AppointmentCreation from "/admin/custom/js/appointment/appointment-create.js";
 import {DatatableAttribute} from "/common/js/app.js";
 import {App} from "/common/js/app.js";
+import {FormHandler} from "/common/js/form.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
 import {DateTimePattern} from "/common/js/constant.js";
 
@@ -336,16 +337,22 @@ export const AppointmentList = (function () {
 
 export const AppointmentDetail = (function () {
     const module = {
+        appointmentDetailModalSelector: $('#appointment-detail-modal'),
+
         appointmentDetailTextSelector: $('.appointment-detail'),
         doctorSelector: $('#doctor-detail-select'),
         appointmentDetailStatusSelector: $('#appointment-detail-status'),
         appointmentActionStatusSelector: $('#appointment-action-status'),
+        saveAppointmentButtonSelector: $('#btn-save-appointment'),
+        appointmentIdInputSelector: $('#appointment-id-input'),
     }
 
     module.init = () => {
+        handleSaveAppointmentButton();
     }
 
-    module.renderAppointmentDetail = ({actionStatus, doctorId, ...appointmentData}) => {
+    module.renderAppointmentDetail = ({actionStatus, doctorId, appointmentId, ...appointmentData}) => {
+        console.log(appointmentData)
         module.appointmentDetailTextSelector.each((index, element) => {
             const attribute = $(element).data('attribute');
             $(element).text(appointmentData[attribute]);
@@ -362,9 +369,38 @@ export const AppointmentDetail = (function () {
 
         module.appointmentDetailStatusSelector.html(
         `<span class="action-status-badge action-status-${actionStatus} w-100">${appointmentStatusMap[actionStatus]}</span>`
-        )
+        );
 
         module.appointmentActionStatusSelector.find(`option[value='${actionStatus}']`).remove();
+        module.appointmentIdInputSelector.val(appointmentId)
+    }
+
+    const handleSaveAppointmentButton = () => {
+        module.saveAppointmentButtonSelector.on('click', function () {
+            const appointmentUpdateParams = {
+                actionStatus: module.appointmentActionStatusSelector.val(),
+                doctorId: module.doctorSelector.val()
+            }
+            const appointmentId = module.appointmentIdInputSelector.val();
+            console.log(appointmentUpdateParams)
+            $.ajax({
+                headers: {
+                    "accept": "application/json",
+                    "content-type": "application/json"
+                },
+                type: 'PATCH',
+                url: API_ADMIN_APPOINTMENT_UPDATE.replace('{appointmentId}', appointmentId),
+                data: JSON.stringify(appointmentUpdateParams),
+            })
+                .done(() => {
+                    App.showSweetAlert('success', operationSuccess, '');
+                    setTimeout(() => location.reload(), 1000);
+                })
+                .fail((jqXHR) => {
+                    App.handleResponseMessageByStatusCode(jqXHR);
+                    FormHandler.handleServerValidationError(module.appointmentDetailModalSelector, jqXHR);
+                })
+        })
     }
 
     return module;

@@ -6,7 +6,7 @@
 
 <th:block layout:fragment="content-style"></th:block>
 
-<th:block layout:fragment="content-title" th:text="#{title.appointment.list}"></th:block>
+<th:block layout:fragment="content-title" th:text="#{title.appointment.pending_list}"></th:block>
 <th:block layout:fragment="content-title-note"></th:block>
 <th:block layout:fragment="content-button">
     <button id="refresh-btn" class="btn btn-primary btn-round" type="button" th:text="#{title.refresh}"></button>
@@ -14,7 +14,7 @@
 
 <th:block layout:fragment="content-body">
     <div class="mb-3 d-flex justify-content-between appointment-filter-area">
-        <div class="p-0 col">
+        <div class="p-0 col me-3">
             <div class="input-group">
                 <label for="search-input" class="btn btn-black" type="button">
                     <i class="fa fa-search"></i>
@@ -23,16 +23,7 @@
                        th:placeholder="#{placeholder.find_appointment}">
             </div>
         </div>
-        <div class="col-2 mx-3">
-            <select id="doctor-select" class="selectpicker w-100 bg-white"
-                    th:data-none-selected-text="#{placeholder.doctor}"
-                    tabindex="-1" data-actions-box="true" multiple>
-                <th:block th:each="doctor: ${doctors}">
-                    <option th:value="${doctor.userId}" th:text="${doctor.fullName}"></option>
-                </th:block>
-            </select>
-        </div>
-        <div class="col-2">
+        <div class="col-2 me-3">
             <select id="status-select" class="selectpicker w-100 bg-white"
                     th:data-none-selected-text="#{placeholder.status}"
                     tabindex="-1" data-actions-box="true" multiple>
@@ -43,12 +34,12 @@
                 </th:block>
             </select>
         </div>
-        <div class="col-2 mx-3">
+        <div class="col-2 me-3">
             <input id="register-date-input" type="text"
                    class="form-control border-secondary border-1 daterange text-grey padding-fixed"
                    th:placeholder="#{placeholder.register_date}">
         </div>
-        <div class="btn-group float-end col">
+        <div class="btn-group float-end col-2">
             <button id="submit-btn" class="btn btn-black" type="button" th:text="#{title.apply}"></button>
             <button id="cancel-btn" class="btn btn-secondary" type="button" th:text="#{title.cancel}"></button>
         </div>
@@ -63,7 +54,6 @@
                 <th th:text="#{title.phone}"></th>
                 <th th:text="#{title.register_date}"></th>
                 <th th:text="#{title.status}"></th>
-                <th th:text="#{title.doctor}"></th>
                 <th th:text="#{title.action}"></th>
             </tr>
             </thead>
@@ -77,8 +67,7 @@
 
 <th:block layout:fragment="appointment-script">
     <script type="module">
-        import {AppointmentList, AppointmentDetail} from '/admin/custom/js/appointment/appointment-list.js';
-        AppointmentList.init();
-        AppointmentDetail.init();
+        import {AppointmentListForDoctor} from '/admin/custom/js/appointment/appointment-list-doctor.js';
+        AppointmentListForDoctor.init();
     </script>
 </th:block>

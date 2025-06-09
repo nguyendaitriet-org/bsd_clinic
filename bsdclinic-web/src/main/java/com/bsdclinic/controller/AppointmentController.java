@@ -53,6 +53,12 @@ public class AppointmentController {
         return "admin/appointment/create";
     }
 
+    @RoleAuthorization.AdminAndDoctorAuthorization
+    @GetMapping(WebUrl.ADMIN_APPOINTMENT_FOR_DOCTOR)
+    public String toAppointmentForDoctorPage() {
+        return "admin/appointment/for_doctor";
+    }
+
     @GetMapping(WebUrl.CLIENT_APPOINTMENT_CREATE)
     public String toClientCreatePage() {
         return "client/appointment/create";

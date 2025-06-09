@@ -172,7 +172,7 @@ export const AppointmentListForCreation = (function () {
                 module.appointmentListModalSelector.modal('hide');
                 App.showSweetAlert('success', operationSuccess, '');
             }
-        })
+        });
     }
 
     const toggleConfirmSelectAppointmentButtonState = () => {
@@ -229,7 +229,7 @@ export const AppointmentList = (function () {
             actionStatus: module.statusInputSelector.val(),
             registerDateFrom: DateTimeConverter.convertMomentToDateString(module.registerDatePicker.getStartDate(), DateTimePattern.API_DATE_FORMAT),
             registerDateTo: DateTimeConverter.convertMomentToDateString(module.registerDatePicker.getEndDate(), DateTimePattern.API_DATE_FORMAT),
-        })
+        });
     }
 
     const handleCancelFilterButton = () => {
@@ -239,19 +239,19 @@ export const AppointmentList = (function () {
             module.statusInputSelector.selectpicker('deselectAll');
             module.registerDatePicker.setDateRange(null, null)
             renderAppointmentsTable();
-        })
+        });
     }
 
     const handleSubmitFilterButton = () => {
         module.submitFilterButtonSelector.on('click', function () {
             renderAppointmentsTable();
-        })
+        });
     }
 
     const handleRefreshTableButton = () => {
         module.refreshTableButtonSelector.on('click', function () {
             renderAppointmentsTable();
-        })
+        });
     }
 
     const renderAppointmentsTable = () => {
@@ -269,8 +269,8 @@ export const AppointmentList = (function () {
             columns: [
                 {data: null},
                 {data: 'patientName'},
-                {data: 'patientPhone'},
                 {data: 'patientEmail'},
+                {data: 'patientPhone'},
                 {data: 'registerDate'},
                 {data: 'actionStatus'},
                 {data: 'doctorId'},
@@ -298,8 +298,8 @@ export const AppointmentList = (function () {
                     targets: 5,
                     createdCell: (td, cellData) => {
                         const statusTitle = appointmentStatusMap[cellData];
-                        const content = `<span class="action-status-badge action-status-${cellData}">${statusTitle}</span>`;
-                        $(td).html(content);
+                        const statusElement = `<span class="action-status-badge action-status-${cellData}">${statusTitle}</span>`;
+                        $(td).html(statusElement);
                     }
                 },
                 {
@@ -309,8 +309,8 @@ export const AppointmentList = (function () {
                 {
                     targets: -1,
                     createdCell: (td, cellData) => {
-                        const detailButton = `<button class="btn-appointment-detail btn btn-sm btn-outline-dark">${detailTitle}</button>`
-                        $(td).html(detailButton)
+                        const detailButton = `<button class="btn-appointment-detail btn btn-sm btn-outline-dark">${detailTitle}</button>`;
+                        $(td).html(detailButton);
                     }
                 },
             ],
@@ -328,8 +328,8 @@ export const AppointmentList = (function () {
             Subscriber.getSubscriberById(currentAppointmentData.subscriberId).then((response) => {
                 currentAppointmentData = Object.assign(currentAppointmentData, response);
                 AppointmentDetail.renderAppointmentDetail(currentAppointmentData);
-            })
-        })
+            });
+        });
     }
 
     return module;
@@ -352,7 +352,6 @@ export const AppointmentDetail = (function () {
     }
 
     module.renderAppointmentDetail = ({actionStatus, doctorId, appointmentId, ...appointmentData}) => {
-        console.log(appointmentData)
         module.appointmentDetailTextSelector.each((index, element) => {
             const attribute = $(element).data('attribute');
             $(element).text(appointmentData[attribute]);
@@ -372,7 +371,8 @@ export const AppointmentDetail = (function () {
         );
 
         module.appointmentActionStatusSelector.find(`option[value='${actionStatus}']`).remove();
-        module.appointmentIdInputSelector.val(appointmentId)
+
+        module.appointmentIdInputSelector.val(appointmentId);
     }
 
     const handleSaveAppointmentButton = () => {
@@ -382,7 +382,7 @@ export const AppointmentDetail = (function () {
                 doctorId: module.doctorSelector.val()
             }
             const appointmentId = module.appointmentIdInputSelector.val();
-            console.log(appointmentUpdateParams)
+
             $.ajax({
                 headers: {
                     "accept": "application/json",
@@ -400,7 +400,7 @@ export const AppointmentDetail = (function () {
                     App.handleResponseMessageByStatusCode(jqXHR);
                     FormHandler.handleServerValidationError(module.appointmentDetailModalSelector, jqXHR);
                 })
-        })
+        });
     }
 
     return module;

@@ -2,17 +2,19 @@ package com.bsdclinic.url;
 
 public class WebUrl {
     // Page
-    public static final String CLIENT_HOME = "/";
     public static final String ADMIN_HOME = "/admin";
     public static final String ADMIN_USERS_INDEX = "/admin/users";
     public static final String ADMIN_USERS_PROFILE = "/admin/users/profile";
     public static final String ADMIN_APPOINTMENT_INDEX = "/admin/appointments";
     public static final String ADMIN_APPOINTMENT_CREATE = "/admin/appointments/create";
+    public static final String ADMIN_APPOINTMENT_FOR_DOCTOR = "/admin/appointments/doctors";
     public static final String ADMIN_CLINIC_INFO = "/admin/clinic-info";
+
     public static final String LOGIN = "/login";
     public static final String LOGOUT = "/logout";
     public static final String ERROR = "/error";
 
+    public static final String CLIENT_HOME = "/";
     public static final String CLIENT_APPOINTMENT_CREATE = "/client/appointments/create";
 
     // API base

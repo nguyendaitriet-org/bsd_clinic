@@ -10,14 +10,18 @@ import java.util.List;
 @Getter
 @Setter
 public class AppointmentFilter extends DatatablePagination {
-    private String subscriberId;
-    private SearchParam search;
     private String keyword;
-    private String patientPhone;
     private List<String> doctorIds;
     private List<String> actionStatus;
     private LocalDate registerDateFrom;
     private LocalDate registerDateTo;
+    /* Filter for appointment creation */
+    private String subscriberId;
+    private SearchParam search;
+    private String patientPhone;
+    /* Filter for current doctor */
+    private String doctorId;
+    private boolean isAdminRole;
 
     @Getter
     @Setter

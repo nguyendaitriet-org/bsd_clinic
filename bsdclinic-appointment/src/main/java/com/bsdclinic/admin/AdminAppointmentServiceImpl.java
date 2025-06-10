@@ -61,6 +61,7 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
         if (StringUtils.isNotBlank(subscriberId) && !subscriberRepository.existsBySubscriberId(subscriberId)) {
             throw new NotFoundException(messageProvider.getMessage("validation.no_exist.subscriber"));
         }
+
         Specification<Appointment> appointmentSpecification = AppointmentSpecifications.withFilter(appointmentFilter);
         Pageable pageable = PageRequest.of(
                 appointmentFilter.getStart() / appointmentFilter.getLength(),

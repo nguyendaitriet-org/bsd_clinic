@@ -14,6 +14,7 @@ import com.bsdclinic.validation.group.OnClientCreate;
 import com.bsdclinic.validation.group.OnCommonCreate;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,6 +64,17 @@ public class AppointmentApi {
             @RequestBody @Valid AppointmentUpdate request
     ) {
         adminAppointmentService.updateAppointment(appointmentId, request);
+    }
+
+    @RoleAuthorization.AdminAndDoctorAuthorization
+    @PostMapping(WebUrl.API_ADMIN_APPOINTMENT_FOR_DOCTOR)
+    public DatatableResponse getAppointmentsForDoctor(
+            @RequestBody AppointmentFilter appointmentFilter,
+            @AuthenticationPrincipal UserPrincipal userPrincipal
+    ) {
+        appointmentFilter.setDoctorId(userPrincipal.getUserId());
+        appointmentFilter.setAdminRole(userPrincipal.isAdmin());
+        return adminAppointmentService.getAppointmentsByFilter(appointmentFilter);
     }
     /*------------------------------------------------------*/
 }

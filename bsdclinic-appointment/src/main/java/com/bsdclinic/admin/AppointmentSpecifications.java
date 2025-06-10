@@ -19,16 +19,16 @@ public class AppointmentSpecifications {
 
             String subscriberId = filter.getSubscriberId();
             if (StringUtils.hasText(subscriberId)) {
-                predicates.add(root.get(Appointment_.SUBSCRIBER_ID).in(List.of(subscriberId)));
+                predicates.add(cb.equal(root.get(Appointment_.SUBSCRIBER_ID), subscriberId));
             }
 
             String keywordInput = resolveKeywordInput(filter);
             if (StringUtils.hasText(keywordInput)) {
                 String keyword = "%" + keywordInput.toLowerCase() + "%";
                 predicates.add(cb.or(
-                    cb.like(cb.lower(root.get(Appointment_.PATIENT_EMAIL)), keyword),
-                    cb.like(cb.lower(root.get(Appointment_.PATIENT_PHONE)), keyword),
-                    cb.like(cb.lower(root.get(Appointment_.PATIENT_EMAIL)), keyword)
+                        cb.like(cb.lower(root.get(Appointment_.PATIENT_NAME)), keyword),
+                        cb.like(cb.lower(root.get(Appointment_.PATIENT_PHONE)), keyword),
+                        cb.like(cb.lower(root.get(Appointment_.PATIENT_EMAIL)), keyword)
                 ));
             }
 
@@ -56,14 +56,28 @@ public class AppointmentSpecifications {
                 predicates.add(cb.lessThanOrEqualTo(root.get(Appointment_.REGISTER_DATE), registerDateTo));
             }
 
+            /* Filter for doctor */
+            /* Get all doctor's appointments for ADMIN role and only current doctor's for DOCTOR role */
+            /* Use doctor ID presence to mark the case for doctor */
+            String doctorId = filter.getDoctorId();
+            if (StringUtils.hasText(doctorId)) {
+                if (filter.isAdminRole()) {
+                    predicates.add(cb.isNotNull(root.get(Appointment_.DOCTOR_ID)));
+                } else {
+                    predicates.add(cb.equal(root.get(Appointment_.DOCTOR_ID), doctorId));
+                }
+            }
+
             if (query != null) {
                 query.orderBy(
-                    // First order by: PENDING status first (using CASE WHEN)
-                    cb.asc(cb.selectCase()
-                            .when(cb.equal(root.get(Appointment_.ACTION_STATUS), ActionStatus.PENDING.name()), 0)
-                            .otherwise(1)),
-                    // Second order by: latest registerDate (descending)
-                    cb.desc(root.get(Appointment_.REGISTER_DATE))
+                        // First order by: PENDING status first then ACCEPTED, CHECKED_IN (using CASE WHEN)
+                        cb.asc(cb.selectCase()
+                                .when(cb.equal(root.get(Appointment_.ACTION_STATUS), ActionStatus.PENDING.name()), 0)
+                                .when(cb.equal(root.get(Appointment_.ACTION_STATUS), ActionStatus.ACCEPTED.name()), 1)
+                                .when(cb.equal(root.get(Appointment_.ACTION_STATUS), ActionStatus.CHECKED_IN.name()), 2)
+                                .otherwise(3)),
+                        // Second order by: latest registerDate (descending)
+                        cb.desc(root.get(Appointment_.REGISTER_DATE))
                 );
             }
 

@@ -70,7 +70,7 @@ export const AppointmentListForDoctor = (function () {
             ajax: {
                 contentType: 'application/json',
                 type: 'POST',
-                url: API_ADMIN_APPOINTMENT_LIST,
+                url: API_ADMIN_APPOINTMENT_FOR_DOCTOR,
                 data: function (d) {
                     return JSON.stringify({...d, ...appointmentFilter});
                 }

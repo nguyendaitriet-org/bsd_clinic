@@ -1,5 +1,6 @@
 package com.bsdclinic;
 
+import com.bsdclinic.user.RoleConstant;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,6 +29,14 @@ public class UserPrincipal implements UserDetails {
         this.username = username;
         this.password = password;
         this.authorities = authorities;
+    }
+
+    public boolean isAdmin() {
+        for (GrantedAuthority grantedAuthority : authorities) {
+            if (grantedAuthority.getAuthority().equals(RoleConstant.ADMIN.name()))
+                return true;
+        }
+        return false;
     }
 
     @Override

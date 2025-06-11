@@ -48,6 +48,9 @@ public class WebUrl {
     public static final String API_ADMIN_CLINIC_INFO = API_ADMIN_ENDPOINT + "/clinic-info";
     public static final String API_ADMIN_UPDATE_CLINIC_INFO = API_ADMIN_CLINIC_INFO + "/{clinicInfoId}";
 
+    // API Admin - Medical record
+    public static final String API_ADMIN_MEDICAL_RECORD = API_ADMIN_ENDPOINT + "/medical-records";
+
 
     // API Client - Appointment
     public static final String API_CLIENT_APPOINTMENT = API_CLIENT_ENDPOINT + "/appointments";

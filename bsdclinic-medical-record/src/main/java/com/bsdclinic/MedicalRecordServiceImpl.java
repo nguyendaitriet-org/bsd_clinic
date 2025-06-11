@@ -1,0 +1,31 @@
+package com.bsdclinic;
+
+import com.bsdclinic.appointment.ActionStatus;
+import com.bsdclinic.exception_handler.exception.NotFoundException;
+import com.bsdclinic.medical_record.MedicalRecord;
+import com.bsdclinic.message.MessageProvider;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class MedicalRecordServiceImpl implements MedicalRecordService {
+    private final MedicalRecordRepository medicalRecordRepository;
+    private final AppointmentRepository appointmentRepository;
+    private final MessageProvider messageProvider;
+
+    @Override
+    @Transactional
+    public void createMedicalRecord(String appointmentId) {
+        if (!appointmentRepository.existsByAppointmentId(appointmentId)) {
+            throw new NotFoundException(messageProvider.getMessage("validation.no_exist.appointment"));
+        }
+        MedicalRecord medicalRecord = new MedicalRecord();
+        medicalRecord.setAppointmentId(appointmentId);
+
+        medicalRecordRepository.save(medicalRecord);
+
+        appointmentRepository.updateActionStatus(appointmentId, ActionStatus.EXAMINING.name());
+    }
+}

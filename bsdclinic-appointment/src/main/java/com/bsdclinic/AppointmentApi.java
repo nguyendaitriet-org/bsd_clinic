@@ -6,6 +6,7 @@ import com.bsdclinic.client.response.AvailableAppointmentSlot;
 import com.bsdclinic.dto.AppointmentDto;
 import com.bsdclinic.dto.request.AppointmentFilter;
 import com.bsdclinic.dto.request.AppointmentUpdate;
+import com.bsdclinic.dto.response.StatusTransitionResponse;
 import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.url.WebUrl;
 import com.bsdclinic.validation.AppointmentRuleAnnotation;
@@ -58,11 +59,14 @@ public class AppointmentApi {
     }
 
     @RoleAuthorization.AuthenticatedUser
-    @PatchMapping(WebUrl.API_ADMIN_APPOINTMENT_UPDATE)
+    @PatchMapping(WebUrl.API_ADMIN_APPOINTMENT_WITH_ID)
     public void updateAppointment(
             @PathVariable String appointmentId,
-            @RequestBody @Valid AppointmentUpdate request
+            @RequestBody @Valid AppointmentUpdate request,
+            @AuthenticationPrincipal UserPrincipal userPrincipal
     ) {
+        String roleCode = userPrincipal.getRoleCode();
+        request.setUserRoleCode(roleCode);
         adminAppointmentService.updateAppointment(appointmentId, request);
     }
 
@@ -75,6 +79,16 @@ public class AppointmentApi {
         appointmentFilter.setDoctorId(userPrincipal.getUserId());
         appointmentFilter.setAdminRole(userPrincipal.isAdmin());
         return adminAppointmentService.getAppointmentsByFilter(appointmentFilter);
+    }
+
+    @GetMapping(WebUrl.API_ADMIN_APPOINTMENT_NEXT_STATUS)
+    public StatusTransitionResponse getNextStatuses(
+            @PathVariable String appointmentId,
+            @AuthenticationPrincipal UserPrincipal userPrincipal
+    ) {
+        String roleCode = userPrincipal.getRoleCode();
+
+        return adminAppointmentService.getNextStatus(appointmentId, roleCode);
     }
     /*------------------------------------------------------*/
 }

@@ -4,6 +4,7 @@ import com.bsdclinic.appointment.Appointment;
 import com.bsdclinic.dto.response.IAppointmentStatusCount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -17,10 +18,18 @@ public interface AppointmentRepository extends JpaRepository<Appointment, String
 
     boolean existsByRegisterDateAndRegisterTime(LocalDate registerDate, String registerTime);
 
+    boolean existsByAppointmentId(String appointmentId);
+
     @Query("SELECT " +
                 "a.actionStatus AS actionStatus, " +
                 "COUNT(a.actionStatus) AS statusCount " +
             "FROM Appointment a " +
             "GROUP BY a.actionStatus")
     List<IAppointmentStatusCount> getAppointmentStatusCount();
+
+    @Modifying
+    @Query("UPDATE Appointment a " +
+            "SET a.actionStatus = :actionStatus " +
+            "WHERE a.appointmentId = :appointmentId")
+    void updateActionStatus(String appointmentId, String actionStatus);
 }

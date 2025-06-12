@@ -3,6 +3,7 @@ package com.bsdclinic.admin;
 import com.bsdclinic.dto.AppointmentDto;
 import com.bsdclinic.dto.request.AppointmentFilter;
 import com.bsdclinic.dto.request.AppointmentUpdate;
+import com.bsdclinic.dto.response.StatusTransitionResponse;
 import com.bsdclinic.response.DatatableResponse;
 
 import java.util.Map;
@@ -12,4 +13,5 @@ public interface AdminAppointmentService {
      DatatableResponse getAppointmentsByFilter(AppointmentFilter appointmentFilter);
      Map<String, Integer> getAppointmentStatusCount();
      void updateAppointment(String appointmentId, AppointmentUpdate appointmentUpdate);
+     StatusTransitionResponse getNextStatus(String appointmentId, String role);
 }

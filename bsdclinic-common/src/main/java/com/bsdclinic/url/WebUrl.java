@@ -35,9 +35,9 @@ public class WebUrl {
     // API Admin - Appointment
     public static final String API_ADMIN_APPOINTMENT = API_ADMIN_ENDPOINT + "/appointments";
     public static final String API_ADMIN_APPOINTMENT_LIST = API_ADMIN_APPOINTMENT + "/list";
-    public static final String API_ADMIN_APPOINTMENT_UPDATE = API_ADMIN_APPOINTMENT + "/{appointmentId}";
+    public static final String API_ADMIN_APPOINTMENT_WITH_ID = API_ADMIN_APPOINTMENT + "/{appointmentId}";
     public static final String API_ADMIN_APPOINTMENT_FOR_DOCTOR = API_ADMIN_APPOINTMENT + "/doctors";
-
+    public static final String API_ADMIN_APPOINTMENT_NEXT_STATUS = API_ADMIN_APPOINTMENT_WITH_ID + "/next-status";
 
     // API Admin - Subscriber
     public static final String API_ADMIN_SUBSCRIBER = API_ADMIN_ENDPOINT + "/subscribers";
@@ -47,6 +47,9 @@ public class WebUrl {
     // API Admin - Clinic info
     public static final String API_ADMIN_CLINIC_INFO = API_ADMIN_ENDPOINT + "/clinic-info";
     public static final String API_ADMIN_UPDATE_CLINIC_INFO = API_ADMIN_CLINIC_INFO + "/{clinicInfoId}";
+
+    // API Admin - Medical record
+    public static final String API_ADMIN_MEDICAL_RECORD = API_ADMIN_ENDPOINT + "/medical-records";
 
 
     // API Client - Appointment

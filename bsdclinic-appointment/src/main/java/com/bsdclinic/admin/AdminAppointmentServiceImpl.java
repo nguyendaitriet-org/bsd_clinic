@@ -4,14 +4,18 @@ import com.bsdclinic.AppointmentMapper;
 import com.bsdclinic.AppointmentRepository;
 import com.bsdclinic.appointment.ActionStatus;
 import com.bsdclinic.appointment.Appointment;
+import com.bsdclinic.appointment.Appointment_;
 import com.bsdclinic.dto.AppointmentDto;
 import com.bsdclinic.dto.request.AppointmentFilter;
 import com.bsdclinic.dto.request.AppointmentUpdate;
 import com.bsdclinic.dto.response.AppointmentResponse;
 import com.bsdclinic.dto.response.IAppointmentStatusCount;
+import com.bsdclinic.dto.response.StatusTransitionResponse;
+import com.bsdclinic.exception_handler.exception.BadRequestException;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.response.DatatableResponse;
+import com.bsdclinic.status_flow.ActionStatusFlow;
 import com.bsdclinic.subscriber.Subscriber;
 import com.bsdclinic.subscriber.SubscriberRepository;
 import com.bsdclinic.subscriber.SubscriberService;
@@ -21,12 +25,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +43,7 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
     private final AppointmentMapper appointmentMapper;
     private final MessageProvider messageProvider;
     private final SubscriberService subscriberService;
+    private final ActionStatusFlow actionStatusFlow;
 
     @Override
     public void createNewAppointment(AppointmentDto appointmentDto) {
@@ -102,11 +109,31 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
     @Override
     public void updateAppointment(String appointmentId, AppointmentUpdate appointmentUpdate) {
         Appointment appointment = getAppointmentById(appointmentId);
+        ActionStatus currentStatus = ActionStatus.valueOf(appointment.getActionStatus());
+        ActionStatus nextStatus = ActionStatus.valueOf(appointmentUpdate.getActionStatus());
+        if (!actionStatusFlow.canTransition(currentStatus, nextStatus)) {
+            throw new BadRequestException(
+                    Map.of(Appointment_.ACTION_STATUS, messageProvider.getMessage("validation.invalid.appointment_status"))
+            );
+        }
+
+        if (!actionStatusFlow.isRoleAllowed(currentStatus, nextStatus, appointmentUpdate.getUserRoleCode())) {
+            throw new AccessDeniedException(messageProvider.getMessage("error.403.operate"));
+        }
+
         appointment = appointmentMapper.toAppointment(appointmentUpdate, appointment);
         appointmentRepository.save(appointment);
     }
 
     private Appointment getAppointmentById(String appointmentId) {
         return appointmentRepository.findById(appointmentId).orElseThrow(() -> new NotFoundException(messageProvider.getMessage("validation.no_exist.appointment")));
+    }
+
+    @Override
+    public StatusTransitionResponse getNextStatus(String appointmentId, String role) {
+        Appointment appointment = getAppointmentById(appointmentId);
+        ActionStatus currentStatus = ActionStatus.valueOf(appointment.getActionStatus());
+        Set<ActionStatus> next = actionStatusFlow.getNextStatesByRole(currentStatus, role);
+        return new StatusTransitionResponse(currentStatus, next);
     }
 }

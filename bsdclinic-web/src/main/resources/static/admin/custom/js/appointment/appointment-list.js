@@ -351,6 +351,23 @@ export const AppointmentDetail = (function () {
         handleSaveAppointmentButton();
     }
 
+    const renderNextAppointmentStatus = (appointmentId) => {
+        module.appointmentActionStatusSelector.children('option:not(:first)').remove();
+        $.ajax({
+            type: 'GET',
+            url: API_ADMIN_APPOINTMENT_NEXT_STATUS.replace('{appointmentId}', appointmentId),
+        })
+            .done((response) => {
+                for (const nextStatus of response.nextStatuses) {
+                    const option = new Option(appointmentStatusMap[nextStatus], nextStatus);
+                    module.appointmentActionStatusSelector.append(option);
+                }
+            })
+            .fail((jqXHR) => {
+                App.handleResponseMessageByStatusCode(jqXHR);
+            })
+    }
+
     module.renderAppointmentDetail = ({actionStatus, doctorId, appointmentId, ...appointmentData}) => {
         module.appointmentDetailTextSelector.each((index, element) => {
             const attribute = $(element).data('attribute');
@@ -367,12 +384,14 @@ export const AppointmentDetail = (function () {
         module.doctorSelector.val(doctorId);
 
         module.appointmentDetailStatusSelector.html(
-        `<span class="action-status-badge action-status-${actionStatus} w-100">${appointmentStatusMap[actionStatus]}</span>`
+            `<span class="action-status-badge action-status-${actionStatus} w-100">${appointmentStatusMap[actionStatus]}</span>`
         );
 
         module.appointmentActionStatusSelector.find(`option[value='${actionStatus}']`).remove();
 
         module.appointmentIdInputSelector.val(appointmentId);
+
+        renderNextAppointmentStatus(appointmentId);
     }
 
     const handleSaveAppointmentButton = () => {
@@ -389,7 +408,7 @@ export const AppointmentDetail = (function () {
                     "content-type": "application/json"
                 },
                 type: 'PATCH',
-                url: API_ADMIN_APPOINTMENT_UPDATE.replace('{appointmentId}', appointmentId),
+                url: API_ADMIN_APPOINTMENT_WITH_ID.replace('{appointmentId}', appointmentId),
                 data: JSON.stringify(appointmentUpdateParams),
             })
                 .done(() => {

@@ -17,4 +17,6 @@ public class AppointmentUpdate {
     private String doctorId;
 
     private String patientName;
+
+    private String userRoleCode;
 }

@@ -64,9 +64,6 @@
                                 <div class="col">
                                     <select class="form-control form-control-sm" id="appointment-action-status" name="actionStatus">
                                         <option value="" th:text="#{placeholder.status}" disabled selected></option>
-                                        <th:block th:each="appointmentStatus: ${appointmentStatusMap}">
-                                            <option th:value="${appointmentStatus.key}" th:text="${appointmentStatus.value}"></option>
-                                        </th:block>
                                     </select>
                                 </div>
                             </div>

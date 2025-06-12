@@ -39,6 +39,10 @@ public class UserPrincipal implements UserDetails {
         return false;
     }
 
+    public String getRoleCode() {
+        return authorities.isEmpty() ? null : authorities.iterator().next().getAuthority();
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

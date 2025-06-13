@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<th:block th:fragment="tab-bar">
+    <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
+        <li class="nav-item submenu">
+            <a class="nav-link active" id="before-treatment-tab" th:text="#{title.before_treatment}"
+               data-bs-toggle="pill" href="#before-treatment-area"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="after-treatment-tab" th:text="#{title.after_treatment}"
+               data-bs-toggle="pill" href="#after-treatment-area"></a>
+        </li>
+    </ul>
+</th:block>

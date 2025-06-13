@@ -22,16 +22,7 @@
 <th:block layout:fragment="content-body">
     <div class="card mx-auto px-5 col-xl-8 col-md-10">
         <div class="card-body">
-            <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
-                <li class="nav-item submenu">
-                    <a class="nav-link active" id="before-treatment-tab" th:text="#{title.before_treatment}"
-                       data-bs-toggle="pill" href="#before-treatment-area"></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="after-treatment-tab" th:text="#{title.after_treatment}"
-                       data-bs-toggle="pill" href="#after-treatment-area"></a>
-                </li>
-            </ul>
+            <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
             <div class="tab-content mt-5 mb-3">
                 <div class="tab-pane active show" id="before-treatment-area">
                     <div class="row g-3">
@@ -64,7 +55,7 @@
                             <label class="form-label" th:text="#{title.email}" for="patient-email"></label>
                             <input type="email" class="form-control" name="patientEmail" id="patient-email">
                         </div>
-                        <div class="col-12">
+                        <div class="col-md-6">
                             <label class="form-label" th:text="#{title.address}" for="patient-address"></label>
                             <input type="text" class="form-control" name="patientAddress" id="patient-address">
                         </div>
@@ -75,8 +66,7 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label" th:text="#{title.medical_history}" for="medical-history"></label>
-                            <textarea class="form-control" rows="2" name="medicalHistory"
-                                      id="medical-history"></textarea>
+                            <textarea class="form-control" rows="2" name="medicalHistory" id="medical-history"></textarea>
                         </div>
                         <div class="col-12">
                             <label class="form-label required-field" th:text="#{title.diagnosis}"
@@ -84,7 +74,8 @@
                             <input type="text" class="form-control" name="diagnosis" id="diagnosis">
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="medical-service">Chọn dịch vụ cần thực hiện</label>
+                            <label class="form-label" for="medical-service"
+                                   th:text="#{title.medical_service.select}"></label>
                             <select class="form-control" id="medical-service" name="medicalServiceId">
                                 <option>Điều trị mụn y khoa (725.000 đ)</option>
                                 <option>Điều trị sẹo lõm, sẹo rỗ (500.000 đ)</option>
@@ -112,12 +103,13 @@
                             </table>
                         </div>
                         <div class="col-12">
-                            <label class="form-label" th:text="#{title.advanced}"></label>
-                            <input type="number" class="form-control" value="0">
+                            <label class="form-label" th:text="#{title.advance}" for="advance"></label>
+                            <input type="number" class="form-control" value="0" id="advance">
                         </div>
                     </div>
-                    <div class="my-5">
-                        <div class="float-end">
+                    <div class="my-5 d-flex justify-content-between">
+                        <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
+                        <div>
                             <button class="btn btn-primary save-and-print-advance-btn"
                                     th:text="#{title.medical_record.save_and_print_advance}"></button>
                             <button class="btn btn-secondary save-record-btn"
@@ -128,6 +120,98 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="after-treatment-area">
+                    <div class="row g-3">
+                        <h4 th:text="#{title.prescription.internal_availability}"></h4>
+                        <div class="col-12">
+                            <label class="form-label" for="medicine" th:text="#{title.medicine.select}"></label>
+                            <select class="form-control" id="medicine" name="medicineId">
+                                <option>Thuốc A</option>
+                                <option>Thuốc B</option>
+                                <option>Thuốc C</option>
+                            </select>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th th:text="#{title.medicine.name}"></th>
+                                    <th th:text="#{title.quantity}"></th>
+                                    <th th:text="#{title.unit_price}"></th>
+                                    <th th:text="#{title.usage}"></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <span>Thuốc A</span>
+                                    </td>
+                                    <td><input class="form-control form-control-sm" type="number"></td>
+                                    <td>
+                                        125.000đ
+                                    </td>
+                                    <td><input class="form-control form-control-sm" type="text"></td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-sm btn-outline-danger">X</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <h4 class="mt-5" th:text="#{title.prescription.external}"></h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th th:text="#{title.medicine.name}"></th>
+                                        <th th:text="#{title.quantity}"></th>
+                                        <th th:text="#{title.usage}"></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span>Thuốc A</span>
+                                        </td>
+                                        <td><input class="form-control form-control-sm" type="number"></td>
+                                        <td><input class="form-control form-control-sm" type="text"></td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-sm btn-outline-danger">X</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" class=" border-bottom-0">
+                                            <button type="button" class="btn btn-outline-dark w-100 border-0">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" th:text="#{title.instruction}" for="instruction"></label>
+                            <textarea class="form-control" rows="2" name="instruction" id="instruction"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" th:text="#{title.re_examination}" for="re-examination"></label>
+                            <input type="text" class="form-control" name="reExamination" id="re-examination">
+                        </div>
+                    </div>
+                    <div class="my-5 d-flex justify-content-between">
+                        <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
+                        <div>
+                            <button class="btn btn-primary save-and-print-advance-btn"
+                                    th:text="#{title.medical_record.save_and_print_invoice}"></button>
+                            <button class="btn btn-secondary save-record-btn"
+                                    th:text="#{title.save_only}"></button>
+                            <button class="btn btn-warning remove-record-btn"
+                                    th:text="#{title.reset}"></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -135,7 +219,21 @@
 </th:block>
 
 <th:block layout:fragment="medical-record-script">
+    <script>
+        document.querySelectorAll('a[data-bs-toggle="pill"]').forEach(el => {
+            el.addEventListener('shown.bs.tab', function (e) {
+                const target = e.target.getAttribute('href');
 
+                document.querySelectorAll('a[data-bs-toggle="pill"]').forEach(link => {
+                    if (link.getAttribute('href') === target) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
 </th:block>
 </body>
 </html>

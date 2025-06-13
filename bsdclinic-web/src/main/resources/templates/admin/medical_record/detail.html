@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/layout/app}">
+
+<th:block layout:fragment="content-style">
+    <style>
+        label {
+            font-weight: bolder;
+        }
+    </style>
+</th:block>
+
+<body>
+<th:block layout:fragment="content-title" th:text="#{title.medical_record.detail}"></th:block>
+
+<th:block layout:fragment="content-title-note"></th:block>
+
+<th:block layout:fragment="content-button"></th:block>
+
+<th:block layout:fragment="content-body">
+    <div class="card mx-auto px-5 col-xl-8 col-md-10">
+        <div class="card-body">
+            <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
+                <li class="nav-item submenu">
+                    <a class="nav-link active" id="before-treatment-tab" th:text="#{title.before_treatment}"
+                       data-bs-toggle="pill" href="#before-treatment-area"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="after-treatment-tab" th:text="#{title.after_treatment}"
+                       data-bs-toggle="pill" href="#after-treatment-area"></a>
+                </li>
+            </ul>
+            <div class="tab-content mt-5 mb-3">
+                <div class="tab-pane active show" id="before-treatment-area">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label required-field" th:text="#{title.full_name}"
+                                   for="patient-full-name"></label>
+                            <input type="text" class="form-control" name="patientFullName" id="patient-full-name">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label required-field" th:text="#{title.birthday}"
+                                   for="patient-birthday"></label>
+                            <input type="text" class="form-control" name="patientBirthday" id="patient-birthday">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label required-field" th:text="#{title.gender}"></label><br>
+                            <th:block th:each="gender : ${genderMap}">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="patientGender"
+                                           th:id="${gender.key}" th:value="${gender.key}">
+                                    <label class="form-check-label" th:for="${gender.key}"
+                                           th:text="${gender.value}"></label>
+                                </div>
+                            </th:block>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" th:text="#{title.phone}" for="patient-phone"></label>
+                            <input type="text" class="form-control" name="patientPhone" id="patient-phone">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" th:text="#{title.email}" for="patient-email"></label>
+                            <input type="email" class="form-control" name="patientEmail" id="patient-email">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" th:text="#{title.address}" for="patient-address"></label>
+                            <input type="text" class="form-control" name="patientAddress" id="patient-address">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label required-field" th:text="#{title.visit_reason}"
+                                   for="visit-reason"></label>
+                            <input type="text" class="form-control" name="visitReason" id="visit-reason">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" th:text="#{title.medical_history}" for="medical-history"></label>
+                            <textarea class="form-control" rows="2" name="medicalHistory"
+                                      id="medical-history"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label required-field" th:text="#{title.diagnosis}"
+                                   for="diagnosis"></label>
+                            <input type="text" class="form-control" name="diagnosis" id="diagnosis">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="medical-service">Chọn dịch vụ cần thực hiện</label>
+                            <select class="form-control" id="medical-service" name="medicalServiceId">
+                                <option>Điều trị mụn y khoa (725.000 đ)</option>
+                                <option>Điều trị sẹo lõm, sẹo rỗ (500.000 đ)</option>
+                                <option>Điều trị nấm da (1.000.000 đ)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th th:text="#{title.medical_service.name}"></th>
+                                    <th th:text="#{title.price}"></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Điều trị mụn y khoa</td>
+                                    <td>725.000 đ</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-danger">X</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" th:text="#{title.advanced}"></label>
+                            <input type="number" class="form-control" value="0">
+                        </div>
+                    </div>
+                    <div class="my-5">
+                        <div class="float-end">
+                            <button class="btn btn-primary save-and-print-advance-btn"
+                                    th:text="#{title.medical_record.save_and_print_advance}"></button>
+                            <button class="btn btn-secondary save-record-btn"
+                                    th:text="#{title.save_only}"></button>
+                            <button class="btn btn-danger remove-record-btn"
+                                    th:text="#{title.medical_record.remove}"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="after-treatment-area">
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="medical-record-script">
+
+</th:block>
+</body>
+</html>

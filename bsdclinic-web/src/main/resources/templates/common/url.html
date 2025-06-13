@@ -3,17 +3,19 @@
 <th:block th:fragment="urls">
   <script th:inline="javascript">
     // Page
-    var CLIENT_HOME = [[${webUrl.CLIENT_HOME}]];
     var ADMIN_HOME = [[${webUrl.ADMIN_HOME}]];
     var ADMIN_USERS_INDEX = [[${webUrl.ADMIN_USERS_INDEX}]];
     var ADMIN_USERS_PROFILE = [[${webUrl.ADMIN_USERS_PROFILE}]];
     var ADMIN_APPOINTMENT_INDEX = [[${webUrl.ADMIN_APPOINTMENT_INDEX}]];
     var ADMIN_APPOINTMENT_CREATE = [[${webUrl.ADMIN_APPOINTMENT_CREATE}]];
     var ADMIN_CLINIC_INFO = [[${webUrl.ADMIN_CLINIC_INFO}]];
+    var ADMIN_MEDICAL_RECORD_DETAIL = [[${webUrl.ADMIN_MEDICAL_RECORD_DETAIL}]];
+
     var LOGIN = [[${webUrl.LOGIN}]];
     var LOGOUT = [[${webUrl.LOGOUT}]];
     var ERROR = [[${webUrl.ERROR}]];
 
+    var CLIENT_HOME = [[${webUrl.CLIENT_HOME}]];
     var CLIENT_APPOINTMENT_CREATE = [[${webUrl.CLIENT_APPOINTMENT_CREATE}]];
 
     // API Admin - Login
@@ -41,7 +43,6 @@
     // API Client - Appointment
     var API_CLIENT_APPOINTMENT = [[${webUrl.API_CLIENT_APPOINTMENT}]];
     var API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS = [[${webUrl.API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS}]];
-
 
     // API Client - Clinic info
     var API_CLIENT_CLINIC_INFO = [[${webUrl.API_CLIENT_CLINIC_INFO}]];

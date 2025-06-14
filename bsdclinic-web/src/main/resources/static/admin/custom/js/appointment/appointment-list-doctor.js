@@ -1,4 +1,5 @@
 import {Subscriber} from "/admin/custom/js/appointment/subscriber.js";
+import {MedicalRecordCreation} from "/admin/custom/js/medical_record/script.js";
 import AppointmentCreation from "/admin/custom/js/appointment/appointment-create.js";
 import {DatatableAttribute} from "/common/js/app.js";
 import {App} from "/common/js/app.js";
@@ -75,6 +76,9 @@ export const AppointmentListForDoctor = (function () {
                     return JSON.stringify({...d, ...appointmentFilter});
                 }
             },
+            initComplete: () => {
+                handleCreateMedicalRecordButton();
+            },
             columns: [
                 {data: null},
                 {data: 'patientName'},
@@ -128,6 +132,22 @@ export const AppointmentListForDoctor = (function () {
         });
 
         DatatableAttribute.renderOrdinalColumn(appointmentsDatatable, 0);
+    }
+
+    const handleCreateMedicalRecordButton = () => {
+        module.appointmentListTableSelector.on('click', '.btn-create-record', function () {
+            App.showSweetAlertConfirmation('warning', confirmApplyTitle, '').then((result) => {
+                if (result.isConfirmed) {
+                    const rowData = module.appointmentListTableSelector.DataTable().row($(this).closest('tr')).data();
+                    const appointmentId = rowData.appointmentId;
+                    MedicalRecordCreation.createMedicalRecord(appointmentId).then((response) => {
+                        App.showSweetAlert('success', createSuccess);
+                        location.href = ADMIN_MEDICAL_RECORD_DETAIL.replace('{medicalRecordId}', response.medicalRecordId);
+                    });
+                }
+            });
+
+        })
     }
 
     return module;

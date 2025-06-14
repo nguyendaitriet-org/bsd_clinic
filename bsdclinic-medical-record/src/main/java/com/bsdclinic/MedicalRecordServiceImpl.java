@@ -14,18 +14,21 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     private final MedicalRecordRepository medicalRecordRepository;
     private final AppointmentRepository appointmentRepository;
     private final MessageProvider messageProvider;
+    private final MedicalRecordMapper medicalRecordMapper;
 
     @Override
     @Transactional
-    public void createMedicalRecord(String appointmentId) {
+    public MedicalRecordDto createMedicalRecord(String appointmentId) {
         if (!appointmentRepository.existsByAppointmentId(appointmentId)) {
             throw new NotFoundException(messageProvider.getMessage("validation.no_exist.appointment"));
         }
         MedicalRecord medicalRecord = new MedicalRecord();
         medicalRecord.setAppointmentId(appointmentId);
 
-        medicalRecordRepository.save(medicalRecord);
+        medicalRecord = medicalRecordRepository.save(medicalRecord);
 
         appointmentRepository.updateActionStatus(appointmentId, ActionStatus.EXAMINING.name());
+
+        return medicalRecordMapper.toDto(medicalRecord);
     }
 }

@@ -11,7 +11,7 @@ public class MedicalRecordApi {
 
     @RoleAuthorization.AdminAndDoctorAuthorization
     @PostMapping(WebUrl.API_ADMIN_MEDICAL_RECORD)
-    public void createMedicalRecord(@RequestParam String appointmentId) {
-        medicalRecordService.createMedicalRecord(appointmentId);
+    public MedicalRecordDto createMedicalRecord(@RequestBody MedicalRecordDto medicalRecordDto) {
+        return medicalRecordService.createMedicalRecord(medicalRecordDto.getAppointmentId());
     }
 }

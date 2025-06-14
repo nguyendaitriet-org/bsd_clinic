@@ -20,7 +20,7 @@
 <th:block layout:fragment="content-button"></th:block>
 
 <th:block layout:fragment="content-body">
-    <div class="card mx-auto px-5 col-xl-8 col-md-10">
+    <div class="card mx-auto px-5 col-xl-11 col-md-10">
         <div class="card-body">
             <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
             <div class="tab-content mt-5 mb-3">
@@ -220,11 +220,11 @@
 
 <th:block layout:fragment="medical-record-script">
     <script>
-        document.querySelectorAll('a[data-bs-toggle="pill"]').forEach(el => {
+        document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(el => {
             el.addEventListener('shown.bs.tab', function (e) {
                 const target = e.target.getAttribute('href');
 
-                document.querySelectorAll('a[data-bs-toggle="pill"]').forEach(link => {
+                document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(link => {
                     if (link.getAttribute('href') === target) {
                         link.classList.add('active');
                     } else {

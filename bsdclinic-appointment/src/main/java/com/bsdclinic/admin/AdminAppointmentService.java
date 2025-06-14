@@ -14,4 +14,6 @@ public interface AdminAppointmentService {
      Map<String, Integer> getAppointmentStatusCount();
      void updateAppointment(String appointmentId, AppointmentUpdate appointmentUpdate);
      StatusTransitionResponse getNextStatus(String appointmentId, String role);
+     DatatableResponse getAppointmentsForDoctor(AppointmentFilter appointmentFilter);
+     boolean existsAppointment(String appointmentId);
 }

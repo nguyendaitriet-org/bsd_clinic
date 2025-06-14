@@ -1,9 +1,6 @@
 package com.bsdclinic.exception_handler;
 
-import com.bsdclinic.exception_handler.exception.BadRequestException;
-import com.bsdclinic.exception_handler.exception.ForbiddenException;
-import com.bsdclinic.exception_handler.exception.NotFoundException;
-import com.bsdclinic.exception_handler.exception.UnauthorizedException;
+import com.bsdclinic.exception_handler.exception.*;
 import com.bsdclinic.message.MessageProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
@@ -72,6 +69,17 @@ public class GeneralExceptionHandler {
         );
 
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ErrorDetails> handleConflict(ConflictException ex, HttpServletRequest request) {
+        ErrorDetails response = new ErrorDetails(
+                HttpStatus.CONFLICT.value(),
+                ex.getMessage(),
+                null
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

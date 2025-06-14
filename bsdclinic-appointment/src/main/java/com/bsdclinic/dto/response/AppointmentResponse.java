@@ -20,4 +20,5 @@ public class AppointmentResponse {
     private LocalDate registerDate;
     private String doctorId;
     private String subscriberId;
+    private String medicalRecordId;
 }

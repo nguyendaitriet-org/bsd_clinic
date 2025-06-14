@@ -78,7 +78,7 @@ public class AppointmentApi {
     ) {
         appointmentFilter.setDoctorId(userPrincipal.getUserId());
         appointmentFilter.setAdminRole(userPrincipal.isAdmin());
-        return adminAppointmentService.getAppointmentsByFilter(appointmentFilter);
+        return adminAppointmentService.getAppointmentsForDoctor(appointmentFilter);
     }
 
     @GetMapping(WebUrl.API_ADMIN_APPOINTMENT_NEXT_STATUS)

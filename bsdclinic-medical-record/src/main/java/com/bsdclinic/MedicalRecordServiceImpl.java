@@ -1,6 +1,7 @@
 package com.bsdclinic;
 
 import com.bsdclinic.appointment.ActionStatus;
+import com.bsdclinic.exception_handler.exception.ConflictException;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.medical_record.MedicalRecord;
 import com.bsdclinic.message.MessageProvider;
@@ -22,6 +23,11 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         if (!appointmentRepository.existsByAppointmentId(appointmentId)) {
             throw new NotFoundException(messageProvider.getMessage("validation.no_exist.appointment"));
         }
+
+        if (medicalRecordRepository.existsByAppointmentId(appointmentId)) {
+            throw new ConflictException(messageProvider.getMessage("validation.existed.medical_record"));
+        }
+
         MedicalRecord medicalRecord = new MedicalRecord();
         medicalRecord.setAppointmentId(appointmentId);
 
@@ -29,6 +35,13 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 
         appointmentRepository.updateActionStatus(appointmentId, ActionStatus.EXAMINING.name());
 
+        return medicalRecordMapper.toDto(medicalRecord);
+    }
+
+    @Override
+    public MedicalRecordDto getMedicalRecord(String medicalRecordId) {
+        MedicalRecord medicalRecord = medicalRecordRepository.findById(medicalRecordId).orElseThrow(
+                ()-> new NotFoundException(messageProvider.getMessage("validation.no_exist.medical_record")));
         return medicalRecordMapper.toDto(medicalRecord);
     }
 }

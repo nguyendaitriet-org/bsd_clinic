@@ -1,4 +1,5 @@
 import {App} from "/common/js/app.js";
+import {DateTimeConverter} from "/common/js/datetime_util.js";
 
 export const MedicalRecordCreation = (function () {
     const module = {};
@@ -18,6 +19,27 @@ export const MedicalRecordCreation = (function () {
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);
             })
+    }
+
+    return module;
+})();
+
+export const MedicalRecordUpdating = (function () {
+    const module = {
+        patientBirthdayInputSelector: $('#patient-birthday')
+    };
+
+    module.init = () => {
+        initBirthdayPicker()
+    }
+
+    const initBirthdayPicker = () => {
+        const displayBirthday = DateTimeConverter.convertToDisplayPattern(module.patientBirthdayInputSelector.val())
+        module.patientBirthdayPicker = new Lightpick({
+            field: module.patientBirthdayInputSelector[0],
+            lang: 'vi',
+            startDate: displayBirthday
+        });
     }
 
     return module;

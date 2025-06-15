@@ -2,6 +2,7 @@ package com.bsdclinic.admin;
 
 import com.bsdclinic.AppointmentMapper;
 import com.bsdclinic.AppointmentRepository;
+import com.bsdclinic.MedicalRecordRepoForAppointment;
 import com.bsdclinic.appointment.ActionStatus;
 import com.bsdclinic.appointment.Appointment;
 import com.bsdclinic.appointment.Appointment_;
@@ -44,6 +45,7 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
     private final MessageProvider messageProvider;
     private final SubscriberService subscriberService;
     private final ActionStatusFlow actionStatusFlow;
+    private final MedicalRecordRepoForAppointment medicalRecordRepository;
 
     @Override
     public void createNewAppointment(AppointmentDto appointmentDto) {
@@ -135,5 +137,32 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
         ActionStatus currentStatus = ActionStatus.valueOf(appointment.getActionStatus());
         Set<ActionStatus> next = actionStatusFlow.getNextStatesByRole(currentStatus, role);
         return new StatusTransitionResponse(currentStatus, next);
+    }
+
+    @Override
+    public DatatableResponse getAppointmentsForDoctor(AppointmentFilter appointmentFilter) {
+        DatatableResponse<AppointmentResponse> appointments = getAppointmentsByFilter(appointmentFilter);
+        List<AppointmentResponse> appointmentResponses = appointments.getData();
+        List<String> appointmentIds = appointmentResponses.stream().map(AppointmentResponse::getAppointmentId).toList();
+        Map<String, String> medicalRecordIdsMap = medicalRecordRepository.findMedicalRecordIdsAsMap(appointmentIds);
+        appointmentResponses.forEach(appointmentResponse -> {
+            String medicalRecordId = medicalRecordIdsMap.get(appointmentResponse.getAppointmentId());
+            appointmentResponse.setMedicalRecordId(medicalRecordId);
+        });
+        appointments.setData(appointmentResponses);
+
+        return appointments;
+    }
+
+    @Override
+    public boolean existsAppointment(String appointmentId) {
+        return appointmentRepository.existsById(appointmentId);
+    }
+
+    @Override
+    public AppointmentResponse getAppointment(String appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new NotFoundException(messageProvider.getMessage("validation.no_exist.appointment")));
+        return appointmentMapper.toAppointmentResponse(appointment);
     }
 }

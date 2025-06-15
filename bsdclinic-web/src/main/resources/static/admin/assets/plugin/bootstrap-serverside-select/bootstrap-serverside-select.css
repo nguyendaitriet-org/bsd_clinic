@@ -1,0 +1,178 @@
+/*!
+ * Bootstrap Server Select v1.0.0
+ * A Bootstrap 5 compatible select component with server-side search
+ * https://github.com/yourname/bootstrap-server-select
+ */
+
+.bs-server-select {
+    position: relative;
+}
+
+.bs-server-select .form-control {
+    cursor: pointer;
+    background-color: white;
+    padding-right: 2.5rem;
+}
+
+.bs-server-select .search-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.bs-server-select-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1050;
+    max-height: 250px;
+    overflow-y: auto;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
+    background: white;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-top: -1px;
+}
+
+.bs-server-select-dropdown.show {
+    display: block;
+}
+
+.bs-server-select-dropdown.hide {
+    display: none;
+}
+
+.bs-server-select-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid #f8f9fa;
+    transition: background-color 0.15s ease-in-out;
+    display: block;
+    width: 100%;
+}
+
+.bs-server-select-item:hover,
+.bs-server-select-item.active {
+    background-color: #e9ecef;
+}
+
+.bs-server-select-item:last-child {
+    border-bottom: none;
+}
+
+.bs-server-select-item .item-title {
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 0.125rem;
+}
+
+.bs-server-select-item .item-subtitle {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+.bs-server-select-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    color: #6c757d;
+}
+
+.bs-server-select-loading .spinner-border {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+}
+
+.bs-server-select-no-results {
+    padding: 1rem;
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+}
+
+.bs-server-select-error {
+    padding: 1rem;
+    text-align: center;
+    color: #dc3545;
+}
+
+/* Focus states */
+.bs-server-select .form-control:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.bs-server-select .form-control:focus ~ .bs-server-select-dropdown {
+    border-color: #86b7fe;
+}
+
+/* Disabled state */
+.bs-server-select .form-control:disabled {
+    background-color: #e9ecef;
+    opacity: 1;
+    cursor: not-allowed;
+}
+
+.bs-server-select .form-control:disabled ~ .search-icon {
+    color: #adb5bd;
+}
+
+/* Size variants */
+.bs-server-select .form-control.form-control-sm {
+    padding-right: 2rem;
+}
+
+.bs-server-select .form-control.form-control-sm ~ .search-icon {
+    right: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.bs-server-select .form-control.form-control-lg {
+    padding-right: 3rem;
+}
+
+.bs-server-select .form-control.form-control-lg ~ .search-icon {
+    right: 1rem;
+    font-size: 1.125rem;
+}
+
+/* RTL Support */
+[dir="rtl"] .bs-server-select .search-icon {
+    right: auto;
+    left: 0.75rem;
+}
+
+[dir="rtl"] .bs-server-select .form-control {
+    padding-right: 0.75rem;
+    padding-left: 2.5rem;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .bs-server-select-dropdown {
+        border-color: #000;
+    }
+    
+    .bs-server-select-item:hover,
+    .bs-server-select-item.active {
+        background-color: #000;
+        color: #fff;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .bs-server-select-item {
+        transition: none;
+    }
+}

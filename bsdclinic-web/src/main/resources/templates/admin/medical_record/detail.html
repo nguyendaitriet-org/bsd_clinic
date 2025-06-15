@@ -29,19 +29,22 @@
                         <div class="col-md-6">
                             <label class="form-label required-field" th:text="#{title.full_name}"
                                    for="patient-full-name"></label>
-                            <input type="text" class="form-control" name="patientFullName" id="patient-full-name">
+                            <input type="text" class="form-control" name="patientName" id="patient-full-name"
+                                    th:value="${appointment.patientName}">
                         </div>
                         <div class="col-md-3">
                             <label class="form-label required-field" th:text="#{title.birthday}"
                                    for="patient-birthday"></label>
-                            <input type="text" class="form-control" name="patientBirthday" id="patient-birthday">
+                            <input type="text" class="form-control" name="patientBirthday" id="patient-birthday"
+                                   th:value="${appointment.patientBirthday}">
                         </div>
                         <div class="col-md-3">
                             <label class="form-label required-field" th:text="#{title.gender}"></label><br>
                             <th:block th:each="gender : ${genderMap}">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="patientGender"
-                                           th:id="${gender.key}" th:value="${gender.key}">
+                                           th:id="${gender.key}" th:value="${gender.key}"
+                                           th:checked="${appointment.patientGender == gender.key}">
                                     <label class="form-check-label" th:for="${gender.key}"
                                            th:text="${gender.value}"></label>
                                 </div>
@@ -49,29 +52,35 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label" th:text="#{title.phone}" for="patient-phone"></label>
-                            <input type="text" class="form-control" name="patientPhone" id="patient-phone">
+                            <input type="text" class="form-control" name="patientPhone" id="patient-phone"
+                                   th:value="${appointment.patientPhone}">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label" th:text="#{title.email}" for="patient-email"></label>
-                            <input type="email" class="form-control" name="patientEmail" id="patient-email">
+                            <input type="email" class="form-control" name="patientEmail" id="patient-email"
+                                   th:value="${appointment.patientEmail}">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label" th:text="#{title.address}" for="patient-address"></label>
-                            <input type="text" class="form-control" name="patientAddress" id="patient-address">
+                            <input type="text" class="form-control" name="patientAddress" id="patient-address"
+                                   th:value="${appointment.patientAddress}">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label required-field" th:text="#{title.visit_reason}"
                                    for="visit-reason"></label>
-                            <input type="text" class="form-control" name="visitReason" id="visit-reason">
+                            <input type="text" class="form-control" name="visitReason" id="visit-reason"
+                                   th:value="${appointment.visitReason}">
                         </div>
                         <div class="col-12">
                             <label class="form-label" th:text="#{title.medical_history}" for="medical-history"></label>
-                            <textarea class="form-control" rows="2" name="medicalHistory" id="medical-history"></textarea>
+                            <textarea class="form-control" rows="2" name="medicalHistory" id="medical-history"
+                                      th:value="${medicalRecord.medicalHistory}"></textarea>
                         </div>
                         <div class="col-12">
                             <label class="form-label required-field" th:text="#{title.diagnosis}"
                                    for="diagnosis"></label>
-                            <input type="text" class="form-control" name="diagnosis" id="diagnosis">
+                            <input type="text" class="form-control" name="diagnosis" id="diagnosis"
+                                   th:value="${medicalRecord.diagnosis}">
                         </div>
                         <div class="col-12">
                             <label class="form-label" for="medical-service"
@@ -104,7 +113,8 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label" th:text="#{title.advance}" for="advance"></label>
-                            <input type="number" class="form-control" value="0" id="advance">
+                            <input type="number" class="form-control" value="0" id="advance"
+                                   th:value="${medicalRecord.advance}">
                         </div>
                     </div>
                     <div class="my-5 d-flex justify-content-between">
@@ -219,20 +229,26 @@
 </th:block>
 
 <th:block layout:fragment="medical-record-script">
-    <script>
-        document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(el => {
-            el.addEventListener('shown.bs.tab', function (e) {
-                const target = e.target.getAttribute('href');
+    <script type="module">
+        import {MedicalRecordUpdating} from '/admin/custom/js/medical_record/script.js';
 
-                document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(link => {
-                    if (link.getAttribute('href') === target) {
-                        link.classList.add('active');
-                    } else {
-                        link.classList.remove('active');
-                    }
+        (function () {
+            document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(el => {
+                el.addEventListener('shown.bs.tab', function (e) {
+                    const target = e.target.getAttribute('href');
+
+                    document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(link => {
+                        if (link.getAttribute('href') === target) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
                 });
             });
-        });
+
+            MedicalRecordUpdating.init();
+        })();
     </script>
 </th:block>
 </body>

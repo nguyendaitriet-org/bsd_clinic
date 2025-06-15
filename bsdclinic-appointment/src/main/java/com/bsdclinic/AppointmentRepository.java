@@ -32,4 +32,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, String
             "SET a.actionStatus = :actionStatus " +
             "WHERE a.appointmentId = :appointmentId")
     void updateActionStatus(String appointmentId, String actionStatus);
+
 }

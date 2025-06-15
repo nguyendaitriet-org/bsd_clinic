@@ -158,4 +158,11 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
     public boolean existsAppointment(String appointmentId) {
         return appointmentRepository.existsById(appointmentId);
     }
+
+    @Override
+    public AppointmentResponse getAppointment(String appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new NotFoundException(messageProvider.getMessage("validation.no_exist.appointment")));
+        return appointmentMapper.toAppointmentResponse(appointment);
+    }
 }

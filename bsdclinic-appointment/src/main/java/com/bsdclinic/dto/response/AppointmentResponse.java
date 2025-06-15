@@ -15,6 +15,7 @@ public class AppointmentResponse {
     private String patientGender;
     private LocalDate patientBirthday;
     private String patientAddress;
+    private String visitReason;
     private String relationWithSubscriber;
     private String actionStatus;
     private LocalDate registerDate;

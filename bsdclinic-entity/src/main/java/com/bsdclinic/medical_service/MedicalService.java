@@ -15,15 +15,17 @@ import java.math.BigDecimal;
 @Table(name = "medical_services")
 public class MedicalService {
     @Id
-    @Column(name = "service_id")
+    @Column(name = "medical_service_id")
     private String serviceId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "price")
     private BigDecimal price;
 
+    @Column(name = "description")
+    private String description;
     @PrePersist
     public void prePersist() {
         if (serviceId == null) {

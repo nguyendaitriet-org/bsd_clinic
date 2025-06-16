@@ -1,17 +1,13 @@
 import {App} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
-import {ServiceList} from "./service-list.js";
 
 export const ServiceCreation = (function () {
     const module = {
-        emailSelector: $('#create-user-modal .mail-input'),
-        fullNameSelector: $('#create-user-modal .full-name-input'),
-        phoneSelector: $('#create-user-modal .phone-input'),
-        passwordSelector: $('#create-user-modal .password-input'),
-        passwordConfirmationSelector: $('#create-user-modal .password-confirmation-input'),
-        roleSelectSelector: $('#create-user-modal .role-select'),
-        saveButtonSelector: $('#create-user-modal .btn-save'),
-        userCreationModalSelector: $('#create-user-modal')
+        titleSelector: $('#create-medical-service-modal .title-input'),
+        priceSelector: $('#create-medical-service-modal .price-input'),
+        descriptionSelector: $('#create-medical-service-modal .description-input'),
+        saveButtonSelector: $('#create-medical-service-modal .btn-save'),
+        medicalServiceCreationModalSelector: $('#create-medical-service-modal')
     };
 
     module.init = () => {
@@ -20,41 +16,38 @@ export const ServiceCreation = (function () {
 
     const handleSaveButton = () => {
         module.saveButtonSelector.on('click', function () {
-            const userCreationData = getUserCreationData();
-            createNewUser(userCreationData);
+            const medicalServiceCreationData = getMedicalServiceCreationData();
+            createNewMedicalService(medicalServiceCreationData);
         });
     }
 
-    const getUserCreationData = () => {
+    const getMedicalServiceCreationData = () => {
         return (
             {
-                email: module.emailSelector.val().trim(),
-                fullName: module.fullNameSelector.val().trim(),
-                phone:  module.phoneSelector.val().trim(),
-                password:  module.passwordSelector.val(),
-                passwordConfirmation:  module.passwordConfirmationSelector.val(),
-                roleId:  module.roleSelectSelector.val()
+                title: module.titleSelector.val().trim(),
+                price: module.priceSelector.val().trim(),
+                description:  module.descriptionSelector.val().trim(),
             }
         );
     }
 
-    const createNewUser = (userCreationData) => {
+    const createNewMedicalService = (medicalServiceCreationData) => {
         $.ajax({
             headers: {
                 "accept": "application/json",
                 "content-type": "application/json"
             },
             type: 'POST',
-            url: API_ADMIN_USER_ENDPOINT,
-            data: JSON.stringify(userCreationData),
+            url: API_ADMIN_MEDICAL_SERVICE,
+            data: JSON.stringify(medicalServiceCreationData),
         })
             .done(() => {
                 App.showSuccessMessage(createSuccess);
-                setTimeout(() => ServiceList.renderUserListTable(), 1000);
+                // setTimeout(() => ServiceList.renderUserListTable(), 1000);
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);
-                FormHandler.handleServerValidationError(module.userCreationModalSelector, jqXHR)
+                FormHandler.handleServerValidationError(module.medicalServiceCreationModalSelector, jqXHR)
             })
     }
 

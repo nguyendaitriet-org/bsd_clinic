@@ -1,6 +1,6 @@
 package com.bsdclinic;
 
-import com.bsdclinic.dto.request.CreateServiceMedicalRequest;
+import com.bsdclinic.dto.request.CreateMedicalServiceRequest;
 import com.bsdclinic.url.WebUrl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ public class ServiceMedicalApi {
 
     @RoleAuthorization.AdminAuthorization
     @PostMapping(WebUrl.API_ADMIN_MEDICAL_SERVICE)
-    public void createServiceMedical(@RequestBody @Valid CreateServiceMedicalRequest request) {
+    public void createServiceMedical(@RequestBody @Valid CreateMedicalServiceRequest request) {
         serviceMedicalService.create(request);
     }
 }

@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class CreateServiceMedicalRequest {
+public class CreateMedicalServiceRequest {
    @NotBlank(message = "{validation.required.title_service}")
    @Size(max = 255, message = "{validation.input.max_length.255}")
    private String title;

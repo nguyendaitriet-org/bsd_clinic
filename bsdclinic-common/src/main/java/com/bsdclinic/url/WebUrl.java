@@ -54,6 +54,7 @@ public class WebUrl {
 
     // API Admin - Medical service
     public static final String API_ADMIN_MEDICAL_SERVICE = API_ADMIN_ENDPOINT + "/medical-services";
+    public static final String API_ADMIN_MEDICAL_SERVICE_LIST = API_ADMIN_MEDICAL_SERVICE + "/list";
 
 
     // API Client - Appointment

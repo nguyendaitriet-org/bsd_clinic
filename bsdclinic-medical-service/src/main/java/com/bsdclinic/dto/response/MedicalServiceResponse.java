@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class MedicalServiceResponse {
+    private String medicalServiceId;
     private String title;
     private BigDecimal price;
     private String description;

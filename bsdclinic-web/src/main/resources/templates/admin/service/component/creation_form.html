@@ -10,20 +10,20 @@
                 </div>
                 <div class="modal-body">
                     <form class="py-3 px-5">
-                        <div class="mb-3">
-                            <label for="service-name" class="form-label fw-semibold" th:text="#{title.medical_service.name}"></label>
-                            <input type="text" class="form-control" id="service-name" name="name" required>
+                        <div class="mb-3 with-validation">
+                            <label for="service-title" class="form-label fw-semibold" th:text="#{title.medical_service.name}"></label>
+                            <input type="text" class="form-control title-input" id="service-title" name="title" required>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-3 with-validation">
                             <label for="service-price" class="form-label fw-semibold" th:text="#{title.price}">Giá</label>
-                            <input type="number" class="form-control" id="service-price" name="price" required
+                            <input type="number" class="form-control price-input" id="service-price" name="price" required
                                    min="0" step="1000">
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-3 with-validation">
                             <label for="service-description" class="form-label fw-semibold" th:text="#{title.description}">Mô tả</label>
-                            <textarea class="form-control" id="service-description" name="description" rows="3"></textarea>
+                            <textarea class="form-control description-input" id="service-description" name="description" rows="3"></textarea>
                         </div>
                     </form>
                 </div>

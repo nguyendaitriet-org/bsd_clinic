@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 public class MedicalService {
     @Id
     @Column(name = "medical_service_id")
-    private String serviceId;
+    private String medicalServiceId;
 
     @Column(name = "title")
     private String title;
@@ -28,8 +28,8 @@ public class MedicalService {
     private String description;
     @PrePersist
     public void prePersist() {
-        if (serviceId == null) {
-            serviceId = NanoIdUtils.randomNanoId();
+        if (medicalServiceId == null) {
+            medicalServiceId = NanoIdUtils.randomNanoId();
         }
     }
 }

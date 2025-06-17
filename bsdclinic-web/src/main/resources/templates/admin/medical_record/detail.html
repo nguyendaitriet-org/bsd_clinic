@@ -9,6 +9,9 @@
         label {
             font-weight: bolder;
         }
+        .table>tfoot>tr>td, .table>tfoot>tr>th {
+            padding: 8px 12px !important;
+        }
     </style>
 </th:block>
 
@@ -17,7 +20,9 @@
 
 <th:block layout:fragment="content-title-note"></th:block>
 
-<th:block layout:fragment="content-button"></th:block>
+<th:block layout:fragment="content-button">
+    <button id="back-btn" class="btn btn-primary btn-round" type="button" th:text="#{title.back}"></button>
+</th:block>
 
 <th:block layout:fragment="content-body">
     <div class="card mx-auto px-5 col-xl-11 col-md-10">
@@ -83,16 +88,11 @@
                                    th:value="${medicalRecord.diagnosis}">
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="medical-service"
-                                   th:text="#{title.medical_service.select}"></label>
-                            <select class="form-control" id="medical-service" name="medicalServiceId">
-                                <option>Điều trị mụn y khoa (725.000 đ)</option>
-                                <option>Điều trị sẹo lõm, sẹo rỗ (500.000 đ)</option>
-                                <option>Điều trị nấm da (1.000.000 đ)</option>
-                            </select>
+                            <label class="form-label" for="medical-service" th:text="#{title.medical_service.select}"></label>
+                            <input type="search" class="form-control" id="medical-service" name="medicalServiceId">
                         </div>
                         <div>
-                            <table class="table">
+                            <table class="table" id="selected-services-table">
                                 <thead>
                                 <tr>
                                     <th th:text="#{title.medical_service.name}"></th>
@@ -101,14 +101,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Điều trị mụn y khoa</td>
-                                    <td>725.000 đ</td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-outline-danger">X</button>
-                                    </td>
-                                </tr>
                                 </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th th:text="#{placeholder.medical_service.total_price}"></th>
+                                    <th id="service-total-price">0 đ</th>
+                                    <th></th>
+                                </tr>
+                                </tfoot>
                             </table>
                         </div>
                         <div class="col-12">

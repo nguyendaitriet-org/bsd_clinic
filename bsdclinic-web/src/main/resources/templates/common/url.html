@@ -3,11 +3,12 @@
 <th:block th:fragment="urls">
   <script th:inline="javascript">
     // Page
-    var ADMIN_HOME = [[${ webUrl.ADMIN_HOME}]];
+    var ADMIN_HOME = [[${webUrl.ADMIN_HOME}]];
     var ADMIN_USERS_INDEX = [[${webUrl.ADMIN_USERS_INDEX}]];
     var ADMIN_USERS_PROFILE = [[${webUrl.ADMIN_USERS_PROFILE}]];
     var ADMIN_APPOINTMENT_INDEX = [[${webUrl.ADMIN_APPOINTMENT_INDEX}]];
     var ADMIN_APPOINTMENT_CREATE = [[${webUrl.ADMIN_APPOINTMENT_CREATE}]];
+    var ADMIN_APPOINTMENT_FOR_DOCTOR = [[${webUrl.ADMIN_APPOINTMENT_FOR_DOCTOR}]];
     var ADMIN_CLINIC_INFO = [[${webUrl.ADMIN_CLINIC_INFO}]];
     var ADMIN_MEDICAL_RECORD_DETAIL = [[${webUrl.ADMIN_MEDICAL_RECORD_DETAIL}]];
 
@@ -53,7 +54,7 @@
     // API Admin - Clinic info
     var API_ADMIN_UPDATE_CLINIC_INFO = [[${webUrl.API_ADMIN_UPDATE_CLINIC_INFO}]];
 
-    //API Admin - Medical service
-    var API_ADMIN_MEDICAL_SERVICE = [[${webUrl.API_ADMIN_MEDICAL_SERVICE}]]
+    // API Admin - Medical service
+    var API_ADMIN_MEDICAL_SERVICE = [[${webUrl.API_ADMIN_MEDICAL_SERVICE}]];
   </script>
 </th:block>

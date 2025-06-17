@@ -1,9 +1,6 @@
-import {Subscriber} from "/admin/custom/js/appointment/subscriber.js";
 import {MedicalRecordCreation} from "/admin/custom/js/medical_record/script.js";
-import AppointmentCreation from "/admin/custom/js/appointment/appointment-create.js";
 import {DatatableAttribute} from "/common/js/app.js";
 import {App} from "/common/js/app.js";
-import {FormHandler} from "/common/js/form.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
 import {DateTimePattern} from "/common/js/constant.js";
 
@@ -143,9 +140,7 @@ export const AppointmentListForDoctor = (function () {
                     const appointmentId = rowData.appointmentId;
                     MedicalRecordCreation.createMedicalRecord(appointmentId).then((response) => {
                         App.showSweetAlert('success', createSuccess);
-                        location.href = ADMIN_MEDICAL_RECORD_DETAIL
-                            .replace('{medicalRecordId}', response.medicalRecordId)
-                            .replace('{appointmentId}', appointmentId);
+                        setTimeout(() => redirectToMedicalRecordDetail(response.medicalRecordId, appointmentId), 1000);
                     });
                 }
             });
@@ -155,10 +150,14 @@ export const AppointmentListForDoctor = (function () {
     const handleSeeMedicalRecordButton = () => {
         module.appointmentListTableSelector.on('click', '.btn-see-record', function () {
             const rowData = module.appointmentListTableSelector.DataTable().row($(this).closest('tr')).data();
-            location.href = ADMIN_MEDICAL_RECORD_DETAIL
-                .replace('{medicalRecordId}', rowData.medicalRecordId)
-                .replace('{appointmentId}', rowData.appointmentId);
+            redirectToMedicalRecordDetail(rowData.medicalRecordId, rowData.appointmentId);
         });
+    }
+
+    const redirectToMedicalRecordDetail = (medicalRecordId, appointmentId) => {
+        location.href = ADMIN_MEDICAL_RECORD_DETAIL
+                .replace('{medicalRecordId}', medicalRecordId)
+                .replace('{appointmentId}', appointmentId);
     }
 
     return module;

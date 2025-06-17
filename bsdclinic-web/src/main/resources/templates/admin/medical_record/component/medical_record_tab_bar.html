@@ -8,7 +8,9 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" id="after-treatment-tab" th:text="#{title.after_treatment}"
-               data-bs-toggle="tab" href="#after-treatment-area"></a>
+               data-bs-toggle="tab" href="#after-treatment-area"
+               th:classappend="${appointment.actionStatus == 'EXAMINING' ? 'disabled' : ''}"
+            ></a>
         </li>
     </ul>
 </th:block>

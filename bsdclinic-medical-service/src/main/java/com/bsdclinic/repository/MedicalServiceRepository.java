@@ -10,12 +10,10 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface MedicalServiceRepository extends JpaRepository<MedicalService, String> {
-    @Query("SELECT m FROM MedicalService m WHERE " +
-            "LOWER(m.title) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    @Query(value = "SELECT * FROM medical_services m WHERE vietnamese_text_search(m.title, :keyword)", nativeQuery = true)
     Page<MedicalService> findAllByKeywordWithPage(String keyword, Pageable pageable);
 
-    @Query("SELECT m FROM MedicalService m WHERE " +
-            "LOWER(m.title) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    @Query(value = "SELECT * FROM medical_services m WHERE vietnamese_text_search(m.title, :keyword)", nativeQuery = true)
     List<MedicalService> findAllByKeyword(String keyword);
 
     @Query("""

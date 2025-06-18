@@ -1,60 +1,48 @@
 import {DatatableAttribute} from "/common/js/app.js";
-import {DateTimePattern} from "/common/js/constant.js";
-import {DateTimeConverter} from "/common/js/datetime_util.js";
 
 export const ServiceList = (function () {
     const module = {
-        findAllUsersByFilterUrl: '/api/users/list',
+        findAllMedicalServicesByFilterUrl: '/api/services/list',
 
         searchInputSelector: $('#search-input'),
-        roleSelectSelector: $('#role-select'),
-        statusSelectSelector: $('#status-select'),
-        creationDateRangeInputSelector: $('#creation-daterange-input'),
         searchSubmitButtonSelector: $('#submit-btn'),
         cancelSearchButtonSelector: $('#cancel-btn'),
 
-        userListTableSelector: $('#user-list-table'),
+        userListTableSelector: $('#appointment-list-table'),
 
     };
 
     module.init = () => {
-        initDateRangePicker();
-        module.renderUserListTable();
+        // initDateRangePicker();
+        module.renderMedicalServiceListTable();
         handleSearchSubmissionButton();
         handleCancelSearchButton();
     }
 
-    const initDateRangePicker = () => {
-        module.userCreatedAtRangePicker = new Lightpick({
-            field: module.creationDateRangeInputSelector[0],
-            singleDate: false,
-            lang: 'vi'
-        });
-    }
+    // const initDateRangePicker = () => {
+    //     module.userCreatedAtRangePicker = new Lightpick({
+    //         field: module.creationDateRangeInputSelector[0],
+    //         singleDate: false,
+    //         lang: 'vi'
+    //     });
+    // }
 
     const handleCancelSearchButton = () => {
         module.cancelSearchButtonSelector.on('click', function () {
             module.searchInputSelector.val('');
-            module.roleSelectSelector.selectpicker('deselectAll');
-            module.statusSelectSelector.selectpicker('deselectAll');
-            module.userCreatedAtRangePicker.setDateRange(null, null)
-            module.renderUserListTable();
+            module.renderMedicalServiceListTable();
         })
     }
 
     const handleSearchSubmissionButton = () => {
         module.searchSubmitButtonSelector.on('click', function () {
-            module.renderUserListTable();
+            module.renderMedicalServiceListTable();
         });
     }
 
-    const getUserListFilter = () => {
+    const getMedicalServiceListFilter = () => {
         return {
             keyword: module.searchInputSelector.val().trim(),
-            roleIds: module.roleSelectSelector.val(),
-            status: module.statusSelectSelector.val(),
-            createdFrom: DateTimeConverter.convertMomentToDateString(module.userCreatedAtRangePicker.getStartDate(), DateTimePattern.API_DATE_FORMAT),
-            createdTo: DateTimeConverter.convertMomentToDateString(module.userCreatedAtRangePicker.getEndDate(), DateTimePattern.API_DATE_FORMAT),
         }
     }
 
@@ -65,16 +53,15 @@ export const ServiceList = (function () {
         }, {});
     }
 
-    module.renderUserListTable = () => {
-        const userFilter = getUserListFilter();
-        const roleMap = toRoleMap(userRoles);
+    module.renderMedicalServiceListTable = () => {
+        const medicalServiceFilter = getMedicalServiceListFilter();
         const userListDatatable = module.userListTableSelector.DataTable({
             ajax: {
                 contentType: 'application/json',
                 type: 'POST',
-                url: API_ADMIN_USER_LIST,
+                url: API_ADMIN_MEDICAL_SERVICE_LIST,
                 data: function (d) {
-                    return JSON.stringify({...d, ...userFilter});
+                    return JSON.stringify({...d, ...medicalServiceFilter});
                 }
             },
             columns: [
@@ -99,17 +86,18 @@ export const ServiceList = (function () {
                     className: "text-center"
                 },
                 {
-                    targets: 2, // Cột giá
+                    targets: 2,
                     render: (data) => {
                         return data.toLocaleString('vi-VN') + '₫';
                     }
                 },
                 {
-                    targets: -1, // Cột thao tác
+                    targets: -1,
                     render: (data, type, row) => {
                         return `
-                        <button class="btn btn-sm btn-primary edit-service-btn" data-id="${row.id}">
-                            <i class="fa fa-edit"></i> Chỉnh sửa
+                        <button class="btn btn-sm btn-primary"
+                            data-bs-toggle="modal" data-bs-target="#update-medical-service-modal">
+                        <i class="fa fa-edit"></i>
                         </button>
                         <button class="btn btn-sm btn-danger delete-service-btn" data-id="${row.id}">
                             <i class="fa fa-trash"></i> Xóa

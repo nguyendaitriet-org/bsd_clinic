@@ -94,20 +94,31 @@
                         <div>
                             <table class="table" id="selected-services-table">
                                 <thead>
-                                <tr>
-                                    <th th:text="#{title.medical_service.name}"></th>
-                                    <th th:text="#{title.price}"></th>
-                                    <th></th>
-                                </tr>
+                                    <tr>
+                                        <th th:text="#{title.medical_service.name}"></th>
+                                        <th th:text="#{title.price}"></th>
+                                        <th></th>
+                                    </tr>
                                 </thead>
                                 <tbody>
+                                    <th:block th:each="medicalService: ${medicalServices}">
+                                        <tr>
+                                            <input type="hidden" name="medicalServiceIds[]" th:value="${medicalService.medicalServiceId}">
+                                            <input type="hidden" name="medicalServicePrice[]" th:value="${medicalService.price}">
+                                            <td th:text="${medicalService.title}"></td>
+                                            <td class="service-price-text" th:data-price="${medicalService.price}"></td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-sm btn-outline-danger btn-remove-service">X</button>
+                                            </td>
+                                        </tr>
+                                    </th:block>
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <th th:text="#{placeholder.medical_service.total_price}"></th>
-                                    <th id="service-total-price">0 đ</th>
-                                    <th></th>
-                                </tr>
+                                    <tr>
+                                        <th th:text="#{placeholder.medical_service.total_price}"></th>
+                                        <th id="service-total-price">0 đ</th>
+                                        <th></th>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>

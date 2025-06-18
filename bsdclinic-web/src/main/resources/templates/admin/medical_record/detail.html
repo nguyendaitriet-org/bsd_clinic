@@ -26,24 +26,26 @@
 
 <th:block layout:fragment="content-body">
     <div class="card mx-auto px-5 col-xl-11 col-md-10">
-        <div class="card-body">
+        <div class="card-body medical-record-detail-area">
             <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
             <div class="tab-content mt-5 mb-3">
+                <input type="hidden" th:value="${appointment.appointmentId}" id="appointment-id">
+                <input type="hidden" th:value="${medicalRecord.medicalRecordId}" id="medical-record-id">
                 <div class="tab-pane active show" id="medical-exam-area">
                     <div class="row g-3">
-                        <div class="col-md-6">
+                        <div class="col-md-6 with-validation">
                             <label class="form-label required-field" th:text="#{title.full_name}"
                                    for="patient-full-name"></label>
                             <input type="text" class="form-control" name="patientName" id="patient-full-name"
                                     th:value="${appointment.patientName}">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 with-validation">
                             <label class="form-label required-field" th:text="#{title.birthday}"
                                    for="patient-birthday"></label>
                             <input type="text" class="form-control" name="patientBirthday" id="patient-birthday"
                                    th:value="${appointment.patientBirthday}">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 with-validation">
                             <label class="form-label required-field" th:text="#{title.gender}"></label><br>
                             <th:block th:each="gender : ${genderMap}">
                                 <div class="form-check form-check-inline">
@@ -55,33 +57,33 @@
                                 </div>
                             </th:block>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 with-validation">
                             <label class="form-label" th:text="#{title.phone}" for="patient-phone"></label>
                             <input type="text" class="form-control" name="patientPhone" id="patient-phone"
                                    th:value="${appointment.patientPhone}">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 with-validation">
                             <label class="form-label" th:text="#{title.email}" for="patient-email"></label>
                             <input type="email" class="form-control" name="patientEmail" id="patient-email"
                                    th:value="${appointment.patientEmail}">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 with-validation">
                             <label class="form-label" th:text="#{title.address}" for="patient-address"></label>
                             <input type="text" class="form-control" name="patientAddress" id="patient-address"
                                    th:value="${appointment.patientAddress}">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 with-validation">
                             <label class="form-label required-field" th:text="#{title.visit_reason}"
                                    for="visit-reason"></label>
                             <input type="text" class="form-control" name="visitReason" id="visit-reason"
                                    th:value="${appointment.visitReason}">
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 with-validation">
                             <label class="form-label" th:text="#{title.medical_history}" for="medical-history"></label>
                             <textarea class="form-control" rows="2" name="medicalHistory" id="medical-history"
                                       th:text="${medicalRecord.medicalHistory}"></textarea>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 with-validation">
                             <label class="form-label required-field" th:text="#{title.diagnosis}"
                                    for="diagnosis"></label>
                             <input type="text" class="form-control" name="diagnosis" id="diagnosis"
@@ -122,16 +124,16 @@
                                 </tfoot>
                             </table>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 with-validation">
                             <label class="form-label" th:text="#{title.advance}" for="advance"></label>
-                            <input type="number" class="form-control" id="advance" th:value="${medicalRecord.advance}">
+                            <input type="text" class="form-control" id="advance" th:value="${medicalRecord.advance}">
                         </div>
                     </div>
                     <div class="my-5 d-flex justify-content-between">
                         <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
                         <div>
                             <button class="btn btn-primary save-and-print-advance-btn"
-                                    th:text="#{title.medical_record.save_and_print_advance}"></button>
+                                    th:text="#{title.medical_record.save_and_print_advance}" disabled></button>
                             <button class="btn btn-secondary save-record-btn"
                                     th:text="#{title.save_only}"></button>
                             <button class="btn btn-danger remove-record-btn"
@@ -225,7 +227,7 @@
                         <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
                         <div>
                             <button class="btn btn-primary save-and-print-advance-btn"
-                                    th:text="#{title.medical_record.save_and_print_invoice}"></button>
+                                    th:text="#{title.medical_record.save_and_print_invoice}" disabled></button>
                             <button class="btn btn-secondary save-record-btn"
                                     th:text="#{title.save_only}"></button>
                             <button class="btn btn-warning remove-record-btn"

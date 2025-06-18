@@ -32,16 +32,26 @@ export const MedicalRecordUpdating = (function () {
         backToListButtonSelector: $('#back-btn'),
         selectedServicesTableSelector: $('#selected-services-table'),
         serviceTotalPriceSelector: $('#service-total-price'),
+        servicePriceTextSelector: $('.service-price-text'),
 
         selectedMedicalServiceIds: []
     };
 
     module.init = () => {
+        reformatMedicalServicePrice();
         initBirthdayPicker();
         initMedicalServiceServerSelect();
         handleBackToListButton();
         handleSelectedMedicalService();
         handleRemoveSelectedServiceButton();
+        renderMedicalServiceTotalPrice();
+    }
+
+    const reformatMedicalServicePrice = () => {
+        module.servicePriceTextSelector.each((index, element) => {
+            const servicePrice = $(element).data('price');
+            $(element).text(CurrencyConverter.formatCurrencyVND(servicePrice));
+        })
     }
 
     const initBirthdayPicker = () => {
@@ -77,7 +87,7 @@ export const MedicalRecordUpdating = (function () {
                 <input type="hidden" name="medicalServiceIds[]" value="${medicalServiceId}">
                 <input type="hidden" name="medicalServicePrice[]" value="${price}">
                 <td>${title}</td>
-                <td>${CurrencyConverter.formatCurrencyVND(price)}</td>
+                <td class="service-price-text" data-price="${price}">${CurrencyConverter.formatCurrencyVND(price)}</td>
                 <td class="text-center">
                     <button type="button" class="btn btn-sm btn-outline-danger btn-remove-service">X</button>
                 </td>
@@ -93,17 +103,20 @@ export const MedicalRecordUpdating = (function () {
             const serviceRow = getSelectedServiceRow(value, text, servicePrice);
             module.selectedServicesTableSelector.find('tbody').append(serviceRow);
 
-            const serviceTotalPrice = getMedicalServiceTotalPrice();
-            module.serviceTotalPriceSelector.text(CurrencyConverter.formatCurrencyVND(serviceTotalPrice));
+            renderMedicalServiceTotalPrice();
         })
     }
 
     const handleRemoveSelectedServiceButton = () => {
         module.selectedServicesTableSelector.on('click', '.btn-remove-service', function () {
             $(this).closest('tr').remove();
-            const serviceTotalPrice = getMedicalServiceTotalPrice();
-            module.serviceTotalPriceSelector.text(CurrencyConverter.formatCurrencyVND(serviceTotalPrice));
+            renderMedicalServiceTotalPrice();
         });
+    }
+
+    const renderMedicalServiceTotalPrice = () => {
+        const serviceTotalPrice = getMedicalServiceTotalPrice();
+        module.serviceTotalPriceSelector.text(CurrencyConverter.formatCurrencyVND(serviceTotalPrice));
     }
 
     const getMedicalServiceTotalPrice = () => {

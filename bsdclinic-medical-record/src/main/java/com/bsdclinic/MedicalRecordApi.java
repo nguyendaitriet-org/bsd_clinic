@@ -1,6 +1,9 @@
 package com.bsdclinic;
 
+import com.bsdclinic.dto.request.MedicalRecordUpdateRequest;
+import com.bsdclinic.dto.response.MedicalRecordResponse;
 import com.bsdclinic.url.WebUrl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +14,17 @@ public class MedicalRecordApi {
 
     @RoleAuthorization.AdminAndDoctorAuthorization
     @PostMapping(WebUrl.API_ADMIN_MEDICAL_RECORD)
-    public MedicalRecordDto createMedicalRecord(@RequestBody MedicalRecordDto medicalRecordDto) {
-        return medicalRecordService.createMedicalRecord(medicalRecordDto.getAppointmentId());
+    public MedicalRecordResponse createMedicalRecord(@RequestBody MedicalRecordResponse medicalRecordResponse) {
+        return medicalRecordService.createMedicalRecord(medicalRecordResponse.getAppointmentId());
+    }
+
+    @RoleAuthorization.AdminAndDoctorAuthorization
+    @PutMapping(WebUrl.API_ADMIN_MEDICAL_RECORD_APPOINTMENT_UPDATE)
+    public void updateMedicalRecordAndAppointment(
+            @PathVariable String medicalRecordId,
+            @PathVariable String appointmentId,
+            @RequestBody @Valid MedicalRecordUpdateRequest request
+    ) {
+        medicalRecordService.updateMedicalRecordAndAppointment(medicalRecordId, appointmentId, request);
     }
 }

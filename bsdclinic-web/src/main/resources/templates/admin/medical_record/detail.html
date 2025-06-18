@@ -29,7 +29,7 @@
         <div class="card-body">
             <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
             <div class="tab-content mt-5 mb-3">
-                <div class="tab-pane active show" id="before-treatment-area">
+                <div class="tab-pane active show" id="medical-exam-area">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label required-field" th:text="#{title.full_name}"
@@ -79,7 +79,7 @@
                         <div class="col-12">
                             <label class="form-label" th:text="#{title.medical_history}" for="medical-history"></label>
                             <textarea class="form-control" rows="2" name="medicalHistory" id="medical-history"
-                                      th:value="${medicalRecord.medicalHistory}"></textarea>
+                                      th:text="${medicalRecord.medicalHistory}"></textarea>
                         </div>
                         <div class="col-12">
                             <label class="form-label required-field" th:text="#{title.diagnosis}"
@@ -94,27 +94,37 @@
                         <div>
                             <table class="table" id="selected-services-table">
                                 <thead>
-                                <tr>
-                                    <th th:text="#{title.medical_service.name}"></th>
-                                    <th th:text="#{title.price}"></th>
-                                    <th></th>
-                                </tr>
+                                    <tr>
+                                        <th th:text="#{title.medical_service.name}"></th>
+                                        <th th:text="#{title.price}"></th>
+                                        <th></th>
+                                    </tr>
                                 </thead>
                                 <tbody>
+                                    <th:block th:each="medicalService: ${medicalServices}">
+                                        <tr>
+                                            <input type="hidden" name="medicalServiceIds[]" th:value="${medicalService.medicalServiceId}">
+                                            <input type="hidden" name="medicalServicePrice[]" th:value="${medicalService.price}">
+                                            <td th:text="${medicalService.title}"></td>
+                                            <td class="service-price-text" th:data-price="${medicalService.price}"></td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-sm btn-outline-danger btn-remove-service">X</button>
+                                            </td>
+                                        </tr>
+                                    </th:block>
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <th th:text="#{placeholder.medical_service.total_price}"></th>
-                                    <th id="service-total-price">0 đ</th>
-                                    <th></th>
-                                </tr>
+                                    <tr>
+                                        <th th:text="#{placeholder.medical_service.total_price}"></th>
+                                        <th id="service-total-price">0 đ</th>
+                                        <th></th>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
                         <div class="col-12">
                             <label class="form-label" th:text="#{title.advance}" for="advance"></label>
-                            <input type="number" class="form-control" value="0" id="advance"
-                                   th:value="${medicalRecord.advance}">
+                            <input type="number" class="form-control" id="advance" th:value="${medicalRecord.advance}">
                         </div>
                     </div>
                     <div class="my-5 d-flex justify-content-between">
@@ -129,7 +139,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="after-treatment-area">
+                <div class="tab-pane fade" id="prescription-area">
                     <div class="row g-3">
                         <h4 th:text="#{title.prescription.internal_availability}"></h4>
                         <div class="col-12">

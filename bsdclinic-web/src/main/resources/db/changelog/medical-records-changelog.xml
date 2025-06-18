@@ -9,4 +9,10 @@
                 DROP COLUMN patient_address;
         </sql>
     </changeSet>
+    <changeSet id="18062025_2" author="triet.nguyendai" context="Add default to column advance">
+        <sql>
+                ALTER TABLE medical_records
+                ALTER COLUMN advance SET DEFAULT 0;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

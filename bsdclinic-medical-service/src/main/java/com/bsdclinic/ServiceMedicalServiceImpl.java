@@ -2,8 +2,10 @@ package com.bsdclinic;
 
 import com.bsdclinic.dto.request.CreateMedicalServiceRequest;
 import com.bsdclinic.dto.request.MedicalServiceFilter;
+import com.bsdclinic.dto.response.IMedicalServiceResponse;
 import com.bsdclinic.dto.response.MedicalServiceResponse;
 import com.bsdclinic.medical_service.MedicalService;
+import com.bsdclinic.repository.MedicalServiceRepository;
 import com.bsdclinic.response.DatatableResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -58,5 +60,10 @@ public class ServiceMedicalServiceImpl implements ServiceMedicalService {
     public List<MedicalServiceResponse> getMedicalServicesForSelection(String keyword) {
         List<MedicalService> medicalServices = medicalServiceRepository.findAllByKeyword(keyword);
         return medicalServiceMapper.toDtoList(medicalServices);
+    }
+
+    @Override
+    public List<IMedicalServiceResponse> getMedicalServicesByMedicalRecordId(String medicalRecordId) {
+        return medicalServiceRepository.getMedicalServicesByMedicalRecordId(medicalRecordId);
     }
 }

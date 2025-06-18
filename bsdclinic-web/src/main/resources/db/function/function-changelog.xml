@@ -7,4 +7,8 @@
         <sqlFile path="db/function/create_nanoid_function.sql" splitStatements="false"/>
     </changeSet>
 
+    <changeSet author="triet.nguyendai" id="common_vietnamese_text_search_function_20250618" context="This method is to search Vietnamese text">
+        <sqlFile path="db/function/create_vietnamese_text_search_function.sql" splitStatements="false"/>
+    </changeSet>
+
 </databaseChangeLog>

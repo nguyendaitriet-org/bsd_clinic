@@ -29,7 +29,7 @@
         <div class="card-body">
             <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
             <div class="tab-content mt-5 mb-3">
-                <div class="tab-pane active show" id="before-treatment-area">
+                <div class="tab-pane active show" id="medical-exam-area">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label required-field" th:text="#{title.full_name}"
@@ -79,7 +79,7 @@
                         <div class="col-12">
                             <label class="form-label" th:text="#{title.medical_history}" for="medical-history"></label>
                             <textarea class="form-control" rows="2" name="medicalHistory" id="medical-history"
-                                      th:value="${medicalRecord.medicalHistory}"></textarea>
+                                      th:text="${medicalRecord.medicalHistory}"></textarea>
                         </div>
                         <div class="col-12">
                             <label class="form-label required-field" th:text="#{title.diagnosis}"
@@ -113,8 +113,7 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label" th:text="#{title.advance}" for="advance"></label>
-                            <input type="number" class="form-control" value="0" id="advance"
-                                   th:value="${medicalRecord.advance}">
+                            <input type="number" class="form-control" id="advance" th:value="${medicalRecord.advance}">
                         </div>
                     </div>
                     <div class="my-5 d-flex justify-content-between">
@@ -129,7 +128,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="after-treatment-area">
+                <div class="tab-pane fade" id="prescription-area">
                     <div class="row g-3">
                         <h4 th:text="#{title.prescription.internal_availability}"></h4>
                         <div class="col-12">

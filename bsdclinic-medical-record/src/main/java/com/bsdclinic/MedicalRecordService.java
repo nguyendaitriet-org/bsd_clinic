@@ -1,6 +1,10 @@
 package com.bsdclinic;
 
+import com.bsdclinic.dto.request.MedicalRecordUpdateRequest;
+import com.bsdclinic.dto.response.MedicalRecordResponse;
+
 public interface MedicalRecordService {
-    MedicalRecordDto createMedicalRecord(String appointmentId);
-    MedicalRecordDto getMedicalRecord(String medicalRecordId);
+    MedicalRecordResponse createMedicalRecord(String appointmentId);
+    MedicalRecordResponse getMedicalRecord(String medicalRecordId);
+    void updateMedicalRecordAndAppointment(String medicalRecordId, String appointmentId, MedicalRecordUpdateRequest request);
 }

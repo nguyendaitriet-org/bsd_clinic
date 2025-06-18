@@ -1,6 +1,6 @@
 package com.bsdclinic.controller;
 
-import com.bsdclinic.MedicalRecordDto;
+import com.bsdclinic.dto.response.MedicalRecordResponse;
 import com.bsdclinic.MedicalRecordService;
 import com.bsdclinic.RoleAuthorization;
 import com.bsdclinic.admin.AdminAppointmentService;
@@ -23,7 +23,7 @@ public class MedicalRecordController {
     @GetMapping(WebUrl.ADMIN_MEDICAL_RECORD_DETAIL)
     public ModelAndView toMedicalRecordDetail(@PathVariable String medicalRecordId, @PathVariable String appointmentId) {
         AppointmentResponse appointment;
-        MedicalRecordDto medicalRecord;
+        MedicalRecordResponse medicalRecord;
         try {
             appointment = adminAppointmentService.getAppointment(appointmentId);
             medicalRecord = medicalRecordService.getMedicalRecord(medicalRecordId);

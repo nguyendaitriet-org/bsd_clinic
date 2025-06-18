@@ -1,11 +1,13 @@
 
 package com.bsdclinic.medical_service;
 
-import com.bsdclinic.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -13,7 +15,7 @@ import lombok.experimental.Accessors;
 @Entity
 @Table(name = "chosen_medical_services")
 @IdClass(ChosenMedicalServiceId.class)
-public class ChosenMedicalService extends BaseEntity {
+public class ChosenMedicalService {
     @Id
     @Column(name = "medical_record_id")
     private String medicalRecordId;
@@ -22,4 +24,7 @@ public class ChosenMedicalService extends BaseEntity {
     @Column(name = "medical_service_id")
     private String medicalServiceId;
 
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Instant createdAt;
 }

@@ -18,7 +18,7 @@ public class ActionStatusFlow {
         transitions.put(ActionStatus.PENDING, Set.of(ActionStatus.ACCEPTED, ActionStatus.REJECTED));
         transitions.put(ActionStatus.ACCEPTED, Set.of(ActionStatus.CHECKED_IN, ActionStatus.REJECTED));
         transitions.put(ActionStatus.CHECKED_IN, Set.of(ActionStatus.EXAMINING, ActionStatus.REJECTED));
-        transitions.put(ActionStatus.EXAMINING, Set.of(ActionStatus.ADVANCED, ActionStatus.CHECKED_IN));
+        transitions.put(ActionStatus.EXAMINING, Set.of(ActionStatus.ADVANCED, ActionStatus.CHECKED_IN, ActionStatus.FINISHED));
         transitions.put(ActionStatus.ADVANCED, Set.of(ActionStatus.FINISHED));
         transitions.put(ActionStatus.FINISHED, Set.of(ActionStatus.UNPAID, ActionStatus.PAID));
         transitions.put(ActionStatus.UNPAID, Set.of(ActionStatus.PAID, ActionStatus.FINISHED));
@@ -26,9 +26,11 @@ public class ActionStatusFlow {
         transitions.put(ActionStatus.REJECTED, Set.of());
 
         // Role permissions for each transition
-        addRolePermission(ActionStatus.CHECKED_IN, ActionStatus.EXAMINING, Set.of(RoleConstant.DOCTOR.name(), RoleConstant.ADMIN.name()));
-        addRolePermission(ActionStatus.EXAMINING, ActionStatus.CHECKED_IN, Set.of(RoleConstant.DOCTOR.name(), RoleConstant.ADMIN.name()));
-        addRolePermission(ActionStatus.ADVANCED, ActionStatus.FINISHED, Set.of(RoleConstant.DOCTOR.name(), RoleConstant.ADMIN.name()));
+        Set<String> adminAndDoctorRoleCodes = Set.of(RoleConstant.ADMIN.name(), RoleConstant.DOCTOR.name());
+        addRolePermission(ActionStatus.CHECKED_IN, ActionStatus.EXAMINING, adminAndDoctorRoleCodes);
+        addRolePermission(ActionStatus.EXAMINING, ActionStatus.CHECKED_IN, adminAndDoctorRoleCodes);
+        addRolePermission(ActionStatus.EXAMINING, ActionStatus.FINISHED, adminAndDoctorRoleCodes);
+        addRolePermission(ActionStatus.ADVANCED, ActionStatus.FINISHED, adminAndDoctorRoleCodes);
     }
 
     private void addRolePermission(ActionStatus from, ActionStatus to, Set<String> allowedRoles) {

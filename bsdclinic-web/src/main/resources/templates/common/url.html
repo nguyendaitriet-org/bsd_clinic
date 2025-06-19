@@ -1,60 +1,59 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
 
 <th:block th:fragment="urls">
-  <script th:inline="javascript">
-    // Page
-    var ADMIN_HOME = [[${webUrl.ADMIN_HOME}]];
-    var ADMIN_USERS_INDEX = [[${webUrl.ADMIN_USERS_INDEX}]];
-    var ADMIN_USERS_PROFILE = [[${webUrl.ADMIN_USERS_PROFILE}]];
-    var ADMIN_APPOINTMENT_INDEX = [[${webUrl.ADMIN_APPOINTMENT_INDEX}]];
-    var ADMIN_APPOINTMENT_CREATE = [[${webUrl.ADMIN_APPOINTMENT_CREATE}]];
-    var ADMIN_APPOINTMENT_FOR_DOCTOR = [[${webUrl.ADMIN_APPOINTMENT_FOR_DOCTOR}]];
-    var ADMIN_CLINIC_INFO = [[${webUrl.ADMIN_CLINIC_INFO}]];
-    var ADMIN_MEDICAL_RECORD_DETAIL = [[${webUrl.ADMIN_MEDICAL_RECORD_DETAIL}]];
+    <script th:inline="javascript">
+        // Page
+        var ADMIN_HOME = [[${webUrl.ADMIN_HOME}]];
+        var ADMIN_USERS_INDEX = [[${webUrl.ADMIN_USERS_INDEX}]];
+        var ADMIN_USERS_PROFILE = [[${webUrl.ADMIN_USERS_PROFILE}]];
+        var ADMIN_APPOINTMENT_INDEX = [[${webUrl.ADMIN_APPOINTMENT_INDEX}]];
+        var ADMIN_APPOINTMENT_CREATE = [[${webUrl.ADMIN_APPOINTMENT_CREATE}]];
+        var ADMIN_APPOINTMENT_FOR_DOCTOR = [[${webUrl.ADMIN_APPOINTMENT_FOR_DOCTOR}]];
+        var ADMIN_CLINIC_INFO = [[${webUrl.ADMIN_CLINIC_INFO}]];
+        var ADMIN_MEDICAL_RECORD_DETAIL = [[${webUrl.ADMIN_MEDICAL_RECORD_DETAIL}]];
 
-    var LOGIN = [[${webUrl.LOGIN}]];
-    var LOGOUT = [[${webUrl.LOGOUT}]];
-    var ERROR = [[${webUrl.ERROR}]];
+        var LOGIN = [[${webUrl.LOGIN}]];
+        var LOGOUT = [[${webUrl.LOGOUT}]];
+        var ERROR = [[${webUrl.ERROR}]];
 
-    var CLIENT_HOME = [[${webUrl.CLIENT_HOME}]];
-    var CLIENT_APPOINTMENT_CREATE = [[${webUrl.CLIENT_APPOINTMENT_CREATE}]];
+        var CLIENT_HOME = [[${webUrl.CLIENT_HOME}]];
+        var CLIENT_APPOINTMENT_CREATE = [[${webUrl.CLIENT_APPOINTMENT_CREATE}]];
 
-    // API Admin - Login
-    var API_ADMIN_LOGIN = [[${webUrl.API_ADMIN_LOGIN}]];
+        // API Admin - Login
+        var API_ADMIN_LOGIN = [[${webUrl.API_ADMIN_LOGIN}]];
 
-    // API Admin - User
-    var API_ADMIN_USER_ENDPOINT = [[${webUrl.API_ADMIN_USER_ENDPOINT}]];
-    var API_ADMIN_USER_LIST = [[${webUrl.API_ADMIN_USER_LIST}]];
-    var API_ADMIN_USER_AVATAR = [[${webUrl.API_ADMIN_USER_AVATAR}]];
-    var API_ADMIN_USER_PROFILE = [[${webUrl.API_ADMIN_USER_PROFILE}]];
-    var API_ADMIN_USER_CHANGE_PASSWORD = [[${webUrl.API_ADMIN_USER_CHANGE_PASSWORD}]];
+        // API Admin - User
+        var API_ADMIN_USER_ENDPOINT = [[${webUrl.API_ADMIN_USER_ENDPOINT}]];
+        var API_ADMIN_USER_LIST = [[${webUrl.API_ADMIN_USER_LIST}]];
+        var API_ADMIN_USER_AVATAR = [[${webUrl.API_ADMIN_USER_AVATAR}]];
+        var API_ADMIN_USER_PROFILE = [[${webUrl.API_ADMIN_USER_PROFILE}]];
+        var API_ADMIN_USER_CHANGE_PASSWORD = [[${webUrl.API_ADMIN_USER_CHANGE_PASSWORD}]];
 
-    // API Admin - Appointment
-    var API_ADMIN_APPOINTMENT = [[${webUrl.API_ADMIN_APPOINTMENT}]];
-    var API_ADMIN_APPOINTMENT_LIST = [[${webUrl.API_ADMIN_APPOINTMENT_LIST}]];
-    var API_ADMIN_APPOINTMENT_WITH_ID = [[${webUrl.API_ADMIN_APPOINTMENT_WITH_ID}]];
-    var API_ADMIN_APPOINTMENT_FOR_DOCTOR = [[${webUrl.API_ADMIN_APPOINTMENT_FOR_DOCTOR}]];
-    var API_ADMIN_APPOINTMENT_NEXT_STATUS = [[${webUrl.API_ADMIN_APPOINTMENT_NEXT_STATUS}]];
+        // API Admin - Appointment
+        var API_ADMIN_APPOINTMENT = [[${webUrl.API_ADMIN_APPOINTMENT}]];
+        var API_ADMIN_APPOINTMENT_LIST = [[${webUrl.API_ADMIN_APPOINTMENT_LIST}]];
+        var API_ADMIN_APPOINTMENT_WITH_ID = [[${webUrl.API_ADMIN_APPOINTMENT_WITH_ID}]];
+        var API_ADMIN_APPOINTMENT_FOR_DOCTOR = [[${webUrl.API_ADMIN_APPOINTMENT_FOR_DOCTOR}]];
+        var API_ADMIN_APPOINTMENT_NEXT_STATUS = [[${webUrl.API_ADMIN_APPOINTMENT_NEXT_STATUS}]];
 
-    // API Admin - Subscriber
-    var API_ADMIN_SUBSCRIBER = [[${webUrl.API_ADMIN_SUBSCRIBER}]];
-    var API_ADMIN_SUBSCRIBER_LIST = [[${webUrl.API_ADMIN_SUBSCRIBER_LIST}]];
-    var API_ADMIN_SUBSCRIBER_DETAIL = [[${webUrl.API_ADMIN_SUBSCRIBER_DETAIL}]];
+        // API Admin - Subscriber
+        var API_ADMIN_SUBSCRIBER = [[${webUrl.API_ADMIN_SUBSCRIBER}]];
+        var API_ADMIN_SUBSCRIBER_LIST = [[${webUrl.API_ADMIN_SUBSCRIBER_LIST}]];
+        var API_ADMIN_SUBSCRIBER_DETAIL = [[${webUrl.API_ADMIN_SUBSCRIBER_DETAIL}]];
 
-    // API Admin - Medical record
-    var API_ADMIN_MEDICAL_RECORD = [[${webUrl.API_ADMIN_MEDICAL_RECORD}]];
+        // API Admin - Medical record
+        var API_ADMIN_MEDICAL_RECORD = [[${webUrl.API_ADMIN_MEDICAL_RECORD}]];
+        var API_ADMIN_MEDICAL_RECORD_APPOINTMENT_UPDATE = [[${webUrl.API_ADMIN_MEDICAL_RECORD_APPOINTMENT_UPDATE}]];
 
-    // API Client - Appointment
-    var API_CLIENT_APPOINTMENT = [[${webUrl.API_CLIENT_APPOINTMENT}]];
-    var API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS = [[${webUrl.API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS}]];
+        // API Client - Appointment
+        var API_CLIENT_APPOINTMENT = [[${webUrl.API_CLIENT_APPOINTMENT}]];
+        var API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS = [[${webUrl.API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS}]];
 
-    // API Client - Clinic info
-    var API_CLIENT_CLINIC_INFO = [[${webUrl.API_CLIENT_CLINIC_INFO}]];
+        // API Client - Clinic info
+        var API_CLIENT_CLINIC_INFO = [[${webUrl.API_CLIENT_CLINIC_INFO}]];
+        var API_ADMIN_UPDATE_CLINIC_INFO = [[${webUrl.API_ADMIN_UPDATE_CLINIC_INFO}]];
 
-    // API Admin - Clinic info
-    var API_ADMIN_UPDATE_CLINIC_INFO = [[${webUrl.API_ADMIN_UPDATE_CLINIC_INFO}]];
-
-    // API Admin - Medical service
-    var API_ADMIN_MEDICAL_SERVICE = [[${webUrl.API_ADMIN_MEDICAL_SERVICE}]];
-  </script>
+        // API Admin - Medical service
+        var API_ADMIN_MEDICAL_SERVICE = [[${webUrl.API_ADMIN_MEDICAL_SERVICE}]];
+    </script>
 </th:block>

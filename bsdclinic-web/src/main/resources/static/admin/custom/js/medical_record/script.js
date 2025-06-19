@@ -1,5 +1,7 @@
 import {App} from "/common/js/app.js";
+import {FormHandler} from "/common/js/form.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
+import {DateTimePattern} from "/common/js/constant.js";
 import {CurrencyConverter} from "/common/js/currency_util.js";
 
 export const MedicalRecordCreation = (function () {
@@ -27,17 +29,32 @@ export const MedicalRecordCreation = (function () {
 
 export const MedicalRecordUpdating = (function () {
     const module = {
+        medicalRecordDetailArea: $('.medical-record-detail-area'),
+        appointmentIdSelector: $('#appointment-id'),
+        medicalRecordIdSelector: $('#medical-record-id'),
+        patientNameSelector: $('#patient-full-name'),
         patientBirthdayInputSelector: $('#patient-birthday'),
+        patientGenderSelector: $('input[name="patientGender"]'),
+        patientPhoneSelector: $('#patient-phone'),
+        patientEmailSelector: $('#patient-email'),
+        patientAddressSelector: $('#patient-address'),
+        visitReasonSelector: $('#visit-reason'),
+        medicalHistorySelector: $('#medical-history'),
+        diagnosisSelector: $('#diagnosis'),
+        advanceSelector: $('#advance'),
+
         medicalServiceSelector: $('#medical-service'),
         backToListButtonSelector: $('#back-btn'),
         selectedServicesTableSelector: $('#selected-services-table'),
         serviceTotalPriceSelector: $('#service-total-price'),
         servicePriceTextSelector: $('.service-price-text'),
+        saveMedicalRecordButton: $('.save-record-btn'),
 
         selectedMedicalServiceIds: []
     };
 
     module.init = () => {
+        handleSelectedMedicalServiceIds();
         reformatMedicalServicePrice();
         initBirthdayPicker();
         initMedicalServiceServerSelect();
@@ -45,6 +62,14 @@ export const MedicalRecordUpdating = (function () {
         handleSelectedMedicalService();
         handleRemoveSelectedServiceButton();
         renderMedicalServiceTotalPrice();
+        handleSaveMedicalRecordButton();
+        CurrencyConverter.setupPriceFormatter(module.advanceSelector);
+    }
+
+    const handleSelectedMedicalServiceIds = () => {
+        $('input[name="medicalServiceIds[]"]').each(function () {
+            module.selectedMedicalServiceIds.push(this.value);
+        });
     }
 
     const reformatMedicalServicePrice = () => {
@@ -104,12 +129,15 @@ export const MedicalRecordUpdating = (function () {
             module.selectedServicesTableSelector.find('tbody').append(serviceRow);
 
             renderMedicalServiceTotalPrice();
-        })
+        });
     }
 
     const handleRemoveSelectedServiceButton = () => {
         module.selectedServicesTableSelector.on('click', '.btn-remove-service', function () {
-            $(this).closest('tr').remove();
+            const currentRowSelector = $(this).closest('tr');
+            const removedServiceId = currentRowSelector.find('input[name="medicalServiceIds[]"]').val();
+            module.selectedMedicalServiceIds = module.selectedMedicalServiceIds.filter(item => item !== removedServiceId);
+            currentRowSelector.remove();
             renderMedicalServiceTotalPrice();
         });
     }
@@ -130,6 +158,58 @@ export const MedicalRecordUpdating = (function () {
 
     const handleBackToListButton = () => {
         module.backToListButtonSelector.on('click',  () => location.href = ADMIN_APPOINTMENT_FOR_DOCTOR);
+    }
+
+    /* Handle API integration */
+    const getMedicalRecordData = () => {
+        return ({
+            patientName: module.patientNameSelector.val().trim(),
+            patientBirthday: DateTimeConverter.convertMomentToDateString(module.patientBirthdayPicker.getDate(), DateTimePattern.API_DATE_FORMAT),
+            patientGender: module.patientGenderSelector.filter(":checked").val(),
+            patientPhone: module.patientPhoneSelector.val().trim(),
+            patientEmail: module.patientEmailSelector.val().trim(),
+            patientAddress: module.patientAddressSelector.val().trim(),
+            visitReason: module.visitReasonSelector.val().trim(),
+            medicalHistory: module.medicalHistorySelector.val().trim(),
+            diagnosis: module.diagnosisSelector.val().trim(),
+            advance: CurrencyConverter.getNumericValue(module.advanceSelector),
+            medicalServiceIds: module.selectedMedicalServiceIds
+        });
+    }
+
+    const handleSaveMedicalRecordButton = () => {
+        module.saveMedicalRecordButton.on('click', function () {
+            const medicalRecordData = getMedicalRecordData();
+            App.showSweetAlertConfirmation('warning', confirmApplyTitle, '').then((result) => {
+                saveMedicalRecordData(medicalRecordData);
+            });
+        });
+    }
+
+    const saveMedicalRecordData = (medicalRecordData) => {
+        const appointmentId = module.appointmentIdSelector.val();
+        const medicalRecordId = module.medicalRecordIdSelector.val();
+        const requestUrl = API_ADMIN_MEDICAL_RECORD_APPOINTMENT_UPDATE
+            .replace('{medicalRecordId}', medicalRecordId)
+            .replace('{appointmentId}', appointmentId);
+
+        $.ajax({
+            headers: {
+                "accept": "application/json",
+                "content-type": "application/json"
+            },
+            type: 'PUT',
+            url: requestUrl,
+            data: JSON.stringify(medicalRecordData),
+        })
+            .done(() => {
+                App.showSweetAlert('success', operationSuccess, '');
+                setTimeout(() => location.reload(), 1000);
+            })
+            .fail((jqXHR) => {
+                FormHandler.handleServerValidationError(module.medicalRecordDetailArea, jqXHR);
+                App.handleResponseMessageByStatusCode(jqXHR);
+            })
     }
 
     return module;

@@ -1,4 +1,4 @@
-import {MedicalRecordCreation} from "/admin/custom/js/medical_record/script.js";
+import {MedicalRecordCreation} from "/admin/custom/js/medical_record/detail.js";
 import {DatatableAttribute} from "/common/js/app.js";
 import {App} from "/common/js/app.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";

@@ -2,6 +2,7 @@ package com.bsdclinic.controller;
 
 import com.bsdclinic.UserPrincipal;
 import com.bsdclinic.UserService;
+import com.bsdclinic.admin.AdminAppointmentServiceImpl;
 import com.bsdclinic.appointment.ActionStatus;
 import com.bsdclinic.clinic_info.DayOfWeek;
 import com.bsdclinic.dto.response.IUserResponse;
@@ -52,6 +53,7 @@ public class ModelToViewHandler {
         if (path != null && path.startsWith(WebUrl.ADMIN_HOME)) {
             model.put("roleTitleMap", getRoleTitles());
             model.put("appointmentStatusMap", getAppointmentStatus());
+            model.put("appointmentStatusMapForDoctor", getAppointmentStatusForDoctor());
         }
     }
 
@@ -63,4 +65,7 @@ public class ModelToViewHandler {
         return messageProvider.getMessageMap("appointment.action_status", ActionStatus.getAllNames());
     }
 
+    public Map<String, String> getAppointmentStatusForDoctor() {
+        return messageProvider.getMessageMap("appointment.action_status", AdminAppointmentServiceImpl.STATUS_FOR_DOCTOR);
+    }
 }

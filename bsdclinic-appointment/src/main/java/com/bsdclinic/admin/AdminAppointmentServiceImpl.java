@@ -47,6 +47,13 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
     private final ActionStatusFlow actionStatusFlow;
     private final MedicalRecordRepoForAppointment medicalRecordRepository;
 
+    public static final List<String> STATUS_FOR_DOCTOR = List.of(
+            ActionStatus.CHECKED_IN.name(),
+            ActionStatus.EXAMINING.name(),
+            ActionStatus.ADVANCED.name(),
+            ActionStatus.FINISHED.name()
+    );
+
     @Override
     public void createNewAppointment(AppointmentDto appointmentDto) {
         Subscriber subscriber = subscriberRepository.findByPhone(appointmentDto.getSubscriberPhone());
@@ -141,6 +148,7 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
 
     @Override
     public DatatableResponse getAppointmentsForDoctor(AppointmentFilter appointmentFilter) {
+        appointmentFilter.setStatusForDoctor(STATUS_FOR_DOCTOR);
         DatatableResponse<AppointmentResponse> appointments = getAppointmentsByFilter(appointmentFilter);
         List<AppointmentResponse> appointmentResponses = appointments.getData();
         List<String> appointmentIds = appointmentResponses.stream().map(AppointmentResponse::getAppointmentId).toList();

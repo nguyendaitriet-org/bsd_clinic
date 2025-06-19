@@ -25,6 +25,12 @@ public class MedicalRecordController {
     private final ServiceMedicalService serviceMedicalService;
 
     @RoleAuthorization.AdminAndDoctorAuthorization
+    @GetMapping(WebUrl.ADMIN_MEDICAL_RECORD_INDEX)
+    public String toIndexPage() {
+        return "admin/medical_record/index";
+    }
+
+    @RoleAuthorization.AdminAndDoctorAuthorization
     @GetMapping(WebUrl.ADMIN_MEDICAL_RECORD_DETAIL)
     public ModelAndView toMedicalRecordDetail(@PathVariable String medicalRecordId, @PathVariable String appointmentId) {
         AppointmentResponse appointment;

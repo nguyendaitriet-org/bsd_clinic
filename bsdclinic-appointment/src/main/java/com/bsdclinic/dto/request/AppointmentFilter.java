@@ -22,6 +22,7 @@ public class AppointmentFilter extends DatatablePagination {
     /* Filter for current doctor */
     private String doctorId;
     private boolean isAdminRole;
+    private List<String> statusForDoctor;
 
     @Getter
     @Setter

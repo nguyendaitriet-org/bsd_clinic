@@ -42,8 +42,14 @@ public class AppointmentSpecifications {
             }
 
             List<String> actionStatus = filter.getActionStatus();
-            if (actionStatus != null && !actionStatus.isEmpty()) {
+            List<String> statusForDoctor = filter.getStatusForDoctor();
+            boolean actionStatusExists = actionStatus != null && !actionStatus.isEmpty();
+            boolean statusForDoctorExists = statusForDoctor != null && !statusForDoctor.isEmpty();
+            if (actionStatusExists) {
                 predicates.add(root.get(Appointment_.ACTION_STATUS).in(actionStatus));
+            }
+            if (!actionStatusExists && statusForDoctorExists) {
+                predicates.add(root.get(Appointment_.ACTION_STATUS).in(statusForDoctor));
             }
 
             LocalDate registerDateFrom = filter.getRegisterDateFrom();

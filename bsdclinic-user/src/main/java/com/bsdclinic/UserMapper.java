@@ -9,8 +9,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 
-import java.util.List;
-
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {DateMapper.class})
 public interface UserMapper {
     User toEntity(CreateUserRequest request);

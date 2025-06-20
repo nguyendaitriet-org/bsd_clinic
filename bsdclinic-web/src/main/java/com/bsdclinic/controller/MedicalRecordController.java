@@ -1,7 +1,9 @@
 package com.bsdclinic.controller;
 
 import com.bsdclinic.ServiceMedicalService;
+import com.bsdclinic.UserService;
 import com.bsdclinic.dto.response.IMedicalServiceResponse;
+import com.bsdclinic.dto.response.IUserSelectResponse;
 import com.bsdclinic.dto.response.MedicalRecordResponse;
 import com.bsdclinic.MedicalRecordService;
 import com.bsdclinic.RoleAuthorization;
@@ -9,9 +11,11 @@ import com.bsdclinic.admin.AdminAppointmentService;
 import com.bsdclinic.dto.response.AppointmentResponse;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.url.WebUrl;
+import com.bsdclinic.user.RoleConstant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +27,12 @@ public class MedicalRecordController {
     private final AdminAppointmentService adminAppointmentService;
     private final MedicalRecordService medicalRecordService;
     private final ServiceMedicalService serviceMedicalService;
+    private final UserService userService;
+
+    @ModelAttribute("doctors")
+    public List<IUserSelectResponse> getDoctors() {
+        return userService.getUsersForSelectByRoles(List.of(RoleConstant.DOCTOR.name()));
+    }
 
     @RoleAuthorization.AdminAndDoctorAuthorization
     @GetMapping(WebUrl.ADMIN_MEDICAL_RECORD_INDEX)

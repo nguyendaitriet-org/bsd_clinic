@@ -157,7 +157,7 @@ export const MedicalRecordUpdating = (function () {
     }
 
     const handleBackToListButton = () => {
-        module.backToListButtonSelector.on('click',  () => location.href = ADMIN_APPOINTMENT_FOR_DOCTOR);
+        module.backToListButtonSelector.on('click',  () => location.href = ADMIN_MEDICAL_RECORD_INDEX);
     }
 
     /* Handle API integration */

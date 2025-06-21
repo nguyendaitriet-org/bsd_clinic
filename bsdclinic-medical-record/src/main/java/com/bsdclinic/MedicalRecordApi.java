@@ -27,12 +27,18 @@ public class MedicalRecordApi {
     }
 
     @RoleAuthorization.AdminAndDoctorAuthorization
-    @PutMapping(WebUrl.API_ADMIN_MEDICAL_RECORD_APPOINTMENT_UPDATE)
+    @PutMapping(WebUrl.API_ADMIN_MEDICAL_RECORD_APPOINTMENT)
     public void updateMedicalRecordAndAppointment(
             @PathVariable String medicalRecordId,
             @PathVariable String appointmentId,
             @RequestBody @Valid MedicalRecordUpdateRequest request
     ) {
         medicalRecordService.updateMedicalRecordAndAppointment(medicalRecordId, appointmentId, request);
+    }
+
+    @RoleAuthorization.AdminAndDoctorAuthorization
+    @DeleteMapping(WebUrl.API_ADMIN_MEDICAL_RECORD_APPOINTMENT)
+    public void deleteMedicalRecord(@PathVariable String medicalRecordId, @PathVariable String appointmentId) {
+        medicalRecordService.deleteMedicalRecord(medicalRecordId, appointmentId);
     }
 }

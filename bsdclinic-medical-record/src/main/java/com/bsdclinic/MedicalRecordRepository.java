@@ -1,4 +1,4 @@
-package com.bsdclinic.repository;
+package com.bsdclinic;
 
 import com.bsdclinic.dto.response.IMedicalRecordResponse;
 import com.bsdclinic.medical_record.MedicalRecord;

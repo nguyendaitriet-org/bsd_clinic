@@ -189,7 +189,7 @@ export const MedicalRecordUpdating = (function () {
     const saveMedicalRecordData = (medicalRecordData) => {
         const appointmentId = module.appointmentIdSelector.val();
         const medicalRecordId = module.medicalRecordIdSelector.val();
-        const requestUrl = API_ADMIN_MEDICAL_RECORD_APPOINTMENT_UPDATE
+        const requestUrl = API_ADMIN_MEDICAL_RECORD_APPOINTMENT
             .replace('{medicalRecordId}', medicalRecordId)
             .replace('{appointmentId}', appointmentId);
 

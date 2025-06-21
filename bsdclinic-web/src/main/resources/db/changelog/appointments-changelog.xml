@@ -5,8 +5,8 @@
 
     <changeSet id="13052025_1" author="triet.nguyendai" context="Add column patient_address">
         <sql>
-                ALTER TABLE appointments
-                ADD COLUMN patient_address VARCHAR(255);
+            ALTER TABLE appointments
+            ADD COLUMN patient_address VARCHAR(255);
         </sql>
     </changeSet>
 

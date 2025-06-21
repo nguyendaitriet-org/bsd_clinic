@@ -1,0 +1,68 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/layout/app}"
+>
+
+<th:block layout:fragment="content-style"></th:block>
+
+<th:block layout:fragment="content-title" th:text="#{title.medicine.list}"></th:block>
+<th:block layout:fragment="content-title-note"></th:block>
+<th:block layout:fragment="content-button">
+    <button class="btn btn-primary btn-round" type="button" th:text="#{title.create}"
+            data-bs-toggle="modal" data-bs-target="#create-medicine-modal"></button>
+</th:block>
+
+<th:block layout:fragment="content-body">
+    <div class="mb-3 d-flex justify-content-between gap-5">
+        <div class="p-0 col">
+            <div class="input-group">
+                <label for="search-input" class="btn btn-black" type="button">
+                    <i class="fa fa-search"></i>
+                </label>
+                <input id="search-input" type="search" class="form-control border-secondary border-1"
+                       th:placeholder="#{placeholder.find_medicine}">
+            </div>
+        </div>
+        <div class="btn-group float-end col-3">
+            <button id="submit-btn" class="btn btn-black" type="button" th:text="#{title.apply}"></button>
+            <button id="cancel-btn" class="btn btn-secondary" type="button" th:text="#{title.cancel}"></button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="appointment-list-table" class="table table-sm table-hover table-head-bg-black dataTable w-100">
+            <thead>
+            <tr class="text-center">
+                <th>#</th>
+                <th th:text="#{title.medicine.name}"></th>
+                <th th:text="#{title.unit_price}"></th>
+                <th th:text="#{title.unit}"></th>
+                <th th:text="#{title.action}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-center">
+                <td>1</td>
+                <td>Gel (Kem) Trị Sẹo Dermatix® Ultra</td>
+                <td>225,000₫</td>
+                <td>Hộp</td>
+                <td>
+                    <button class="btn btn-sm btn-primary"
+                            data-bs-toggle="modal" data-bs-target="#update-medical-service-modal">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Medicine creation modal -->
+    <th:block th:replace="~{admin/medicine/component/creation_form :: create-medicine}"></th:block>
+    <!-- Medicine updating modal -->
+</th:block>
+<th:block layout:fragment="medicine-script">
+    <script type="module" th:src="@{/admin/custom/js/medicine/script.js}"></script>
+</th:block>

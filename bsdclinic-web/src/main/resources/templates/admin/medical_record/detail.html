@@ -21,7 +21,7 @@
 <th:block layout:fragment="content-title-note"></th:block>
 
 <th:block layout:fragment="content-button">
-    <button id="back-btn" class="btn btn-primary btn-round" type="button" th:text="#{title.back}"></button>
+    <button id="back-btn" class="btn btn-primary btn-round" type="button" th:text="#{title.medical_record.back_to_list}"></button>
 </th:block>
 
 <th:block layout:fragment="content-body">
@@ -136,7 +136,7 @@
                                     th:text="#{title.medical_record.save_and_print_advance}" disabled></button>
                             <button class="btn btn-secondary save-record-btn"
                                     th:text="#{title.save_only}"></button>
-                            <button class="btn btn-danger remove-record-btn"
+                            <button class="btn btn-danger delete-record-btn"
                                     th:text="#{title.medical_record.remove}"></button>
                         </div>
                     </div>
@@ -242,7 +242,7 @@
 
 <th:block layout:fragment="medical-record-script">
     <script type="module">
-        import {MedicalRecordUpdating} from '/admin/custom/js/medical_record/detail.js';
+        import {MedicalRecordUpdating, MedicalRecordDeletion} from '/admin/custom/js/medical_record/detail.js';
 
         (function () {
             document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(el => {
@@ -260,6 +260,7 @@
             });
 
             MedicalRecordUpdating.init();
+            MedicalRecordDeletion.init();
         })();
     </script>
 </th:block>

@@ -4,7 +4,6 @@ public class WebUrl {
     // Page
     public static final String ADMIN_HOME = "/admin";
     public static final String ADMIN_USERS_INDEX = "/admin/users";
-    public static final String ADMIN_SERVICE_INDEX = "/admin/services";
     public static final String ADMIN_USERS_PROFILE = "/admin/users/profile";
     public static final String ADMIN_APPOINTMENT_INDEX = "/admin/appointments";
     public static final String ADMIN_APPOINTMENT_CREATE = "/admin/appointments/create";
@@ -12,6 +11,8 @@ public class WebUrl {
     public static final String ADMIN_CLINIC_INFO = "/admin/clinic-info";
     public static final String ADMIN_MEDICAL_RECORD_INDEX = "/admin/medical-records";
     public static final String ADMIN_MEDICAL_RECORD_DETAIL = "/admin/medical-records/{medicalRecordId}/appointments/{appointmentId}";
+    public static final String ADMIN_MEDICAL_SERVICE_INDEX = "/admin/services";
+    public static final String ADMIN_MEDICINE_INDEX = "/admin/medicines";
 
     public static final String LOGIN = "/login";
     public static final String LOGOUT = "/logout";
@@ -58,6 +59,10 @@ public class WebUrl {
     // API Admin - Medical service
     public static final String API_ADMIN_MEDICAL_SERVICE = API_ADMIN_ENDPOINT + "/medical-services";
     public static final String API_ADMIN_MEDICAL_SERVICE_LIST = API_ADMIN_MEDICAL_SERVICE + "/list";
+
+    // API Admin - Medicine
+    public static final String API_ADMIN_MEDICINE = API_ADMIN_ENDPOINT + "/medicines";
+
 
 
     // API Client - Appointment

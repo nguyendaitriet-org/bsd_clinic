@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class MedicalServiceController {
-    @RoleAuthorization.AdminAuthorization
-    @GetMapping(WebUrl.ADMIN_MEDICAL_SERVICE_INDEX)
+public class MedicineController {
+    @RoleAuthorization.AdminAndDoctorAuthorization
+    @GetMapping(WebUrl.ADMIN_MEDICINE_INDEX)
     public String toIndex() {
-        return "admin/service/index";
+        return "admin/medicine/index";
     }
 }

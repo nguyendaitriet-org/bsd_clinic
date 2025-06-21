@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<th:block th:fragment="create-medicine">
+    <div class="modal fade" id="create-medicine-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" th:text="#{title.medicine.creation}"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="py-3 px-5">
+                        <div class="mb-3 with-validation">
+                            <label for="medicine-title" class="form-label fw-semibold required-field" th:text="#{title.medicine.name}"></label>
+                            <input type="text" class="form-control title-input" id="medicine-title" name="title">
+                        </div>
+                        <div class="mb-3 with-validation">
+                            <label for="medicine-unit-price" class="form-label fw-semibold required-field" th:text="#{title.unit_price}"></label>
+                            <input type="number" class="form-control price-input" id="medicine-unit-price" name="unitPrice">
+                        </div>
+                        <div class="mb-3 with-validation">
+                            <label for="medicine-unit" class="form-label fw-semibold required-field" th:text="#{title.unit}"></label>
+                            <input type="text" class="form-control price-input" id="medicine-unit" name="unit">
+                        </div>
+                        <div class="mb-3 with-validation">
+                            <label for="medicine-dosage" class="form-label fw-semibold" th:text="#{title.dosage}"></label>
+                            <textarea class="form-control description-input" id="medicine-dosage" name="dosage" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3 with-validation">
+                            <label for="medicine-side-effect" class="form-label fw-semibold" th:text="#{title.side_effect}"></label>
+                            <textarea class="form-control description-input" id="medicine-side-effect" name="sideEffect" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-save" th:text="#{title.save}"></button>
+                    <button type="button" class="btn btn-secondary" th:text="#{title.cancel}" data-bs-dismiss="modal"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

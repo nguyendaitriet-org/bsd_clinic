@@ -140,7 +140,7 @@ export const AppointmentListForDoctor = (function () {
                     const appointmentId = rowData.appointmentId;
                     MedicalRecordCreation.createMedicalRecord(appointmentId).then((response) => {
                         App.showSweetAlert('success', createSuccess);
-                        setTimeout(() => redirectToMedicalRecordDetail(response.medicalRecordId, appointmentId), 1000);
+                        setTimeout(() => module.redirectToMedicalRecordDetail(response.medicalRecordId, appointmentId), 1000);
                     });
                 }
             });
@@ -150,11 +150,11 @@ export const AppointmentListForDoctor = (function () {
     const handleSeeMedicalRecordButton = () => {
         module.appointmentListTableSelector.on('click', '.btn-see-record', function () {
             const rowData = module.appointmentListTableSelector.DataTable().row($(this).closest('tr')).data();
-            redirectToMedicalRecordDetail(rowData.medicalRecordId, rowData.appointmentId);
+            module.redirectToMedicalRecordDetail(rowData.medicalRecordId, rowData.appointmentId);
         });
     }
 
-    const redirectToMedicalRecordDetail = (medicalRecordId, appointmentId) => {
+    module.redirectToMedicalRecordDetail = (medicalRecordId, appointmentId) => {
         location.href = ADMIN_MEDICAL_RECORD_DETAIL
                 .replace('{medicalRecordId}', medicalRecordId)
                 .replace('{appointmentId}', appointmentId);

@@ -157,7 +157,7 @@ export const MedicalRecordUpdating = (function () {
     }
 
     const handleBackToListButton = () => {
-        module.backToListButtonSelector.on('click',  () => location.href = ADMIN_MEDICAL_RECORD_INDEX);
+        module.backToListButtonSelector.on('click', () => location.href = ADMIN_MEDICAL_RECORD_INDEX);
     }
 
     /* Handle API integration */
@@ -180,7 +180,7 @@ export const MedicalRecordUpdating = (function () {
     const handleSaveMedicalRecordButton = () => {
         module.saveMedicalRecordButton.on('click', function () {
             const medicalRecordData = getMedicalRecordData();
-            App.showSweetAlertConfirmation('warning', confirmApplyTitle, '').then((result) => {
+            App.showSweetAlertConfirmation('warning', confirmApplyTitle, '').then(() => {
                 saveMedicalRecordData(medicalRecordData);
             });
         });
@@ -208,6 +208,46 @@ export const MedicalRecordUpdating = (function () {
             })
             .fail((jqXHR) => {
                 FormHandler.handleServerValidationError(module.medicalRecordDetailArea, jqXHR);
+                App.handleResponseMessageByStatusCode(jqXHR);
+            })
+    }
+
+    return module;
+})();
+
+export const MedicalRecordDeletion = (function () {
+    const module = {
+        deleteMedicalRecordButtonSelector: $('.delete-record-btn'),
+    };
+
+    module.init = () => {
+        handleDeleteMedicalRecord();
+    }
+
+    const handleDeleteMedicalRecord = () => {
+        module.deleteMedicalRecordButtonSelector.on('click', function () {
+            App.showSweetAlertConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then(() => {
+                const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
+                const medicalRecordId = MedicalRecordUpdating.medicalRecordIdSelector.val();
+                deleteMedicalRecord(medicalRecordId, appointmentId);
+            });
+        });
+    }
+
+    const deleteMedicalRecord = (medicalRecordId, appointmentId) => {
+        const requestUrl = API_ADMIN_MEDICAL_RECORD_APPOINTMENT
+            .replace('{medicalRecordId}', medicalRecordId)
+            .replace('{appointmentId}', appointmentId);
+
+        return $.ajax({
+            type: 'DELETE',
+            url: requestUrl,
+        })
+            .done(() => {
+                App.showSweetAlert('success', operationSuccess, '');
+                setTimeout(() => window.location.href = ADMIN_APPOINTMENT_FOR_DOCTOR, 700);
+            })
+            .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);
             })
     }

@@ -15,7 +15,6 @@ import com.bsdclinic.medical_record.MedicalRecord;
 import com.bsdclinic.medical_service.ChosenMedicalService;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.repository.ChosenServiceRepository;
-import com.bsdclinic.repository.MedicalRecordRepository;
 import com.bsdclinic.response.DatatableResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -152,5 +151,27 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
                         .setMedicalServiceId(medicalServiceId))
                 .toList();
         chosenServiceRepository.saveAll(updatedChosenMedicalServices);
+    }
+
+    @Override
+    @Transactional
+    @Modifying
+    public void deleteMedicalRecord(String medicalRecordId, String appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(
+                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.appointment"))
+        );
+
+        String actionStatus = appointment.getActionStatus();
+        if (actionStatus.equals(ActionStatus.EXAMINING.name()) || actionStatus.equals(ActionStatus.ADVANCED.name())) {
+            MedicalRecord medicalRecord = medicalRecordRepository.findById(medicalRecordId).orElseThrow(
+                    () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.medical_record")));
+
+            medicalRecordRepository.delete(medicalRecord);
+            chosenServiceRepository.deleteByMedicalRecordId(medicalRecordId);
+            appointmentRepository.updateActionStatus(appointmentId, ActionStatus.CHECKED_IN.name());
+            return;
+        }
+
+        throw new ConflictException(messageProvider.getMessage("message.medical_record.delete.valid_status"));
     }
 }

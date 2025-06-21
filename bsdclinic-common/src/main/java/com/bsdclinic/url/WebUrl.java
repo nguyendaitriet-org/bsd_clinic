@@ -53,7 +53,7 @@ public class WebUrl {
     // API Admin - Medical record
     public static final String API_ADMIN_MEDICAL_RECORD = API_ADMIN_ENDPOINT + "/medical-records";
     public static final String API_ADMIN_MEDICAL_RECORD_LIST = API_ADMIN_MEDICAL_RECORD + "/list";
-    public static final String API_ADMIN_MEDICAL_RECORD_APPOINTMENT_UPDATE = API_ADMIN_MEDICAL_RECORD +"/{medicalRecordId}/appointments/{appointmentId}";
+    public static final String API_ADMIN_MEDICAL_RECORD_APPOINTMENT = API_ADMIN_MEDICAL_RECORD +"/{medicalRecordId}/appointments/{appointmentId}";
 
     // API Admin - Medical service
     public static final String API_ADMIN_MEDICAL_SERVICE = API_ADMIN_ENDPOINT + "/medical-services";

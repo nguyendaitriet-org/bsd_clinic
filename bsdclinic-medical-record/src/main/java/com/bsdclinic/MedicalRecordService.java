@@ -10,4 +10,5 @@ public interface MedicalRecordService {
     DatatableResponse getMedicalRecordsByFilter(MedicalRecordFilter medicalRecordFilter);
     MedicalRecordResponse getMedicalRecord(String medicalRecordId);
     void updateMedicalRecordAndAppointment(String medicalRecordId, String appointmentId, MedicalRecordUpdateRequest request);
+    void deleteMedicalRecord(String medicalRecordId, String appointmentId);
 }

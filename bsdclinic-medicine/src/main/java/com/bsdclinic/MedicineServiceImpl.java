@@ -1,9 +1,11 @@
 package com.bsdclinic;
 
-import com.bsdclinic.dto.request.CreateMedicineRequest;
+import com.bsdclinic.dto.request.MedicineRequest;
 import com.bsdclinic.dto.request.MedicineFilter;
 import com.bsdclinic.dto.response.MedicineResponse;
+import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.medicine.Medicine;
+import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.response.DatatableResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -19,9 +21,10 @@ import java.util.List;
 public class MedicineServiceImpl implements MedicineService {
     private final MedicineRepository medicineRepository;
     private final MedicineMapper medicineMapper;
+    private final MessageProvider messageProvider;
 
     @Override
-    public void createMedicine(CreateMedicineRequest request) {
+    public void createMedicine(MedicineRequest request) {
         Medicine medicine = medicineMapper.toEntity(request);
         medicineRepository.save(medicine);
     }
@@ -58,5 +61,14 @@ public class MedicineServiceImpl implements MedicineService {
     public List<MedicineResponse> getMedicinesForSelection(String keyword) {
         List<Medicine> medicalServices = medicineRepository.findAllByKeyword(keyword);
         return medicineMapper.toDtoList(medicalServices);
+    }
+
+    @Override
+    public void updateMedicine(String medicineId, MedicineRequest request) {
+        Medicine medicine = medicineRepository.findById(medicineId).orElseThrow(
+                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.medicine"))
+        );
+        medicine = medicineMapper.toEntity(medicine, request);
+        medicineRepository.save(medicine);
     }
 }

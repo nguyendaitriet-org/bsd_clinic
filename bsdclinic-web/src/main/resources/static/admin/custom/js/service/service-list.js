@@ -2,14 +2,10 @@ import {DatatableAttribute} from "/common/js/app.js";
 
 export const ServiceList = (function () {
     const module = {
-        findAllMedicalServicesByFilterUrl: '/api/services/list',
-
         searchInputSelector: $('#search-input'),
         searchSubmitButtonSelector: $('#submit-btn'),
         cancelSearchButtonSelector: $('#cancel-btn'),
-
-        userListTableSelector: $('#appointment-list-table'),
-
+        serviceListTableSelector: $('#service-list-table'),
     };
 
     module.init = () => {
@@ -18,14 +14,6 @@ export const ServiceList = (function () {
         handleSearchSubmissionButton();
         handleCancelSearchButton();
     }
-
-    // const initDateRangePicker = () => {
-    //     module.userCreatedAtRangePicker = new Lightpick({
-    //         field: module.creationDateRangeInputSelector[0],
-    //         singleDate: false,
-    //         lang: 'vi'
-    //     });
-    // }
 
     const handleCancelSearchButton = () => {
         module.cancelSearchButtonSelector.on('click', function () {
@@ -44,13 +32,6 @@ export const ServiceList = (function () {
         return {
             keyword: module.searchInputSelector.val().trim(),
         }
-    }
-
-    const toRoleMap = (userRoles) => {
-        return userRoles.reduce((acc, role) => {
-            acc[role.roleId] = role.code;
-            return acc;
-        }, {});
     }
 
     module.renderMedicalServiceListTable = () => {

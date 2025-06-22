@@ -1,6 +1,6 @@
 package com.bsdclinic;
 
-import com.bsdclinic.dto.request.CreateMedicineRequest;
+import com.bsdclinic.dto.request.MedicineRequest;
 import com.bsdclinic.dto.request.MedicineFilter;
 import com.bsdclinic.dto.response.MedicineResponse;
 import com.bsdclinic.response.DatatableResponse;
@@ -18,7 +18,7 @@ public class MedicineApi {
 
     @RoleAuthorization.AdminAuthorization
     @PostMapping(WebUrl.API_ADMIN_MEDICINE)
-    public void createMedicine(@RequestBody @Valid CreateMedicineRequest request) {
+    public void createMedicine(@RequestBody @Valid MedicineRequest request) {
         medicineService.createMedicine(request);
     }
 
@@ -32,5 +32,14 @@ public class MedicineApi {
     @GetMapping(WebUrl.API_ADMIN_MEDICINE)
     public List<MedicineResponse> getMedicinesForSelection(@RequestParam String keyword) {
         return medicineService.getMedicinesForSelection(keyword);
+    }
+
+    @RoleAuthorization.AdminAuthorization
+    @PutMapping(WebUrl.API_ADMIN_MEDICINE_WITH_ID)
+    public void updateMedicine(
+            @PathVariable String medicineId,
+            @RequestBody @Valid MedicineRequest request
+    ) {
+        medicineService.updateMedicine(medicineId, request);
     }
 }

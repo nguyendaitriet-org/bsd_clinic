@@ -50,7 +50,7 @@ export const MedicineList = (function () {
         searchSubmitButtonSelector: $('#submit-btn'),
         cancelSearchButtonSelector: $('#cancel-btn'),
 
-        userListTableSelector: $('#medicine-list-table'),
+        medicineListTableSelector: $('#medicine-list-table'),
     };
 
     module.init = () => {
@@ -80,7 +80,7 @@ export const MedicineList = (function () {
 
     module.renderMedicineListTable = () => {
         const medicineFilter = getMedicineListFilter();
-        const userListDatatable = module.userListTableSelector.DataTable({
+        const medicineListDatatable = module.medicineListTableSelector.DataTable({
             ajax: {
                 contentType: 'application/json',
                 type: 'POST',
@@ -120,7 +120,7 @@ export const MedicineList = (function () {
                     targets: -1,
                     render: (data, type, row) => {
                         return `
-                            <button class="btn btn-sm btn-primary update-medicine-btn">
+                            <button class="btn btn-sm btn-warning show-updating-modal-btn">
                                 <i class="fa fa-edit"></i>
                             </button>
                             <button class="btn btn-sm btn-danger delete-service-btn">
@@ -133,14 +133,72 @@ export const MedicineList = (function () {
             language: DatatableAttribute.language
         });
 
-        DatatableAttribute.renderOrdinalColumn(userListDatatable, 0);
+        DatatableAttribute.renderOrdinalColumn(medicineListDatatable, 0);
     }
 
     return module;
 })();
 
+export const MedicineUpdating = (function () {
+    const module = {
+        medicineUpdatingModalSelector: $('#update-medicine-modal'),
+        updateMedicineFormSelector: $('#update-medicine-form'),
+    };
+
+    module.init = () => {
+        handleShowUpdatingModal();
+        handleUpdateMedicineFormSubmission();
+    }
+
+    const handleShowUpdatingModal = () => {
+        MedicineList.medicineListTableSelector.on('click', '.show-updating-modal-btn', function () {
+            module.medicineUpdatingModalSelector.modal('show');
+            const rowData = MedicineList.medicineListTableSelector.DataTable().row($(this).closest('tr')).data();
+            module.currentMedicineId = rowData.medicineId;
+            renderMedicineData(rowData);
+        });
+    }
+
+    const renderMedicineData = (medicineData) => {
+        for (const key in medicineData) {
+            module.medicineUpdatingModalSelector.find(`input[name="${key}"]`).val(medicineData[key]);
+            module.medicineUpdatingModalSelector.find(`textarea[name="${key}"]`).val(medicineData[key]);
+        }
+    }
+
+    const handleUpdateMedicineFormSubmission = () => {
+        module.updateMedicineFormSelector.on('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const medicineUpdatingParams = Object.fromEntries(
+                Array.from(formData.entries()).map(([key, value]) => [key, value === '' ? null : value])
+            );
+
+            $.ajax({
+                headers: {
+                    "accept": "application/json",
+                    "content-type": "application/json"
+                },
+                type: 'PUT',
+                url: API_ADMIN_MEDICINE_WITH_ID.replace('{medicineId}', module.currentMedicineId),
+                data: JSON.stringify(medicineUpdatingParams),
+            })
+                .done(() => {
+                    App.showSweetAlert('success', operationSuccess, '');
+                    setTimeout(() => window.location.href = ADMIN_MEDICINE_INDEX, 1000);
+                })
+                .fail((jqXHR) => {
+                    App.handleResponseMessageByStatusCode(jqXHR);
+                    FormHandler.handleServerValidationError(module.updateMedicineFormSelector, jqXHR)
+                })
+        })
+    }
+
+    return module;
+})();
 
 (function () {
     MedicineCreation.init();
     MedicineList.init();
+    MedicineUpdating.init();
 })();

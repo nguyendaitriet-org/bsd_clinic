@@ -63,6 +63,7 @@ public class WebUrl {
     // API Admin - Medicine
     public static final String API_ADMIN_MEDICINE = API_ADMIN_ENDPOINT + "/medicines";
     public static final String API_ADMIN_MEDICINE_LIST = API_ADMIN_MEDICINE + "/list";
+    public static final String API_ADMIN_MEDICINE_WITH_ID = API_ADMIN_MEDICINE + "/{medicineId}";
 
 
 

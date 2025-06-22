@@ -1,5 +1,7 @@
 import {App} from "/common/js/app.js";
+import {CurrencyConverter} from "/common/js/currency_util.js";
 import {FormHandler} from "/common/js/form.js";
+import {DatatableAttribute} from "/common/js/app.js";
 
 export const MedicineCreation = (function () {
     const module = {
@@ -42,6 +44,103 @@ export const MedicineCreation = (function () {
     return module;
 })();
 
+export const MedicineList = (function () {
+    const module = {
+        searchInputSelector: $('#search-input'),
+        searchSubmitButtonSelector: $('#submit-btn'),
+        cancelSearchButtonSelector: $('#cancel-btn'),
+
+        userListTableSelector: $('#medicine-list-table'),
+    };
+
+    module.init = () => {
+        module.renderMedicineListTable();
+        handleSearchSubmissionButton();
+        handleCancelSearchButton();
+    }
+
+    const handleCancelSearchButton = () => {
+        module.cancelSearchButtonSelector.on('click', function () {
+            module.searchInputSelector.val('');
+            module.renderMedicineListTable();
+        })
+    }
+
+    const handleSearchSubmissionButton = () => {
+        module.searchSubmitButtonSelector.on('click', function () {
+            module.renderMedicineListTable();
+        });
+    }
+
+    const getMedicineListFilter = () => {
+        return {
+            keyword: module.searchInputSelector.val().trim(),
+        }
+    }
+
+    module.renderMedicineListTable = () => {
+        const medicineFilter = getMedicineListFilter();
+        const userListDatatable = module.userListTableSelector.DataTable({
+            ajax: {
+                contentType: 'application/json',
+                type: 'POST',
+                url: API_ADMIN_MEDICINE_LIST,
+                data: function (d) {
+                    return JSON.stringify({...d, ...medicineFilter});
+                }
+            },
+            columns: [
+                {data: null},
+                {data: 'title'},
+                {data: 'unitPrice'},
+                {data: 'unit'},
+                {data: null},
+            ],
+            serverSide: true,
+            bJQueryUI: true,
+            destroy: true,
+            paging: true,
+            searching: false,
+            lengthChange: true,
+            info: false,
+            ordering: false,
+            pagingType: 'simple_numbers',
+            columnDefs: [
+                {
+                    targets: [0, 2, 3, 4],
+                    className: "text-center"
+                },
+                {
+                    targets: 2,
+                    render: (data) => {
+                        return CurrencyConverter.formatCurrencyVND(data);
+                    }
+                },
+                {
+                    targets: -1,
+                    render: (data, type, row) => {
+                        return `
+                            <button class="btn btn-sm btn-primary update-medicine-btn">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger delete-service-btn">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        `;
+                    }
+                }
+            ],
+            language: DatatableAttribute.language
+        });
+
+        DatatableAttribute.renderOrdinalColumn(userListDatatable, 0);
+    }
+
+    return module;
+})();
+
+
 (function () {
     MedicineCreation.init();
+    MedicineList.init();
 })();

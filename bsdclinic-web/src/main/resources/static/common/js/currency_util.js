@@ -2,7 +2,7 @@ export const CurrencyConverter = (function () {
     const module = {};
 
     module.formatCurrencyVND = (amount) => {
-        return new Intl.NumberFormat('vi-VN').format(amount) + ' đ';
+        return amount.toLocaleString('vi-VN') + ' ₫';
     }
 
     // Format price input with thousands separators

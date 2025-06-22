@@ -4,11 +4,10 @@ import {ServiceList} from "./service-list.js";
 
 export const ServiceUpdating = (function () {
     const module = {
-        userUpdatingModalSelector: $('#update-user-modal'),
-        userIdSelector: $('#update-user-modal .user-id-input'),
-        emailSelector: $('#update-user-modal .mail-input'),
-        fullNameSelector: $('#update-user-modal .full-name-input'),
-        phoneSelector: $('#update-user-modal .phone-input'),
+        userUpdatingModalSelector: $('#update-medical-service-modal'),
+        titleSelector: $('#update-medical-service-modal .service-title'),
+        priceSelector: $('#update-user-modal .full-name-input'),
+        descriptionSelector: $('#update-user-modal .phone-input'),
         roleSelectSelector: $('#update-user-modal .role-select'),
         statusSelectSelector: $('#update-user-modal .status-select'),
         saveButtonSelector: $('#update-user-modal .btn-save')

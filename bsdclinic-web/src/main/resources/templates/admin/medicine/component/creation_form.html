@@ -9,7 +9,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="py-3 px-5">
+                    <form class="py-3 px-5" id="create-medicine-form">
                         <div class="mb-3 with-validation">
                             <label for="medicine-title" class="form-label fw-semibold required-field" th:text="#{title.medicine.name}"></label>
                             <input type="text" class="form-control title-input" id="medicine-title" name="title">
@@ -30,11 +30,11 @@
                             <label for="medicine-side-effect" class="form-label fw-semibold" th:text="#{title.side_effect}"></label>
                             <textarea class="form-control description-input" id="medicine-side-effect" name="sideEffect" rows="3"></textarea>
                         </div>
+                        <div class="d-flex justify-content-end gap-3 mt-5">
+                            <button class="btn btn-primary btn-save" th:text="#{title.save}"></button>
+                            <button type="button" class="btn btn-secondary" th:text="#{title.cancel}" data-bs-dismiss="modal"></button>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-save" th:text="#{title.save}"></button>
-                    <button type="button" class="btn btn-secondary" th:text="#{title.cancel}" data-bs-dismiss="modal"></button>
                 </div>
             </div>
         </div>

@@ -13,7 +13,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-public class ServiceMedicalApi {
+public class MedicalServiceApi {
     private final ServiceMedicalService serviceMedicalService;
 
     @RoleAuthorization.AdminAuthorization

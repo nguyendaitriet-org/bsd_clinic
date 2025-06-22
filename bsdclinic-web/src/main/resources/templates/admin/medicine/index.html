@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="table-responsive">
-        <table id="appointment-list-table" class="table table-sm table-hover table-head-bg-black dataTable w-100">
+        <table id="medicine-list-table" class="table table-sm table-hover table-head-bg-black dataTable w-100">
             <thead>
             <tr class="text-center">
                 <th>#</th>
@@ -62,6 +62,7 @@
     <!-- Medicine creation modal -->
     <th:block th:replace="~{admin/medicine/component/creation_form :: create-medicine}"></th:block>
     <!-- Medicine updating modal -->
+    <th:block th:replace="~{admin/medicine/component/updating_form :: update-medicine}"></th:block>
 </th:block>
 <th:block layout:fragment="medicine-script">
     <script type="module" th:src="@{/admin/custom/js/medicine/script.js}"></script>

@@ -43,7 +43,9 @@ export const ServiceCreation = (function () {
         })
             .done(() => {
                 App.showSuccessMessage(createSuccess);
-                // setTimeout(() => ServiceList.renderUserListTable(), 1000);
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);

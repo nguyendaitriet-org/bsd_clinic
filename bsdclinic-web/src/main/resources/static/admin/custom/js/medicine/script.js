@@ -123,7 +123,7 @@ export const MedicineList = (function () {
                             <button class="btn btn-sm btn-warning show-updating-modal-btn">
                                 <i class="fa fa-edit"></i>
                             </button>
-                            <button class="btn btn-sm btn-danger delete-service-btn">
+                            <button class="btn btn-sm btn-danger show-deletion-confirmation-btn">
                                 <i class="fa fa-trash"></i>
                             </button>
                         `;
@@ -197,8 +197,42 @@ export const MedicineUpdating = (function () {
     return module;
 })();
 
+export const MedicineDeletion = (function () {
+    const module = {};
+
+    module.init = () => {
+        handleShowMedicineDeletionConfirmation();
+    }
+
+    const handleShowMedicineDeletionConfirmation = () => {
+        MedicineList.medicineListTableSelector.on('click', '.show-deletion-confirmation-btn', function () {
+            App.showSweetAlertConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then(() => {
+                const rowData = MedicineList.medicineListTableSelector.DataTable().row($(this).closest('tr')).data();
+                deleteMedicine(rowData.medicineId);
+            });
+        });
+    }
+
+    const deleteMedicine = (medicineId) => {
+            $.ajax({
+                type: 'DELETE',
+                url: API_ADMIN_MEDICINE_WITH_ID.replace('{medicineId}', medicineId)
+            })
+                .done(() => {
+                    App.showSweetAlert('success', operationSuccess, '');
+                    setTimeout(() => window.location.href = ADMIN_MEDICINE_INDEX, 1000);
+                })
+                .fail((jqXHR) => {
+                    App.handleResponseMessageByStatusCode(jqXHR);
+                })
+    }
+
+    return module;
+})();
+
 (function () {
     MedicineCreation.init();
     MedicineList.init();
     MedicineUpdating.init();
+    MedicineDeletion.init();
 })();

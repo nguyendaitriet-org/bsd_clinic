@@ -12,4 +12,5 @@ public interface MedicineService {
     DatatableResponse getMedicines(MedicineFilter medicineFilter);
     List<MedicineResponse> getMedicinesForSelection(String keyword);
     void updateMedicine(String medicineId, MedicineRequest request);
+    void deleteMedicine(String medicineId);
 }

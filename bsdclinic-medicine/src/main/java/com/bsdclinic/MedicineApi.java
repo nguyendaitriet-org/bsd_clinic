@@ -42,4 +42,10 @@ public class MedicineApi {
     ) {
         medicineService.updateMedicine(medicineId, request);
     }
+
+    @RoleAuthorization.AdminAuthorization
+    @DeleteMapping(WebUrl.API_ADMIN_MEDICINE_WITH_ID)
+    public void updateMedicine(@PathVariable String medicineId) {
+        medicineService.deleteMedicine(medicineId);
+    }
 }

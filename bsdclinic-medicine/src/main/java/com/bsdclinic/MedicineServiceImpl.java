@@ -71,4 +71,12 @@ public class MedicineServiceImpl implements MedicineService {
         medicine = medicineMapper.toEntity(medicine, request);
         medicineRepository.save(medicine);
     }
+
+    @Override
+    public void deleteMedicine(String medicineId) {
+        Medicine medicine = medicineRepository.findById(medicineId).orElseThrow(
+                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.medicine"))
+        );
+        medicineRepository.delete(medicine);
+    }
 }

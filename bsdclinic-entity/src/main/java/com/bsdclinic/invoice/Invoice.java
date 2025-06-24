@@ -2,11 +2,12 @@ package com.bsdclinic.invoice;
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import com.bsdclinic.BaseEntity;
-import com.bsdclinic.JsonConverter;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
+import org.hibernate.annotations.Type;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,16 +29,16 @@ public class Invoice extends BaseEntity {
     @Column(name = "patient_name")
     private String patientName;
 
-    @Convert(converter = JsonConverter.class)
     @Column(name = "purchased_services", columnDefinition = "jsonb")
+    @Type(JsonType.class)
     private List<PurchasedService> purchasedServices;
 
     @Column(name = "services_total_price")
     private BigDecimal servicesTotalPrice;
 
-    @Convert(converter = JsonConverter.class)
     @Column(name = "purchased_medicines", columnDefinition = "jsonb")
-    private List<PurchasedMedicine> purchasedMedicines;
+    @Type(JsonType.class)
+    List<PurchasedMedicine> purchasedMedicines;
 
     @Column(name = "medicines_total_price")
     private BigDecimal medicinesTotalPrice;

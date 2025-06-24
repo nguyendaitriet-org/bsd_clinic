@@ -1,8 +1,6 @@
 package com.bsdclinic.clinic_info;
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
-import com.bsdclinic.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.Getter;

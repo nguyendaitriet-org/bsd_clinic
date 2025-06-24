@@ -1,13 +1,13 @@
 package com.bsdclinic.medicine;
 
-import com.bsdclinic.BaseEntity;
-import com.bsdclinic.medicine.TakenMedicineId;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "taken_medicines")
 @IdClass(TakenMedicineId.class)
-public class TakenMedicine extends BaseEntity {
+public class TakenMedicine {
     @Id
     @Column(name = "prescription_id")
     private String prescriptionId;
@@ -29,4 +29,11 @@ public class TakenMedicine extends BaseEntity {
 
     @Column(name = "purchased_total_price")
     private BigDecimal purchasedTotalPrice;
+
+    @Column(name = "usage")
+    private String usage;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Instant createdAt;
 }

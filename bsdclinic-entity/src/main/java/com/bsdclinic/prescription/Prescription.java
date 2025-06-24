@@ -1,9 +1,9 @@
 package com.bsdclinic.prescription;
 
-import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import com.bsdclinic.BaseEntity;
-
-import com.bsdclinic.JsonConverter;
+import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
+import org.hibernate.annotations.Type;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 @Table(name = "prescriptions")
 public class Prescription extends BaseEntity {
-
     @Id
     @Column(name = "prescription_id")
     private String prescriptionId;
@@ -25,8 +24,8 @@ public class Prescription extends BaseEntity {
     @Column(name = "medical_record_id")
     private String medicalRecordId;
 
-    @Convert(converter = JsonConverter.class)
     @Column(name = "external_medicines", columnDefinition = "jsonb")
+    @Type(JsonType.class)
     private List<ExternalMedicine> externalMedicines;
 
     @Column(name = "instruction")

@@ -10,4 +10,11 @@
         </sql>
     </changeSet>
 
+    <changeSet id="24062025_1" author="triet.nguyendai" context="Add column usage">
+        <sql>
+            ALTER TABLE taken_medicines
+            ADD COLUMN usage TEXT;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

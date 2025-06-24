@@ -17,4 +17,5 @@ dependencies {
     implementation project(':bsdclinic-medical-record')
     implementation project(':bsdclinic-medical-service')
     implementation project(':bsdclinic-medicine')
+    implementation project(':bsdclinic-prescription')
 }

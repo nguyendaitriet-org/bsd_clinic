@@ -207,8 +207,10 @@ export const MedicineDeletion = (function () {
     const handleShowMedicineDeletionConfirmation = () => {
         MedicineList.medicineListTableSelector.on('click', '.show-deletion-confirmation-btn', function () {
             App.showSweetAlertConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then(() => {
-                const rowData = MedicineList.medicineListTableSelector.DataTable().row($(this).closest('tr')).data();
-                deleteMedicine(rowData.medicineId);
+                if(result.isConfirmed) {
+                    const rowData = MedicineList.medicineListTableSelector.DataTable().row($(this).closest('tr')).data();
+                    deleteMedicine(rowData.medicineId);
+                }
             });
         });
     }

@@ -48,7 +48,7 @@ export const ServiceUpdating = (function () {
             })
                 .done(() => {
                     App.showSweetAlert('success', operationSuccess, '');
-                    setTimeout(() => window.location.href = ADMIN_MEDICAL_SERVICE_INDEX, 1000);
+                            setTimeout(() => window.location.href = ADMIN_MEDICAL_SERVICE_INDEX, 1000);
                 })
                 .fail((jqXHR) => {
                     App.handleResponseMessageByStatusCode(jqXHR);
@@ -59,8 +59,43 @@ export const ServiceUpdating = (function () {
 
     return module;
 })();
+export const MedicalServiceDeletion = (function () {
+    const module = {};
+
+    module.init = () => {
+        handleShowMedicalServiceDeletionConfirmation();
+    }
+
+    const handleShowMedicalServiceDeletionConfirmation = () => {
+        ServiceList.serviceListTableSelector.on('click', '.show-deletion-confirmation-btn', function () {
+            App.showSweetAlertConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then(() => {
+               if(result.isConfirmed){
+                const rowData = ServiceList.serviceListTableSelector.DataTable().row($(this).closest('tr')).data();
+                deleteMedicalService(rowData.medicalServiceId);
+               }
+            });
+        });
+    }
+
+    const deleteMedicalService = (medicalServiceId) => {
+        $.ajax({
+            type: 'DELETE',
+            url: API_ADMIN_MEDICAL_SERVICE_WITH_ID.replace('{medicalServiceId}', medicalServiceId)
+        })
+            .done(() => {
+                App.showSweetAlert('success', operationSuccess, '');
+                setTimeout(() => window.location.href = ADMIN_MEDICAL_SERVICE_INDEX, 1000);
+            })
+            .fail((jqXHR) => {
+                App.handleResponseMessageByStatusCode(jqXHR);
+            })
+    }
+
+    return module;
+})();
 
 (function () {
     ServiceUpdating.init();
+    MedicalServiceDeletion.init();
 })();
 

@@ -51,7 +51,7 @@ public class MedicalServiceApi {
 
     @RoleAuthorization.AdminAuthorization
     @DeleteMapping(WebUrl.API_ADMIN_MEDICAL_SERVICE_WITH_ID)
-    public void updateMedicine(@PathVariable String medicalServiceId) {
+    public void updateMedicalService(@PathVariable String medicalServiceId) {
         serviceMedicalService.deleteMedicalService(medicalServiceId);
     }
 }

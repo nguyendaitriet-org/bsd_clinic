@@ -16,7 +16,5 @@ public class AppointmentUpdate {
     @AppointmentRuleAnnotation.ValidDoctorId
     private String doctorId;
 
-    private String patientName;
-
     private String userRoleCode;
 }

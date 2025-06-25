@@ -195,7 +195,8 @@ export const AppointmentList = (function () {
     const module = {
         searchInputSelector: $('#search-input'),
         doctorInputSelector: $('#doctor-select'),
-        statusInputSelector: $('#status-select'),
+        statusAreaSelector: $('#status-select'),
+        statusInputSelector: $('input[name="action-status"]'),
         registerDateInputSelector: $('#register-date-input'),
         appointmentListTableSelector: $('#appointment-list-table'),
 
@@ -212,6 +213,7 @@ export const AppointmentList = (function () {
         handleSubmitFilterButton();
         handleRefreshTableButton();
         handleCancelFilterButton();
+        handleChangeStatusFilter();
     }
 
     const initDateRangePicker = () => {
@@ -223,10 +225,13 @@ export const AppointmentList = (function () {
     }
 
     const getAppointmentFilter = () => {
+        const selectedStatus = module.statusInputSelector.filter(':checked').map(function() {
+            return $(this).val();
+        }).get();
         return ({
             keyword: module.searchInputSelector.val().trim(),
             doctorIds: module.doctorInputSelector.val(),
-            actionStatus: module.statusInputSelector.val(),
+            actionStatus: selectedStatus,
             registerDateFrom: DateTimeConverter.convertMomentToDateString(module.registerDatePicker.getStartDate(), DateTimePattern.API_DATE_FORMAT),
             registerDateTo: DateTimeConverter.convertMomentToDateString(module.registerDatePicker.getEndDate(), DateTimePattern.API_DATE_FORMAT),
         });
@@ -236,8 +241,8 @@ export const AppointmentList = (function () {
         module.cancelFilterButtonSelector.on('click', function () {
             module.searchInputSelector.val('');
             module.doctorInputSelector.selectpicker('deselectAll');
-            module.statusInputSelector.selectpicker('deselectAll');
-            module.registerDatePicker.setDateRange(null, null)
+            module.registerDatePicker.setDateRange(null, null);
+            module.statusInputSelector.prop('checked', false);
             renderAppointmentsTable();
         });
     }
@@ -250,6 +255,12 @@ export const AppointmentList = (function () {
 
     const handleRefreshTableButton = () => {
         module.refreshTableButtonSelector.on('click', function () {
+            renderAppointmentsTable();
+        });
+    }
+
+    const handleChangeStatusFilter = () => {
+        module.statusInputSelector.on('change', function () {
             renderAppointmentsTable();
         });
     }

@@ -13,7 +13,7 @@
 </th:block>
 
 <th:block layout:fragment="content-body">
-    <div class="mb-3 d-flex justify-content-between">
+    <div class="d-flex justify-content-between">
         <div class="p-0 col">
             <div class="input-group">
                 <label for="search-input" class="btn btn-black" type="button">
@@ -32,17 +32,6 @@
                 </th:block>
             </select>
         </div>
-        <div class="col-2">
-            <select id="status-select" class="selectpicker w-100 bg-white"
-                    th:data-none-selected-text="#{placeholder.status}"
-                    tabindex="-1" data-actions-box="true" multiple>
-                <th:block th:each="appointmentStatus: ${appointmentStatusMap}">
-                    <option th:value="${appointmentStatus.key}"
-                            th:text="${appointmentStatus.value + ' (' + appointmentStatusCount[appointmentStatus.key] + ')'}">
-                    </option>
-                </th:block>
-            </select>
-        </div>
         <div class="col-2 mx-3">
             <input id="register-date-input" type="text"
                    class="form-control border-secondary border-1 daterange text-grey padding-fixed"
@@ -52,6 +41,20 @@
             <button id="submit-btn" class="btn btn-black" type="button" th:text="#{title.apply}"></button>
             <button id="cancel-btn" class="btn btn-secondary" type="button" th:text="#{title.cancel}"></button>
         </div>
+    </div>
+    <div class="btn-group d-flex flex-wrap my-4" id="status-select">
+        <div class="btn btn-black text-white" th:text="#{placeholder.status}"></div>
+        <th:block th:each="appointmentStatus: ${appointmentStatusMap}">
+            <input type="checkbox" class="btn-check" th:id="'status-pending' + ${appointmentStatus.key}"
+                   name="action-status" th:value="${appointmentStatus.key}" autocomplete="off">
+            <label class="btn action-status-badge" th:classappend="'action-status-' + ${appointmentStatus.key}"
+                   th:for="'status-pending' + ${appointmentStatus.key}">
+                <span class="z-3 position-absolute top-0 start-50 translate-middle badge rounded-pill bg-black"
+                      th:text="${appointmentStatusCount[appointmentStatus.key]}">
+                </span>
+                <span th:text="${appointmentStatus.value}"></span>
+            </label>
+        </th:block>
     </div>
     <div class="table-responsive">
         <table id="appointment-list-table" class="table table-sm table-hover table-head-bg-black dataTable w-100">
@@ -78,6 +81,7 @@
 <th:block layout:fragment="appointment-script">
     <script type="module">
         import {AppointmentList, AppointmentDetail} from '/admin/custom/js/appointment/appointment-list.js';
+
         AppointmentList.init();
         AppointmentDetail.init();
     </script>

@@ -53,21 +53,53 @@
     padding: 0;
 }
 
+/* Style for appointment action status */
+
 .action-status-badge {
-    padding: 4px 8px;
+    padding: 8px;
     border-radius: 4px;
     display: inline-block;
     font-size: 0.85rem;
     text-align: center;
     margin: auto;
+    border: none;
 }
 
-.action-status-PENDING    { background-color: #FACC15; color: #000; }
-.action-status-REJECTED   { background-color: #EF4444; color: #fff; }
-.action-status-ACCEPTED   { background-color: #22C55E; color: #fff; }
-.action-status-CHECKED_IN { background-color: #3B82F6; color: #fff; }
-.action-status-EXAMINING  { background-color: #6366F1; color: #fff; }
-.action-status-ADVANCED   { background-color: #8B5CF6; color: #fff; }
-.action-status-FINISHED   { background-color: #6B7280; color: #fff; }
-.action-status-PAID       { background-color: #10B981; color: #fff; }
-.action-status-UNPAID     { background-color: #FB923C; color: #000; }
+.action-status-badge:hover {
+    filter: brightness(0.95);
+}
+
+.action-status-PENDING           { background-color: #FACC15; color: #000!important; }
+.action-status-REJECTED          { background-color: #EF4444; color: #fff!important; }
+.action-status-ACCEPTED          { background-color: #22C55E; color: #fff!important; }
+.action-status-CHECKED_IN        { background-color: #3B82F6; color: #fff!important; }
+.action-status-EXAMINING         { background-color: #6366F1; color: #fff!important; }
+.action-status-ADVANCED          { background-color: #8B5CF6; color: #fff!important; }
+.action-status-FINISHED          { background-color: #6B7280; color: #fff!important; }
+.action-status-FINISHED_NO_PAY   { background-color: #b700dc; color: #fff!important; }
+.action-status-PAID              { background-color: #10B981; color: #fff!important; }
+.action-status-UNPAID            { background-color: #FB923C; color: #000!important; }
+
+/* Hover styles */
+.action-status-PENDING:hover    { background-color: #eab308!important; color: #000!important; }
+.action-status-REJECTED:hover   { background-color: #dc2626!important; color: #fff!important; }
+.action-status-ACCEPTED:hover   { background-color: #16a34a!important; color: #fff!important; }
+.action-status-CHECKED_IN:hover { background-color: #2563eb!important; color: #fff!important; }
+.action-status-EXAMINING:hover  { background-color: #4f46e5!important; color: #fff!important; }
+.action-status-ADVANCED:hover   { background-color: #7c3aed!important; color: #fff!important; }
+.action-status-FINISHED:hover   { background-color: #4b5563!important; color: #fff!important; }
+.action-status-FINISHED_NO_PAY:hover   { background-color: #b700dc!important; color: #fff!important; }
+.action-status-PAID:hover       { background-color: #059669!important; color: #fff!important; }
+.action-status-UNPAID:hover     { background-color: #f97316!important; color: #000!important; }
+
+/* Checked styles */
+.btn-check:checked + .action-status-PENDING    { background-color: #eab308!important; color: #000!important; border-bottom: 4px solid #d4a106!important; }
+.btn-check:checked + .action-status-REJECTED   { background-color: #dc2626!important; color: #fff!important; border-bottom: 4px solid #b91c1c!important; }
+.btn-check:checked + .action-status-ACCEPTED   { background-color: #16a34a!important; color: #fff!important; border-bottom: 4px solid #15803d!important; }
+.btn-check:checked + .action-status-CHECKED_IN { background-color: #2563eb!important; color: #fff!important; border-bottom: 4px solid #1d4ed8!important; }
+.btn-check:checked + .action-status-EXAMINING  { background-color: #4f46e5!important; color: #fff!important; border-bottom: 4px solid #4338ca!important; }
+.btn-check:checked + .action-status-ADVANCED   { background-color: #7c3aed!important; color: #fff!important; border-bottom: 4px solid #6d28d9!important; }
+.btn-check:checked + .action-status-FINISHED   { background-color: #4b5563!important; color: #fff!important; border-bottom: 4px solid #374151!important; }
+.btn-check:checked + .action-status-FINISHED_NO_PAY   { background-color: #b700dc!important; color: #fff!important; border-bottom: 4px solid #8a00a1 !important; }
+.btn-check:checked + .action-status-PAID       { background-color: #059669!important; color: #fff!important; border-bottom: 4px solid #047857!important; }
+.btn-check:checked + .action-status-UNPAID     { background-color: #f97316!important; color: #000!important; border-bottom: 4px solid #ea580c!important; }

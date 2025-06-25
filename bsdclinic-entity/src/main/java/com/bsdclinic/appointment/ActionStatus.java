@@ -11,6 +11,7 @@ public enum ActionStatus {
     EXAMINING,
     ADVANCED,
     FINISHED,
+    FINISHED_NO_PAY,
     PAID,
     UNPAID;
 

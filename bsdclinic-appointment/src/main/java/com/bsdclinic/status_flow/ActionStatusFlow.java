@@ -20,7 +20,7 @@ public class ActionStatusFlow {
         transitions.put(ActionStatus.CHECKED_IN, Set.of(ActionStatus.EXAMINING, ActionStatus.REJECTED));
         transitions.put(ActionStatus.EXAMINING, Set.of(ActionStatus.ADVANCED, ActionStatus.CHECKED_IN, ActionStatus.FINISHED));
         transitions.put(ActionStatus.ADVANCED, Set.of(ActionStatus.FINISHED));
-        transitions.put(ActionStatus.FINISHED, Set.of(ActionStatus.UNPAID, ActionStatus.PAID));
+        transitions.put(ActionStatus.FINISHED, Set.of(ActionStatus.UNPAID, ActionStatus.PAID, ActionStatus.EXAMINING));
         transitions.put(ActionStatus.UNPAID, Set.of(ActionStatus.PAID, ActionStatus.FINISHED));
         transitions.put(ActionStatus.PAID, Set.of(ActionStatus.FINISHED));
         transitions.put(ActionStatus.REJECTED, Set.of());
@@ -30,7 +30,9 @@ public class ActionStatusFlow {
         addRolePermission(ActionStatus.CHECKED_IN, ActionStatus.EXAMINING, adminAndDoctorRoleCodes);
         addRolePermission(ActionStatus.EXAMINING, ActionStatus.CHECKED_IN, adminAndDoctorRoleCodes);
         addRolePermission(ActionStatus.EXAMINING, ActionStatus.FINISHED, adminAndDoctorRoleCodes);
+        addRolePermission(ActionStatus.EXAMINING, ActionStatus.FINISHED_NO_PAY, adminAndDoctorRoleCodes);
         addRolePermission(ActionStatus.ADVANCED, ActionStatus.FINISHED, adminAndDoctorRoleCodes);
+        addRolePermission(ActionStatus.FINISHED, ActionStatus.EXAMINING, adminAndDoctorRoleCodes);
     }
 
     private void addRolePermission(ActionStatus from, ActionStatus to, Set<String> allowedRoles) {

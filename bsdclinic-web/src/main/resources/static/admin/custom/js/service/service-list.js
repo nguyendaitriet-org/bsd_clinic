@@ -1,3 +1,4 @@
+import {CurrencyConverter} from "/common/js/currency_util.js";
 import {DatatableAttribute} from "/common/js/app.js";
 
 export const ServiceList = (function () {
@@ -36,7 +37,7 @@ export const ServiceList = (function () {
 
     module.renderMedicalServiceListTable = () => {
         const medicalServiceFilter = getMedicalServiceListFilter();
-        const userListDatatable = module.userListTableSelector.DataTable({
+        const medicalServiceListDatatable = module.serviceListTableSelector.DataTable({
             ajax: {
                 contentType: 'application/json',
                 type: 'POST',
@@ -69,20 +70,19 @@ export const ServiceList = (function () {
                 {
                     targets: 2,
                     render: (data) => {
-                        return data.toLocaleString('vi-VN') + '₫';
+                        return CurrencyConverter.formatCurrencyVND(data);
                     }
                 },
                 {
                     targets: -1,
                     render: (data, type, row) => {
                         return `
-                        <button class="btn btn-sm btn-primary"
-                            data-bs-toggle="modal" data-bs-target="#update-medical-service-modal">
-                        <i class="fa fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger delete-service-btn" data-id="${row.id}">
-                            <i class="fa fa-trash"></i> Xóa
-                        </button>
+                            <button class="btn btn-sm btn-warning show-updating-modal-btn">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger show-deletion-confirmation-btn">
+                                <i class="fa fa-trash"></i>
+                            </button>
                     `;
                     }
                 }
@@ -90,7 +90,7 @@ export const ServiceList = (function () {
             language: DatatableAttribute.language
         });
 
-        DatatableAttribute.renderOrdinalColumn(userListDatatable, 0);
+        DatatableAttribute.renderOrdinalColumn(medicalServiceListDatatable, 0);
     }
 
     return module;

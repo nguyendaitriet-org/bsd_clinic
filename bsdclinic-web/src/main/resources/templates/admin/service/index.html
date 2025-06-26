@@ -14,7 +14,7 @@
 </th:block>
 
 <th:block layout:fragment="content-body">
-    <div class="mb-3 d-flex justify-content-between col-8">
+    <div class="mb-3 d-flex justify-content-between gap-5">
         <div class="p-0 col">
             <div class="input-group">
                 <label for="search-input" class="btn btn-black" type="button">
@@ -45,12 +45,12 @@
 
         </table>
     </div>
-    <!-- User creation modal -->
+    <!-- Medical service creation modal -->
     <th:block th:replace="~{admin/service/component/creation_form :: create-medical-service}"></th:block>
-    <!-- User updating modal -->
+    <!-- Medical service updating modal -->
     <th:block th:replace="~{admin/service/component/updating_form :: update-medical-service}"></th:block>
 </th:block>
-<th:block layout:fragment="appointment-script">
+<th:block layout:fragment="medical-service-script">
     <script type="module" th:src="@{/admin/custom/js/service/service-creation.js}"></script>
     <script type="module" th:src="@{/admin/custom/js/service/service-list.js}"></script>
     <script type="module" th:src="@{/admin/custom/js/service/service-updating.js}"></script>

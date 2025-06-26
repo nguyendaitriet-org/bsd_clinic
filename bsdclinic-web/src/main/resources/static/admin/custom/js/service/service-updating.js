@@ -4,72 +4,90 @@ import {ServiceList} from "./service-list.js";
 
 export const ServiceUpdating = (function () {
     const module = {
-        userUpdatingModalSelector: $('#update-user-modal'),
-        userIdSelector: $('#update-user-modal .user-id-input'),
-        emailSelector: $('#update-user-modal .mail-input'),
-        fullNameSelector: $('#update-user-modal .full-name-input'),
-        phoneSelector: $('#update-user-modal .phone-input'),
-        roleSelectSelector: $('#update-user-modal .role-select'),
-        statusSelectSelector: $('#update-user-modal .status-select'),
-        saveButtonSelector: $('#update-user-modal .btn-save')
+        medicalServiceUpdatingModalSelector: $('#update-medical-service-modal'),
+        updateMedicalServiceFormSelector: $('#update-medical-service-form'),
     };
 
     module.init = () => {
-        openEditUserModalButton();
-        handleSaveButton();
+        handleShowUpdatingModal();
+        handleUpdateMedicalServiceFormSubmission();
     }
 
-    const openEditUserModalButton = () => {
-        ServiceList.userListTableSelector.on('click', '.open-edit-user-modal-btn', function () {
-            const rowData = ServiceList.userListTableSelector.DataTable().row($(this).closest('tr')).data();
-            fillUserData(rowData);
-            module.userUpdatingModalSelector.modal('show');
+    const handleShowUpdatingModal = () => {
+        ServiceList.serviceListTableSelector.on('click', '.show-updating-modal-btn', function () {
+            module.medicalServiceUpdatingModalSelector.modal('show');
+            const rowData = ServiceList.serviceListTableSelector.DataTable().row($(this).closest('tr')).data();
+            module.currentMedicalServiceId = rowData.medicalServiceId;
+            renderMedicalServiceData(rowData);
+        });
+    }
+
+    const renderMedicalServiceData = (medicalServiceData) => {
+        for (const key in medicalServiceData) {
+            module.medicalServiceUpdatingModalSelector.find(`input[name="${key}"]`).val(medicalServiceData[key]);
+            module.medicalServiceUpdatingModalSelector.find(`textarea[name="${key}"]`).val(medicalServiceData[key]);
+        }
+    }
+
+    const handleUpdateMedicalServiceFormSubmission = () => {
+        module.updateMedicalServiceFormSelector.on('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const medicalServiceUpdatingParams = Object.fromEntries(
+                Array.from(formData.entries()).map(([key, value]) => [key, value === '' ? null : value])
+            );
+            console.log("medicalServiceUpdatingParams" + medicalServiceUpdatingParams)
+            $.ajax({
+                headers: {
+                    "accept": "application/json",
+                    "content-type": "application/json"
+                },
+                type: 'PUT',
+                url: API_ADMIN_MEDICAL_SERVICE_WITH_ID.replace('{medicalServiceId}', module.currentMedicalServiceId),
+                data: JSON.stringify(medicalServiceUpdatingParams),
+            })
+                .done(() => {
+                    App.showSweetAlert('success', operationSuccess, '');
+                            setTimeout(() => window.location.href = ADMIN_MEDICAL_SERVICE_INDEX, 1000);
+                })
+                .fail((jqXHR) => {
+                    App.handleResponseMessageByStatusCode(jqXHR);
+                    FormHandler.handleServerValidationError(module.updateMedicalServiceFormSelector, jqXHR)
+                })
         })
     }
 
-    const fillUserData = (data) => {
-        module.userIdSelector.val(data.userId);
-        module.emailSelector.val(data.email);
-        module.fullNameSelector.val(data.fullName);
-        module.phoneSelector.val(data.phone);
-        module.roleSelectSelector.val(data.roleId);
-        module.statusSelectSelector.val(data.status);
+    return module;
+})();
+export const MedicalServiceDeletion = (function () {
+    const module = {};
+
+    module.init = () => {
+        handleShowMedicalServiceDeletionConfirmation();
     }
 
-    const handleSaveButton = () => {
-        module.saveButtonSelector.on('click', function () {
-            const userUpdatingData = getUserUpdatingData();
-            updateUser(userUpdatingData);
-        })
+    const handleShowMedicalServiceDeletionConfirmation = () => {
+        ServiceList.serviceListTableSelector.on('click', '.show-deletion-confirmation-btn', function () {
+            App.showSweetAlertConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then(() => {
+               if(result.isConfirmed){
+                const rowData = ServiceList.serviceListTableSelector.DataTable().row($(this).closest('tr')).data();
+                deleteMedicalService(rowData.medicalServiceId);
+               }
+            });
+        });
     }
 
-    const getUserUpdatingData = () => {
-        return (
-            {
-                userId: module.userIdSelector.val(),
-                roleId: module.roleSelectSelector.val(),
-                status: module.statusSelectSelector.val()
-            }
-        );
-    }
-
-    const updateUser = (userUpdatingData) => {
+    const deleteMedicalService = (medicalServiceId) => {
         $.ajax({
-            headers: {
-                "accept": "application/json",
-                "content-type": "application/json"
-            },
-            type: 'PATCH',
-            url: API_ADMIN_USER_ENDPOINT,
-            data: JSON.stringify(userUpdatingData),
+            type: 'DELETE',
+            url: API_ADMIN_MEDICAL_SERVICE_WITH_ID.replace('{medicalServiceId}', medicalServiceId)
         })
             .done(() => {
-                App.showSuccessMessage(operationSuccess);
-                setTimeout(() => ServiceList.renderUserListTable(), 1000);
+                App.showSweetAlert('success', operationSuccess, '');
+                setTimeout(() => window.location.href = ADMIN_MEDICAL_SERVICE_INDEX, 1000);
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);
-                FormHandler.handleServerValidationError(module.userCreationModalSelector, jqXHR)
             })
     }
 
@@ -78,5 +96,6 @@ export const ServiceUpdating = (function () {
 
 (function () {
     ServiceUpdating.init();
+    MedicalServiceDeletion.init();
 })();
 

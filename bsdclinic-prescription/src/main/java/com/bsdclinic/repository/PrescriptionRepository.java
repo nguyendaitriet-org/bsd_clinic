@@ -10,9 +10,6 @@ import java.util.List;
 
 @Repository
 public interface PrescriptionRepository extends JpaRepository<Prescription, String> {
-    @Query(value = "SELECT EXISTS(SELECT 1 FROM medical_records AS m WHERE m.medical_record_id = :medicalRecordId)", nativeQuery = true)
-    boolean isMedicalRecordIdExisted(String medicalRecordId);
-
     Prescription findByMedicalRecordId(String medicalRecordId);
 
     @Query("SELECT new com.bsdclinic.dto.TakenMedicineDto(" +

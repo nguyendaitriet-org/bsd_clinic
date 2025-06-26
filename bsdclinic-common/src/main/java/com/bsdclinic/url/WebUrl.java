@@ -69,6 +69,9 @@ public class WebUrl {
     // API Admin - prescription
     public static final String API_ADMIN_PRESCRIPTION = API_ADMIN_ENDPOINT + "/prescriptions";
 
+    // API Admin - invoice
+    public static final String API_ADMIN_INVOICE = API_ADMIN_ENDPOINT + "/invoices";
+
 
     // API Client - Appointment
     public static final String API_CLIENT_APPOINTMENT = API_CLIENT_ENDPOINT + "/appointments";

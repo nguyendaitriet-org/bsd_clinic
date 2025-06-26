@@ -7,4 +7,5 @@ version = '1.0.0'
 
 dependencies {
     implementation project(':bsdclinic-medical-record')
+    implementation project(':bsdclinic-medical-service')
 }

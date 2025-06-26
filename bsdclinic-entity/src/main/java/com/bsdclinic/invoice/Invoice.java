@@ -7,9 +7,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 
 @Getter
@@ -17,7 +19,7 @@ import java.util.List;
 @Accessors(chain = true)
 @Entity
 @Table(name = "invoices")
-public class Invoice extends BaseEntity {
+public class Invoice {
 
     @Id
     @Column(name = "invoice_id")
@@ -54,6 +56,10 @@ public class Invoice extends BaseEntity {
 
     @Column(name = "status")
     private String status;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Instant createdAt;
 
     @PrePersist
     public void prePersist() {

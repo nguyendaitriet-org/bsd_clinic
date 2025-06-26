@@ -20,6 +20,7 @@ import java.util.List;
 public class PrescriptionServiceImpl implements PrescriptionService {
     private final PrescriptionRepository prescriptionRepository;
     private final TakenMedicineRepository takenMedicineRepository;
+    private final MedicalRecordRepository medicalRecordRepository;
     private final MessageProvider messageProvider;
     private final PrescriptionMapper prescriptionMapper;
 
@@ -27,7 +28,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Transactional
     public CreatePrescriptionResponse createPrescription(CreatePrescriptionRequest request) {
         String medicalRecordId = request.getMedicalRecordId();
-        if (!prescriptionRepository.isMedicalRecordIdExisted(medicalRecordId)) {
+        if (!medicalRecordRepository.existsByMedicalRecordId(medicalRecordId)) {
             throw new NotFoundException(messageProvider.getMessage("validation.no_exist.medical_record"));
         }
 

@@ -11,5 +11,5 @@ import java.math.BigDecimal;
 @EqualsAndHashCode
 public class PurchasedService {
     private String title;
-    private BigDecimal unitPrice;
+    private BigDecimal price;
 }

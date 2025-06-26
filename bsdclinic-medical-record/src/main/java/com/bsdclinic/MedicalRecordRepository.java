@@ -47,4 +47,6 @@ public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, St
             @Param("doctorIds") List<String> doctorIds,
             Pageable pageable
     );
+
+    MedicalRecord findByMedicalRecordId(String medicalRecordId);
 }

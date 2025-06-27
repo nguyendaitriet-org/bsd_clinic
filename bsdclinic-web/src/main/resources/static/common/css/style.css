@@ -93,6 +93,10 @@
     width: 55%!important;
 }
 
+.mw-90 {
+    max-width: 90%!important;
+}
+
 /* Custom checked input element */
 
 .option-input {

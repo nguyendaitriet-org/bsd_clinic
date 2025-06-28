@@ -156,6 +156,7 @@
                                     <th th:text="#{title.quantity}"></th>
                                     <th th:text="#{title.unit_price}"></th>
                                     <th th:text="#{title.usage}"></th>
+                                    <th th:text="#{title.total_price}"></th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -163,7 +164,7 @@
                                 <tfoot>
                                     <tr>
                                         <th th:text="#{placeholder.medicine.total_price}"></th>
-                                        <th id="medicine-total-price" colspan="4">0 đ</th>
+                                        <th id="medicine-total-price" colspan="5">0 đ</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -179,8 +180,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                </tbody>
+                                <tbody></tbody>
                                 <tfoot>
                                     <tr>
                                         <td colspan="4" class=" border-bottom-0">
@@ -209,7 +209,7 @@
                             <button class="btn btn-primary create-invoice-prescription-btn"
                                     th:text="#{title.prescription_invoice.create}"></button>
                             <button class="btn btn-dark see-invoice-prescription-btn"
-                                    th:text="#{title.prescription_invoice.see}"
+                                    th:text="#{title.prescription_invoice.see}" hidden
                                     data-bs-toggle="modal" data-bs-target="#prescription-invoice-modal"></button>
                             <button class="btn btn-danger finish-examination-btn"
                                     th:text="#{title.medical_record.finish}"></button>

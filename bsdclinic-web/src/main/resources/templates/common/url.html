@@ -3,68 +3,75 @@
 <th:block th:fragment="urls">
     <script th:inline="javascript">
         // Page
-        var ADMIN_HOME = [[${webUrl.ADMIN_HOME}]];
-        var ADMIN_USERS_INDEX = [[${webUrl.ADMIN_USERS_INDEX}]];
-        var ADMIN_USERS_PROFILE = [[${webUrl.ADMIN_USERS_PROFILE}]];
-        var ADMIN_APPOINTMENT_INDEX = [[${webUrl.ADMIN_APPOINTMENT_INDEX}]];
-        var ADMIN_APPOINTMENT_CREATE = [[${webUrl.ADMIN_APPOINTMENT_CREATE}]];
-        var ADMIN_APPOINTMENT_FOR_DOCTOR = [[${webUrl.ADMIN_APPOINTMENT_FOR_DOCTOR}]];
-        var ADMIN_CLINIC_INFO = [[${webUrl.ADMIN_CLINIC_INFO}]];
-        var ADMIN_MEDICAL_RECORD_DETAIL = [[${webUrl.ADMIN_MEDICAL_RECORD_DETAIL}]];
-        var ADMIN_MEDICAL_RECORD_INDEX = [[${webUrl.ADMIN_MEDICAL_RECORD_INDEX}]];
-        var ADMIN_MEDICINE_INDEX = [[${webUrl.ADMIN_MEDICINE_INDEX}]];
-        var ADMIN_MEDICAL_SERVICE_INDEX = [[${webUrl.ADMIN_MEDICAL_SERVICE_INDEX}]];
+        const ADMIN_HOME = [[${webUrl.ADMIN_HOME}]];
+        const ADMIN_USERS_INDEX = [[${webUrl.ADMIN_USERS_INDEX}]];
+        const ADMIN_USERS_PROFILE = [[${webUrl.ADMIN_USERS_PROFILE}]];
+        const ADMIN_APPOINTMENT_INDEX = [[${webUrl.ADMIN_APPOINTMENT_INDEX}]];
+        const ADMIN_APPOINTMENT_CREATE = [[${webUrl.ADMIN_APPOINTMENT_CREATE}]];
+        const ADMIN_APPOINTMENT_FOR_DOCTOR = [[${webUrl.ADMIN_APPOINTMENT_FOR_DOCTOR}]];
+        const ADMIN_CLINIC_INFO = [[${webUrl.ADMIN_CLINIC_INFO}]];
+        const ADMIN_MEDICAL_RECORD_DETAIL = [[${webUrl.ADMIN_MEDICAL_RECORD_DETAIL}]];
+        const ADMIN_MEDICAL_RECORD_INDEX = [[${webUrl.ADMIN_MEDICAL_RECORD_INDEX}]];
+        const ADMIN_MEDICINE_INDEX = [[${webUrl.ADMIN_MEDICINE_INDEX}]];
+        const ADMIN_MEDICAL_SERVICE_INDEX = [[${webUrl.ADMIN_MEDICAL_SERVICE_INDEX}]];
 
-        var LOGIN = [[${webUrl.LOGIN}]];
-        var LOGOUT = [[${webUrl.LOGOUT}]];
-        var ERROR = [[${webUrl.ERROR}]];
+        const LOGIN = [[${webUrl.LOGIN}]];
+        const LOGOUT = [[${webUrl.LOGOUT}]];
+        const ERROR = [[${webUrl.ERROR}]];
 
-        var CLIENT_HOME = [[${webUrl.CLIENT_HOME}]];
-        var CLIENT_APPOINTMENT_CREATE = [[${webUrl.CLIENT_APPOINTMENT_CREATE}]];
+        const CLIENT_HOME = [[${webUrl.CLIENT_HOME}]];
+        const CLIENT_APPOINTMENT_CREATE = [[${webUrl.CLIENT_APPOINTMENT_CREATE}]];
 
         // API Admin - Login
-        var API_ADMIN_LOGIN = [[${webUrl.API_ADMIN_LOGIN}]];
+        const API_ADMIN_LOGIN = [[${webUrl.API_ADMIN_LOGIN}]];
 
         // API Admin - User
-        var API_ADMIN_USER_ENDPOINT = [[${webUrl.API_ADMIN_USER_ENDPOINT}]];
-        var API_ADMIN_USER_LIST = [[${webUrl.API_ADMIN_USER_LIST}]];
-        var API_ADMIN_USER_AVATAR = [[${webUrl.API_ADMIN_USER_AVATAR}]];
-        var API_ADMIN_USER_PROFILE = [[${webUrl.API_ADMIN_USER_PROFILE}]];
-        var API_ADMIN_USER_CHANGE_PASSWORD = [[${webUrl.API_ADMIN_USER_CHANGE_PASSWORD}]];
+        const API_ADMIN_USER_ENDPOINT = [[${webUrl.API_ADMIN_USER_ENDPOINT}]];
+        const API_ADMIN_USER_LIST = [[${webUrl.API_ADMIN_USER_LIST}]];
+        const API_ADMIN_USER_AVATAR = [[${webUrl.API_ADMIN_USER_AVATAR}]];
+        const API_ADMIN_USER_PROFILE = [[${webUrl.API_ADMIN_USER_PROFILE}]];
+        const API_ADMIN_USER_CHANGE_PASSWORD = [[${webUrl.API_ADMIN_USER_CHANGE_PASSWORD}]];
 
         // API Admin - Appointment
-        var API_ADMIN_APPOINTMENT = [[${webUrl.API_ADMIN_APPOINTMENT}]];
-        var API_ADMIN_APPOINTMENT_LIST = [[${webUrl.API_ADMIN_APPOINTMENT_LIST}]];
-        var API_ADMIN_APPOINTMENT_WITH_ID = [[${webUrl.API_ADMIN_APPOINTMENT_WITH_ID}]];
-        var API_ADMIN_APPOINTMENT_FOR_DOCTOR = [[${webUrl.API_ADMIN_APPOINTMENT_FOR_DOCTOR}]];
-        var API_ADMIN_APPOINTMENT_NEXT_STATUS = [[${webUrl.API_ADMIN_APPOINTMENT_NEXT_STATUS}]];
+        const API_ADMIN_APPOINTMENT = [[${webUrl.API_ADMIN_APPOINTMENT}]];
+        const API_ADMIN_APPOINTMENT_LIST = [[${webUrl.API_ADMIN_APPOINTMENT_LIST}]];
+        const API_ADMIN_APPOINTMENT_WITH_ID = [[${webUrl.API_ADMIN_APPOINTMENT_WITH_ID}]];
+        const API_ADMIN_APPOINTMENT_FOR_DOCTOR = [[${webUrl.API_ADMIN_APPOINTMENT_FOR_DOCTOR}]];
+        const API_ADMIN_APPOINTMENT_NEXT_STATUS = [[${webUrl.API_ADMIN_APPOINTMENT_NEXT_STATUS}]];
 
         // API Admin - Subscriber
-        var API_ADMIN_SUBSCRIBER = [[${webUrl.API_ADMIN_SUBSCRIBER}]];
-        var API_ADMIN_SUBSCRIBER_LIST = [[${webUrl.API_ADMIN_SUBSCRIBER_LIST}]];
-        var API_ADMIN_SUBSCRIBER_DETAIL = [[${webUrl.API_ADMIN_SUBSCRIBER_DETAIL}]];
+        const API_ADMIN_SUBSCRIBER = [[${webUrl.API_ADMIN_SUBSCRIBER}]];
+        const API_ADMIN_SUBSCRIBER_LIST = [[${webUrl.API_ADMIN_SUBSCRIBER_LIST}]];
+        const API_ADMIN_SUBSCRIBER_DETAIL = [[${webUrl.API_ADMIN_SUBSCRIBER_DETAIL}]];
 
         // API Admin - Medical record
-        var API_ADMIN_MEDICAL_RECORD = [[${webUrl.API_ADMIN_MEDICAL_RECORD}]];
-        var API_ADMIN_MEDICAL_RECORD_APPOINTMENT = [[${webUrl.API_ADMIN_MEDICAL_RECORD_APPOINTMENT}]];
-        var API_ADMIN_MEDICAL_RECORD_LIST = [[${webUrl.API_ADMIN_MEDICAL_RECORD_LIST}]];
+        const API_ADMIN_MEDICAL_RECORD = [[${webUrl.API_ADMIN_MEDICAL_RECORD}]];
+        const API_ADMIN_MEDICAL_RECORD_APPOINTMENT = [[${webUrl.API_ADMIN_MEDICAL_RECORD_APPOINTMENT}]];
+        const API_ADMIN_MEDICAL_RECORD_LIST = [[${webUrl.API_ADMIN_MEDICAL_RECORD_LIST}]];
 
         // API Client - Appointment
-        var API_CLIENT_APPOINTMENT = [[${webUrl.API_CLIENT_APPOINTMENT}]];
-        var API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS = [[${webUrl.API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS}]];
+        const API_CLIENT_APPOINTMENT = [[${webUrl.API_CLIENT_APPOINTMENT}]];
+        const API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS = [[${webUrl.API_CLIENT_APPOINTMENT_AVAILABLE_SLOTS}]];
 
         // API Client - Clinic info
-        var API_CLIENT_CLINIC_INFO = [[${webUrl.API_CLIENT_CLINIC_INFO}]];
-        var API_ADMIN_UPDATE_CLINIC_INFO = [[${webUrl.API_ADMIN_UPDATE_CLINIC_INFO}]];
+        const API_CLIENT_CLINIC_INFO = [[${webUrl.API_CLIENT_CLINIC_INFO}]];
+        const API_ADMIN_UPDATE_CLINIC_INFO = [[${webUrl.API_ADMIN_UPDATE_CLINIC_INFO}]];
 
         // API Admin - Medical service
-        var API_ADMIN_MEDICAL_SERVICE = [[${webUrl.API_ADMIN_MEDICAL_SERVICE}]];
-        var API_ADMIN_MEDICAL_SERVICE_LIST = [[${webUrl.API_ADMIN_MEDICAL_SERVICE_LIST}]];
-        var API_ADMIN_MEDICAL_SERVICE_WITH_ID = [[${webUrl.API_ADMIN_MEDICAL_SERVICE_WITH_ID}]];
+        const API_ADMIN_MEDICAL_SERVICE = [[${webUrl.API_ADMIN_MEDICAL_SERVICE}]];
+        const API_ADMIN_MEDICAL_SERVICE_LIST = [[${webUrl.API_ADMIN_MEDICAL_SERVICE_LIST}]];
+        const API_ADMIN_MEDICAL_SERVICE_WITH_ID = [[${webUrl.API_ADMIN_MEDICAL_SERVICE_WITH_ID}]];
 
         // API Admin - Medicine
-        var API_ADMIN_MEDICINE = [[${webUrl.API_ADMIN_MEDICINE}]];
-        var API_ADMIN_MEDICINE_LIST = [[${webUrl.API_ADMIN_MEDICINE_LIST}]];
-        var API_ADMIN_MEDICINE_WITH_ID = [[${webUrl.API_ADMIN_MEDICINE_WITH_ID}]];
+        const API_ADMIN_MEDICINE = [[${webUrl.API_ADMIN_MEDICINE}]];
+        const API_ADMIN_MEDICINE_LIST = [[${webUrl.API_ADMIN_MEDICINE_LIST}]];
+        const API_ADMIN_MEDICINE_WITH_ID = [[${webUrl.API_ADMIN_MEDICINE_WITH_ID}]];
+
+        // API Admin - Invoice
+        const API_ADMIN_INVOICE = [[${webUrl.API_ADMIN_INVOICE}]];
+        
+        // API Admin - Invoice
+        const API_ADMIN_PRESCRIPTION = [[${webUrl.API_ADMIN_PRESCRIPTION}]];
+
     </script>
 </th:block>

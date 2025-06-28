@@ -68,7 +68,7 @@ export const MedicalServiceDeletion = (function () {
 
     const handleShowMedicalServiceDeletionConfirmation = () => {
         ServiceList.serviceListTableSelector.on('click', '.show-deletion-confirmation-btn', function () {
-            App.showSweetAlertConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then(() => {
+            App.showSweetAlertConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then((result) => {
                if(result.isConfirmed){
                 const rowData = ServiceList.serviceListTableSelector.DataTable().row($(this).closest('tr')).data();
                 deleteMedicalService(rowData.medicalServiceId);

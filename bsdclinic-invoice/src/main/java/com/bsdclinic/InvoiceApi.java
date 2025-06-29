@@ -17,4 +17,10 @@ public class InvoiceApi {
     public CreateInvoiceResponse createInvoice(@RequestBody @Valid CreateInvoiceRequest createInvoiceRequest) {
         return invoiceService.createInvoice(createInvoiceRequest);
     }
+
+    @RoleAuthorization.AdminAndDoctorAuthorization
+    @DeleteMapping(WebUrl.API_ADMIN_INVOICE_WITH_ID)
+    public void deleteInvoice(@PathVariable String invoiceId) {
+        invoiceService.deleteInvoice(invoiceId);
+    }
 }

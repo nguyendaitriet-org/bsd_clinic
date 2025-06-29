@@ -1,6 +1,7 @@
 import {App} from "/common/js/app.js";
 import {RequestHeader} from "/common/js/constant.js";
 import {CurrencyConverter} from "/common/js/currency_util.js";
+import {DateTimeConverter} from "/common/js/datetime_util.js";
 
 export const InvoiceCreation = (function () {
     const module = {};
@@ -54,7 +55,7 @@ export const InvoiceDetail = (function () {
             if (key === 'purchasedServices') {
                 let purchasedServiceRows = '';
                 for (const purchasedService of value) {
-                    purchasedServiceRows += getPurchasedServiceRow(value);
+                    purchasedServiceRows += getPurchasedServiceRow(purchasedService);
                 }
                 module.tableMedicalServicesDetail.find('tbody').append(purchasedServiceRows);
                 continue;
@@ -62,11 +63,23 @@ export const InvoiceDetail = (function () {
 
             if (key === 'purchasedMedicines') {
                 let takenMedicineRows = '';
-                for (const purchasedService of value) {
-                    takenMedicineRows += getTakenMedicineRow(value);
+                for (const takenMedicine of value) {
+                    takenMedicineRows += getTakenMedicineRow(takenMedicine);
                 }
                 module.tableTakenMedicinesDetail.find('tbody').append(takenMedicineRows);
                 continue;
+            }
+
+            if (key === 'createdAt') {
+                const displayDate = DateTimeConverter.convertToDisplayPattern(value);
+                module.invoiceDetailFormSelector.find(`span[data-attribute='${key}']`).text(displayDate);
+                continue;
+            }
+
+            if (typeof value === 'number') {
+                const displayPrice = CurrencyConverter.formatCurrencyVND(value);
+                module.invoiceDetailFormSelector.find(`span[data-attribute='${key}']`).text(displayPrice);
+                continue
             }
 
             module.invoiceDetailFormSelector.find(`span[data-attribute='${key}']`).text(value);

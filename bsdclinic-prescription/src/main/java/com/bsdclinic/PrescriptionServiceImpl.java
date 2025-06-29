@@ -53,4 +53,14 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
         return response;
     }
+
+    @Override
+    @Transactional
+    public void deletePrescription(String prescriptionId) {
+        Prescription prescription = prescriptionRepository.findById(prescriptionId).orElseThrow(
+                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.prescription"))
+        );
+        takenMedicineRepository.deleteByPrescriptionId(prescriptionId);
+        prescriptionRepository.delete(prescription);
+    }
 }

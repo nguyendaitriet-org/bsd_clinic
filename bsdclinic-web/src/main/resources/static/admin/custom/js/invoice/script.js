@@ -1,10 +1,12 @@
 import {App} from "/common/js/app.js";
 import {RequestHeader} from "/common/js/constant.js";
+import {CurrencyConverter} from "/common/js/currency_util.js";
 
 export const InvoiceCreation = (function () {
     const module = {};
 
-    module.init = () => {}
+    module.init = () => {
+    }
 
     module.createInvoice = (invoiceCreationParams) => {
         return $.ajax({
@@ -16,6 +18,59 @@ export const InvoiceCreation = (function () {
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);
             })
+    }
+
+    return module;
+})();
+
+export const InvoiceDetail = (function () {
+    const module = {
+        invoiceDetailFormSelector: $('#invoice-detail-form'),
+        tableMedicalServicesDetail: $('.table-medical-services-detail'),
+        tableTakenMedicinesDetail: $('.table-taken-medicines-detail')
+
+    };
+
+    module.init = () => {
+    }
+
+    const getPurchasedServiceRow = ({title, price}) =>
+        `<tr>
+            <td>${title}</td>
+            <td>${CurrencyConverter.formatCurrencyVND(price)}</td>
+        </tr>`;
+
+    const getTakenMedicineRow = ({title, purchasedQuantity, unitPrice, purchasedTotalPrice}) =>
+        `<tr>
+            <td>${title}</td>
+            <td>${purchasedQuantity}</td>
+            <td>${CurrencyConverter.formatCurrencyVND(unitPrice)}</td>
+            <td>${CurrencyConverter.formatCurrencyVND(purchasedTotalPrice)}</td>
+        </tr>`;
+
+
+    module.renderInvoiceDetail = (invoiceDetail) => {
+        for (const [key, value] of Object.entries(invoiceDetail)) {
+            if (key === 'purchasedServices') {
+                let purchasedServiceRows = '';
+                for (const purchasedService of value) {
+                    purchasedServiceRows += getPurchasedServiceRow(value);
+                }
+                module.tableMedicalServicesDetail.find('tbody').append(purchasedServiceRows);
+                continue;
+            }
+
+            if (key === 'purchasedMedicines') {
+                let takenMedicineRows = '';
+                for (const purchasedService of value) {
+                    takenMedicineRows += getTakenMedicineRow(value);
+                }
+                module.tableTakenMedicinesDetail.find('tbody').append(takenMedicineRows);
+                continue;
+            }
+
+            module.invoiceDetailFormSelector.find(`span[data-attribute='${key}']`).text(value);
+        }
     }
 
     return module;

@@ -9,10 +9,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body d-flex justify-content-between">
-                    <div class="col-6 h-100 p-5">
+                    <div id="invoice-detail-form" class="col-6 h-100 p-5">
                         <th:block th:replace="~{admin/medical_record/component/invoice_detail :: invoice-detail}"></th:block>
                     </div>
-                    <div class="col-6 h-100 p-5">
+                    <div id="prescription-detail-form" class="col-6 h-100 p-5">
                         <th:block th:replace="~{admin/medical_record/component/prescription-detail :: prescription-detail}"></th:block>
                     </div>
                 </div>

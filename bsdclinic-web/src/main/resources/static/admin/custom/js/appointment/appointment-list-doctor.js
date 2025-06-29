@@ -115,12 +115,12 @@ export const AppointmentListForDoctor = (function () {
                 {
                     targets: -1,
                     createdCell: (td, cellData, rowData) => {
-                        const status = rowData.actionStatus;
+                        const medicalRecordId = rowData.medicalRecordId;
                         let actionButton;
-                        if (status === appointmentStatusConstant.CHECKED_IN) {
-                            actionButton = `<button class="btn-create-record btn btn-sm btn-outline-success">${createRecordTitle}</button>`;
-                        } else {
+                        if (medicalRecordId) {
                             actionButton = `<button class="btn-see-record btn btn-sm btn-outline-secondary">${seeRecordTitle}</button>`;
+                        } else {
+                            actionButton = `<button class="btn-create-record btn btn-sm btn-outline-success">${createRecordTitle}</button>`;
                         }
                         $(td).html(actionButton);
                     }
@@ -156,8 +156,8 @@ export const AppointmentListForDoctor = (function () {
 
     module.redirectToMedicalRecordDetail = (medicalRecordId, appointmentId) => {
         location.href = ADMIN_MEDICAL_RECORD_DETAIL
-                .replace('{medicalRecordId}', medicalRecordId)
-                .replace('{appointmentId}', appointmentId);
+            .replace('{medicalRecordId}', medicalRecordId)
+            .replace('{appointmentId}', appointmentId);
     }
 
     return module;

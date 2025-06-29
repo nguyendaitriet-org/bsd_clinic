@@ -4,6 +4,7 @@ import {DateTimeConverter} from "/common/js/datetime_util.js";
 import {DateTimePattern} from "/common/js/constant.js";
 import {CurrencyConverter} from "/common/js/currency_util.js";
 import {PrescriptionCreation} from "/admin/custom/js/prescription/script.js";
+import {InvoiceCreation, InvoiceDetail} from "/admin/custom/js/invoice/script.js";
 
 export const MedicalRecordCreation = (function () {
     const module = {};
@@ -271,7 +272,8 @@ export const MedicalRecordPrescription = (function () {
         externalMedicinesTableSelector: $('#external-medicines-table'),
         addExternalMedicineButtonSelector: $('#btn-add-external-medicine'),
 
-        createInvoiceAndPrescriptionButtonSelector: $('.create-invoice-prescription-btn')
+        createInvoiceAndPrescriptionButtonSelector: $('.create-invoice-prescription-btn'),
+        seeInvoiceAndPrescriptionButtonSelector: $('.see-invoice-prescription-btn')
     };
 
     module.init = () => {
@@ -411,9 +413,17 @@ export const MedicalRecordPrescription = (function () {
             App.showSweetAlertConfirmation('warning', confirmApplyTitle, finishExaminationAfterCreatingInvoice).then((result) => {
                 if (result.isConfirmed) {
                     const createPrescriptionParams = PrescriptionCreation.getCreatePrescriptionParams();
-                    PrescriptionCreation.createPrescription(createPrescriptionParams).then((response) => {
-                        App.showSweetAlert('success', createSuccess);
-                        console.log(response);
+                    PrescriptionCreation.createPrescription(createPrescriptionParams).then(prescriptionResponse => {
+                        const createInvoiceParams = {
+                            medicalRecordId: prescriptionResponse.medicalRecordId,
+                            patientName: MedicalRecordUpdating.patientNameSelector.data('value'),
+                            purchasedMedicines: prescriptionResponse.takenMedicines,
+                            medicinesTotalPrice: getMedicineGrandTotalPrice()
+                        }
+                        InvoiceCreation.createInvoice(createInvoiceParams).then(invoiceResponse => {
+                            InvoiceDetail.renderInvoiceDetail(invoiceResponse);
+                            App.showSweetAlert('success', createSuccess);
+                        })
                     });
                 }
             });

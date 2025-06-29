@@ -37,7 +37,7 @@
                             <label class="form-label required-field" th:text="#{title.full_name}"
                                    for="patient-full-name"></label>
                             <input type="text" class="form-control" name="patientName" id="patient-full-name"
-                                    th:value="${appointment.patientName}">
+                                    th:value="${appointment.patientName}" th:data-value="${appointment.patientName}">
                         </div>
                         <div class="col-md-3 with-validation">
                             <label class="form-label required-field" th:text="#{title.birthday}"
@@ -209,7 +209,7 @@
                             <button class="btn btn-primary create-invoice-prescription-btn"
                                     th:text="#{title.prescription_invoice.create}"></button>
                             <button class="btn btn-dark see-invoice-prescription-btn"
-                                    th:text="#{title.prescription_invoice.see}" hidden
+                                    th:text="#{title.prescription_invoice.see}"
                                     data-bs-toggle="modal" data-bs-target="#prescription-invoice-modal"></button>
                             <button class="btn btn-danger finish-examination-btn"
                                     th:text="#{title.medical_record.finish}"></button>

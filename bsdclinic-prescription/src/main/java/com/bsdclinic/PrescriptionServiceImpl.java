@@ -46,11 +46,20 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             takenMedicineRepository.saveAll(takenMedicines);
         }
 
-        List<String> takenMedicineIds = request.getTakenMedicines().stream().map(TakenMedicineDto::getMedicineId).toList();
-        List<TakenMedicineDto> takenMedicineDtos = prescriptionRepository.getTakenMedicinesByMedicineIds(takenMedicineIds);
+        List<TakenMedicineDto> takenMedicineDtos = prescriptionRepository.getTakenMedicinesByPrescriptionId(prescription.getPrescriptionId());
         CreatePrescriptionResponse response = prescriptionMapper.toDto(prescription);
         response.setTakenMedicines(takenMedicineDtos);
 
         return response;
+    }
+
+    @Override
+    @Transactional
+    public void deletePrescription(String prescriptionId) {
+        Prescription prescription = prescriptionRepository.findById(prescriptionId).orElseThrow(
+                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.prescription"))
+        );
+        takenMedicineRepository.deleteByPrescriptionId(prescriptionId);
+        prescriptionRepository.delete(prescription);
     }
 }

@@ -20,6 +20,7 @@ public class CreateInvoiceResponse {
     private BigDecimal servicesTotalPrice;
     private BigDecimal advance;
     private List<PurchasedMedicine> purchasedMedicines;
+    private BigDecimal medicinesTotalPrice;
     private BigDecimal grandTotalPrice;
     private BigDecimal remainingPrice;
 }

@@ -5,4 +5,5 @@ import com.bsdclinic.dto.response.CreateInvoiceResponse;
 
 public interface InvoiceService {
     CreateInvoiceResponse createInvoice(CreateInvoiceRequest request);
+    void deleteInvoice(String invoiceId);
 }

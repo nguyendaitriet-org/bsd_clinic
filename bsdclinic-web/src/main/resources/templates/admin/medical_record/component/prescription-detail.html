@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<th:block th:fragment="prescription-detail">
+    <div class="logo-clinic d-flex justify-content-between mb-3">
+        <div class="my-auto">(Logo + Tên phòng khám)</div>
+        <div class="btn-group">
+            <button class="btn btn-sm btn-dark" th:text="#{title.prescription.print}"></button>
+            <button class="btn btn-sm btn-danger" th:text="#{title.prescription.delete}"></button>
+        </div>
+    </div>
+    <h3 class="mb-3 fw-bolder text-center" th:text="#{title.prescription}"></h3>
+    <div class="mb-3 d-flex justify-content-between">
+        <div>
+            <strong th:text="#{title.full_name}"></strong>:&nbsp;<span data-attribute="patientName"></span>
+        </div>
+        <div>
+            <strong th:text="#{title.created_at}"></strong>:&nbsp;<span data-attribute="createdAt"></span>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <strong th:text="#{title.medicine.internal}"></strong>:&nbsp;
+    </div>
+    <table class="table table-bordered table-internal-medicine">
+        <thead class="table-light">
+        <tr>
+            <th th:text="#{title.medicine.name}"></th>
+            <th th:text="#{title.quantity}"></th>
+            <th th:text="#{title.usage}"></th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="mb-3">
+        <strong th:text="#{title.medicine.external}"></strong>:&nbsp;
+    </div>
+    <table class="table table-bordered table-external-medicine">
+        <thead class="table-light">
+        <tr>
+            <th th:text="#{title.medicine.name}"></th>
+            <th th:text="#{title.quantity}"></th>
+            <th th:text="#{title.usage}"></th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="mb-3">
+        <span class="h6" th:text="#{title.instruction}"></span>:&nbsp;
+        <span class="h6 fw-bolder" data-attribute="instruction"></span>
+    </div>
+
+    <div class="mb-3">
+        <span class="h6" th:text="#{title.re_examination}"></span>:&nbsp;
+        <span class="h6 fw-bolder" data-attribute="reExamination"></span>
+    </div>
+
+    <div class="text-end">
+        <em th:text="#{title.prescription.doctor_confirmation}"></em>
+    </div>
+</th:block>

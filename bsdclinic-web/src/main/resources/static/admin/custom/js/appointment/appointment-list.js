@@ -5,6 +5,7 @@ import {App} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
 import {DateTimePattern} from "/common/js/constant.js";
+import {RequestHeader} from "/common/js/constant.js";
 
 export const AppointmentListForCreation = (function () {
     const module = {
@@ -413,24 +414,25 @@ export const AppointmentDetail = (function () {
             }
             const appointmentId = module.appointmentIdInputSelector.val();
 
-            $.ajax({
-                headers: {
-                    "accept": "application/json",
-                    "content-type": "application/json"
-                },
-                type: 'PATCH',
-                url: API_ADMIN_APPOINTMENT_WITH_ID.replace('{appointmentId}', appointmentId),
-                data: JSON.stringify(appointmentUpdateParams),
-            })
-                .done(() => {
+            module.updateAppointment(appointmentId, appointmentUpdateParams)
+                .then(() => {
                     App.showSweetAlert('success', operationSuccess, '');
                     setTimeout(() => location.reload(), 1000);
                 })
-                .fail((jqXHR) => {
+                .catch((jqXHR) => {
                     App.handleResponseMessageByStatusCode(jqXHR);
                     FormHandler.handleServerValidationError(module.appointmentDetailModalSelector, jqXHR);
                 })
         });
+    }
+
+    module.updateAppointment = (appointmentId, appointmentUpdateParams) => {
+        return $.ajax({
+            headers: RequestHeader.JSON_TYPE,
+            type: 'PATCH',
+            url: API_ADMIN_APPOINTMENT_WITH_ID.replace('{appointmentId}', appointmentId),
+            data: JSON.stringify(appointmentUpdateParams),
+        })
     }
 
     return module;

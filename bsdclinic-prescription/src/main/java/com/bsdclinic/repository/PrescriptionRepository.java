@@ -16,10 +16,11 @@ public interface PrescriptionRepository extends JpaRepository<Prescription, Stri
                 "m.title," +
                 "t.purchasedQuantity," +
                 "m.unitPrice," +
-                "t.purchasedTotalPrice" +
+                "t.purchasedTotalPrice, " +
+                "t.usage " +
             ") " +
             "FROM Medicine m " +
             "INNER JOIN TakenMedicine t ON m.medicineId = t.medicineId " +
-            "WHERE m.medicineId IN :medicineIds ")
-    List<TakenMedicineDto> getTakenMedicinesByMedicineIds(List<String> medicineIds);
+            "WHERE t.prescriptionId = :prescriptionId ")
+    List<TakenMedicineDto> getTakenMedicinesByPrescriptionId(String prescriptionId);
 }

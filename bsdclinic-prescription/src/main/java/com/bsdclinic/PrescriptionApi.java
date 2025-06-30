@@ -17,4 +17,10 @@ public class PrescriptionApi {
     public CreatePrescriptionResponse createPrescription(@RequestBody @Valid CreatePrescriptionRequest createPrescriptionRequest) {
         return prescriptionService.createPrescription(createPrescriptionRequest);
     }
+
+    @RoleAuthorization.AdminAndDoctorAuthorization
+    @DeleteMapping(WebUrl.API_ADMIN_PRESCRIPTION_WITH_ID)
+    public void deletePrescription(@PathVariable String prescriptionId) {
+        prescriptionService.deletePrescription(prescriptionId);
+    }
 }

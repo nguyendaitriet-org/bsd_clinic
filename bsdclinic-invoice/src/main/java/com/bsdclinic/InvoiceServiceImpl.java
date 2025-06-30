@@ -58,4 +58,12 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         return invoiceMapper.toDto(invoice);
     }
+
+    @Override
+    public void deleteInvoice(String invoiceId) {
+        Invoice invoice = invoiceRepository.findById(invoiceId).orElseThrow(
+                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.invoice"))
+        );
+        invoiceRepository.delete(invoice);
+    }
 }

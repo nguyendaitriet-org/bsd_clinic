@@ -3,6 +3,8 @@ import {FormHandler} from "/common/js/form.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
 import {DateTimePattern} from "/common/js/constant.js";
 import {CurrencyConverter} from "/common/js/currency_util.js";
+import {PrescriptionCreation, PrescriptionDetail} from "/admin/custom/js/prescription/script.js";
+import {InvoiceCreation, InvoiceDetail} from "/admin/custom/js/invoice/script.js";
 
 export const MedicalRecordCreation = (function () {
     const module = {};
@@ -181,8 +183,10 @@ export const MedicalRecordUpdating = (function () {
     const handleSaveMedicalRecordButton = () => {
         module.saveMedicalRecordButton.on('click', function () {
             const medicalRecordData = getMedicalRecordData();
-            App.showSweetAlertConfirmation('warning', confirmApplyTitle, '').then(() => {
-                saveMedicalRecordData(medicalRecordData);
+            App.showSweetAlertConfirmation('warning', confirmApplyTitle, '').then((result) => {
+                if (result.isConfirmed) {
+                    saveMedicalRecordData(medicalRecordData);
+                }
             });
         });
     }
@@ -227,10 +231,12 @@ export const MedicalRecordDeletion = (function () {
 
     const handleDeleteMedicalRecord = () => {
         module.deleteMedicalRecordButtonSelector.on('click', function () {
-            App.showSweetAlertConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then(() => {
-                const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
-                const medicalRecordId = MedicalRecordUpdating.medicalRecordIdSelector.val();
-                deleteMedicalRecord(medicalRecordId, appointmentId);
+            App.showSweetAlertConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then((result) => {
+                if (result.isConfirmed) {
+                    const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
+                    const medicalRecordId = MedicalRecordUpdating.medicalRecordIdSelector.val();
+                    deleteMedicalRecord(medicalRecordId, appointmentId);
+                }
             });
         });
     }
@@ -264,15 +270,20 @@ export const MedicalRecordPrescription = (function () {
         medicineQuantitySelector: $('.medicine-total-price'),
 
         externalMedicinesTableSelector: $('#external-medicines-table'),
-        addExternalMedicineButtonSelector: $('#btn-add-external-medicine')
+        addExternalMedicineButtonSelector: $('#btn-add-external-medicine'),
+
+        createInvoiceAndPrescriptionButtonSelector: $('.create-invoice-prescription-btn'),
+        seeInvoiceAndPrescriptionButtonSelector: $('.see-invoice-prescription-btn')
     };
 
     module.init = () => {
         initMedicineServerSelect();
         handleSelectedInternalMedicine();
         handleRemoveInternalMedicineButton();
+        handleInternalMedicineQuantityChange();
         handleAddExternalMedicineButton();
         handleRemoveExternalMedicineButton();
+        handleCreateInvoiceAndPrescriptionButton();
     }
 
     /* Handle internal medicine */
@@ -310,14 +321,18 @@ export const MedicalRecordPrescription = (function () {
             <tr>
                 <input class="medicine-id" type="hidden" value="${medicineId}">
                 <td>${title}</td>
-                <td class="medicine-quantity-input">
-                    <input min="0" class="form-control form-control-sm" type="number" name="quantity" value="1" data-price="${unitPrice}">
+                <td>
+                    <input class="medicine-quantity-input" min="0" class="form-control form-control-sm" type="number"
+                            name="quantity" value="1" data-price="${unitPrice}">
                 </td>
-                <td class="medicine-price-text">
+                <td class="medicine-unit-price-text" data-price="${unitPrice}">
                     ${CurrencyConverter.formatCurrencyVND(unitPrice)}
                 </td>
-                <td class="medicine-usage-input">
-                    <input class="form-control form-control-sm" type="text" name="usage" value="${usage}">
+                <td>
+                    <input class="form-control form-control-sm medicine-usage-input" type="text" name="usage" value="${usage}">
+                </td>
+                <td class="medicine-purchased-total-price-text" data-price="${unitPrice}">
+                    ${CurrencyConverter.formatCurrencyVND(unitPrice)}
                 </td>
                 <td class="text-center">
                     <button type="button" class="btn btn-sm btn-outline-danger btn-remove-internal-medicine">X</button>
@@ -326,8 +341,14 @@ export const MedicalRecordPrescription = (function () {
         `;
     }
 
-    const handleMedicineQuantityChange = () => {
-        $('.medicine-quantity-input input').on('change', function () {
+    const handleInternalMedicineQuantityChange = () => {
+        module.selectedInternalMedicinesTableSelector.on('change', '.medicine-quantity-input', function () {
+            const unitPriceSelector = $(this).closest('tr').find('.medicine-unit-price-text');
+            const unitPriceValue = unitPriceSelector.data('price');
+            const purchasedTotalPrice = Number($(this).val()) * Number(unitPriceValue);
+            const purchasedTotalPriceSelector = $(this).closest('tr').find('.medicine-purchased-total-price-text')
+            purchasedTotalPriceSelector.data('price', purchasedTotalPrice);
+            purchasedTotalPriceSelector.text(CurrencyConverter.formatCurrencyVND(purchasedTotalPrice))
             renderMedicineTotalPrice();
         })
     }
@@ -335,16 +356,13 @@ export const MedicalRecordPrescription = (function () {
     const renderMedicineTotalPrice = () => {
         const serviceTotalPrice = getMedicineGrandTotalPrice();
         module.medicineTotalPriceSelector.text(CurrencyConverter.formatCurrencyVND(serviceTotalPrice));
-        handleMedicineQuantityChange();
     }
 
     const getMedicineGrandTotalPrice = () => {
         let grandTotal = 0;
-        $('.medicine-quantity-input').each(function () {
-            const priceInputSelector = $(this).find('input');
-            const quantity = priceInputSelector.val() || 0;
-            const unitPrice = parseFloat(priceInputSelector.data('price')) || 0;
-            grandTotal += quantity * unitPrice;
+        $('.medicine-purchased-total-price-text').each(function () {
+            const purchasedTotalPrice = Number($(this).data('price') || 0);
+            grandTotal += purchasedTotalPrice;
         });
 
         return grandTotal;
@@ -365,13 +383,13 @@ export const MedicalRecordPrescription = (function () {
             module.externalMedicinesTableSelector.find('tbody').append(
                 `<tr>
                     <td>
-                        <input class="form-control form-control-sm" type="text">
+                        <input class="form-control form-control-sm medicine-title" type="text">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="number" min="0" value="0">
+                        <input class="form-control form-control-sm medicine-quantity" type="text">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="text">
+                        <input class="form-control form-control-sm medicine-usage" type="text">
                     </td>
                     <td class="text-center">
                         <button type="button" class="btn btn-sm btn-outline-danger btn-remove-external-medicine">X</button>
@@ -386,6 +404,33 @@ export const MedicalRecordPrescription = (function () {
             const currentRowSelector = $(this).closest('tr');
             currentRowSelector.remove();
         });
+    }
+
+    /* Handle invoice and prescription creation */
+
+    const handleCreateInvoiceAndPrescriptionButton = () => {
+        module.createInvoiceAndPrescriptionButtonSelector.on('click', function () {
+            App.showSweetAlertConfirmation('warning', confirmApplyTitle, finishExaminationAfterCreatingInvoice).then((result) => {
+                if (result.isConfirmed) {
+                    const createPrescriptionParams = PrescriptionCreation.getCreatePrescriptionParams();
+                    /* Create prescription first */
+                    PrescriptionCreation.createPrescription(createPrescriptionParams).then(prescriptionResponse => {
+                        const createInvoiceParams = {
+                            medicalRecordId: prescriptionResponse.medicalRecordId,
+                            patientName: MedicalRecordUpdating.patientNameSelector.data('value'),
+                            purchasedMedicines: prescriptionResponse.takenMedicines,
+                            medicinesTotalPrice: getMedicineGrandTotalPrice()
+                        }
+                        /* Then create invoice with response from the created prescription */
+                        InvoiceCreation.createInvoice(createInvoiceParams).then(invoiceResponse => {
+                            InvoiceDetail.renderInvoiceDetail(invoiceResponse);
+                            PrescriptionDetail.renderPrescriptionDetail(prescriptionResponse);
+                            App.showSweetAlert('success', createSuccess);
+                        })
+                    });
+                }
+            });
+        })
     }
 
     return module;

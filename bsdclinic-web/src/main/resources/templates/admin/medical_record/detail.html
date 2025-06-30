@@ -37,7 +37,7 @@
                             <label class="form-label required-field" th:text="#{title.full_name}"
                                    for="patient-full-name"></label>
                             <input type="text" class="form-control" name="patientName" id="patient-full-name"
-                                    th:value="${appointment.patientName}">
+                                    th:value="${appointment.patientName}" th:data-value="${appointment.patientName}">
                         </div>
                         <div class="col-md-3 with-validation">
                             <label class="form-label required-field" th:text="#{title.birthday}"
@@ -156,6 +156,7 @@
                                     <th th:text="#{title.quantity}"></th>
                                     <th th:text="#{title.unit_price}"></th>
                                     <th th:text="#{title.usage}"></th>
+                                    <th th:text="#{title.total_price}"></th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -163,7 +164,7 @@
                                 <tfoot>
                                     <tr>
                                         <th th:text="#{placeholder.medicine.total_price}"></th>
-                                        <th id="medicine-total-price" colspan="4">0 đ</th>
+                                        <th id="medicine-total-price" colspan="5">0 đ</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -179,8 +180,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                </tbody>
+                                <tbody></tbody>
                                 <tfoot>
                                     <tr>
                                         <td colspan="4" class=" border-bottom-0">
@@ -206,13 +206,14 @@
                     <div class="my-5 d-flex justify-content-between">
                         <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
                         <div>
-                            <button class="btn btn-dark create-invoice-btn"
-                                    th:text="#{title.invoice.create}"></button>
-                            <button class="btn btn-success create-prescription-btn"
-                                    th:text="#{title.prescription.create}"></button>
-                            <button class="btn btn-primary save-invoice-prescription-btn"
-                                    th:text="#{title.save_only}"></button>
-                            <button class="btn btn-warning remove-record-btn"
+                            <button class="btn btn-primary create-invoice-prescription-btn"
+                                    th:text="#{title.prescription_invoice.create}"></button>
+                            <button class="btn btn-dark see-invoice-prescription-btn"
+                                    th:text="#{title.prescription_invoice.see}"
+                                    data-bs-toggle="modal" data-bs-target="#prescription-invoice-modal"></button>
+                            <button class="btn btn-danger finish-examination-btn"
+                                    th:text="#{title.medical_record.finish}"></button>
+                            <button class="btn btn-warning reset-prescription-btn"
                                     th:text="#{title.reset}"></button>
                         </div>
                     </div>
@@ -220,6 +221,8 @@
             </div>
         </div>
     </div>
+    <!-- Prescription-invoice modal -->
+    <th:block th:replace="~{admin/medical_record/component/prescription_invoice_modal :: prescription-invoice}"></th:block>
 </th:block>
 
 <th:block layout:fragment="medical-record-script">

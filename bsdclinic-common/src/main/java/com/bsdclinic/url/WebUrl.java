@@ -68,9 +68,11 @@ public class WebUrl {
 
     // API Admin - prescription
     public static final String API_ADMIN_PRESCRIPTION = API_ADMIN_ENDPOINT + "/prescriptions";
+    public static final String API_ADMIN_PRESCRIPTION_WITH_ID = API_ADMIN_PRESCRIPTION + "/{prescriptionId}";
 
     // API Admin - invoice
     public static final String API_ADMIN_INVOICE = API_ADMIN_ENDPOINT + "/invoices";
+    public static final String API_ADMIN_INVOICE_WITH_ID = API_ADMIN_INVOICE + "/{invoiceId}";
 
 
     // API Client - Appointment

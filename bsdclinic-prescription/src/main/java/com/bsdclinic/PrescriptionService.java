@@ -5,4 +5,5 @@ import com.bsdclinic.dto.response.CreatePrescriptionResponse;
 
 public interface PrescriptionService {
     CreatePrescriptionResponse createPrescription(CreatePrescriptionRequest request);
+    void deletePrescription(String prescriptionId);
 }

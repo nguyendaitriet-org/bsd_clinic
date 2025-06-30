@@ -19,10 +19,17 @@ public class TakenMedicineDto {
     private BigDecimal purchasedTotalPrice;
     private String usage;
 
-    public TakenMedicineDto(String title, Integer purchasedQuantity, BigDecimal unitPrice, BigDecimal purchasedTotalPrice) {
+    public TakenMedicineDto(
+            String title,
+            Integer purchasedQuantity,
+            BigDecimal unitPrice,
+            BigDecimal purchasedTotalPrice,
+            String usage
+    ) {
         this.title = title;
         this.purchasedQuantity = purchasedQuantity;
         this.unitPrice = unitPrice;
         this.purchasedTotalPrice = purchasedTotalPrice;
+        this.usage = usage;
     }
 }

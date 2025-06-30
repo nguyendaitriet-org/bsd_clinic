@@ -1,0 +1,76 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+
+<th:block th:fragment="invoice-detail">
+    <div class="logo-clinic d-flex justify-content-between mb-3">
+        <div class="my-auto">(Logo + Tên phòng khám)</div>
+        <div class="btn-group">
+            <button class="btn btn-sm btn-dark" th:text="#{title.invoice.print}"></button>
+            <button class="btn btn-sm btn-danger" th:text="#{title.invoice.delete}"></button>
+        </div>
+    </div>
+
+    <h3 class="mb-3 fw-bolder text-center" th:text="#{title.invoice}"></h3>
+
+    <div class="mb-3 d-flex justify-content-between">
+        <div>
+            <strong th:text="#{title.full_name}"></strong>:&nbsp;<span data-attribute="patientName"></span>
+        </div>
+        <div>
+            <strong th:text="#{title.created_at}"></strong>:&nbsp;<span data-attribute="createdAt"></span>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <strong th:text="#{title.medical_service.taken}"></strong>:&nbsp;
+    </div>
+    <table class="table table-bordered table-medical-services-detail">
+        <thead class="table-light">
+            <tr>
+                <th th:text="#{title.medical_service.name}"></th>
+                <th th:text="#{title.price}"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="mb-3">
+        <strong th:text="#{title.medical_service.total_price}"></strong>:&nbsp;<span data-attribute="servicesTotalPrice">1.225.000 đ</span>
+    </div>
+
+    <div class="mb-3">
+        <strong th:text="#{title.medical_service.advance}"></strong>:&nbsp;<span data-attribute="advance">500.000 đ</span>
+    </div>
+
+    <div class="mb-3">
+        <strong th:text="#{title.medicine.taken}"></strong>:&nbsp;
+    </div>
+    <table class="table table-bordered table-taken-medicines-detail">
+        <thead class="table-light">
+            <tr>
+                <th th:text="#{title.medicine.name}"></th>
+                <th th:text="#{title.quantity}"></th>
+                <th th:text="#{title.unit_price}"></th>
+                <th th:text="#{title.total_price}"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="mb-3">
+        <strong th:text="#{title.medicine.total_price}"></strong>:&nbsp;<span data-attribute="medicinesTotalPrice">1.950.000 đ</span>
+    </div>
+
+    <div class="mb-3">
+        <span class="h5" th:text="#{title.invoice.total_price}"></span>:&nbsp;
+        <span class="h5 fw-bolder" data-attribute="grandTotalPrice">3.175.000 đ</span>
+    </div>
+
+    <div class="mb-3">
+        <span class="h5" th:text="#{title.invoice.remaining_price}"></span>:&nbsp;
+        <span class="h5 fw-bolder" data-attribute="remainingPrice">2.675.000 đ</span>
+    </div>
+
+    <div class="text-end">
+        <em th:text="#{title.invoice.confirm_paid}"></em>
+    </div>
+</th:block>

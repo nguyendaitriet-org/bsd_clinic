@@ -3,7 +3,7 @@ import {FormHandler} from "/common/js/form.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
 import {DateTimePattern} from "/common/js/constant.js";
 import {CurrencyConverter} from "/common/js/currency_util.js";
-import {PrescriptionCreation} from "/admin/custom/js/prescription/script.js";
+import {PrescriptionCreation, PrescriptionDetail} from "/admin/custom/js/prescription/script.js";
 import {InvoiceCreation, InvoiceDetail} from "/admin/custom/js/invoice/script.js";
 
 export const MedicalRecordCreation = (function () {
@@ -413,6 +413,7 @@ export const MedicalRecordPrescription = (function () {
             App.showSweetAlertConfirmation('warning', confirmApplyTitle, finishExaminationAfterCreatingInvoice).then((result) => {
                 if (result.isConfirmed) {
                     const createPrescriptionParams = PrescriptionCreation.getCreatePrescriptionParams();
+                    /* Create prescription first */
                     PrescriptionCreation.createPrescription(createPrescriptionParams).then(prescriptionResponse => {
                         const createInvoiceParams = {
                             medicalRecordId: prescriptionResponse.medicalRecordId,
@@ -420,8 +421,10 @@ export const MedicalRecordPrescription = (function () {
                             purchasedMedicines: prescriptionResponse.takenMedicines,
                             medicinesTotalPrice: getMedicineGrandTotalPrice()
                         }
+                        /* Then create invoice with response from the created prescription */
                         InvoiceCreation.createInvoice(createInvoiceParams).then(invoiceResponse => {
                             InvoiceDetail.renderInvoiceDetail(invoiceResponse);
+                            PrescriptionDetail.renderPrescriptionDetail(prescriptionResponse);
                             App.showSweetAlert('success', createSuccess);
                         })
                     });

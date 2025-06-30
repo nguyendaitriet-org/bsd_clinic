@@ -1,9 +1,11 @@
 import {App} from "/common/js/app.js";
 import {RequestHeader} from "/common/js/constant.js";
+import {DateTimeConverter} from "/common/js/datetime_util.js";
 
 export const PrescriptionCreation = (function () {
     const module = {
         medicalRecordIdSelector: $('#medical-record-id'),
+        patientNameSelector: $('#patient-full-name'),
         instructionSelector: $('#instruction'),
         reExaminationSelector: $('#re-examination'),
         selectedInternalMedicinesTableSelector: $('#selected-internal-medicines-table'),
@@ -39,6 +41,7 @@ export const PrescriptionCreation = (function () {
         });
 
         return {
+            patientName: module.patientNameSelector.data('value'),
             medicalRecordId: module.medicalRecordIdSelector.val(),
             instruction: module.instructionSelector.val().trim(),
             reExamination: module.reExaminationSelector.val().trim(),
@@ -57,6 +60,56 @@ export const PrescriptionCreation = (function () {
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);
             })
+    }
+
+    return module;
+})();
+
+export const PrescriptionDetail = (function () {
+    const module = {
+        invoiceDetailFormSelector: $('#prescription-detail-form'),
+        tableInternalMedicineDetail: $('.table-internal-medicine'),
+        tableExternalMedicineDetail: $('.table-external-medicine')
+
+    };
+
+    module.init = () => {}
+
+    const getMedicineDetailRow = ({title, purchasedQuantity, usage}) =>
+        `<tr>
+            <td>${title}</td>
+            <td>${purchasedQuantity}</td>
+            <td>${usage}</td>
+        </tr>`;
+
+    module.renderPrescriptionDetail = (prescriptionDetail) => {
+        for (const [key, value] of Object.entries(prescriptionDetail)) {
+            if (key === 'externalMedicines') {
+                let externalMedicineRows = '';
+                for (const externalMedicine of value) {
+                    externalMedicineRows += getMedicineDetailRow(externalMedicine);
+                }
+                module.tableExternalMedicineDetail.find('tbody').append(externalMedicineRows);
+                continue;
+            }
+
+            if (key === 'takenMedicines') {
+                let internalMedicineRows = '';
+                for (const internalMedicine of value) {
+                    internalMedicineRows += getMedicineDetailRow(internalMedicine);
+                }
+                module.tableInternalMedicineDetail.find('tbody').append(internalMedicineRows);
+                continue;
+            }
+
+            if (key === 'createdAt') {
+                const displayDate = DateTimeConverter.convertToDisplayPattern(value);
+                module.invoiceDetailFormSelector.find(`span[data-attribute='${key}']`).text(displayDate);
+                continue;
+            }
+
+            module.invoiceDetailFormSelector.find(`span[data-attribute='${key}']`).text(value);
+        }
     }
 
     return module;

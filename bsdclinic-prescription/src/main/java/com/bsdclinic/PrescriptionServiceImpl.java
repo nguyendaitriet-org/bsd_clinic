@@ -46,8 +46,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             takenMedicineRepository.saveAll(takenMedicines);
         }
 
-        List<String> takenMedicineIds = request.getTakenMedicines().stream().map(TakenMedicineDto::getMedicineId).toList();
-        List<TakenMedicineDto> takenMedicineDtos = prescriptionRepository.getTakenMedicinesByMedicineIds(takenMedicineIds);
+        List<TakenMedicineDto> takenMedicineDtos = prescriptionRepository.getTakenMedicinesByPrescriptionId(prescription.getPrescriptionId());
         CreatePrescriptionResponse response = prescriptionMapper.toDto(prescription);
         response.setTakenMedicines(takenMedicineDtos);
 

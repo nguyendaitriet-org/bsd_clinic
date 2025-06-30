@@ -13,6 +13,7 @@ import java.util.List;
 public class CreatePrescriptionResponse {
     private String prescriptionId;
     private String medicalRecordId;
+    private String patientName;
     private List<ExternalMedicine> externalMedicines;
     private String instruction;
     private String reExamination;

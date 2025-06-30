@@ -1,0 +1,13 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.13.xsd">
+
+    <changeSet id="30062025_1" author="triet.nguyendai" context="Add column patient_name">
+        <sql>
+            ALTER TABLE prescriptions
+            ADD COLUMN patient_name VARCHAR(255);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

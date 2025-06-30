@@ -10,5 +10,6 @@
     <include file="/db/changelog/subscribers-changelog.xml"></include>
     <include file="/db/changelog/clinic-info-changelog.xml"></include>
     <include file="/db/changelog/medicines-changelog.xml"></include>
+    <include file="/db/changelog/prescriptions-changelog.xml"></include>
 
 </databaseChangeLog>

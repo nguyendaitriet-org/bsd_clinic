@@ -11,17 +11,17 @@
     <h3 class="mb-3 fw-bolder text-center" th:text="#{title.prescription}"></h3>
     <div class="mb-3 d-flex justify-content-between">
         <div>
-            <strong th:text="#{title.full_name}"></strong>:&nbsp;<span>Nguyễn Văn A</span>
+            <strong th:text="#{title.full_name}"></strong>:&nbsp;<span data-attribute="patientName"></span>
         </div>
         <div>
-            <strong th:text="#{title.created_at}"></strong>:&nbsp;<span>20/10/2024</span>
+            <strong th:text="#{title.created_at}"></strong>:&nbsp;<span data-attribute="createdAt"></span>
         </div>
     </div>
 
     <div class="mb-3">
         <strong th:text="#{title.medicine.internal}"></strong>:&nbsp;
     </div>
-    <table class="table table-bordered table-internal-prescription">
+    <table class="table table-bordered table-internal-medicine">
         <thead class="table-light">
         <tr>
             <th th:text="#{title.medicine.name}"></th>
@@ -29,19 +29,13 @@
             <th th:text="#{title.usage}"></th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>Kem Xóa Sẹo Thâm, Rỗ, Lõm Rejuvaskin Scar Esthetique</td>
-            <td>2</td>
-            <td>Thoa 1 lần hoặc 2 lần mỗi ngày lên các vết sẹo cần điều trị</td>
-        </tr>
-        </tbody>
+        <tbody></tbody>
     </table>
 
     <div class="mb-3">
         <strong th:text="#{title.medicine.external}"></strong>:&nbsp;
     </div>
-    <table class="table table-bordered table-external-prescription">
+    <table class="table table-bordered table-external-medicine">
         <thead class="table-light">
         <tr>
             <th th:text="#{title.medicine.name}"></th>
@@ -49,23 +43,17 @@
             <th th:text="#{title.usage}"></th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>Thực phẩm chức năng Viên uống trị nám tàn nhang Transino EX Whitening</td>
-            <td>10 viên</td>
-            <td>Mỗi ngày sử dụng 2 lần SÁNG, TỐI</td>
-        </tr>
-        </tbody>
+        <tbody></tbody>
     </table>
 
     <div class="mb-3">
         <span class="h6" th:text="#{title.instruction}"></span>:&nbsp;
-        <span class="h6 fw-bolder">Sử dụng thuốc sau khi ăn 30 phút</span>
+        <span class="h6 fw-bolder" data-attribute="instruction"></span>
     </div>
 
     <div class="mb-3">
         <span class="h6" th:text="#{title.re_examination}"></span>:&nbsp;
-        <span class="h6 fw-bolder">Tái khám sau ít nhất 7 ngày</span>
+        <span class="h6 fw-bolder" data-attribute="reExamination"></span>
     </div>
 
     <div class="text-end">

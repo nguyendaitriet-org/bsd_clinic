@@ -79,7 +79,7 @@ export const InvoiceDetail = (function () {
             if (typeof value === 'number') {
                 const displayPrice = CurrencyConverter.formatCurrencyVND(value);
                 module.invoiceDetailFormSelector.find(`span[data-attribute='${key}']`).text(displayPrice);
-                continue
+                continue;
             }
 
             module.invoiceDetailFormSelector.find(`span[data-attribute='${key}']`).text(value);

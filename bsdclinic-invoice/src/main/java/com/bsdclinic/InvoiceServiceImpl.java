@@ -1,7 +1,7 @@
 package com.bsdclinic;
 
 import com.bsdclinic.dto.request.CreateInvoiceRequest;
-import com.bsdclinic.dto.response.CreateInvoiceResponse;
+import com.bsdclinic.dto.response.InvoiceResponse;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.invoice.Invoice;
 import com.bsdclinic.invoice.PurchasedService;
@@ -24,7 +24,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     private final ServiceMedicalService serviceMedicalService;
 
     @Override
-    public CreateInvoiceResponse createInvoice(CreateInvoiceRequest request) {
+    public InvoiceResponse createInvoice(CreateInvoiceRequest request) {
         String medicalRecordId = request.getMedicalRecordId();
         MedicalRecord medicalRecord = medicalRecordRepository.findByMedicalRecordId(medicalRecordId);
         if (medicalRecord == null) {
@@ -55,6 +55,15 @@ public class InvoiceServiceImpl implements InvoiceService {
 
             invoiceRepository.save(invoice);
         }
+
+        return invoiceMapper.toDto(invoice);
+    }
+
+    @Override
+    public InvoiceResponse getInvoice(String invoiceId) {
+        Invoice invoice = invoiceRepository.findById(invoiceId).orElseThrow(
+                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.invoice"))
+        );
 
         return invoiceMapper.toDto(invoice);
     }

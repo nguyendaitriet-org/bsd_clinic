@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CreatePrescriptionResponse {
+public class PrescriptionResponse {
     private String prescriptionId;
     private String medicalRecordId;
     private String patientName;

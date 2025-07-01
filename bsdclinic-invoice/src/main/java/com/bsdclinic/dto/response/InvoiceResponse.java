@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CreateInvoiceResponse {
+public class InvoiceResponse {
     private String invoiceId;
     private String medicalRecordId;
     private Instant createdAt;

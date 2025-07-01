@@ -2,7 +2,7 @@ package com.bsdclinic;
 
 import com.bsdclinic.dto.TakenMedicineDto;
 import com.bsdclinic.dto.request.CreatePrescriptionRequest;
-import com.bsdclinic.dto.response.CreatePrescriptionResponse;
+import com.bsdclinic.dto.response.PrescriptionResponse;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.medicine.TakenMedicine;
 import com.bsdclinic.message.MessageProvider;
@@ -26,7 +26,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     @Override
     @Transactional
-    public CreatePrescriptionResponse createPrescription(CreatePrescriptionRequest request) {
+    public PrescriptionResponse createPrescription(CreatePrescriptionRequest request) {
         String medicalRecordId = request.getMedicalRecordId();
         if (!medicalRecordRepository.existsByMedicalRecordId(medicalRecordId)) {
             throw new NotFoundException(messageProvider.getMessage("validation.no_exist.medical_record"));
@@ -46,8 +46,21 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             takenMedicineRepository.saveAll(takenMedicines);
         }
 
+        PrescriptionResponse response = prescriptionMapper.toDto(prescription);
         List<TakenMedicineDto> takenMedicineDtos = prescriptionRepository.getTakenMedicinesByPrescriptionId(prescription.getPrescriptionId());
-        CreatePrescriptionResponse response = prescriptionMapper.toDto(prescription);
+        response.setTakenMedicines(takenMedicineDtos);
+
+        return response;
+    }
+
+    @Override
+    public PrescriptionResponse getPrescription(String prescriptionId) {
+        Prescription prescription = prescriptionRepository.findById(prescriptionId).orElseThrow(
+                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.prescription"))
+        );
+
+        PrescriptionResponse response = prescriptionMapper.toDto(prescription);
+        List<TakenMedicineDto> takenMedicineDtos = prescriptionRepository.getTakenMedicinesByPrescriptionId(prescription.getPrescriptionId());
         response.setTakenMedicines(takenMedicineDtos);
 
         return response;

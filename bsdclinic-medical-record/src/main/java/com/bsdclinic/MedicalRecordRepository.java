@@ -1,6 +1,7 @@
 package com.bsdclinic;
 
 import com.bsdclinic.dto.response.IMedicalRecordResponse;
+import com.bsdclinic.dto.response.MedicalRecordResponse;
 import com.bsdclinic.medical_record.MedicalRecord;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, String>, JpaSpecificationExecutor<MedicalRecord> {
@@ -49,4 +51,19 @@ public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, St
     );
 
     MedicalRecord findByMedicalRecordId(String medicalRecordId);
+
+    @Query("SELECT new com.bsdclinic.dto.response.MedicalRecordResponse(" +
+                "m.appointmentId," +
+                "m.medicalRecordId," +
+                "m.medicalHistory," +
+                "m.diagnosis, " +
+                "m.advance," +
+                "p.prescriptionId," +
+                "i.invoiceId " +
+            ") " +
+            "FROM MedicalRecord m " +
+            "LEFT JOIN Prescription p ON m.medicalRecordId = p.medicalRecordId " +
+            "LEFT JOIN Invoice i ON m.medicalRecordId = i.medicalRecordId " +
+            "WHERE m.medicalRecordId = :medicalRecordId ")
+    Optional<MedicalRecordResponse> getMedicalRecordResponse(String medicalRecordId);
 }

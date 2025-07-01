@@ -2,7 +2,7 @@ package com.bsdclinic;
 
 import com.bsdclinic.dto.TakenMedicineDto;
 import com.bsdclinic.dto.request.CreatePrescriptionRequest;
-import com.bsdclinic.dto.response.CreatePrescriptionResponse;
+import com.bsdclinic.dto.response.PrescriptionResponse;
 import com.bsdclinic.medicine.TakenMedicine;
 import com.bsdclinic.prescription.Prescription;
 import org.mapstruct.*;
@@ -11,5 +11,5 @@ import org.mapstruct.*;
 public interface PrescriptionMapper {
     Prescription toEntity(CreatePrescriptionRequest request);
     TakenMedicine toTakenMedicine(TakenMedicineDto takenMedicineDto);
-    CreatePrescriptionResponse toDto(Prescription prescription);
+    PrescriptionResponse toDto(Prescription prescription);
 }

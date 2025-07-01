@@ -36,7 +36,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         /* Create new prescription for the medical record only when there is no prescription yet */
         if (prescription == null) {
             prescription = prescriptionMapper.toEntity(request);
-            prescription = prescriptionRepository.save(prescription);
+            prescription = prescriptionRepository.saveAndFlush(prescription);
             String prescriptionId = prescription.getPrescriptionId();
             List<TakenMedicine> takenMedicines = request.getTakenMedicines().stream().map(item -> {
                 TakenMedicine takenMedicine = prescriptionMapper.toTakenMedicine(item);

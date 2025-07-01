@@ -270,10 +270,7 @@ export const MedicalRecordPrescription = (function () {
         medicineQuantitySelector: $('.medicine-total-price'),
 
         externalMedicinesTableSelector: $('#external-medicines-table'),
-        addExternalMedicineButtonSelector: $('#btn-add-external-medicine'),
-
-        createInvoiceAndPrescriptionButtonSelector: $('.create-invoice-prescription-btn'),
-        seeInvoiceAndPrescriptionButtonSelector: $('.see-invoice-prescription-btn')
+        addExternalMedicineButtonSelector: $('#btn-add-external-medicine')
     };
 
     module.init = () => {
@@ -283,7 +280,6 @@ export const MedicalRecordPrescription = (function () {
         handleInternalMedicineQuantityChange();
         handleAddExternalMedicineButton();
         handleRemoveExternalMedicineButton();
-        handleCreateInvoiceAndPrescriptionButton();
     }
 
     /* Handle internal medicine */
@@ -354,11 +350,11 @@ export const MedicalRecordPrescription = (function () {
     }
 
     const renderMedicineTotalPrice = () => {
-        const serviceTotalPrice = getMedicineGrandTotalPrice();
+        const serviceTotalPrice = module.getMedicineGrandTotalPrice();
         module.medicineTotalPriceSelector.text(CurrencyConverter.formatCurrencyVND(serviceTotalPrice));
     }
 
-    const getMedicineGrandTotalPrice = () => {
+    module.getMedicineGrandTotalPrice = () => {
         let grandTotal = 0;
         $('.medicine-purchased-total-price-text').each(function () {
             const purchasedTotalPrice = Number($(this).data('price') || 0);
@@ -404,33 +400,6 @@ export const MedicalRecordPrescription = (function () {
             const currentRowSelector = $(this).closest('tr');
             currentRowSelector.remove();
         });
-    }
-
-    /* Handle invoice and prescription creation */
-
-    const handleCreateInvoiceAndPrescriptionButton = () => {
-        module.createInvoiceAndPrescriptionButtonSelector.on('click', function () {
-            App.showSweetAlertConfirmation('warning', confirmApplyTitle, finishExaminationAfterCreatingInvoice).then((result) => {
-                if (result.isConfirmed) {
-                    const createPrescriptionParams = PrescriptionCreation.getCreatePrescriptionParams();
-                    /* Create prescription first */
-                    PrescriptionCreation.createPrescription(createPrescriptionParams).then(prescriptionResponse => {
-                        const createInvoiceParams = {
-                            medicalRecordId: prescriptionResponse.medicalRecordId,
-                            patientName: MedicalRecordUpdating.patientNameSelector.data('value'),
-                            purchasedMedicines: prescriptionResponse.takenMedicines,
-                            medicinesTotalPrice: getMedicineGrandTotalPrice()
-                        }
-                        /* Then create invoice with response from the created prescription */
-                        InvoiceCreation.createInvoice(createInvoiceParams).then(invoiceResponse => {
-                            InvoiceDetail.renderInvoiceDetail(invoiceResponse);
-                            PrescriptionDetail.renderPrescriptionDetail(prescriptionResponse);
-                            App.showSweetAlert('success', createSuccess);
-                        })
-                    });
-                }
-            });
-        })
     }
 
     return module;

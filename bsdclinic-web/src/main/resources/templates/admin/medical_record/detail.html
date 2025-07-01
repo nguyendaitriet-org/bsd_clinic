@@ -230,6 +230,7 @@
 <th:block layout:fragment="medical-record-script">
     <script type="module">
         import {MedicalRecordUpdating, MedicalRecordDeletion, MedicalRecordPrescription} from '/admin/custom/js/medical_record/detail.js';
+        import {MedicalRecordInvoicePrescription} from '/admin/custom/js/medical_record/invoice_prescription.js';
 
         (function () {
             document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(el => {
@@ -249,6 +250,7 @@
             MedicalRecordUpdating.init();
             MedicalRecordDeletion.init();
             MedicalRecordPrescription.init();
+            MedicalRecordInvoicePrescription.init();
         })();
     </script>
 </th:block>

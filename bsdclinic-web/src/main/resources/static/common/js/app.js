@@ -20,13 +20,11 @@ export const App = (function () {
             case 404:
                 module.showErrorMessage(ERROR_404);
                 break;
-            case 422:
-            case 500:
-                module.showErrorMessage(ERROR_500);
-                break;
             case 200:
                 module.showSuccessMessage(operationSuccess);
                 break;
+            default:
+                module.showErrorMessage(ERROR_500);
         }
     }
 

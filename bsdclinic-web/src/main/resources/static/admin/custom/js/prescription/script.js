@@ -112,5 +112,14 @@ export const PrescriptionDetail = (function () {
         }
     }
 
+    module.getPrescription = (prescriptionId) => {
+        return $.ajax({
+            url: API_ADMIN_PRESCRIPTION_WITH_ID.replace('{prescriptionId}', prescriptionId)
+        })
+            .fail((jqXHR) => {
+                App.handleResponseMessageByStatusCode(jqXHR);
+            })
+    }
+
     return module;
 })();

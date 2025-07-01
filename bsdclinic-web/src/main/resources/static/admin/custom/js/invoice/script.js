@@ -64,6 +64,7 @@ export const InvoiceDetail = (function () {
             if (key === 'purchasedMedicines') {
                 let takenMedicineRows = '';
                 for (const takenMedicine of value) {
+                    console.log('takenMedicine', takenMedicine)
                     takenMedicineRows += getTakenMedicineRow(takenMedicine);
                 }
                 module.tableTakenMedicinesDetail.find('tbody').append(takenMedicineRows);
@@ -84,6 +85,15 @@ export const InvoiceDetail = (function () {
 
             module.invoiceDetailFormSelector.find(`span[data-attribute='${key}']`).text(value);
         }
+    }
+
+    module.getInvoice = (invoiceId) => {
+        return $.ajax({
+            url: API_ADMIN_INVOICE_WITH_ID.replace('{invoiceId}', invoiceId)
+        })
+            .fail((jqXHR) => {
+                App.handleResponseMessageByStatusCode(jqXHR);
+            })
     }
 
     return module;

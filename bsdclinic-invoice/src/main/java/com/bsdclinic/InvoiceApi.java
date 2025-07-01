@@ -1,7 +1,7 @@
 package com.bsdclinic;
 
 import com.bsdclinic.dto.request.CreateInvoiceRequest;
-import com.bsdclinic.dto.response.CreateInvoiceResponse;
+import com.bsdclinic.dto.response.InvoiceResponse;
 import com.bsdclinic.url.WebUrl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +14,14 @@ public class InvoiceApi {
 
     @RoleAuthorization.AdminAndDoctorAuthorization
     @PostMapping(WebUrl.API_ADMIN_INVOICE)
-    public CreateInvoiceResponse createInvoice(@RequestBody @Valid CreateInvoiceRequest createInvoiceRequest) {
+    public InvoiceResponse createInvoice(@RequestBody @Valid CreateInvoiceRequest createInvoiceRequest) {
         return invoiceService.createInvoice(createInvoiceRequest);
+    }
+
+    @RoleAuthorization.AdminAndDoctorAuthorization
+    @GetMapping(WebUrl.API_ADMIN_INVOICE_WITH_ID)
+    public InvoiceResponse getInvoice(@PathVariable String invoiceId) {
+        return invoiceService.getInvoice(invoiceId);
     }
 
     @RoleAuthorization.AdminAndDoctorAuthorization

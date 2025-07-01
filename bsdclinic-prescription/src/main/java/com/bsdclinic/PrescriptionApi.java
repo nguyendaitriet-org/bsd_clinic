@@ -1,7 +1,7 @@
 package com.bsdclinic;
 
 import com.bsdclinic.dto.request.CreatePrescriptionRequest;
-import com.bsdclinic.dto.response.CreatePrescriptionResponse;
+import com.bsdclinic.dto.response.PrescriptionResponse;
 import com.bsdclinic.url.WebUrl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +14,13 @@ public class PrescriptionApi {
 
     @RoleAuthorization.AdminAndDoctorAuthorization
     @PostMapping(WebUrl.API_ADMIN_PRESCRIPTION)
-    public CreatePrescriptionResponse createPrescription(@RequestBody @Valid CreatePrescriptionRequest createPrescriptionRequest) {
+    public PrescriptionResponse createPrescription(@RequestBody @Valid CreatePrescriptionRequest createPrescriptionRequest) {
         return prescriptionService.createPrescription(createPrescriptionRequest);
+    }
+
+    @GetMapping(WebUrl.API_ADMIN_PRESCRIPTION_WITH_ID)
+    public PrescriptionResponse getPrescription(@PathVariable String prescriptionId) {
+        return prescriptionService.getPrescription(prescriptionId);
     }
 
     @RoleAuthorization.AdminAndDoctorAuthorization

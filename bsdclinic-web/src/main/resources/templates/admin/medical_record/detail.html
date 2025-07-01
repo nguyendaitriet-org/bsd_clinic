@@ -31,6 +31,8 @@
             <div class="tab-content mt-5 mb-3">
                 <input type="hidden" th:value="${appointment.appointmentId}" id="appointment-id">
                 <input type="hidden" th:value="${medicalRecord.medicalRecordId}" id="medical-record-id">
+                <input type="hidden" th:value="${medicalRecord.invoiceId}" id="invoice-id">
+                <input type="hidden" th:value="${medicalRecord.prescriptionId}" id="prescription-id">
                 <div class="tab-pane active show" id="medical-exam-area">
                     <div class="row g-3">
                         <div class="col-md-6 with-validation">

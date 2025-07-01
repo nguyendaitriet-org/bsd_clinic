@@ -114,9 +114,9 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 
     @Override
     public MedicalRecordResponse getMedicalRecord(String medicalRecordId) {
-        MedicalRecord medicalRecord = medicalRecordRepository.findById(medicalRecordId).orElseThrow(
-                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.medical_record")));
-        return medicalRecordMapper.toDto(medicalRecord);
+        return medicalRecordRepository.getMedicalRecordResponse(medicalRecordId).orElseThrow(
+                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.medical_record"))
+        );
     }
 
     @Override

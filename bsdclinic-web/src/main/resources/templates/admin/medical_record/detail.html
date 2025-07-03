@@ -27,7 +27,12 @@
 <th:block layout:fragment="content-body">
     <div class="card mx-auto px-5 col-xl-11 col-md-10">
         <div class="card-body medical-record-detail-area">
-            <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
+            <div class="d-flex">
+                <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
+                <div class="btn action-status-badge ms-auto me-0" th:classappend="'action-status-' + ${appointment.actionStatus}"
+                     th:text="${appointmentStatusMap[appointment.actionStatus]}">
+                </div>
+            </div>
             <div class="tab-content mt-5 mb-3">
                 <input type="hidden" th:value="${appointment.appointmentId}" id="appointment-id">
                 <input type="hidden" th:value="${medicalRecord.medicalRecordId}" id="medical-record-id">
@@ -215,8 +220,6 @@
                                     data-bs-toggle="modal" data-bs-target="#prescription-invoice-modal"></button>
                             <button class="btn btn-danger finish-examination-btn"
                                     th:text="#{title.medical_record.finish}"></button>
-                            <button class="btn btn-warning reset-prescription-btn"
-                                    th:text="#{title.reset}"></button>
                         </div>
                     </div>
                 </div>

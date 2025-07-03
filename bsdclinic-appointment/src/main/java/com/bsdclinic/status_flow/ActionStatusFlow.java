@@ -18,7 +18,7 @@ public class ActionStatusFlow {
         transitions.put(ActionStatus.PENDING, Set.of(ActionStatus.ACCEPTED, ActionStatus.REJECTED));
         transitions.put(ActionStatus.ACCEPTED, Set.of(ActionStatus.CHECKED_IN, ActionStatus.REJECTED));
         transitions.put(ActionStatus.CHECKED_IN, Set.of(ActionStatus.EXAMINING, ActionStatus.REJECTED));
-        transitions.put(ActionStatus.EXAMINING, Set.of(ActionStatus.ADVANCED, ActionStatus.CHECKED_IN, ActionStatus.FINISHED));
+        transitions.put(ActionStatus.EXAMINING, Set.of(ActionStatus.ADVANCED, ActionStatus.CHECKED_IN, ActionStatus.FINISHED, ActionStatus.FINISHED_NO_PAY));
         transitions.put(ActionStatus.ADVANCED, Set.of(ActionStatus.FINISHED));
         transitions.put(ActionStatus.FINISHED, Set.of(ActionStatus.UNPAID, ActionStatus.PAID, ActionStatus.EXAMINING));
         transitions.put(ActionStatus.UNPAID, Set.of(ActionStatus.PAID, ActionStatus.FINISHED));

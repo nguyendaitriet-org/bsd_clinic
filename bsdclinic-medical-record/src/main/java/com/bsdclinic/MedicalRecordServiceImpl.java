@@ -157,6 +157,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     @Transactional
     @Modifying
     public void deleteMedicalRecord(String medicalRecordId, String appointmentId) {
+        // TODO: Handle deleting corresponding invoice and prescription
         Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(
                 () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.appointment"))
         );

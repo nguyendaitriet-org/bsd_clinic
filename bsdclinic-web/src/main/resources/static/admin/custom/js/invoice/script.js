@@ -28,8 +28,9 @@ export const InvoiceDetail = (function () {
     const module = {
         invoiceDetailFormSelector: $('#invoice-detail-form'),
         tableMedicalServicesDetail: $('.table-medical-services-detail'),
-        tableTakenMedicinesDetail: $('.table-taken-medicines-detail')
+        tableTakenMedicinesDetail: $('.table-taken-medicines-detail'),
 
+        invoiceIdInput: 'input[data-attribute="invoiceId"]'
     };
 
     module.init = () => {
@@ -52,6 +53,10 @@ export const InvoiceDetail = (function () {
 
     module.renderInvoiceDetail = (invoiceDetail) => {
         for (const [key, value] of Object.entries(invoiceDetail)) {
+            if (key === 'invoiceId') {
+                module.invoiceDetailFormSelector.find(module.invoiceIdInput).val(value);
+            }
+
             if (key === 'purchasedServices') {
                 let purchasedServiceRows = '';
                 for (const purchasedService of value) {
@@ -64,7 +69,6 @@ export const InvoiceDetail = (function () {
             if (key === 'purchasedMedicines') {
                 let takenMedicineRows = '';
                 for (const takenMedicine of value) {
-                    console.log('takenMedicine', takenMedicine)
                     takenMedicineRows += getTakenMedicineRow(takenMedicine);
                 }
                 module.tableTakenMedicinesDetail.find('tbody').append(takenMedicineRows);
@@ -73,7 +77,7 @@ export const InvoiceDetail = (function () {
 
             if (key === 'createdAt') {
                 const displayDate = DateTimeConverter.convertToDisplayPattern(value);
-                module.invoiceDetailFormSelector.find(`span[data-attribute='${key}']`).text(displayDate);
+                module.invoiceDetailFormSelector.find(`span[data-attribute='createdAt']`).text(displayDate);
                 continue;
             }
 
@@ -89,6 +93,24 @@ export const InvoiceDetail = (function () {
 
     module.getInvoice = (invoiceId) => {
         return $.ajax({
+            url: API_ADMIN_INVOICE_WITH_ID.replace('{invoiceId}', invoiceId)
+        })
+            .fail((jqXHR) => {
+                App.handleResponseMessageByStatusCode(jqXHR);
+            })
+    }
+
+    return module;
+})();
+
+export const InvoiceDeletion = (function () {
+    const module = {};
+
+    module.init = () => {}
+
+    module.deleteInvoice = (invoiceId) => {
+        return $.ajax({
+            type: 'DELETE',
             url: API_ADMIN_INVOICE_WITH_ID.replace('{invoiceId}', invoiceId)
         })
             .fail((jqXHR) => {

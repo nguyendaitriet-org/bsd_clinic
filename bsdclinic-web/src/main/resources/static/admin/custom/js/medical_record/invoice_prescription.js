@@ -1,7 +1,8 @@
 import {App} from "/common/js/app.js";
 import {MedicalRecordUpdating, MedicalRecordPrescription} from "/admin/custom/js/medical_record/detail.js";
-import {InvoiceCreation, InvoiceDetail} from "/admin/custom/js/invoice/script.js";
-import {PrescriptionCreation, PrescriptionDetail} from "/admin/custom/js/prescription/script.js";
+import {InvoiceCreation, InvoiceDetail, InvoiceDeletion} from "/admin/custom/js/invoice/script.js";
+import {PrescriptionCreation, PrescriptionDetail, PrescriptionDeletion} from "/admin/custom/js/prescription/script.js";
+import {AppointmentDetail} from "/admin/custom/js/appointment/appointment-list.js";
 
 export const MedicalRecordInvoicePrescription = (function () {
     const module = {
@@ -11,18 +12,29 @@ export const MedicalRecordInvoicePrescription = (function () {
         createInvoiceAndPrescriptionButtonSelector: $('.create-invoice-prescription-btn'),
         seeInvoiceAndPrescriptionButtonSelector: $('.see-invoice-prescription-btn'),
         finishExaminationButtonSelector: $('.finish-examination-btn'),
+        deleteInvoiceButtonSelector: $('.delete-invoice-btn'),
+        deletePrescriptionButtonSelector: $('.delete-prescription-btn'),
     }
 
     module.init = () => {
         handleCreateInvoiceAndPrescriptionButton();
         handleShowInvoiceAndPrescriptionDetail();
+        handleDeleteInvoiceButton();
+        handleDeletePrescriptionButton();
+        handleFinishExaminationButton();
     }
 
     const handleCreateInvoiceAndPrescriptionButton = () => {
         module.createInvoiceAndPrescriptionButtonSelector.on('click', function () {
-            App.showSweetAlertConfirmation('warning', confirmApplyTitle, finishExaminationAfterCreatingInvoice).then((result) => {
+            /* Handle warning message before creating invoice and prescription */
+            const createPrescriptionParams = PrescriptionCreation.getCreatePrescriptionParams();
+            const warningMessage = handleCreateInvoicePrescriptionWarningMessage(
+                MedicalRecordUpdating.selectedMedicalServiceIds.length,
+                createPrescriptionParams.takenMedicines.length,
+            );
+
+            App.showSweetAlertConfirmation('warning', confirmApplyTitle, warningMessage).then((result) => {
                 if (result.isConfirmed) {
-                    const createPrescriptionParams = PrescriptionCreation.getCreatePrescriptionParams();
                     /* Create prescription first */
                     PrescriptionCreation.createPrescription(createPrescriptionParams).then(prescriptionResponse => {
                         const createInvoiceParams = {
@@ -32,15 +44,26 @@ export const MedicalRecordInvoicePrescription = (function () {
                             medicinesTotalPrice: MedicalRecordPrescription.getMedicineGrandTotalPrice()
                         }
                         /* Then create invoice with response from the created prescription */
-                        InvoiceCreation.createInvoice(createInvoiceParams).then(invoiceResponse => {
-                            InvoiceDetail.renderInvoiceDetail(invoiceResponse);
-                            PrescriptionDetail.renderPrescriptionDetail(prescriptionResponse);
+                        InvoiceCreation.createInvoice(createInvoiceParams).then(() => {
+                            const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
+                            AppointmentDetail.updateAppointment(appointmentId, {actionStatus: appointmentStatusConstant.FINISHED});
                             App.showSweetAlert('success', createSuccess);
+                            setTimeout(() => location.reload(), 1000);
                         })
                     });
                 }
             });
         })
+    }
+
+    const handleCreateInvoicePrescriptionWarningMessage = (selectedServicesCount, selectedMedicinesCount) => {
+        if (selectedServicesCount === 0) {
+            return noChosenMedicalService;
+        }
+        if (selectedMedicinesCount === 0) {
+            return noChosenInternalMedicine;
+        }
+        return finishExaminationAfterCreatingInvoice;
     }
 
     const handleShowInvoiceAndPrescriptionDetail = () => {
@@ -57,11 +80,11 @@ export const MedicalRecordInvoicePrescription = (function () {
             });
         }
         if (invoiceId && prescriptionId) {
-            module.createInvoiceAndPrescriptionButtonSelector.prop('hidden', true)
+            module.createInvoiceAndPrescriptionButtonSelector.prop('hidden', true);
             disableRelatedInputs();
         }
         if (!invoiceId && !prescriptionId) {
-            module.seeInvoiceAndPrescriptionButtonSelector.prop('hidden', true)
+            module.seeInvoiceAndPrescriptionButtonSelector.prop('hidden', true);
         }
     }
 
@@ -70,12 +93,71 @@ export const MedicalRecordInvoicePrescription = (function () {
         MedicalRecordUpdating.diagnosisSelector.prop('disabled', true);
         MedicalRecordUpdating.advanceSelector.prop('disabled', true);
         MedicalRecordUpdating.medicalServiceSelector.prop('disabled', true);
+        MedicalRecordUpdating.selectedServicesTableSelector.find('button').prop('hidden', true);
         MedicalRecordPrescription.internalMedicineSelector.prop('disabled', true);
         MedicalRecordPrescription.addExternalMedicineButtonSelector.prop('disabled', true);
         PrescriptionCreation.instructionSelector.prop('disabled', true);
         PrescriptionCreation.reExaminationSelector.prop('disabled', true);
 
         module.finishExaminationButtonSelector.prop('hidden', true);
+    }
+
+    const handleDeleteInvoiceButton = () => {
+        module.deleteInvoiceButtonSelector.on('click', function () {
+            App.showSweetAlertConfirmation('error', confirmApplyTitle, deleteInvoiceCaution).then((result) => {
+                if (result.isConfirmed) {
+                    const invoiceId = InvoiceDetail.invoiceDetailFormSelector.find(InvoiceDetail.invoiceIdInput).val();
+                    InvoiceDeletion.deleteInvoice(invoiceId)
+                        .then(() => {
+                            const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
+                            AppointmentDetail.updateAppointment(appointmentId, {actionStatus: appointmentStatusConstant.EXAMINING});
+                            App.showSweetAlert('success', operationSuccess);
+                            setTimeout(() => location.reload(), 1000);
+                        })
+                        .catch((jqXHR) => {
+                            App.handleResponseMessageByStatusCode(jqXHR);
+                        });
+                }
+            });
+        });
+    }
+
+    const handleDeletePrescriptionButton = () => {
+        module.deletePrescriptionButtonSelector.on('click', function () {
+            App.showSweetAlertConfirmation('error', confirmApplyTitle, deletePrescriptionCaution).then((result) => {
+                if (result.isConfirmed) {
+                    const prescriptionId = PrescriptionDetail.prescriptionDetailFormSelector.find(PrescriptionDetail.prescriptionIdInput).val();
+                    PrescriptionDeletion.deletePrescription(prescriptionId)
+                        .then(() => {
+                            const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
+                            AppointmentDetail.updateAppointment(appointmentId, {actionStatus: appointmentStatusConstant.EXAMINING});
+                            App.showSweetAlert('success', operationSuccess);
+                            setTimeout(() => location.reload(), 1000);
+                        })
+                        .catch((jqXHR) => {
+                            App.handleResponseMessageByStatusCode(jqXHR);
+                        });
+                }
+            });
+        });
+    }
+
+    const handleFinishExaminationButton = () => {
+        module.finishExaminationButtonSelector.on('click', function () {
+            App.showSweetAlertConfirmation('error', confirmApplyTitle, finishExaminationCaution).then((result) => {
+                if (result.isConfirmed) {
+                    const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
+                    AppointmentDetail.updateAppointment(appointmentId, {actionStatus: appointmentStatusConstant.FINISHED_NO_PAY})
+                        .then(() => {
+                            App.showSweetAlert('success', operationSuccess);
+                            setTimeout(() => window.location.href = ADMIN_MEDICAL_RECORD_INDEX, 1000)
+                        })
+                        .catch((jqXHR) => {
+                            App.handleResponseMessageByStatusCode(jqXHR);
+                        });
+                }
+                });
+            });
     }
 
     return module;

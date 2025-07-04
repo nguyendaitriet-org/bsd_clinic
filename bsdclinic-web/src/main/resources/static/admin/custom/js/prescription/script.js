@@ -67,10 +67,11 @@ export const PrescriptionCreation = (function () {
 
 export const PrescriptionDetail = (function () {
     const module = {
-        invoiceDetailFormSelector: $('#prescription-detail-form'),
+        prescriptionDetailFormSelector: $('#prescription-detail-form'),
         tableInternalMedicineDetail: $('.table-internal-medicine'),
-        tableExternalMedicineDetail: $('.table-external-medicine')
+        tableExternalMedicineDetail: $('.table-external-medicine'),
 
+        prescriptionIdInput: 'input[data-attribute="prescriptionId"]'
     };
 
     module.init = () => {}
@@ -84,6 +85,10 @@ export const PrescriptionDetail = (function () {
 
     module.renderPrescriptionDetail = (prescriptionDetail) => {
         for (const [key, value] of Object.entries(prescriptionDetail)) {
+            if (key === 'prescriptionId') {
+                module.prescriptionDetailFormSelector.find(module.prescriptionIdInput).val(value);
+            }
+
             if (key === 'externalMedicines') {
                 let externalMedicineRows = '';
                 for (const externalMedicine of value) {
@@ -104,16 +109,34 @@ export const PrescriptionDetail = (function () {
 
             if (key === 'createdAt') {
                 const displayDate = DateTimeConverter.convertToDisplayPattern(value);
-                module.invoiceDetailFormSelector.find(`span[data-attribute='${key}']`).text(displayDate);
+                module.prescriptionDetailFormSelector.find(`span[data-attribute='${key}']`).text(displayDate);
                 continue;
             }
 
-            module.invoiceDetailFormSelector.find(`span[data-attribute='${key}']`).text(value);
+            module.prescriptionDetailFormSelector.find(`span[data-attribute='${key}']`).text(value);
         }
     }
 
     module.getPrescription = (prescriptionId) => {
         return $.ajax({
+            url: API_ADMIN_PRESCRIPTION_WITH_ID.replace('{prescriptionId}', prescriptionId)
+        })
+            .fail((jqXHR) => {
+                App.handleResponseMessageByStatusCode(jqXHR);
+            })
+    }
+
+    return module;
+})();
+
+export const PrescriptionDeletion = (function () {
+    const module = {};
+
+    module.init = () => {}
+
+    module.deletePrescription = (prescriptionId) => {
+        return $.ajax({
+            type: 'DELETE',
             url: API_ADMIN_PRESCRIPTION_WITH_ID.replace('{prescriptionId}', prescriptionId)
         })
             .fail((jqXHR) => {

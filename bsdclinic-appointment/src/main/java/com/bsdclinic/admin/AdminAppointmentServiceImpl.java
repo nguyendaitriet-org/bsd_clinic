@@ -120,6 +120,12 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
         Appointment appointment = getAppointmentById(appointmentId);
         ActionStatus currentStatus = ActionStatus.valueOf(appointment.getActionStatus());
         ActionStatus nextStatus = ActionStatus.valueOf(appointmentUpdate.getActionStatus());
+
+        /* Do nothing if both action status are the same */
+        if (currentStatus.equals(nextStatus)) {
+            return;
+        }
+
         if (!actionStatusFlow.canTransition(currentStatus, nextStatus)) {
             throw new BadRequestException(
                     Map.of(Appointment_.ACTION_STATUS, messageProvider.getMessage("validation.invalid.appointment_status"))

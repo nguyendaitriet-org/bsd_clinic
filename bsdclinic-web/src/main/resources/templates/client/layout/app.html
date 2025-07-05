@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="vi">
 <head>
-    <title th:text="#{title.app}"></title>
+    <link rel="icon" th:href="@{/common/img/BSD_Clinic_Logo_circle.png}" type="image/x-icon" />
+    <title th:text="#{title.app.client.short}"></title>
     <th:block th:replace="~{client/layout/head :: app-head}"></th:block>
     <th:block layout:fragment="content-style"></th:block>
 </head>
@@ -13,7 +14,7 @@
 <!-- Spinner End -->
 
 <!-- Topbar Start -->
-<th:block th:replace="~{client/layout/topbar :: app-topbar}"></th:block>
+<!--<th:block th:replace="~{client/layout/topbar :: app-topbar}"></th:block>-->
 <!-- Topbar End -->
 
 <!-- Navbar & Hero Start -->
@@ -25,9 +26,7 @@
 <!-- Modal Search End -->
 
 <!-- Body Start -->
-<th:block layout:fragment="content-body">
-    Content body
-</th:block>
+<th:block layout:fragment="content-body"></th:block>
 <!-- Body End -->
 
 <!-- Footer Start -->

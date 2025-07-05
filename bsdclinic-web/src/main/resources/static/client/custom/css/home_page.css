@@ -1,0 +1,13 @@
+.service-img img {
+    height: 225px;
+    object-fit: cover;
+}
+
+.blog-item img {
+    height: 310px;
+    object-fit: cover;
+}
+
+.service-item p {
+    text-align: justify;
+}

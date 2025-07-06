@@ -8,9 +8,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -54,9 +55,28 @@ public class ClinicInfoDto {
     @NotEmpty(message = "{validation.required.working_hours}")
     private Map<String, List<ClinicInfo.TimeRange>> workingHours;
 
+    private Map<String, List<Map<String, List<String>>>> workingHoursJson;
+
     private List<LocalDate> dayOffs;
 
     public List<LocalDate> getDayOffs() {
         return dayOffs == null ? List.of() : dayOffs;
+    }
+
+    public Map<String, List<Map<String, List<String>>>> convertWorkingHours(
+            Map<String, List<ClinicInfo.TimeRange>> input
+    ) {
+        return input.entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> entry.getValue().stream()
+                                .map(timeRange -> {
+                                    Map<String, List<String>> timeMap = new HashMap<>();
+                                    timeMap.put("start", List.of(timeRange.start().toString()));
+                                    timeMap.put("end", List.of(timeRange.end().toString()));
+                                    return timeMap;
+                                })
+                                .collect(Collectors.toList())
+                ));
     }
 }

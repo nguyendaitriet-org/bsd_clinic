@@ -26,7 +26,10 @@ public class ClinicInfoServiceImpl implements ClinicInfoService {
             throw new NotFoundException(messageProvider.getMessage("message.clinic_info.not_existed"));
         }
 
-        return clinicInfoMapper.toDto(clinicInfo.getFirst());
+        ClinicInfoDto clinicInfoDto =  clinicInfoMapper.toDto(clinicInfo.getFirst());
+        clinicInfoDto.setWorkingHoursJson(clinicInfoDto.convertWorkingHours(clinicInfoDto.getWorkingHours()));
+
+        return clinicInfoDto;
     }
 
     @Override

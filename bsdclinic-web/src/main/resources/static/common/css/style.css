@@ -174,4 +174,17 @@
 
 /* --- End of Custom checked input element --- */
 
+.text-justify {
+    text-align: justify;
+}
 
+.nav-link-highlight {
+    border: #015fc9 solid 2px;
+    border-radius: 10px;
+}
+
+.nav-link-highlight:hover {
+    color: white!important;
+    background-color: rgba(1, 95, 201, 0.51);
+    border: white solid 2px;
+}

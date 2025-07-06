@@ -2,11 +2,13 @@
 
 <th:block th:fragment="app-navbar">
     <div class="container-fluid nav-bar px-0 px-lg-4 py-lg-0">
-        <div class="container">
+        <div class="mx-sm-3">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a href="#" class="navbar-brand p-0">
-                    <h1 class="text-primary mb-0"><i class="fab fa-slack me-2"></i> LifeSure</h1>
-                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                <a th:href="@{${webUrl.CLIENT_HOME}}" class="navbar-brand p-0">
+                    <h1 class="text-primary mb-0">
+                        <img th:src="@{/common/img/BSD_Clinic_Logo.png}" alt="Logo" class="rounded-circle">
+                        <span th:text="#{title.app.client}"></span>
+                    </h1>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars"></span>
@@ -14,22 +16,23 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-0 mx-lg-auto">
                         <a th:href="@{${webUrl.CLIENT_HOME}}" class="nav-item nav-link" th:text="#{title.dashboard}"></a>
-                        <a th:href="@{${webUrl.CLIENT_APPOINTMENT_CREATE}}" class="nav-item nav-link" th:text="#{title.appointment.register.short}"></a>
+                        <a th:href="@{${webUrl.CLIENT_APPOINTMENT_CREATE}}" class="nav-item nav-link nav-link-highlight" th:text="#{title.appointment.register.short}"></a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link" data-bs-toggle="dropdown">
                                 <span class="dropdown-toggle" th:text="#{title.column}"></span>
                             </a>
                             <div class="dropdown-menu">
-                                <a href="feature.html" class="dropdown-item">Our Features</a>
-                                <a href="team.html" class="dropdown-item">Our team</a>
-                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                <a href="FAQ.html" class="dropdown-item">FAQs</a>
-                                <a href="404.html" class="dropdown-item">404 Page</a>
+                                <a href="#" class="dropdown-item">Chăm sóc da</a>
+                                <a href="#" class="dropdown-item">Liệu pháp laser</a>
+                                <a href="#" class="dropdown-item">Bệnh da mặt</a>
+                                <a href="#" class="dropdown-item">Trẻ hóa da</a>
                             </div>
                         </div>
-                        <div class="nav-btn px-3">
-                            <button class="btn-search btn btn-primary btn-md-square rounded-circle flex-shrink-0" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
-                        </div>
+                        <a href="#" class="nav-item nav-link" th:text="#{title.medical_service}"></a>
+
+<!--                        <div class="nav-btn px-3">-->
+<!--                            <button class="btn-search btn btn-primary btn-md-square rounded-circle flex-shrink-0" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>-->
+<!--                        </div>-->
                     </div>
                 </div>
                 <div class="d-none d-xl-flex flex-shrink-0 ps-4">
@@ -40,8 +43,8 @@
                         </div>
                     </a>
                     <div class="d-flex flex-column ms-3">
-                        <span>Call to Our Experts</span>
-                        <a href="tel:+ 0123 456 7890"><span class="text-dark">Free: + 0123 456 7890</span></a>
+                        <span th:text="#{title.appointment.register.short}"></span>
+                        <a href="zalo://"><span class="text-dark">Zalo: 0652478964</span></a>
                     </div>
                 </div>
             </nav>

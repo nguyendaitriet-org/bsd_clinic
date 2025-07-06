@@ -1,5 +1,7 @@
 package com.bsdclinic.controller;
 
+import com.bsdclinic.ClinicInfoDto;
+import com.bsdclinic.ClinicInfoService;
 import com.bsdclinic.RoleAuthorization;
 import com.bsdclinic.UserService;
 import com.bsdclinic.admin.AdminAppointmentService;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 public class AppointmentController {
     private final UserService userService;
     private final AdminAppointmentService adminAppointmentService;
+    private final ClinicInfoService clinicInfoService;
 
     @ModelAttribute("doctors")
     public List<IUserSelectResponse> getDoctors() {
@@ -57,6 +60,11 @@ public class AppointmentController {
     @GetMapping(WebUrl.ADMIN_APPOINTMENT_FOR_DOCTOR)
     public String toAppointmentForDoctorPage() {
         return "admin/appointment/for_doctor";
+    }
+
+    @ModelAttribute("clinicInfo")
+    public ClinicInfoDto getClinicInfo() {
+        return clinicInfoService.getClinicInfo();
     }
 
     @GetMapping(WebUrl.CLIENT_APPOINTMENT_CREATE)

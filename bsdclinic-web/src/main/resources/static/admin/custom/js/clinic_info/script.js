@@ -221,6 +221,9 @@ export const ClinicInfo = (function () {
     const handleClearTimeButton = () => {
         module.clearTimeButtonSelector.on('click', function () {
             module.timeRangeOutputSelector.val('');
+            /* Update the working hours request for updating clinic info API */
+            const selectedDay = module.clinicDayOptionSelector.val();
+            module.workingHoursRequest[selectedDay] = [];
         });
     }
 

@@ -106,17 +106,239 @@ form {
     }
 }
 
-form label{
-    display: block!important;
+form label {
+    display: block !important;
 }
 
 .text-muted {
-    color: #999ca3!important;
-    font-size: 0.9rem!important;
+    color: #999ca3 !important;
+    font-size: 0.9rem !important;
 }
+
 .with-validation .error-text {
     bottom: unset;
     left: 40%;
     top: 130%;
 }
 
+/* Clinic working hours */
+
+:root {
+    --primary-color: #015fc9;
+    --primary-light: #e6f2ff;
+    --primary-dark: #003d80;
+}
+
+.clinic-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(1, 95, 201, 0.1);
+    border: none;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 0;
+}
+
+.clinic-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(1, 95, 201, 0.15);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    transition: all 0.3s ease;
+}
+
+.card-header:hover::before {
+    right: -30%;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clinic-icon {
+    font-size: 1.5rem;
+    margin-right: 0.8rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: white;
+
+}
+
+.schedule-container {
+    padding: 1.5rem;
+}
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.day-card {
+    background: rgba(1, 95, 201, 0.02);
+    border: 1px solid rgba(1, 95, 201, 0.1);
+    border-radius: 10px;
+    padding: 0.8rem;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.day-card:hover {
+    background: var(--primary-light);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(1, 95, 201, 0.15);
+}
+
+.day-card.closed {
+    background: rgba(108, 117, 125, 0.05);
+    border-color: rgba(108, 117, 125, 0.2);
+}
+
+.day-card.closed:hover {
+    background: rgba(108, 117, 125, 0.1);
+    border-color: rgba(108, 117, 125, 0.3);
+}
+
+.day-name {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.day-card.closed .day-name {
+    color: #6c757d;
+}
+
+.day-icon {
+    color: var(--primary-color);
+    margin-right: 0.4rem;
+    font-size: 0.8rem;
+}
+
+.day-card.closed .day-icon {
+    color: #6c757d;
+}
+
+.time-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.time-slot {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.time-slot:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(1, 95, 201, 0.3);
+}
+
+.closed-text {
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+}
+
+.footer-note {
+    background: rgba(1, 95, 201, 0.05);
+    padding: 0.8rem;
+    border-top: 1px solid rgba(1, 95, 201, 0.1);
+    text-align: center;
+    color: var(--primary-dark);
+    font-size: 0.8rem;
+}
+
+.footer-note i {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .schedule-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 0.8rem;
+    }
+
+    .day-card {
+        padding: 0.6rem;
+    }
+
+    .card-header {
+        padding: 0.8rem 1rem;
+    }
+
+    .schedule-container {
+        padding: 1rem;
+    }
+
+    .day-name {
+        font-size: 0.8rem;
+    }
+
+    .time-slot {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .schedule-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .clinic-icon {
+        margin-right: 0;
+        margin-bottom: 0.3rem;
+    }
+}

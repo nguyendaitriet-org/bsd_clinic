@@ -47,7 +47,7 @@
         <th:block th:each="appointmentStatus: ${appointmentStatusMap}">
             <input type="checkbox" class="btn-check" th:id="'status-pending' + ${appointmentStatus.key}"
                    name="action-status" th:value="${appointmentStatus.key}" autocomplete="off">
-            <label class="btn action-status-badge" th:classappend="'action-status-' + ${appointmentStatus.key}"
+            <label class="btn action-status-badge" th:classappend="'action-status-filter-' + ${appointmentStatus.key}"
                    th:for="'status-pending' + ${appointmentStatus.key}">
                 <span class="z-3 position-absolute top-0 start-50 translate-middle badge rounded-pill bg-black"
                       th:text="${appointmentStatusCount[appointmentStatus.key]}">

@@ -103,3 +103,37 @@
 .btn-check:checked + .action-status-FINISHED_NO_PAY   { background-color: #b700dc!important; color: #fff!important; border-bottom: 4px solid #8a00a1 !important; }
 .btn-check:checked + .action-status-PAID       { background-color: #059669!important; color: #fff!important; border-bottom: 4px solid #047857!important; }
 .btn-check:checked + .action-status-UNPAID     { background-color: #f97316!important; color: #000!important; border-bottom: 4px solid #ea580c!important; }
+
+
+.action-status-filter-PENDING           { background-color: #1e2a3a; color: #fff!important; }
+.action-status-filter-REJECTED          { background-color: #1a2945; color: #fff!important; }
+.action-status-filter-ACCEPTED          { background-color: #253549; color: #fff!important; }
+.action-status-filter-CHECKED_IN        { background-color: #2d3748; color: #fff!important; }
+.action-status-filter-EXAMINING         { background-color: #2c3e50; color: #fff!important; }
+.action-status-filter-ADVANCED          { background-color: #2a3d54; color: #fff!important; }
+.action-status-filter-FINISHED          { background-color: #35495e; color: #fff!important; }
+.action-status-filter-FINISHED_NO_PAY   { background-color: #3a4a5c; color: #fff!important; }
+.action-status-filter-PAID              { background-color: #5a6b7d; color: #fff!important; }
+.action-status-filter-UNPAID            { background-color: #6b7c8f; color: #fff!important; }
+
+.action-status-filter-PENDING:hover    { background-color: #eab308!important; color: #000!important; }
+.action-status-filter-REJECTED:hover   { background-color: #dc2626!important; color: #fff!important; }
+.action-status-filter-ACCEPTED:hover   { background-color: #16a34a!important; color: #fff!important; }
+.action-status-filter-CHECKED_IN:hover { background-color: #2563eb!important; color: #fff!important; }
+.action-status-filter-EXAMINING:hover  { background-color: #4f46e5!important; color: #fff!important; }
+.action-status-filter-ADVANCED:hover   { background-color: #7c3aed!important; color: #fff!important; }
+.action-status-filter-FINISHED:hover   { background-color: #4b5563!important; color: #fff!important; }
+.action-status-filter-FINISHED_NO_PAY:hover   { background-color: #b700dc!important; color: #fff!important; }
+.action-status-filter-PAID:hover       { background-color: #059669!important; color: #fff!important; }
+.action-status-filter-UNPAID:hover     { background-color: #f97316!important; color: #000!important; }
+
+.btn-check:checked + .action-status-filter-PENDING    { background-color: #eab308!important; color: #000!important; border-bottom: 4px solid #d4a106!important; }
+.btn-check:checked + .action-status-filter-REJECTED   { background-color: #dc2626!important; color: #fff!important; border-bottom: 4px solid #b91c1c!important; }
+.btn-check:checked + .action-status-filter-ACCEPTED   { background-color: #16a34a!important; color: #fff!important; border-bottom: 4px solid #15803d!important; }
+.btn-check:checked + .action-status-filter-CHECKED_IN { background-color: #2563eb!important; color: #fff!important; border-bottom: 4px solid #1d4ed8!important; }
+.btn-check:checked + .action-status-filter-EXAMINING  { background-color: #4f46e5!important; color: #fff!important; border-bottom: 4px solid #4338ca!important; }
+.btn-check:checked + .action-status-filter-ADVANCED   { background-color: #7c3aed!important; color: #fff!important; border-bottom: 4px solid #6d28d9!important; }
+.btn-check:checked + .action-status-filter-FINISHED   { background-color: #4b5563!important; color: #fff!important; border-bottom: 4px solid #374151!important; }
+.btn-check:checked + .action-status-filter-FINISHED_NO_PAY   { background-color: #b700dc!important; color: #fff!important; border-bottom: 4px solid #8a00a1 !important; }
+.btn-check:checked + .action-status-filter-PAID       { background-color: #059669!important; color: #fff!important; border-bottom: 4px solid #047857!important; }
+.btn-check:checked + .action-status-filter-UNPAID     { background-color: #f97316!important; color: #000!important; border-bottom: 4px solid #ea580c!important; }

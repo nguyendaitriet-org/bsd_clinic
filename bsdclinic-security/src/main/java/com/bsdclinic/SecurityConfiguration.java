@@ -33,13 +33,12 @@ public class SecurityConfiguration {
             WebUrl.CLIENT_HOME,
             WebUrl.LOGIN,
             WebUrl.API_ADMIN_LOGIN,
+            "/client/**",
             "/api/client/**",
             "/error/**",
             "/common/**",
             "/admin/assets/**",
-            "/admin/custom/**",
-            "/client/assets/**",
-            "/client/custom/**"
+            "/admin/custom/**"
     };
 
     private final AuthUserDetailService authUserDetailService;

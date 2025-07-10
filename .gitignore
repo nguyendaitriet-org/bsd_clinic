@@ -43,3 +43,8 @@ out/
 ### Storage ###
 /storage/*
 !/storage/avatar/default.png
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

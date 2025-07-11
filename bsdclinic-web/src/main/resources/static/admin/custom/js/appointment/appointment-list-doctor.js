@@ -140,7 +140,7 @@ export const AppointmentListForDoctor = (function () {
                     const appointmentId = rowData.appointmentId;
                     MedicalRecordCreation.createMedicalRecord(appointmentId).then((response) => {
                         App.showSweetAlert('success', createSuccess);
-                        setTimeout(() => module.redirectToMedicalRecordDetail(response.medicalRecordId, appointmentId), 1000);
+                        module.redirectToMedicalRecordDetail(response.medicalRecordId, appointmentId);
                     });
                 }
             });

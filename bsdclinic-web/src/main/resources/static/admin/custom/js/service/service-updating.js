@@ -48,7 +48,7 @@ export const ServiceUpdating = (function () {
             })
                 .done(() => {
                     App.showSweetAlert('success', operationSuccess, '');
-                            setTimeout(() => window.location.href = ADMIN_MEDICAL_SERVICE_INDEX, 1000);
+                    window.location.href = ADMIN_MEDICAL_SERVICE_INDEX;
                 })
                 .fail((jqXHR) => {
                     App.handleResponseMessageByStatusCode(jqXHR);
@@ -84,7 +84,7 @@ export const MedicalServiceDeletion = (function () {
         })
             .done(() => {
                 App.showSweetAlert('success', operationSuccess, '');
-                setTimeout(() => window.location.href = ADMIN_MEDICAL_SERVICE_INDEX, 1000);
+                window.location.href = ADMIN_MEDICAL_SERVICE_INDEX;
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);

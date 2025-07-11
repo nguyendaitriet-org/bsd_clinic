@@ -1,5 +1,6 @@
 plugins {
     id 'war'
+    id 'application'
 }
 
 group = 'com.bsdclinic'
@@ -19,4 +20,8 @@ dependencies {
     implementation project(':bsdclinic-medicine')
     implementation project(':bsdclinic-prescription')
     implementation project(':bsdclinic-invoice')
+}
+
+application {
+    mainClass = 'com.bsdclinic.BsdClinicApplication'
 }

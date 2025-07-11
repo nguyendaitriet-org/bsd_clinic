@@ -16,17 +16,11 @@
             <div class="carousel-caption">
                 <div class="container">
                     <div class="row g-4 align-items-center">
-                        <div class="col-lg-7 animated fadeInLeft">
+                        <div class="col-lg-6 animated fadeInLeft">
                             <div class="text-sm-center text-md-start">
-                                <h4 class="text-white text-uppercase fw-bold mb-4">
-                                    Chào mừng đến với phòng khám BSD
-                                </h4>
-                                <h1 class="display-1 text-white mb-4">
-                                    Làn Da Khỏe Đẹp<br>Tự Tin Tỏa Sáng
-                                </h1>
-                                <p class="mb-5 fs-5">
-                                    Chúng tôi cung cấp các dịch vụ chăm sóc da và điều trị chuyên sâu, giúp bạn lấy lại làn da khỏe mạnh, rạng rỡ và tràn đầy sức sống...
-                                </p>
+                                <h4 class="text-white text-uppercase fw-bold mb-4" th:text="#{text.welcome}"></h4>
+                                <h1 class="display-1 text-white mb-4" th:text="${clinicInfo.slogan}"></h1>
+                                <p class="mb-5 fs-5" th:text="${clinicInfo.introduction}"></p>
                                 <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
                                     <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="#">
                                         <i class="fas fa-play-circle me-2"></i>
@@ -37,7 +31,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-5 animated fadeInRight">
+                        <div class="col-lg-6 animated fadeInRight">
                             <div class="calrousel-img" style="object-fit: cover;">
                                 <img th:src="@{/common/img/skin_care_1.jpg}" class="img-fluid w-100" alt="">
                             </div>
@@ -50,22 +44,16 @@
             <div class="carousel-caption">
                 <div class="container">
                     <div class="row gy-4 gy-lg-0 gx-0 gx-lg-5 align-items-center">
-                        <div class="col-lg-5 animated fadeInLeft">
+                        <div class="col-lg-6 animated fadeInLeft">
                             <div class="calrousel-img">
                                 <img th:src="@{/common/img/skin_care_2.png}" class="img-fluid w-100" alt="">
                             </div>
                         </div>
-                        <div class="col-lg-7 animated fadeInRight">
+                        <div class="col-lg-6 animated fadeInRight">
                             <div class="text-sm-center text-md-start">
-                                <h4 class="text-white text-uppercase fw-bold mb-4">
-                                    Chào mừng đến với phòng khám BSD
-                                </h4>
-                                <h1 class="display-1 text-white mb-4">
-                                    Làn Da Khỏe Đẹp<br>Tự Tin Tỏa Sáng
-                                </h1>
-                                <p class="mb-5 fs-5">
-                                    Chúng tôi cung cấp các dịch vụ chăm sóc da và điều trị chuyên sâu, giúp bạn lấy lại làn da khỏe mạnh, rạng rỡ và tràn đầy sức sống...
-                                </p>
+                                <h4 class="text-white text-uppercase fw-bold mb-4" th:text="#{text.welcome}"></h4>
+                                <h1 class="display-1 text-white mb-4" th:text="${clinicInfo.slogan}"></h1>
+                                <p class="mb-5 fs-5" th:text="${clinicInfo.introduction}"></p>
                                 <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
                                     <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="#">
                                         <i class="fas fa-play-circle me-2"></i>
@@ -87,11 +75,12 @@
     <div class="container-fluid service py-5">
         <div class="container py-5">
             <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                <h4 class="text-primary">Các dịch vụ nổi bật</h4>
-                <h1 class="display-4 mb-4">Chăm Sóc Da Chuyên Sâu <br> Khơi Dậy Vẻ Đẹp Tự Nhiên</h1>
-                <p class="mb-0">
-                    Từ điều trị mụn, nám, đến chăm sóc da công nghệ cao – chúng tôi mang đến giải pháp toàn diện, an toàn và hiệu quả, giúp bạn tự tin với làn da rạng rỡ
-                </p>
+                <h4 class="text-primary" th:text="#{text.service.feature}"></h4>
+                <h1 class="display-4 mb-4">
+                    <div th:text="#{text.deep_skin_care}"></div>
+                    <div th:text="#{text.natural_beauty}"></div>
+                </h1>
+                <p class="mb-0" th:text="#{text.service.introduction}"></p>
             </div>
             <div class="row g-4 justify-content-center">
                 <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
@@ -169,25 +158,24 @@
             <div class="row g-5">
                 <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
                     <div class="about-item-content bg-white rounded p-5 h-100">
-                        <h4 class="text-primary">Về phòng khám BSD</h4>
-                        <h1 class="display-4 mb-4">Thẩm Mỹ Da Liễu <br> Công Nghệ Hiện Đại</h1>
-                        <p class="text-justify">
-                            Phòng khám BSD là địa chỉ uy tín trong lĩnh vực da liễu và thẩm mỹ. Chúng tôi kết hợp công nghệ hiện đại với đội ngũ chuyên gia để mang lại giải pháp chăm sóc và điều trị phù hợp cho từng làn da.
-                        </p>
-                        <p>
-                            Chúng tôi cam kết mang đến trải nghiệm an toàn, hiệu quả và cá nhân hóa cho mỗi khách hàng.
+                        <h4 class="text-primary" th:text="#{text.clinic.about_title}"></h4>
+                        <h1 class="display-4 mb-4">
+                            <div th:text="#{text.dermatology}"></div>
+                            <div th:text="#{text.modern_tech}"></div>
+                        </h1>
+                        <p class="text-justify" th:text="#{text.clinic.description}"></p>
+                        <p th:text="#{text.clinic.commit}"></p>
+                        <p class="text-dark">
+                            <i class="fa fa-check text-primary me-3"></i>
+                            <span th:text="#{text.clinic.feature_1}"></span>
                         </p>
                         <p class="text-dark">
                             <i class="fa fa-check text-primary me-3"></i>
-                            <span>Điều trị mụn hiệu quả, ngăn ngừa tái phát.</span>
+                            <span th:text="#{text.clinic.feature_2}"></span>
                         </p>
                         <p class="text-dark">
                             <i class="fa fa-check text-primary me-3"></i>
-                            <span>Trẻ hóa da, xóa nhăn và làm sáng da tự nhiên.</span>
-                        </p>
-                        <p class="text-dark">
-                            <i class="fa fa-check text-primary me-3"></i>
-                            <span>Thẩm mỹ không xâm lấn với công nghệ tiên tiến.</span>
+                            <span th:text="#{text.clinic.feature_3}"></span>
                         </p>
                         <a class="btn btn-primary rounded-pill py-3 px-5 mt-4"
                            href="#" th:text="#{title.see_more_information}"></a>
@@ -249,10 +237,8 @@
     <div class="container-fluid team py-5">
         <div class="container py-5">
             <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                <h4 class="text-primary">Đội ngũ Chuyên gia</h4>
-                <p class="mb-0 text-center">
-                    Đội ngũ bác sĩ và chuyên viên tại phòng khám BSD đều có chuyên môn cao, giàu kinh nghiệm trong lĩnh vực da liễu và thẩm mỹ. Chúng tôi không ngừng cập nhật công nghệ mới để mang đến giải pháp an toàn, hiệu quả và phù hợp nhất cho từng khách hàng
-                </p>
+                <h4 class="text-primary" th:text="#{text.expert_team}"></h4>
+                <p class="mb-0 text-center" th:text="#{text.expert_team.introduction}"></p>
             </div>
             <div class="row g-4">
                 <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">

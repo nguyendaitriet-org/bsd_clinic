@@ -65,7 +65,7 @@ export const UserUpdating = (function () {
         })
             .done(() => {
                 App.showSuccessMessage(operationSuccess);
-                setTimeout(() => UserList.renderUserListTable(), 1000);
+                UserList.renderUserListTable();
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);

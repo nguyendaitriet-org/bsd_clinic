@@ -417,7 +417,7 @@ export const AppointmentDetail = (function () {
             module.updateAppointment(appointmentId, appointmentUpdateParams)
                 .then(() => {
                     App.showSweetAlert('success', operationSuccess, '');
-                    setTimeout(() => location.reload(), 1000);
+                    location.reload();
                 })
                 .catch((jqXHR) => {
                     App.handleResponseMessageByStatusCode(jqXHR);

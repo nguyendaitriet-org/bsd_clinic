@@ -387,7 +387,7 @@ export const ClinicInfo = (function () {
             })
                 .done(() => {
                     App.showSweetAlert('success', operationSuccess, '');
-                    setTimeout(() => location.reload(), 1000);
+                    location.reload();
                 })
                 .fail((jqXHR) => {
                     App.handleResponseMessageByStatusCode(jqXHR);

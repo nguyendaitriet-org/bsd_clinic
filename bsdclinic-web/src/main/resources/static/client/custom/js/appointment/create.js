@@ -118,7 +118,7 @@ export const AppointmentCreation = (function () {
                     })
                         .done(() => {
                             App.showSweetAlert('success', operationSuccess, '');
-                            setTimeout(() => window.location.href = CLIENT_HOME, 1000);
+                            window.location.href = CLIENT_HOME;
                         })
                         .fail((jqXHR) => {
                             App.handleResponseMessageByStatusCode(jqXHR);

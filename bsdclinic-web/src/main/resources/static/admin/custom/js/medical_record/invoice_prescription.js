@@ -48,7 +48,7 @@ export const MedicalRecordInvoicePrescription = (function () {
                             const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
                             AppointmentDetail.updateAppointment(appointmentId, {actionStatus: appointmentStatusConstant.FINISHED});
                             App.showSweetAlert('success', createSuccess);
-                            setTimeout(() => location.reload(), 1000);
+                            location.reload();
                         })
                     });
                 }
@@ -112,7 +112,7 @@ export const MedicalRecordInvoicePrescription = (function () {
                             const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
                             AppointmentDetail.updateAppointment(appointmentId, {actionStatus: appointmentStatusConstant.EXAMINING});
                             App.showSweetAlert('success', operationSuccess);
-                            setTimeout(() => location.reload(), 1000);
+                            location.reload();
                         })
                         .catch((jqXHR) => {
                             App.handleResponseMessageByStatusCode(jqXHR);
@@ -132,7 +132,7 @@ export const MedicalRecordInvoicePrescription = (function () {
                             const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
                             AppointmentDetail.updateAppointment(appointmentId, {actionStatus: appointmentStatusConstant.EXAMINING});
                             App.showSweetAlert('success', operationSuccess);
-                            setTimeout(() => location.reload(), 1000);
+                            location.reload();
                         })
                         .catch((jqXHR) => {
                             App.handleResponseMessageByStatusCode(jqXHR);
@@ -150,7 +150,7 @@ export const MedicalRecordInvoicePrescription = (function () {
                     AppointmentDetail.updateAppointment(appointmentId, {actionStatus: appointmentStatusConstant.FINISHED_NO_PAY})
                         .then(() => {
                             App.showSweetAlert('success', operationSuccess);
-                            setTimeout(() => window.location.href = ADMIN_MEDICAL_RECORD_INDEX, 1000)
+                            window.location.href = ADMIN_MEDICAL_RECORD_INDEX;
                         })
                         .catch((jqXHR) => {
                             App.handleResponseMessageByStatusCode(jqXHR);

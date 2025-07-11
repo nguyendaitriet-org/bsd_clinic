@@ -43,9 +43,7 @@ export const ServiceCreation = (function () {
         })
             .done(() => {
                 App.showSuccessMessage(createSuccess);
-                setTimeout(() => {
-                    location.reload();
-                }, 1000);
+                location.reload();
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);

@@ -50,7 +50,7 @@ export const UserCreation = (function () {
         })
             .done(() => {
                 App.showSuccessMessage(createSuccess);
-                setTimeout(() => UserList.renderUserListTable(), 1000);
+                location.reload();
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);

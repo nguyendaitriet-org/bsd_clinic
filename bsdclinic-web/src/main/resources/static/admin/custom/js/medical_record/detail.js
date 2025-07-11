@@ -209,7 +209,7 @@ export const MedicalRecordUpdating = (function () {
         })
             .done(() => {
                 App.showSweetAlert('success', operationSuccess, '');
-                setTimeout(() => location.reload(), 1000);
+                location.reload();
             })
             .fail((jqXHR) => {
                 FormHandler.handleServerValidationError(module.medicalRecordDetailArea, jqXHR);
@@ -252,7 +252,7 @@ export const MedicalRecordDeletion = (function () {
         })
             .done(() => {
                 App.showSweetAlert('success', operationSuccess, '');
-                setTimeout(() => window.location.href = ADMIN_APPOINTMENT_FOR_DOCTOR, 700);
+                window.location.href = ADMIN_APPOINTMENT_FOR_DOCTOR;
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);

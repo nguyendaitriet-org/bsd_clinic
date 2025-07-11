@@ -47,9 +47,11 @@ subprojects {
         switch (name) {
             case 'bsdclinic-common': break
             case 'bsdclinic-entity': break
+            case 'bsdclinic-email': break
             default: {
                 implementation project(':bsdclinic-entity')
                 implementation project(':bsdclinic-common')
+                implementation project(':bsdclinic-email')
                 if (name != 'bsdclinic-security') {
                     implementation project(':bsdclinic-security')
                 }

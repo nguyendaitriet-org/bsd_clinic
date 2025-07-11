@@ -65,7 +65,7 @@ export const UserProfile = (function () {
             })
                 .done(() => {
                     App.showSuccessMessage(operationSuccess);
-                    setTimeout(() => location.reload(), 1000)
+                    location.reload();
                 })
                 .fail((jqXHR) => {
                     FormHandler.handleServerValidationError(module.userProfileAreaSelector, jqXHR)

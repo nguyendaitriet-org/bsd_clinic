@@ -32,7 +32,7 @@ export const MedicineCreation = (function () {
             })
                 .done(() => {
                     App.showSweetAlert('success', createSuccess, '');
-                    setTimeout(() => window.location.href = ADMIN_MEDICINE_INDEX, 1000);
+                    window.location.href = ADMIN_MEDICINE_INDEX;
                 })
                 .fail((jqXHR) => {
                     App.handleResponseMessageByStatusCode(jqXHR);
@@ -185,7 +185,7 @@ export const MedicineUpdating = (function () {
             })
                 .done(() => {
                     App.showSweetAlert('success', operationSuccess, '');
-                    setTimeout(() => window.location.href = ADMIN_MEDICINE_INDEX, 1000);
+                    window.location.href = ADMIN_MEDICINE_INDEX;
                 })
                 .fail((jqXHR) => {
                     App.handleResponseMessageByStatusCode(jqXHR);
@@ -222,7 +222,7 @@ export const MedicineDeletion = (function () {
             })
                 .done(() => {
                     App.showSweetAlert('success', operationSuccess, '');
-                    setTimeout(() => window.location.href = ADMIN_MEDICINE_INDEX, 1000);
+                    window.location.href = ADMIN_MEDICINE_INDEX;
                 })
                 .fail((jqXHR) => {
                     App.handleResponseMessageByStatusCode(jqXHR);

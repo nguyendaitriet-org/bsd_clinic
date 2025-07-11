@@ -100,7 +100,7 @@ export const AppointmentCreation = (function () {
         })
             .done(() => {
                 App.showSweetAlert('success', operationSuccess, '');
-                setTimeout(() => window.location.href = ADMIN_APPOINTMENT_INDEX, 700);
+                window.location.href = ADMIN_APPOINTMENT_INDEX;
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);

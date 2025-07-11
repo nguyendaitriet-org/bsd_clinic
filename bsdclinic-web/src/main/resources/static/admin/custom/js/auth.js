@@ -42,7 +42,7 @@ const LogIn = (function () {
         })
             .done((response) => {
                 App.showSuccessMessage(response.message);
-                setTimeout(() => window.location.href = response.redirectUrl, 1000)
+                window.location.href = response.redirectUrl;
             })
             .fail((jqXHR) => {
                 FormHandler.handleServerValidationError(module.formLoginSelector, jqXHR)

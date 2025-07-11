@@ -1,17 +1,22 @@
 package com.bsdclinic.controller;
 
+import com.bsdclinic.ClinicInfoService;
 import com.bsdclinic.UserPrincipal;
 import com.bsdclinic.url.WebUrl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequiredArgsConstructor
 public class HomePageController {
-    @GetMapping(WebUrl.CLIENT_HOME)
-    public String toClientHomePage() {
-        return "client/index";
+    private final ClinicInfoService clinicInfoService;
+
+    @GetMapping(WebUrl.ADMIN_HOME)
+    public String toAdminHomePage() {
+        return "admin/index";
     }
 
     @GetMapping(WebUrl.LOGIN)
@@ -19,8 +24,11 @@ public class HomePageController {
         return principal != null ? "redirect:/admin" : "admin/auth/login";
     }
 
-    @GetMapping(WebUrl.ADMIN_HOME)
-    public ModelAndView toAdminHomePage() {
-        return new ModelAndView("admin/index");
+    @GetMapping(WebUrl.CLIENT_HOME)
+    public ModelAndView toClientHomePage() {
+        ModelAndView modelAndView = new ModelAndView("client/index");
+        modelAndView.addObject("clinicInfo", clinicInfoService.getClinicInfo());
+
+        return modelAndView;
     }
 }

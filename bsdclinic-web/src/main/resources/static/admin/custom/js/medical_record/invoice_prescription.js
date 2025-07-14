@@ -1,4 +1,5 @@
 import {App} from "/common/js/app.js";
+import {Status} from "/common/js/constant.js";
 import {MedicalRecordUpdating, MedicalRecordPrescription} from "/admin/custom/js/medical_record/detail.js";
 import {InvoiceCreation, InvoiceDetail, InvoiceDeletion} from "/admin/custom/js/invoice/script.js";
 import {PrescriptionCreation, PrescriptionDetail, PrescriptionDeletion} from "/admin/custom/js/prescription/script.js";
@@ -46,7 +47,7 @@ export const MedicalRecordInvoicePrescription = (function () {
                         /* Then create invoice with response from the created prescription */
                         InvoiceCreation.createInvoice(createInvoiceParams).then(() => {
                             const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
-                            AppointmentDetail.updateAppointment(appointmentId, {actionStatus: appointmentStatusConstant.FINISHED});
+                            AppointmentDetail.updateAppointment(appointmentId, {actionStatus: Status.APPOINTMENT.FINISHED});
                             App.showSweetAlert('success', createSuccess);
                             location.reload();
                         })
@@ -110,7 +111,7 @@ export const MedicalRecordInvoicePrescription = (function () {
                     InvoiceDeletion.deleteInvoice(invoiceId)
                         .then(() => {
                             const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
-                            AppointmentDetail.updateAppointment(appointmentId, {actionStatus: appointmentStatusConstant.EXAMINING});
+                            AppointmentDetail.updateAppointment(appointmentId, {actionStatus: Status.APPOINTMENT.EXAMINING});
                             App.showSweetAlert('success', operationSuccess);
                             location.reload();
                         })
@@ -130,7 +131,7 @@ export const MedicalRecordInvoicePrescription = (function () {
                     PrescriptionDeletion.deletePrescription(prescriptionId)
                         .then(() => {
                             const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
-                            AppointmentDetail.updateAppointment(appointmentId, {actionStatus: appointmentStatusConstant.EXAMINING});
+                            AppointmentDetail.updateAppointment(appointmentId, {actionStatus: Status.APPOINTMENT.EXAMINING});
                             App.showSweetAlert('success', operationSuccess);
                             location.reload();
                         })
@@ -147,7 +148,7 @@ export const MedicalRecordInvoicePrescription = (function () {
             App.showSweetAlertConfirmation('error', confirmApplyTitle, finishExaminationCaution).then((result) => {
                 if (result.isConfirmed) {
                     const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
-                    AppointmentDetail.updateAppointment(appointmentId, {actionStatus: appointmentStatusConstant.FINISHED_NO_PAY})
+                    AppointmentDetail.updateAppointment(appointmentId, {actionStatus: Status.APPOINTMENT.FINISHED_NO_PAY})
                         .then(() => {
                             App.showSweetAlert('success', operationSuccess);
                             window.location.href = ADMIN_MEDICAL_RECORD_INDEX;

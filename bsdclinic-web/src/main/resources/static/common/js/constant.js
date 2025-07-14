@@ -20,3 +20,20 @@ export const RequestHeader = (function () {
         }
     };
 })();
+
+export const Status = (function () {
+    return {
+        APPOINTMENT: {
+            PENDING: "PENDING",
+            REJECTED: "REJECTED",
+            ACCEPTED: "ACCEPTED",
+            CHECKED_IN: "CHECKED_IN",
+            EXAMINING: "EXAMINING",
+            ADVANCED: "ADVANCED",
+            FINISHED: "FINISHED",
+            FINISHED_NO_PAY: "FINISHED_NO_PAY",
+            PAID: "PAID",
+            UNPAID: "UNPAID"
+        }
+    };
+})();

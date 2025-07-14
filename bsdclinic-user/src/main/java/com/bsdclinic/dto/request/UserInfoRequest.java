@@ -23,6 +23,7 @@ public class UserInfoRequest {
 
     @NotBlank(message = "{validation.required.phone}")
     @Size(max = 20, message = "{validation.input.max_length.20}")
+    @Pattern(regexp = ValidationConstant.PHONE_NUMBER_PATTERN, message = "{validation.invalid.phone}")
     @RuleAnnotation.UniquePhoneExceptCurrent( message = "{validation.existed.phone}")
     private String phone;
 }

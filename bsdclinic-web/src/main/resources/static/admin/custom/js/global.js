@@ -7,6 +7,12 @@ import {FormHandler} from "/common/js/form.js";
         headers: {'Accept-Language': 'vi'}
     });
 
+    $(document).ajaxStop(function () {
+        setTimeout(() => {
+            $('.error-text').remove();
+        }, 3000)
+    });
+
     $('.selectpicker').selectpicker('setStyle', 'btn-outline-secondary');
 
     App.keepSidebarDropdownOpen();

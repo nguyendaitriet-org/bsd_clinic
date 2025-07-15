@@ -1,5 +1,4 @@
 import {App} from "/common/js/app.js";
-import {FormHandler} from "/common/js/form.js";
 import {DatatableAttribute} from "/common/js/app.js";
 
 export const Subscriber = (function () {
@@ -25,6 +24,7 @@ export const Subscriber = (function () {
 
     module.init = () => {
         initDatatable();
+        renderSubscribers();
         handleSearchSubscriberButton();
         handleResetSubscriberButton();
     }
@@ -35,45 +35,50 @@ export const Subscriber = (function () {
 
     const handleResetSubscriberButton = () => {
         module.resetSubscriberButtonSelector.on('click', function () {
-            module.subscriberListTable.destroy();
-            initDatatable();
+            module.searchSubscriberInputSelector.val('');
+            renderSubscribers();
         })
     }
 
     const handleSearchSubscriberButton = () => {
         module.searchSubscriberButtonSelector.on('click', function () {
-            const keyword = module.searchSubscriberInputSelector.val().trim();
-            module.subscriberListTable.destroy();
-            module.subscriberListTable = module.subscriberListTableSelector.DataTable({
-                ajax: {
-                    contentType: 'application/json',
-                    type: 'POST',
-                    url: API_ADMIN_SUBSCRIBER_LIST,
-                    data: function (d) {
-                        d.keyword = keyword;
-                        return JSON.stringify(d);
-                    }
+            renderSubscribers();
+        });
+    }
+
+    const renderSubscribers = () => {
+        const keyword = module.searchSubscriberInputSelector.val().trim();
+        module.subscriberListTable.destroy();
+        module.subscriberListTable = module.subscriberListTableSelector.DataTable({
+            ajax: {
+                contentType: 'application/json',
+                type: 'POST',
+                url: API_ADMIN_SUBSCRIBER_LIST,
+                data: function (d) {
+                    d.keyword = keyword;
+                    return JSON.stringify(d);
+                }
+            },
+            initComplete: function (settings, json) {
+                const tooltipTrigger = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+                [...tooltipTrigger].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+            },
+            columns: [
+                {data: null},
+                {data: 'subscriberName'},
+                {data: 'subscriberEmail'},
+                {data: 'subscriberPhone'},
+                {data: null}
+            ],
+            columnDefs: [
+                {
+                    targets: [0, 3, 4],
+                    className: "text-center"
                 },
-                initComplete: function (settings, json) {
-                    const tooltipTrigger = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-                    [...tooltipTrigger].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-                },
-                columns: [
-                    {data: null},
-                    {data: 'subscriberName'},
-                    {data: 'subscriberEmail'},
-                    {data: 'subscriberPhone'},
-                    {data: null}
-                ],
-                columnDefs: [
-                    {
-                        targets: [0, 3, 4],
-                        className: "text-center"
-                    },
-                    {
-                        targets: -1,
-                        render: (data, type, row) =>
-                            `<div class="btn-group btn-group-sm">
+                {
+                    targets: -1,
+                    render: (data, type, row) =>
+                        `<div class="btn-group btn-group-sm">
                                 <button class="btn btn-outline-info border-0 self-filling-btn" data-bs-toggle="tooltip" type="button"
                                         data-bs-placement="bottom" data-bs-title="${selfTitle}">
                                     <i class="fas fa-arrow-left"></i>
@@ -83,14 +88,13 @@ export const Subscriber = (function () {
                                     <i class="fas fa-users"></i>
                                 </button>
                             </div>`
-                    },
-                ],
-                serverSide: true,
-                ...module.datatableInitConfig
-            });
-
-            DatatableAttribute.renderOrdinalColumn(module.subscriberListTable, 0);
+                },
+            ],
+            serverSide: true,
+            ...module.datatableInitConfig
         });
+
+        DatatableAttribute.renderOrdinalColumn(module.subscriberListTable, 0);
     }
 
     module.getSubscriberById = (subscriberId) => {
@@ -104,8 +108,4 @@ export const Subscriber = (function () {
     }
 
     return module;
-})();
-
-(function () {
-    Subscriber.init();
 })();

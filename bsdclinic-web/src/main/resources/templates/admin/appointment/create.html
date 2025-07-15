@@ -7,7 +7,7 @@
 <th:block layout:fragment="content-style">
     <style>
         .card-body {
-            padding: 2rem!important;
+            padding: 2rem !important;
         }
     </style>
 </th:block>
@@ -23,7 +23,7 @@
             <div class="card-body appointment-creation-area">
                 <div class="h5" th:text="#{title.subscriber}"></div>
                 <hr>
-                <div class="form-group with-validation" >
+                <div class="form-group with-validation">
                     <label class="required-field" for="subscriber-name" th:text="#{title.full_name}"></label>
                     <input type="text" class="form-control" id="subscriber-name" name="subscriberName"
                            th:placeholder="#{placeholder.full_name}">
@@ -112,21 +112,16 @@
         <div class="card col">
             <div class="card-header bg-black custom-card-header" th:text="#{title.subscriber.list}"></div>
             <div class="card-body">
-                <div class="mb-5 d-flex gap-5">
-                    <div class="input-group col">
-                        <label class="btn btn-black" type="button" for="search-subscriber-input">
-                            <i class="fa fa-search"></i>
-                        </label>
-                        <input id="search-subscriber-input" type="search" class="form-control border-secondary border-1"
-                               th:placeholder="#{placeholder.find_subscriber}">
-                    </div>
-                    <div class="col-2 col-sm-auto btn-group">
-                        <button id="search-subscriber-btn" class="btn btn-black float-end" type="button"
-                                th:text="#{title.apply}"></button>
-                        <button id="reset-subscriber-btn" class="btn btn-danger" type="button">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
+                <div class="input-group col mb-3">
+                    <input id="search-subscriber-input" type="text" class="form-control border-secondary border-1"
+                           th:placeholder="#{placeholder.find_subscriber}">
+                    <button id="reset-subscriber-btn" class="btn btn-danger" type="button">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <button id="search-subscriber-btn" class="btn btn-black" type="button">
+                        <i class="fa fa-search"></i>
+                        <span th:text="#{title.search}"></span>
+                    </button>
                 </div>
                 <div class="table-responsive">
                     <table id="subscriber-list-table"
@@ -154,9 +149,10 @@
     <script type="module">
         import {AppointmentCreation} from '/admin/custom/js/appointment/appointment-create.js';
         import {AppointmentListForCreation} from '/admin/custom/js/appointment/appointment-list.js';
+        import {Subscriber} from '/admin/custom/js/appointment/subscriber.js';
 
         AppointmentCreation.init();
         AppointmentListForCreation.init();
+        Subscriber.init();
     </script>
-    <script type="module" th:src="@{/admin/custom/js/appointment/subscriber.js}"></script>
 </th:block>

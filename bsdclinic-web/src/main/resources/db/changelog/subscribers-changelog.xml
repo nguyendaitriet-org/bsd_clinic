@@ -9,4 +9,11 @@
             ALTER TABLE subscribers ADD CONSTRAINT unique_email UNIQUE (email);
         </sql>
     </changeSet>
+
+    <changeSet id="12072025_1" author="triet.nguyendai" context="Add created_at and updated_at column">
+        <sql>
+            ALTER TABLE subscribers ADD COLUMN created_at TIMESTAMP;
+            ALTER TABLE subscribers ADD COLUMN updated_at TIMESTAMP;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

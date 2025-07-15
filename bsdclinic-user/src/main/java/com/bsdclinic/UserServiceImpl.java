@@ -19,6 +19,7 @@ import com.bsdclinic.storage.LocalFileStorageService;
 import com.bsdclinic.user.Role;
 import com.bsdclinic.user.User;
 import com.bsdclinic.user.UserStatus;
+import com.bsdclinic.user.User_;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.cache.annotation.CacheEvict;
@@ -68,7 +69,7 @@ public class UserServiceImpl implements UserService {
         Pageable pageable = PageRequest.of(
                 userFilter.getStart() / userFilter.getLength(),
                 userFilter.getLength(),
-                Sort.by(Sort.Direction.DESC, "createdAt")
+                Sort.by(Sort.Direction.DESC, User_.CREATED_AT)
         );
 
         Page<User> users = userRepository.findAll(userSpecification, pageable);

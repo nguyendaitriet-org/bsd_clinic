@@ -1,6 +1,7 @@
 package com.bsdclinic.subscriber;
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
+import com.bsdclinic.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Entity
 @Table(name = "subscribers")
-public class Subscriber {
+public class Subscriber extends BaseEntity {
     @Id
     @Column(name = "subscriber_id")
     private String subscriberId;

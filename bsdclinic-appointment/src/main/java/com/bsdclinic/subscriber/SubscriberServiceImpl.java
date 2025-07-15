@@ -1,14 +1,17 @@
 package com.bsdclinic.subscriber;
 
 import com.bsdclinic.AppointmentMapper;
+import com.bsdclinic.BaseEntity_;
 import com.bsdclinic.exception_handler.exception.BadRequestException;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.response.DatatableResponse;
+import com.bsdclinic.user.User_;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +30,8 @@ public class SubscriberServiceImpl implements SubscriberService {
         Specification<Subscriber> subscriberSpecification = SubscriberSpecifications.withFilter(subscriberFilter);
         Pageable pageable = PageRequest.of(
                 subscriberFilter.getStart() / subscriberFilter.getLength(),
-                subscriberFilter.getLength()
+                subscriberFilter.getLength(),
+                Sort.by(Sort.Direction.DESC, BaseEntity_.CREATED_AT)
         );
         Page<Subscriber> subscribers = subscriberRepository.findAll(subscriberSpecification, pageable);
         List<SubscriberDto> appointmentDtos = subscribers.stream().map(appointmentMapper::toSubscriberDto).toList();

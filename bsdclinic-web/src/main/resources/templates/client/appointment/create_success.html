@@ -1,0 +1,23 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/layout/app}"
+>
+<th:block layout:fragment="content-style"></th:block>
+
+<th:block layout:fragment="content-body">
+    <div class="container-fluid bg-light py-5">
+        <div class="container py-5 text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s"
+                     style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                    <i class="far fa-check-circle display-1 text-primary mb-4" style="width: 80px; height: 80px;"></i>
+                    <h1 class="mb-4" th:text="#{message.register.success}"></h1>
+                    <p class="mb-4" th:text="#{message.register.email.sent}"></p>
+                    <a class="btn btn-primary rounded-pill py-3 px-5" th:href="@{${webUrl.CLIENT_HOME}}"
+                       th:text="#{title.dashboard.return}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

@@ -117,8 +117,7 @@ export const AppointmentCreation = (function () {
                         data: JSON.stringify(appointmentCreationParams),
                     })
                         .done(() => {
-                            App.showSweetAlert('success', operationSuccess, '');
-                            window.location.href = CLIENT_HOME;
+                            window.location.href = CLIENT_APPOINTMENT_CREATE_SUCCESS;
                         })
                         .fail((jqXHR) => {
                             App.handleResponseMessageByStatusCode(jqXHR);

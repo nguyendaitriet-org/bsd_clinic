@@ -1,11 +1,9 @@
 import {Subscriber} from "/admin/custom/js/appointment/subscriber.js";
 import AppointmentCreation from "/admin/custom/js/appointment/appointment-create.js";
-import {DatatableAttribute} from "/common/js/app.js";
-import {App} from "/common/js/app.js";
+import {App, DatatableAttribute} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
-import {DateTimePattern} from "/common/js/constant.js";
-import {RequestHeader} from "/common/js/constant.js";
+import {RequestHeader, DateTimePattern} from "/common/js/constant.js";
 
 export const AppointmentListForCreation = (function () {
     const module = {
@@ -145,9 +143,7 @@ export const AppointmentListForCreation = (function () {
             AppointmentCreation.patientAddressSelector.val(appointmentDataForCreation.patientAddress);
             AppointmentCreation.relationWithSubscriberSelector.val(appointmentDataForCreation.relationWithSubscriber);
         } else {
-            AppointmentCreation.patientGenderSelector
-                .filter(`[value="${appointmentDataForCreation.patientGender}"]`)
-                .prop('checked', false);
+            AppointmentCreation.patientGenderSelector.prop('checked', false);
             AppointmentCreation.patientBirthdayPicker.setDate(null);
             AppointmentCreation.patientAddressSelector.val('');
             AppointmentCreation.relationWithSubscriberSelector.val('');

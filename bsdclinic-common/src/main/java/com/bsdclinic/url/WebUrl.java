@@ -20,6 +20,7 @@ public class WebUrl {
 
     public static final String CLIENT_HOME = "/";
     public static final String CLIENT_APPOINTMENT_CREATE = "/client/appointments/create";
+    public static final String CLIENT_APPOINTMENT_CREATE_SUCCESS = "/client/appointments/create/success";
 
     // API base
     public static final String API_ADMIN_ENDPOINT = "/api/admin";

@@ -148,6 +148,16 @@ export const DatatableAttribute = (function () {
     return module;
 })();
 
+export const Image = (function () {
+    const module = {};
+
+    module.getPublicImageApi = (imageName, imagePath) => {
+        return `/api/public/images/${imageName}?imagePath=${imagePath}`;
+    }
+
+    return module;
+})();
+
 // export const ProgressingBar = (function () {
 //     const module = {};
 //

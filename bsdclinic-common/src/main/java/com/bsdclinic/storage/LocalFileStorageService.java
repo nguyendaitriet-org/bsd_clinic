@@ -1,6 +1,6 @@
 package com.bsdclinic.storage;
 
-import com.bsdclinic.exception_handler.exception.NotFoundException;
+import com.bsdclinic.constant.ComponentName;
 import com.bsdclinic.message.MessageProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,9 +9,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@Service("localFileStorage")
+@Service(ComponentName.LOCAL_FILE_STORAGE)
 @RequiredArgsConstructor
 public class LocalFileStorageService implements FileStorageService {
     private final MessageProvider messageProvider;

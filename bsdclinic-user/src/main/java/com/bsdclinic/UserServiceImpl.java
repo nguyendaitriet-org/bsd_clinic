@@ -1,6 +1,7 @@
 package com.bsdclinic;
 
 import com.bsdclinic.constant.CacheKey;
+import com.bsdclinic.constant.ComponentName;
 import com.bsdclinic.dto.request.CreateUserRequest;
 import com.bsdclinic.dto.request.UpdateUserByAdminRequest;
 import com.bsdclinic.dto.request.UserFilter;
@@ -15,6 +16,7 @@ import com.bsdclinic.repository.RoleRepository;
 import com.bsdclinic.repository.UserRepository;
 import com.bsdclinic.repository.UserSpecifications;
 import com.bsdclinic.response.DatatableResponse;
+import com.bsdclinic.storage.FileStorageService;
 import com.bsdclinic.storage.LocalFileStorageService;
 import com.bsdclinic.user.Role;
 import com.bsdclinic.user.User;
@@ -22,6 +24,8 @@ import com.bsdclinic.user.UserStatus;
 import com.bsdclinic.user.User_;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
@@ -36,8 +40,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;

@@ -1,6 +1,6 @@
 import {Subscriber} from "/admin/custom/js/appointment/subscriber.js";
 import AppointmentCreation from "/admin/custom/js/appointment/appointment-create.js";
-import {App, DatatableAttribute} from "/common/js/app.js";
+import {App, DatatableAttribute, Image} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
 import {RequestHeader, DateTimePattern} from "/common/js/constant.js";
@@ -353,10 +353,12 @@ export const AppointmentDetail = (function () {
         appointmentActionStatusSelector: $('#appointment-action-status'),
         saveAppointmentButtonSelector: $('#btn-save-appointment'),
         appointmentIdInputSelector: $('#appointment-id-input'),
+        appointmentStatusFlowModalSelector: $('#appointment-status-flow-modal')
     }
 
     module.init = () => {
         handleSaveAppointmentButton();
+        handleAppointmentStatusFlowDisplay();
     }
 
     const renderNextAppointmentStatus = (appointmentId) => {
@@ -429,6 +431,12 @@ export const AppointmentDetail = (function () {
             url: API_ADMIN_APPOINTMENT_WITH_ID.replace('{appointmentId}', appointmentId),
             data: JSON.stringify(appointmentUpdateParams),
         })
+    }
+
+    const handleAppointmentStatusFlowDisplay = () => {
+        const publicImageUrl = Image.getPublicImageApi('examination_register_flow.png', 'appointment');
+        const imgSelector = module.appointmentStatusFlowModalSelector.find('img');
+        imgSelector.prop('src', publicImageUrl);
     }
 
     return module;

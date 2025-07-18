@@ -353,6 +353,7 @@ export const AppointmentDetail = (function () {
         appointmentActionStatusSelector: $('#appointment-action-status'),
         saveAppointmentButtonSelector: $('#btn-save-appointment'),
         appointmentIdInputSelector: $('#appointment-id-input'),
+        appointmentStatusInputSelector: $('#appointment-status-input'),
         appointmentStatusFlowModalSelector: $('#appointment-status-flow-modal')
     }
 
@@ -362,12 +363,13 @@ export const AppointmentDetail = (function () {
     }
 
     const renderNextAppointmentStatus = (appointmentId) => {
-        module.appointmentActionStatusSelector.children('option:not(:first)').remove();
+        console.log('renderNextAppointmentStatus')
         $.ajax({
             type: 'GET',
             url: API_ADMIN_APPOINTMENT_NEXT_STATUS.replace('{appointmentId}', appointmentId),
         })
             .done((response) => {
+                module.appointmentActionStatusSelector.children('option:not(:first)').remove();
                 for (const nextStatus of response.nextStatuses) {
                     const option = new Option(appointmentStatusMap[nextStatus], nextStatus);
                     module.appointmentActionStatusSelector.append(option);
@@ -400,6 +402,7 @@ export const AppointmentDetail = (function () {
         module.appointmentActionStatusSelector.find(`option[value='${actionStatus}']`).remove();
 
         module.appointmentIdInputSelector.val(appointmentId);
+        module.appointmentStatusInputSelector.val(actionStatus);
 
         renderNextAppointmentStatus(appointmentId);
     }
@@ -407,7 +410,7 @@ export const AppointmentDetail = (function () {
     const handleSaveAppointmentButton = () => {
         module.saveAppointmentButtonSelector.on('click', function () {
             const appointmentUpdateParams = {
-                actionStatus: module.appointmentActionStatusSelector.val(),
+                actionStatus: module.appointmentActionStatusSelector.val() || module.appointmentStatusInputSelector.val(),
                 doctorId: module.doctorSelector.val()
             }
             const appointmentId = module.appointmentIdInputSelector.val();

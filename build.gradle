@@ -64,7 +64,8 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-validation'
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-cache:3.4.5'
-        implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+        implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
         compileOnly 'org.projectlombok:lombok'
         runtimeOnly 'org.postgresql:postgresql'
         annotationProcessor 'org.projectlombok:lombok'
@@ -86,5 +87,7 @@ subprojects {
         implementation 'commons-beanutils:commons-beanutils:1.9.4'
 
         implementation 'io.hypersistence:hypersistence-utils-hibernate-60:3.9.4'
+
+        implementation 'software.amazon.awssdk:ses:2.31.78'
     }
 }

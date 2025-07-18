@@ -5,9 +5,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -31,5 +30,16 @@ public class MessageProvider {
         }
 
         return roleMap;
+    }
+
+    public Map<String, String> getMessageMap(String prefix, String bundleName) {
+        ResourceBundle bundle = ResourceBundle.getBundle(bundleName);
+        return Collections.list(bundle.getKeys())
+                .stream()
+                .filter(k -> k.startsWith(prefix + '.'))
+                .collect(Collectors.toMap(
+                        k -> k.replace(prefix + '.', ""),
+                        bundle::getString
+                ));
     }
 }

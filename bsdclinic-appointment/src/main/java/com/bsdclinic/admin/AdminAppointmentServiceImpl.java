@@ -1,11 +1,10 @@
 package com.bsdclinic.admin;
 
-import com.bsdclinic.AppointmentMapper;
-import com.bsdclinic.AppointmentRepository;
-import com.bsdclinic.MedicalRecordRepoForAppointment;
+import com.bsdclinic.*;
 import com.bsdclinic.appointment.ActionStatus;
 import com.bsdclinic.appointment.Appointment;
 import com.bsdclinic.appointment.Appointment_;
+import com.bsdclinic.constant.DateTimePattern;
 import com.bsdclinic.dto.AppointmentDto;
 import com.bsdclinic.dto.request.AppointmentFilter;
 import com.bsdclinic.dto.request.AppointmentUpdate;
@@ -18,6 +17,7 @@ import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.status_flow.ActionStatusFlow;
 import com.bsdclinic.subscriber.Subscriber;
+import com.bsdclinic.subscriber.SubscriberDto;
 import com.bsdclinic.subscriber.SubscriberRepository;
 import com.bsdclinic.subscriber.SubscriberService;
 import lombok.RequiredArgsConstructor;
@@ -30,10 +30,8 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,6 +44,8 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
     private final SubscriberService subscriberService;
     private final ActionStatusFlow actionStatusFlow;
     private final MedicalRecordRepoForAppointment medicalRecordRepository;
+    private final ClinicInfoService clinicInfoService;
+    private final EmailService emailService;
 
     public static final List<String> STATUS_FOR_DOCTOR = List.of(
             ActionStatus.CHECKED_IN.name(),
@@ -121,11 +121,6 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
         ActionStatus currentStatus = ActionStatus.valueOf(appointment.getActionStatus());
         ActionStatus nextStatus = ActionStatus.valueOf(appointmentUpdate.getActionStatus());
 
-        /* Do nothing if both action status are the same */
-        if (currentStatus.equals(nextStatus)) {
-            return;
-        }
-
         if (!actionStatusFlow.canTransition(currentStatus, nextStatus)) {
             throw new BadRequestException(
                     Map.of(Appointment_.ACTION_STATUS, messageProvider.getMessage("validation.invalid.appointment_status"))
@@ -138,6 +133,36 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
 
         appointment = appointmentMapper.toAppointment(appointmentUpdate, appointment);
         appointmentRepository.save(appointment);
+        sendEmailToSubscriber(appointment, nextStatus);
+    }
+
+    private void sendEmailToSubscriber(Appointment appointment, ActionStatus nextStatus) {
+        if (!nextStatus.equals(ActionStatus.ACCEPTED) && !nextStatus.equals(ActionStatus.REJECTED)) {
+            return;
+        }
+
+        SubscriberDto subscriber = subscriberService.getSubscriberById(appointment.getSubscriberId());
+        Map<String, Object> emailToSubscriberContent = new HashMap<>(messageProvider.getMessageMap("email", "emails"));
+        ClinicInfoDto clinicInfo = clinicInfoService.getClinicInfo();
+        emailToSubscriberContent.putAll(Map.of(
+                "clinicName", clinicInfo.getName(),
+                "subscriberName", subscriber.getSubscriberName(),
+                "appointmentDate", appointment.getRegisterDate().format(DateTimeFormatter.ofPattern(DateTimePattern.DATE_WITHOUT_TIME)),
+                "appointmentTime", appointment.getRegisterTime(),
+                "appointmentLocation", clinicInfo.getAddress(),
+                "clinicPhone", clinicInfo.getPhone(),
+                "clinicEmail", clinicInfo.getEmail(),
+                "websiteUrl", clinicInfo.getWebsite()
+        ));
+
+        if (nextStatus.equals(ActionStatus.ACCEPTED)) {
+            emailService.sendTemplatedEmail(
+                    subscriber.getSubscriberEmail(),
+                    messageProvider.getMessage("subject.appointment_confirmation"),
+                    "email/accepted_register_template",
+                    emailToSubscriberContent
+            );
+        }
     }
 
     private Appointment getAppointmentById(String appointmentId) {

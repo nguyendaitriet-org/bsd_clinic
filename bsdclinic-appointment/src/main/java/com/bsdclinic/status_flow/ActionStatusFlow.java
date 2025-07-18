@@ -45,7 +45,11 @@ public class ActionStatusFlow {
     }
 
     public boolean canTransition(ActionStatus from, ActionStatus to) {
-        return transitions.getOrDefault(from, Set.of()).contains(to);
+        /*
+            Determines if a transition from one action status to another is valid.
+            Allows staying in the same state or transitioning to any explicitly defined target state.
+        */
+        return from.equals(to) || transitions.getOrDefault(from, Set.of()).contains(to);
     }
 
     public Set<ActionStatus> getNextStatesByRole(ActionStatus from, String role) {

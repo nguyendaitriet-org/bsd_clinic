@@ -1,9 +1,6 @@
 package com.bsdclinic.client;
 
-import com.bsdclinic.AppointmentMapper;
-import com.bsdclinic.AppointmentRepository;
-import com.bsdclinic.ClinicInfoDto;
-import com.bsdclinic.ClinicInfoService;
+import com.bsdclinic.*;
 import com.bsdclinic.appointment.ActionStatus;
 import com.bsdclinic.appointment.Appointment;
 import com.bsdclinic.appointment.Appointment_;

@@ -22,7 +22,11 @@ public class WebUrl {
     public static final String CLIENT_APPOINTMENT_CREATE = "/client/appointments/create";
     public static final String CLIENT_APPOINTMENT_CREATE_SUCCESS = "/client/appointments/create/success";
 
-    // API base
+    // API Public
+    public static final String API_PUBLIC_ENDPOINT = "/api/public";
+    public static final String API_PUBLIC_IMAGE_BY_NAME = API_PUBLIC_ENDPOINT + "/images/{imageName}";
+
+    // API Base
     public static final String API_ADMIN_ENDPOINT = "/api/admin";
     public static final String API_CLIENT_ENDPOINT = "/api/client";
 

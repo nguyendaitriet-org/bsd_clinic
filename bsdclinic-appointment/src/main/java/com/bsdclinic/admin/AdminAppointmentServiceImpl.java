@@ -30,6 +30,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -65,6 +66,7 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
 
         Appointment newAppointment = appointmentMapper.toAppointment(appointmentDto);
         newAppointment.setRegisterDate(LocalDate.now());
+        newAppointment.setRegisterTime(LocalTime.now().format(DateTimeFormatter.ofPattern(DateTimePattern.HOUR_MINUTE)));
         newAppointment.setSubscriberId(subscriber.getSubscriberId());
         newAppointment.setActionStatus(ActionStatus.CHECKED_IN.name());
 
@@ -133,6 +135,7 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
 
         appointment = appointmentMapper.toAppointment(appointmentUpdate, appointment);
         appointmentRepository.save(appointment);
+
         sendEmailToSubscriber(appointment, nextStatus);
     }
 
@@ -160,6 +163,16 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
                     subscriber.getSubscriberEmail(),
                     messageProvider.getMessage("subject.appointment_confirmation"),
                     "email/accepted_register_template",
+                    emailToSubscriberContent
+            );
+        }
+
+        if (nextStatus.equals(ActionStatus.REJECTED)) {
+            emailToSubscriberContent.put("rejectedReason", appointment.getRejectedReason());
+            emailService.sendTemplatedEmail(
+                    subscriber.getSubscriberEmail(),
+                    messageProvider.getMessage("subject.appointment_rejection"),
+                    "email/rejected_register_template",
                     emailToSubscriberContent
             );
         }

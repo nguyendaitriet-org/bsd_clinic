@@ -160,6 +160,7 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
 
         if (nextStatus.equals(ActionStatus.ACCEPTED)) {
             emailService.sendTemplatedEmail(
+                    clinicInfo.getEmail(),
                     subscriber.getSubscriberEmail(),
                     messageProvider.getMessage("subject.appointment_confirmation"),
                     "email/accepted_register_template",
@@ -170,6 +171,7 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
         if (nextStatus.equals(ActionStatus.REJECTED)) {
             emailToSubscriberContent.put("rejectedReason", appointment.getRejectedReason());
             emailService.sendTemplatedEmail(
+                    clinicInfo.getEmail(),
                     subscriber.getSubscriberEmail(),
                     messageProvider.getMessage("subject.appointment_rejection"),
                     "email/rejected_register_template",

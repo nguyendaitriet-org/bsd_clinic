@@ -416,7 +416,7 @@ export const AppointmentDetail = (function () {
 
             if (appointmentUpdateParams.actionStatus === Status.APPOINTMENT.REJECTED) {
                 module.appointmentDetailModalSelector.modal('hide');
-                App.showSweetAlertConfirmationWithInput('Vui lòng nhập lí do từ chối').then((result) => {
+                App.showSweetAlertConfirmationWithInput(enterRejectedReason).then((result) => {
                     if (result.isConfirmed) {
                         appointmentUpdateParams.rejectedReason = result.value.trim();
                         handleUpdateAppointment(appointmentId, appointmentUpdateParams);

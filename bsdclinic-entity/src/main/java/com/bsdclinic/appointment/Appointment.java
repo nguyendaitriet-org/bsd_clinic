@@ -49,6 +49,9 @@ public class Appointment extends BaseEntity {
     @Column(name = "doctor_id")
     private String doctorId;
 
+    @Column(name = "rejected_reason")
+    private String rejectedReason;
+
     @Column(name = "action_status")
     private String actionStatus;
 

@@ -14,6 +14,7 @@
                     <i class="far fa-check-circle display-1 text-primary mb-4" style="width: 80px; height: 80px;"></i>
                     <h1 class="mb-4" th:text="#{message.register.success}"></h1>
                     <p class="mb-4" th:text="#{message.register.email.sent}"></p>
+                    <p class="mb-4 text-danger" th:text="#{message.register.email.spam}"></p>
                     <a class="btn btn-primary rounded-pill py-3 px-5" th:href="@{${webUrl.CLIENT_HOME}}"
                        th:text="#{title.dashboard.return}"></a>
                 </div>

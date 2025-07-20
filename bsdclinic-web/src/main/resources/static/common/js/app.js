@@ -58,6 +58,21 @@ export const App = (function () {
         });
     }
 
+    module.showSweetAlertConfirmationWithInput = (title) => {
+        return Swal.fire({
+            title: title,
+            input: "text",
+            showCancelButton: true,
+            confirmButtonText: acceptTitle,
+            denyButtonText: closeTitle,
+            inputValidator: (value) => {
+                if (!value) {
+                    return "You need to write something!";
+                }
+            }
+        });
+    }
+
     module.clearAllModalInputsAfterClosing = () => {
         $('.modal').on('hidden.bs.modal', function () {
             FormHandler.clearAllInputs($(this));

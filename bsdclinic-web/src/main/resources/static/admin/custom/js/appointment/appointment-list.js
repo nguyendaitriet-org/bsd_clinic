@@ -3,7 +3,7 @@ import AppointmentCreation from "/admin/custom/js/appointment/appointment-create
 import {App, DatatableAttribute, Image} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
-import {RequestHeader, DateTimePattern} from "/common/js/constant.js";
+import {RequestHeader, DateTimePattern, Status} from "/common/js/constant.js";
 
 export const AppointmentListForCreation = (function () {
     const module = {
@@ -363,7 +363,6 @@ export const AppointmentDetail = (function () {
     }
 
     const renderNextAppointmentStatus = (appointmentId) => {
-        console.log('renderNextAppointmentStatus')
         $.ajax({
             type: 'GET',
             url: API_ADMIN_APPOINTMENT_NEXT_STATUS.replace('{appointmentId}', appointmentId),
@@ -415,16 +414,31 @@ export const AppointmentDetail = (function () {
             }
             const appointmentId = module.appointmentIdInputSelector.val();
 
-            module.updateAppointment(appointmentId, appointmentUpdateParams)
-                .then(() => {
-                    App.showSweetAlert('success', operationSuccess, '');
-                    location.reload();
-                })
-                .catch((jqXHR) => {
-                    App.handleResponseMessageByStatusCode(jqXHR);
-                    FormHandler.handleServerValidationError(module.appointmentDetailModalSelector, jqXHR);
-                })
+            if (appointmentUpdateParams.actionStatus === Status.APPOINTMENT.REJECTED) {
+                module.appointmentDetailModalSelector.modal('hide');
+                App.showSweetAlertConfirmationWithInput(enterRejectedReason).then((result) => {
+                    if (result.isConfirmed) {
+                        appointmentUpdateParams.rejectedReason = result.value.trim();
+                        handleUpdateAppointment(appointmentId, appointmentUpdateParams);
+                    }
+                });
+                return;
+            }
+
+            handleUpdateAppointment(appointmentId, appointmentUpdateParams);
         });
+    }
+
+    const handleUpdateAppointment = (appointmentId, appointmentUpdateParams) => {
+        module.updateAppointment(appointmentId, appointmentUpdateParams)
+            .then(() => {
+                App.showSweetAlert('success', operationSuccess, '');
+                location.reload();
+            })
+            .catch((jqXHR) => {
+                App.handleResponseMessageByStatusCode(jqXHR);
+                FormHandler.handleServerValidationError(module.appointmentDetailModalSelector, jqXHR);
+            })
     }
 
     module.updateAppointment = (appointmentId, appointmentUpdateParams) => {

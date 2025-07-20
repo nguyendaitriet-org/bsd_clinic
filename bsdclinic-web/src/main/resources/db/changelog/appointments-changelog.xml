@@ -23,4 +23,11 @@
             ALTER TABLE appointments ADD COLUMN register_time VARCHAR(20);
         </sql>
     </changeSet>
+
+    <changeSet id="19072025_1" author="triet.nguyendai" context="Add column rejected_reason">
+        <sql>
+            ALTER TABLE appointments
+            ADD COLUMN rejected_reason VARCHAR(255);
+        </sql>
+    </changeSet>
 </databaseChangeLog>

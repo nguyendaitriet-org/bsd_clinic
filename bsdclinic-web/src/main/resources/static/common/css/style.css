@@ -185,6 +185,6 @@
 
 .nav-link-highlight:hover {
     color: white!important;
-    background-color: rgba(1, 95, 201, 0.51);
+    background-color: #015fc9;
     border: white solid 2px;
 }

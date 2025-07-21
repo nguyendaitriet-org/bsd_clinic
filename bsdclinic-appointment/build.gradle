@@ -8,4 +8,6 @@ version = '1.0.0'
 dependencies {
     implementation project(':bsdclinic-clinic-info')
     implementation project(':bsdclinic-user')
+    implementation project(':bsdclinic-invoice')
+    implementation project(':bsdclinic-prescription')
 }

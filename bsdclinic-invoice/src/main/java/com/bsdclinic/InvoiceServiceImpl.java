@@ -5,7 +5,6 @@ import com.bsdclinic.dto.response.InvoiceResponse;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.invoice.Invoice;
 import com.bsdclinic.invoice.PurchasedService;
-import com.bsdclinic.medical_record.MedicalRecord;
 import com.bsdclinic.message.MessageProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InvoiceServiceImpl implements InvoiceService {
     private final InvoiceRepository invoiceRepository;
-    private final MedicalRecordRepository medicalRecordRepository;
     private final MessageProvider messageProvider;
     private final InvoiceMapper invoiceMapper;
     private final MedicalServiceMapper medicalServiceMapper;
@@ -26,8 +24,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public InvoiceResponse createInvoice(CreateInvoiceRequest request) {
         String medicalRecordId = request.getMedicalRecordId();
-        MedicalRecord medicalRecord = medicalRecordRepository.findByMedicalRecordId(medicalRecordId);
-        if (medicalRecord == null) {
+        BigDecimal advance = invoiceRepository.getAdvanceFromMedicalRecord(medicalRecordId);
+        if (advance == null) {
             throw new NotFoundException(messageProvider.getMessage("validation.no_exist.medical_record"));
         }
         Invoice invoice = invoiceRepository.findByMedicalRecordId(medicalRecordId);
@@ -47,7 +45,6 @@ public class InvoiceServiceImpl implements InvoiceService {
             BigDecimal grandTotalPrice = request.getMedicinesTotalPrice().add(servicesTotalPrice);
             invoice.setGrandTotalPrice(grandTotalPrice);
 
-            BigDecimal advance = medicalRecord.getAdvance();
             invoice.setAdvance(advance);
 
             BigDecimal remainingPrice = grandTotalPrice.subtract(advance);

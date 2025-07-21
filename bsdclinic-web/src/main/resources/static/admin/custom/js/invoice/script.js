@@ -50,7 +50,6 @@ export const InvoiceDetail = (function () {
             <td>${CurrencyConverter.formatCurrencyVND(purchasedTotalPrice)}</td>
         </tr>`;
 
-
     module.renderInvoiceDetail = (invoiceDetail) => {
         for (const [key, value] of Object.entries(invoiceDetail)) {
             if (key === 'invoiceId') {

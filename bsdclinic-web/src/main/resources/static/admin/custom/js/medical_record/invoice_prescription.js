@@ -1,4 +1,5 @@
-import {App} from "/common/js/app.js";
+import {App, Image} from "/common/js/app.js";
+import {Printer} from "/common/js/print.js";
 import {Status} from "/common/js/constant.js";
 import {MedicalRecordUpdating, MedicalRecordPrescription} from "/admin/custom/js/medical_record/detail.js";
 import {InvoiceCreation, InvoiceDetail, InvoiceDeletion} from "/admin/custom/js/invoice/script.js";
@@ -13,8 +14,12 @@ export const MedicalRecordInvoicePrescription = (function () {
         createInvoiceAndPrescriptionButtonSelector: $('.create-invoice-prescription-btn'),
         seeInvoiceAndPrescriptionButtonSelector: $('.see-invoice-prescription-btn'),
         finishExaminationButtonSelector: $('.finish-examination-btn'),
+        printInvoiceButtonSelector: $('.print-invoice-btn'),
         deleteInvoiceButtonSelector: $('.delete-invoice-btn'),
+        printPrescriptionButtonSelector: $('.print-prescription-btn'),
         deletePrescriptionButtonSelector: $('.delete-prescription-btn'),
+
+        clinicLogoSelector: $('.clinic-logo')
     }
 
     module.init = () => {
@@ -23,6 +28,14 @@ export const MedicalRecordInvoicePrescription = (function () {
         handleDeleteInvoiceButton();
         handleDeletePrescriptionButton();
         handleFinishExaminationButton();
+        renderClinicLogo();
+        handlePrintInvoiceButton();
+        handlePrintPrescriptionButton();
+    }
+
+    const renderClinicLogo = () => {
+        const clinicLogoUrl = Image.getPublicImageApi('BSD_Clinic_Logo_circle.png', 'client_home');
+        module.clinicLogoSelector.prop('src', clinicLogoUrl);
     }
 
     const handleCreateInvoiceAndPrescriptionButton = () => {
@@ -159,6 +172,24 @@ export const MedicalRecordInvoicePrescription = (function () {
                 }
                 });
             });
+    }
+
+    const handlePrintInvoiceButton = () => {
+        module.printInvoiceButtonSelector.on('click', function () {
+            const invoiceElement = InvoiceDetail.invoiceDetailFormSelector.clone();
+            invoiceElement.find('button').remove();
+            const invoiceContent = invoiceElement.html();
+            Printer.openPrintWindow(invoiceContent, invoiceTitle);
+        });
+    }
+
+    const handlePrintPrescriptionButton = () => {
+        module.printPrescriptionButtonSelector.on('click', function () {
+            const prescriptionElement = PrescriptionDetail.prescriptionDetailFormSelector.clone();
+            prescriptionElement.find('button').remove();
+            const prescriptionContent = prescriptionElement.html();
+            Printer.openPrintWindow(prescriptionContent, prescriptionTitle);
+        });
     }
 
     return module;

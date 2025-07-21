@@ -23,4 +23,7 @@ public interface PrescriptionRepository extends JpaRepository<Prescription, Stri
             "INNER JOIN TakenMedicine t ON m.medicineId = t.medicineId " +
             "WHERE t.prescriptionId = :prescriptionId ")
     List<TakenMedicineDto> getTakenMedicinesByPrescriptionId(String prescriptionId);
+
+    @Query(value = "SELECT EXISTS (SELECT 1 FROM medical_records WHERE medical_record_id = :medicalRecordId)", nativeQuery = true)
+    boolean isMedicalRecordExisted(String medicalRecordId);
 }

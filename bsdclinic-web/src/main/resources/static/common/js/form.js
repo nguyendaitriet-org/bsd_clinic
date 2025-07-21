@@ -20,6 +20,7 @@ export const FormHandler = (function () {
 
     module.clearAllInputs = (formSelector) => {
         formSelector.find('input')
+            .not('[type="hidden"]')
             .val('')
             .prop('checked', false)
             .prop('selected', false);

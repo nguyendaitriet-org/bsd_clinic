@@ -21,6 +21,7 @@ import com.bsdclinic.subscriber.SubscriberDto;
 import com.bsdclinic.subscriber.SubscriberRepository;
 import com.bsdclinic.subscriber.SubscriberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,6 +36,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AdminAppointmentServiceImpl implements AdminAppointmentService {
@@ -158,25 +160,25 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
                 "websiteUrl", clinicInfo.getWebsite()
         ));
 
-        if (nextStatus.equals(ActionStatus.ACCEPTED)) {
-            emailService.sendTemplatedEmail(
+        switch (nextStatus) {
+            case ACCEPTED -> emailService.sendTemplatedEmail(
                     clinicInfo.getEmail(),
                     subscriber.getSubscriberEmail(),
                     messageProvider.getMessage("subject.appointment_confirmation"),
                     "email/accepted_register_template",
                     emailToSubscriberContent
             );
-        }
-
-        if (nextStatus.equals(ActionStatus.REJECTED)) {
-            emailToSubscriberContent.put("rejectedReason", appointment.getRejectedReason());
-            emailService.sendTemplatedEmail(
-                    clinicInfo.getEmail(),
-                    subscriber.getSubscriberEmail(),
-                    messageProvider.getMessage("subject.appointment_rejection"),
-                    "email/rejected_register_template",
-                    emailToSubscriberContent
-            );
+            case REJECTED -> {
+                emailToSubscriberContent.put("rejectedReason", appointment.getRejectedReason());
+                emailService.sendTemplatedEmail(
+                        clinicInfo.getEmail(),
+                        subscriber.getSubscriberEmail(),
+                        messageProvider.getMessage("subject.appointment_rejection"),
+                        "email/rejected_register_template",
+                        emailToSubscriberContent
+                );
+            }
+            default -> log.info("No need to send email.");
         }
     }
 

@@ -1,4 +1,4 @@
-import {App} from "/common/js/app.js";
+import {App, ProgressingBar} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 
 /* Init global events */
@@ -7,10 +7,14 @@ import {FormHandler} from "/common/js/form.js";
         headers: {'Accept-Language': 'vi'}
     });
 
+    App.disableElementsInAjaxProgress();
+
+    ProgressingBar.init();
+
     $(document).ajaxStop(function () {
         setTimeout(() => {
             $('.error-text').remove();
-        }, 3000)
+        }, 7000)
     });
 
     $('.selectpicker').selectpicker('setStyle', 'btn-outline-secondary');

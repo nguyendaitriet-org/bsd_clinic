@@ -2,10 +2,13 @@
 
 <th:block th:fragment="invoice-detail">
     <input type="hidden" data-attribute="invoiceId">
-    <div class="logo-clinic d-flex justify-content-between mb-3">
-        <div class="my-auto">(Logo + Tên phòng khám)</div>
+    <div class="d-flex justify-content-between mb-3">
+        <div class="d-flex">
+            <img src="" alt="Clinic Logo" class="me-2 clinic-logo">
+            <h5 class="my-auto text-uppercase" th:text="#{title.app.client}"></h5>
+        </div>
         <div class="btn-group">
-            <button class="btn btn-sm btn-dark" th:text="#{title.invoice.print}"></button>
+            <button class="btn btn-sm btn-dark print-invoice-btn" th:text="#{title.invoice.print}"></button>
             <button class="btn btn-sm btn-danger delete-invoice-btn" th:text="#{title.invoice.delete}"></button>
         </div>
     </div>
@@ -26,16 +29,17 @@
     </div>
     <table class="table table-bordered table-medical-services-detail">
         <thead class="table-light">
-            <tr>
-                <th class="w-50" th:text="#{title.medical_service.name}"></th>
-                <th th:text="#{title.price}"></th>
-            </tr>
+        <tr>
+            <th class="w-50" th:text="#{title.medical_service.name}"></th>
+            <th th:text="#{title.price}"></th>
+        </tr>
         </thead>
         <tbody></tbody>
     </table>
 
     <div class="mb-3">
-        <strong th:text="#{title.medical_service.total_price}"></strong>:&nbsp;<span data-attribute="servicesTotalPrice"></span>
+        <strong th:text="#{title.medical_service.total_price}"></strong>:&nbsp;<span
+            data-attribute="servicesTotalPrice"></span>
     </div>
 
     <div class="mb-3">
@@ -47,18 +51,19 @@
     </div>
     <table class="table table-bordered table-taken-medicines-detail">
         <thead class="table-light">
-            <tr>
-                <th class="w-50" th:text="#{title.medicine.name}"></th>
-                <th th:text="#{title.quantity}"></th>
-                <th th:text="#{title.unit_price}"></th>
-                <th th:text="#{title.total_price}"></th>
-            </tr>
+        <tr>
+            <th class="w-50" th:text="#{title.medicine.name}"></th>
+            <th th:text="#{title.quantity}"></th>
+            <th th:text="#{title.unit_price}"></th>
+            <th th:text="#{title.total_price}"></th>
+        </tr>
         </thead>
         <tbody></tbody>
     </table>
 
     <div class="mb-3">
-        <strong th:text="#{title.medicine.total_price}"></strong>:&nbsp;<span data-attribute="medicinesTotalPrice"></span>
+        <strong th:text="#{title.medicine.total_price}"></strong>:&nbsp;<span
+            data-attribute="medicinesTotalPrice"></span>
     </div>
 
     <div class="mb-3">

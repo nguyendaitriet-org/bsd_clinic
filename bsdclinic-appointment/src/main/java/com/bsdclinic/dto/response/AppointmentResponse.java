@@ -19,6 +19,7 @@ public class AppointmentResponse {
     private String relationWithSubscriber;
     private String actionStatus;
     private LocalDate registerDate;
+    private String registerTime;
     private String doctorId;
     private String subscriberId;
     private String medicalRecordId;

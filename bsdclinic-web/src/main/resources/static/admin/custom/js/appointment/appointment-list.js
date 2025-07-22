@@ -280,6 +280,7 @@ export const AppointmentList = (function () {
                 {data: 'patientEmail'},
                 {data: 'patientPhone'},
                 {data: 'registerDate'},
+                {data: 'registerTime'},
                 {data: 'actionStatus'},
                 {data: 'doctorId'},
                 {data: null}
@@ -303,7 +304,7 @@ export const AppointmentList = (function () {
                     createdCell: (td, cellData) => $(td).html(DateTimeConverter.convertToDisplayPattern(cellData))
                 },
                 {
-                    targets: 5,
+                    targets: 6,
                     createdCell: (td, cellData) => {
                         const statusTitle = appointmentStatusMap[cellData];
                         const statusElement = `<span class="action-status-badge action-status-${cellData}">${statusTitle}</span>`;
@@ -311,7 +312,7 @@ export const AppointmentList = (function () {
                     }
                 },
                 {
-                    targets: 6,
+                    targets: 7,
                     createdCell: (td, cellData) => $(td).html(doctorMap[cellData])
                 },
                 {

@@ -1,0 +1,369 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/layout/app}"
+>
+<th:block layout:fragment="content-style">
+    <link rel="stylesheet" th:href="@{/client/custom/css/skin_rejuvenation.css}"/>
+</th:block>
+
+<th:block layout:fragment="content-body">
+    <body>
+    <section class="hero-section">
+        <div class="floating-elements">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-content">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold mb-4">Trẻ Hóa Da</h1>
+                    <h2 class="h3 mb-4">Bí Quyết Gìn Giữ Thanh Xuân Cho Làn Da</h2>
+                    <p class="lead mb-4">
+                        Thời gian, môi trường và thói quen sinh hoạt là những yếu tố khiến làn da dần trở nên xỉn màu, nhăn nheo, kém săn chắc – dấu hiệu của quá trình lão hóa. Nhưng đừng lo, trẻ hóa da chính là giải pháp giúp phục hồi sự tươi trẻ, căng bóng và đàn hồi của làn da.
+                    </p>
+                    <a href="#solutions" class="btn btn-primary-custom btn-lg">
+                        <i class="fas fa-magic me-2"></i>Khám phá ngay
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title">Lão hóa da là gì?</h2>
+                    <p class="lead">
+                        Lão hóa da là một quá trình tự nhiên và không thể tránh khỏi, bắt đầu từ sau tuổi 25 khi cơ thể giảm dần khả năng sản xuất collagen và elastin – hai loại protein quan trọng giúp da duy trì độ đàn hồi và săn chắc.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4 mt-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-feature card h-100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <h5 class="card-title">Da khô, thiếu ẩm</h5>
+                            <p class="card-text">Da khô, thiếu ẩm và xỉn màu</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-feature card h-100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h5 class="card-title">Nếp nhăn</h5>
+                            <p class="card-text">Xuất hiện nếp nhăn, đặc biệt ở vùng mắt, trán, khóe miệng</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-feature card h-100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-compress-arrows-alt"></i>
+                            </div>
+                            <h5 class="card-title">Mất đàn hồi</h5>
+                            <p class="card-text">Da chảy xệ, mất độ đàn hồi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-feature card h-100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                            <h5 class="card-title">Lỗ chân lông to</h5>
+                            <p class="card-text">Lỗ chân lông to, da thô ráp</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-feature card h-100">
+                            <div class="card-body text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <h5 class="card-title">Đốm nâu</h5>
+                            <p class="card-text">Xuất hiện đốm nâu, tàn nhang, nám</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="causes" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title">Nguyên nhân khiến da lão hóa sớm</h2>
+
+                    <div class="solution-item">
+                        <div class="d-flex align-items-center">
+                            <div class="feature-icon me-3" style="width: 40px; height: 40px; font-size: 1rem;">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-1">Tia UV từ ánh nắng mặt trời</h5>
+                                <p class="mb-0 text-muted">80% nguyên nhân lão hóa ngoại sinh</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="solution-item">
+                        <div class="d-flex align-items-center">
+                            <div class="feature-icon me-3" style="width: 40px; height: 40px; font-size: 1rem;">
+                                <i class="fas fa-moon"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-1">Thiếu ngủ, stress kéo dài</h5>
+                                <p class="mb-0 text-muted">Ảnh hưởng đến quá trình tái tạo da</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="solution-item">
+                        <div class="d-flex align-items-center">
+                            <div class="feature-icon me-3" style="width: 40px; height: 40px; font-size: 1rem;">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-1">Chế độ ăn không hợp lý</h5>
+                                <p class="mb-0 text-muted">Nhiều đường, thiếu vitamin</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="solution-item">
+                        <div class="d-flex align-items-center">
+                            <div class="feature-icon me-3" style="width: 40px; height: 40px; font-size: 1rem;">
+                                <i class="fas fa-spray-can"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-1">Chăm sóc da không đúng cách</h5>
+                                <p class="mb-0 text-muted">Không làm sạch và chăm sóc da đúng cách</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="solution-item">
+                        <div class="d-flex align-items-center">
+                            <div class="feature-icon me-3" style="width: 40px; height: 40px; font-size: 1rem;">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-1">Mỹ phẩm có hại</h5>
+                                <p class="mb-0 text-muted">Sử dụng mỹ phẩm chứa thành phần gây kích ứng</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solutions" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title">Giải pháp trẻ hóa da toàn diện</h2>
+                    <p class="lead mb-5">
+                        Trẻ hóa da không đơn thuần chỉ là bôi kem hay đắp mặt nạ – đó là quy trình kết hợp giữa chăm sóc đúng cách, thay đổi lối sống và ứng dụng công nghệ thẩm mỹ hiện đại.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-lg-10 mx-auto">
+                    <h3 class="h4 mb-4 text-primary">
+                        <i class="fas fa-home me-2"></i>1. Chăm sóc da tại nhà (Home Skincare)
+                    </h3>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="lifestyle-tip">
+                                <h6><i class="fas fa-soap me-2 text-primary"></i>Làm sạch kỹ lưỡng</h6>
+                                <p class="mb-0 small">Sử dụng sữa rửa mặt dịu nhẹ, tẩy tế bào chết định kỳ</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="lifestyle-tip">
+                                <h6><i class="fas fa-tint me-2 text-primary"></i>Dưỡng ẩm sâu</h6>
+                                <p class="mb-0 small">Giữ ẩm cho da giúp duy trì hàng rào bảo vệ tự nhiên</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="lifestyle-tip">
+                                <h6><i class="fas fa-flask me-2 text-primary"></i>Serum chống lão hóa</h6>
+                                <p class="mb-0 small">Vitamin C, Retinol, Peptide, Niacinamide...</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="lifestyle-tip">
+                                <h6><i class="fas fa-sun me-2 text-primary"></i>Kem chống nắng hàng ngày</h6>
+                                <p class="mb-0 small">Bước quan trọng nhất để ngăn lão hóa sớm</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="lifestyle-tip">
+                                <h6><i class="fas fa-leaf me-2 text-primary"></i>Mặt nạ dưỡng da</h6>
+                                <p class="mb-0 small">Đắp mặt nạ chứa Collagen, Hyaluronic Acid hoặc chiết xuất thiên nhiên</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h3 class="h4 mb-4 text-primary">
+                        <i class="fas fa-microscope me-2"></i>2. Trẻ hóa da bằng công nghệ thẩm mỹ hiện đại
+                    </h3>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="card-feature card h-100">
+                                <div class="card-body">
+                                    <div class="tech-badge mb-3">✅ Laser Rejuvenation</div>
+                                    <h5 class="card-title">Công nghệ laser trẻ hóa</h5>
+                                    <p class="card-text">Giúp tái tạo da, làm mờ nếp nhăn, se khít lỗ chân lông và giảm sắc tố.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-feature card h-100">
+                                <div class="card-body">
+                                    <div class="tech-badge mb-3">✅ Microneedling</div>
+                                    <h5 class="card-title">Lăn kim – Vi kim tế bào gốc</h5>
+                                    <p class="card-text">Kích thích tăng sinh collagen, phục hồi cấu trúc da, cải thiện sẹo rỗ và nếp nhăn.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-feature card h-100">
+                                <div class="card-body">
+                                    <div class="tech-badge mb-3">✅ Radio Frequency</div>
+                                    <h5 class="card-title">Công nghệ RF</h5>
+                                    <p class="card-text">Sóng vô tuyến giúp làm săn chắc, nâng cơ mặt, giảm chảy xệ.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-feature card h-100">
+                                <div class="card-body">
+                                    <div class="tech-badge mb-3">✅ Collagen/PRP</div>
+                                    <h5 class="card-title">Cấy Collagen hoặc PRP</h5>
+                                    <p class="card-text">Làm đầy, làm sáng và giúp da trẻ lại từ bên trong.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card-feature card">
+                                <div class="card-body">
+                                    <div class="tech-badge mb-3">✅ HIFU Technology</div>
+                                    <h5 class="card-title">Hifu – Nâng cơ không xâm lấn</h5>
+                                    <p class="card-text">Công nghệ sóng siêu âm hội tụ, tác động sâu vào lớp cơ nông SMAS giúp nâng cơ và làm gọn gương mặt.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="lifestyle" class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title">Thay đổi lối sống – Bí quyết trẻ hóa từ bên trong</h2>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="lifestyle-tip">
+                                <h6><i class="fas fa-glass-water me-2 text-primary"></i>Uống đủ nước</h6>
+                                <p class="mb-0">Uống đủ nước mỗi ngày (Khoảng 2 lít)</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="lifestyle-tip">
+                                <h6><i class="fas fa-bed me-2 text-primary"></i>Ngủ đủ giấc</h6>
+                                <p class="mb-0">Ngủ đủ 7–8 tiếng, tránh thức khuya</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="lifestyle-tip">
+                                <h6><i class="fas fa-running me-2 text-primary"></i>Tập thể dục</h6>
+                                <p class="mb-0">Tập thể dục thường xuyên để kích thích tuần hoàn máu</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="lifestyle-tip">
+                                <h6><i class="fas fa-apple-alt me-2 text-primary"></i>Ăn uống lành mạnh</h6>
+                                <p class="mb-0">Ăn nhiều rau xanh, trái cây, hạt dinh dưỡng</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="lifestyle-tip">
+                                <h6><i class="fas fa-ban me-2 text-danger"></i>Tránh các tác nhân có hại</h6>
+                                <p class="mb-0">Tránh hút thuốc, hạn chế rượu bia – kẻ thù của làn da!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="quote-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h3 class="h4 mb-4 text-primary">Chuyên gia nói gì?</h3>
+                    <blockquote class="blockquote text-center">
+                        <p class="mb-4">Không có làn da xấu – chỉ có làn da chưa được chăm sóc đúng cách.</p>
+                    </blockquote>
+                    <p class="text-center text-muted">
+                        Trẻ hóa da là một hành trình, không phải phép màu trong một đêm. Nhưng nếu bạn bắt đầu đúng lúc, đúng cách, làn da của bạn hoàn toàn có thể "trẻ hóa ngược", rạng rỡ hơn theo thời gian.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="cta-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-6 fw-bold mb-4">Đặt lịch tư vấn</h2>
+                    <h3 class="h4 mb-4">Bắt đầu hành trình trẻ hóa của bạn ngay hôm nay!</h3>
+                    <p class="lead mb-4">
+                        Tại Phòng khám BSD, chúng tôi cung cấp dịch vụ trẻ hóa da chuyên sâu kết hợp giữa chăm sóc y khoa và công nghệ cao, giúp khách hàng lấy lại làn da mịn màng, tươi trẻ mà không cần can thiệp phẫu thuật.
+                    </p>
+                    <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
+                        <a href="tel:0123456789" class="btn btn-primary-custom btn-lg">
+                            <i class="fas fa-phone me-2"></i>Gọi ngay: 0123.456.789
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-calendar me-2"></i>Đặt lịch online
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </body>
+</th:block>
+
+<th:block layout:fragment="appointment-script">
+    <script type="module" th:src="@{/client/custom/js/post/skin_rejuvenation_blog.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</th:block>

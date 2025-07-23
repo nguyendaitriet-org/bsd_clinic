@@ -1,0 +1,386 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/layout/app}"
+>
+<th:block layout:fragment="content-style">
+    <link rel="stylesheet" th:href="@{/client/custom/css/laser_beauty_blog.css}"/>
+</th:block>
+
+<th:block layout:fragment="content-body">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Laser Thẩm Mỹ</h1>
+                    <h2 class="h3 mb-4">Giải Pháp Làm Đẹp Hiện Đại Không Xâm Lấn</h2>
+                    <p class="lead mb-4">An toàn – Hiệu quả – Không phẫu thuật</p>
+                    <a href="#services" class="btn btn-light btn-lg px-4 py-3">
+                        <i class="fas fa-arrow-down me-2"></i>Khám phá ngay
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.pexels.com/photos/3997989/pexels-photo-3997989.jpeg"
+                         alt="Laser Beauty Treatment"
+                         class="img-fluid feature-img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <!-- Introduction Section -->
+        <section class="my-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="https://drnhubeauty.vn/wp-content/uploads/2023/11/laser-CO2-fractional-trong-tr%E1%BA%BB-h%C3%B3a-da.jpg"
+                         alt="Modern laser equipment"
+                         class="img-fluid feature-img mb-4">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="section-title">Laser thẩm mỹ là gì?</h2>
+                    <p class="fs-5 text-muted mb-4">
+                        Laser thẩm mỹ đang trở thành xu hướng làm đẹp hiện đại nhờ khả năng điều trị chuyên sâu các vấn đề về da như mụn, nám, tàn nhang, sẹo rỗ, lão hóa… mà không cần xâm lấn phẫu thuật.
+                    </p>
+                    <p class="mb-4">
+                        Laser là chùm ánh sáng năng lượng cao có bước sóng được điều chỉnh để tác động chọn lọc đến vùng da cần điều trị mà không gây tổn thương mô xung quanh. Mỗi loại laser phù hợp với mục tiêu điều trị khác nhau.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Laser Types Section -->
+        <section id="services" class="my-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title display-6 fw-bold">Các loại Laser thẩm mỹ phổ biến</h2>
+                <p class="lead text-muted">Công nghệ hiện đại cho từng nhu cầu làm đẹp</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card laser-card h-100">
+                        <div class="laser-card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-microscope me-2"></i>
+                                Laser CO2 Fractional
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Tái tạo collagen, làm đầy sẹo rỗ</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Thu nhỏ lỗ chân lông</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Trị rạn da, nếp nhăn sâu</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="card laser-card h-100">
+                        <div class="laser-card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-magic me-2"></i>
+                                Laser Q-Switched Nd:YAG
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Trị nám, tàn nhang, đốm nâu</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Xóa xăm an toàn</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Làm sáng và đều màu da</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="card laser-card h-100">
+                        <div class="laser-card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-spa me-2"></i>
+                                Laser Er:YAG
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Trị sẹo nông hiệu quả</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Làm mịn bề mặt da</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Phục hồi nhanh, ít xâm lấn</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="card laser-card h-100">
+                        <div class="laser-card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-cut me-2"></i>
+                                Laser Diode
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Triệt lông vĩnh viễn</li>
+                                <li><i class="fas fa-check text-success me-2"></i>An toàn cho mọi vùng da</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Tác động sâu vào nang lông</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="card laser-card h-100">
+                        <div class="laser-card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-lightbulb me-2"></i>
+                                IPL Treatment
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Trị mụn, nám nhẹ</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Giãn mao mạch</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Trẻ hóa da, se khít lỗ chân lông</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Benefits Section -->
+        <section class="my-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title display-6 fw-bold">Công dụng của Laser thẩm mỹ</h2>
+                <p class="lead text-muted">Giải pháp toàn diện cho làn da hoàn hảo</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h5>Trị mụn và thâm mụn</h5>
+                    <p class="text-muted">Làm sạch sâu và ngăn ngừa mụn tái phát</p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="benefit-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h5>Làm sáng đều màu da</h5>
+                    <p class="text-muted">Da trắng hồng tự nhiên, rạng rỡ</p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="benefit-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h5>Trị nám, tàn nhang</h5>
+                    <p class="text-muted">Loại bỏ các đốm nâu hiệu quả</p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="benefit-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h5>Tái tạo da</h5>
+                    <p class="text-muted">Se khít lỗ chân lông, da mịn màng</p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bandage"></i>
+                    </div>
+                    <h5>Trị sẹo rỗ</h5>
+                    <p class="text-muted">Làm phẳng sẹo lâu năm</p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="benefit-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h5>Triệt lông vĩnh viễn</h5>
+                    <p class="text-muted">An toàn, không đau đớn</p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h5>Giảm nhăn</h5>
+                    <p class="text-muted">Trẻ hóa làn da hiệu quả</p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="benefit-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h5>Nâng tông da</h5>
+                    <p class="text-muted">Da săn chắc, tươi trẻ</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Process Section -->
+        <section class="my-5">
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6">
+                    <h2 class="section-title display-6 fw-bold">Quy trình điều trị Laser tại BSD Clinic</h2>
+                    <p class="lead text-muted mb-4">Quy trình chuẩn y khoa, đảm bảo an toàn tuyệt đối</p>
+                </div>
+<!--                <div class="col-lg-6">-->
+<!--                    <img src="https://images.pexels.com/photos/3845457/pexels-photo-3845457.jpeg"-->
+<!--                         alt="Medical consultation"-->
+<!--                         class="img-fluid feature-img">-->
+<!--                </div>-->
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="process-step">
+                        <div class="process-number">1</div>
+                        <h5 class="fw-bold mb-3">Thăm khám & tư vấn</h5>
+                        <p class="mb-0">Phân tích tình trạng da và chỉ định laser phù hợp nhất với từng trường hợp cụ thể.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="process-step">
+                        <div class="process-number">2</div>
+                        <h5 class="fw-bold mb-3">Làm sạch da & bôi tê</h5>
+                        <p class="mb-0">Vệ sinh da sạch sẽ và áp dụng gel tê để giảm khó chịu trong quá trình điều trị.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="process-step">
+                        <div class="process-number">3</div>
+                        <h5 class="fw-bold mb-3">Tiến hành chiếu laser</h5>
+                        <p class="mb-0">Sử dụng thiết bị laser hiện đại, chuẩn y khoa với thông số được cài đặt chính xác.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="process-step">
+                        <div class="process-number">4</div>
+                        <h5 class="fw-bold mb-3">Chăm sóc sau điều trị</h5>
+                        <p class="mb-0">Dưỡng ẩm và hướng dẫn chống nắng nghiêm ngặt để tối ưu kết quả.</p>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="process-step">
+                        <div class="process-number">5</div>
+                        <h5 class="fw-bold mb-3">Liệu trình định kỳ</h5>
+                        <p class="mb-0">Thực hiện 3–6 buổi điều trị theo lịch hẹn để đạt hiệu quả tối ưu và bền vững.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Important Notes Section -->
+        <section class="my-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="section-title text-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Lưu ý khi điều trị Laser
+                    </h2>
+                    <div class="alert alert-warning border-0 shadow-sm p-4">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-3">
+                                <i class="fas fa-times-circle text-danger me-2"></i>
+                                <strong>Không điều trị tại nơi không uy tín</strong> – dễ gây bỏng, sẹo
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-sun text-warning me-2"></i>
+                                <strong>Tránh nắng tuyệt đối</strong> 5–7 ngày đầu
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-flask text-info me-2"></i>
+                                <strong>Không dùng mỹ phẩm chứa acid, retinol</strong> ngay sau điều trị
+                            </li>
+                            <li>
+                                <i class="fas fa-user-md text-success me-2"></i>
+                                <strong>Luôn tuân theo hướng dẫn</strong> bác sĩ chuyên khoa da liễu
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2022/9/15/photo-1663217201338-16632172022201314140302.png"
+                         alt="Safety precautions"
+                         class="img-fluid feature-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonial Section -->
+        <section class="my-5">
+            <div class="testimonial-card">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h3 class="mb-3">
+                            <i class="fas fa-user-md text-primary me-2"></i>
+                            Chuyên gia nói gì?
+                        </h3>
+                        <blockquote class="blockquote mb-0">
+                            <p class="mb-3 fs-5 fst-italic">
+                                "Laser thẩm mỹ không phải là phép màu trong một lần, mà là hành trình cần đúng kỹ thuật, đúng mục tiêu và đúng bác sĩ."
+                            </p>
+                            <footer class="blockquote-footer">
+                                <strong>Bác sĩ da liễu tại BSD Clinic</strong>
+                            </footer>
+                        </blockquote>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <img src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg"
+                             alt="Doctor consultation"
+                             class="img-fluid rounded-circle"
+                             style="width: 150px; height: 150px; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section text-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <i class="fas fa-calendar-check display-1 mb-4 opacity-75"></i>
+                        <h3 class="display-6 fw-bold mb-4">Đặt lịch tư vấn cùng chuyên gia da liễu BSD</h3>
+                        <p class="lead mb-4">
+                            Chúng tôi sử dụng hệ thống laser hiện đại, được vận hành bởi đội ngũ bác sĩ da liễu chuyên môn cao.
+                        </p>
+                        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                            <a href="#!" class="btn btn-light btn-lg px-5 py-3">
+                                <i class="fas fa-comments me-2"></i>Đặt lịch ngay
+                            </a>
+                            <a href="tel:+84123456789" class="btn btn-outline-light btn-lg px-5 py-3">
+                                <i class="fas fa-phone me-2"></i>Hotline: 0123 456 789
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</th:block>
+
+<th:block layout:fragment="appointment-script">
+    <script type="module" th:src="@{/client/custom/js/appointment/create.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</th:block>

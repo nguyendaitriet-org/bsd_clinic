@@ -1,0 +1,330 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/layout/app}"
+>
+<th:block layout:fragment="content-style">
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/client/custom/css/acne_treatment_blog.css}"/>
+</th:block>
+
+<th:block layout:fragment="content-body">
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <!-- Featured Image -->
+                <div class="mb-5">
+                    <img
+                            src="https://mediworld.vn/wp-content/uploads/2021/01/Mun-co-che-hinh-thanh-va-phuong-phap-xu-ly-mun-tai-nha.jpg"
+                            alt="Điều trị mụn hiệu quả"
+                            class="img-fluid rounded-4 shadow-lg w-100 featured-image"
+                    />
+                </div>
+
+                <!-- Introduction -->
+                <div class="card border-0 shadow-sm mb-5 intro-card">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="h3 fw-bold mb-4 text-dark">TẠI SAO CẦN ĐIỀU TRỊ MỤN ĐÚNG CÁCH?</h2>
+                        <p class="lead text-muted mb-4">
+                            Mụn là một trong những vấn đề da liễu phổ biến nhất, ảnh hưởng đến cả thanh thiếu niên và người trưởng thành.
+                            Không chỉ gây mất thẩm mỹ, mụn còn ảnh hưởng sâu sắc đến tâm lý, sự tự tin và chất lượng cuộc sống của người mắc phải.
+                        </p>
+                        <p class="text-muted">
+                            Việc điều trị mụn hiệu quả không chỉ dừng lại ở việc loại bỏ mụn hiện tại, mà còn là ngăn ngừa tái phát,
+                            bảo vệ làn da và giảm thiểu thâm, sẹo về sau.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Causes Section -->
+                <div class="card border-0 shadow-sm mb-5">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="h3 fw-bold mb-4 text-dark d-flex align-items-center gap-3">
+                            <i class="bi bi-search text-primary"></i>
+                            NGUYÊN NHÂN HÌNH THÀNH MỤN
+                        </h2>
+
+                        <div class="row g-4">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card h-100 border-danger cause-card">
+                                    <div class="card-body text-center">
+                                        <div class="cause-icon bg-danger bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3">
+                                            <i class="bi bi-droplet-fill text-danger"></i>
+                                        </div>
+                                        <h5 class="fw-bold text-danger">Tăng tiết bã nhờn</h5>
+                                        <p class="text-muted small">Tuyến dầu hoạt động quá mức, gây bít tắc lỗ chân lông</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card h-100 border-warning cause-card">
+                                    <div class="card-body text-center">
+                                        <div class="cause-icon bg-warning bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3">
+                                            <i class="bi bi-x-circle-fill text-warning"></i>
+                                        </div>
+                                        <h5 class="fw-bold text-warning">Tắc nghẽn lỗ chân lông</h5>
+                                        <p class="text-muted small">Bụi bẩn, trang điểm, tế bào chết tích tụ</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card h-100 border-info cause-card">
+                                    <div class="card-body text-center">
+                                        <div class="cause-icon bg-info bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3">
+                                            <i class="bi bi-bug-fill text-info"></i>
+                                        </div>
+                                        <h5 class="fw-bold text-info">Vi khuẩn P. acnes</h5>
+                                        <p class="text-muted small">Phát triển mạnh, gây viêm nhiễm và mụn mủ</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card h-100 border-secondary cause-card">
+                                    <div class="card-body text-center">
+                                        <div class="cause-icon bg-secondary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3">
+                                            <i class="bi bi-activity text-secondary"></i>
+                                        </div>
+                                        <h5 class="fw-bold text-secondary">Rối loạn nội tiết</h5>
+                                        <p class="text-muted small">Thay đổi hormone, căng thẳng kéo dài</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card h-100 border-success cause-card">
+                                    <div class="card-body text-center">
+                                        <div class="cause-icon bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3">
+                                            <i class="bi bi-cup-hot-fill text-success"></i>
+                                        </div>
+                                        <h5 class="fw-bold text-success">Chế độ sinh hoạt</h5>
+                                        <p class="text-muted small">Thiếu ngủ, ăn nhiều đồ ngọt, dầu mỡ</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card h-100 border-primary cause-card">
+                                    <div class="card-body text-center">
+                                        <div class="cause-icon bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3">
+                                            <i class="bi bi-palette-fill text-primary"></i>
+                                        </div>
+                                        <h5 class="fw-bold text-primary">Mỹ phẩm không phù hợp</h5>
+                                        <p class="text-muted small">Chứa dầu, hương liệu, không tẩy trang kỹ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Treatment Protocol -->
+                <div class="card border-0 shadow-sm mb-5">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="h3 fw-bold mb-4 text-dark d-flex align-items-center gap-3">
+                            <i class="bi bi-shield-check text-primary"></i>
+                            PHÁC ĐỒ ĐIỀU TRỊ MỤN HIỆU QUẢ
+                        </h2>
+
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center gap-4 p-4 treatment-step bg-primary bg-opacity-10 border border-primary border-opacity-25">
+                                    <div class="step-number bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold">
+                                        1
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h5 class="fw-bold text-primary mb-1">Chăm sóc da đúng cách</h5>
+                                        <p class="text-muted mb-0 small">Rửa mặt 2 lần/ngày, tẩy trang kỹ</p>
+                                    </div>
+                                    <i class="bi bi-droplet-fill text-primary fs-4"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center gap-4 p-4 treatment-step bg-info bg-opacity-10 border border-info border-opacity-25">
+                                    <div class="step-number bg-info text-white rounded-circle d-flex align-items-center justify-content-center fw-bold">
+                                        2
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h5 class="fw-bold text-info mb-1">Sản phẩm đặc trị</h5>
+                                        <p class="text-muted mb-0 small">Benzoyl Peroxide, Retinoids, AHA/BHA</p>
+                                    </div>
+                                    <i class="bi bi-heart-fill text-info fs-4"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center gap-4 p-4 treatment-step bg-warning bg-opacity-10 border border-warning border-opacity-25">
+                                    <div class="step-number bg-warning text-white rounded-circle d-flex align-items-center justify-content-center fw-bold">
+                                        3
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h5 class="fw-bold text-warning mb-1">Thuốc toàn thân</h5>
+                                        <p class="text-muted mb-0 small">Kháng sinh, Isotretinoin (theo đơn BS)</p>
+                                    </div>
+                                    <i class="bi bi-capsule text-warning fs-4"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center gap-4 p-4 treatment-step bg-success bg-opacity-10 border border-success border-opacity-25">
+                                    <div class="step-number bg-success text-white rounded-circle d-flex align-items-center justify-content-center fw-bold">
+                                        4
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h5 class="fw-bold text-success mb-1">Công nghệ hỗ trợ</h5>
+                                        <p class="text-muted mb-0 small">Laser, Blue light, Peel da hóa học</p>
+                                    </div>
+                                    <i class="bi bi-lightning-fill text-success fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <img
+                                    src="https://images.pexels.com/photos/3997991/pexels-photo-3997991.jpeg?auto=compress&cs=tinysrgb&w=1200&h=400&fit=crop"
+                                    alt="Điều trị mụn chuyên nghiệp"
+                                    class="img-fluid shadow routine-image w-100 rounded-3"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technology Section -->
+                <div class="card border-0 shadow-sm mb-5">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="h3 fw-bold mb-4 text-dark d-flex align-items-center gap-3">
+                            <i class="bi bi-cpu-fill text-primary"></i>
+                            CÔNG NGHỆ HỖ TRỢ HIỆN ĐẠI
+                        </h2>
+
+                        <div class="row g-4">
+                            <div class="col-md-6 col-lg-3">
+                                <div class="card h-100 border-0 tech-card bg-primary bg-opacity-10">
+                                    <div class="card-body text-center p-4">
+                                        <i class="bi bi-scissors text-primary fs-2 mb-3"></i>
+                                        <h6 class="fw-bold text-primary">Lấy nhân mụn y khoa</h6>
+                                        <p class="text-muted small">Thực hiện bởi chuyên gia, hạn chế thâm sẹo</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="card h-100 border-0 tech-card bg-info bg-opacity-10">
+                                    <div class="card-body text-center p-4">
+                                        <i class="bi bi-lightning-charge-fill text-info fs-2 mb-3"></i>
+                                        <h6 class="fw-bold text-info">Laser trị mụn</h6>
+                                        <p class="text-muted small">Giảm viêm, tiêu diệt vi khuẩn</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="card h-100 border-0 tech-card bg-warning bg-opacity-10">
+                                    <div class="card-body text-center p-4">
+                                        <i class="bi bi-lightbulb-fill text-warning fs-2 mb-3"></i>
+                                        <h6 class="fw-bold text-warning">Ánh sáng sinh học</h6>
+                                        <p class="text-muted small">Blue/Red light kháng viêm</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="card h-100 border-0 tech-card bg-success bg-opacity-10">
+                                    <div class="card-body text-center p-4">
+                                        <i class="bi bi-droplet-half text-success fs-2 mb-3"></i>
+                                        <h6 class="fw-bold text-success">Peel da hóa học</h6>
+                                        <p class="text-muted small">Loại bỏ tế bào chết, cải thiện sắc tố</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Mistakes -->
+                <div class="card border-0 shadow-sm mb-5 mistakes-section">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="h3 fw-bold mb-4 text-dark d-flex align-items-center gap-3">
+                            <i class="bi bi-exclamation-triangle-fill text-warning"></i>
+                            NHỮNG SAI LẦM THƯỜNG GẶP
+                        </h2>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start gap-3 p-3 bg-light mistake-item">
+                                    <i class="bi bi-x-circle-fill text-danger mt-1"></i>
+                                    <span class="text-dark">Tự ý nặn mụn tại nhà khiến vi khuẩn lan rộng</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start gap-3 p-3 bg-light mistake-item">
+                                    <i class="bi bi-x-circle-fill text-danger mt-1"></i>
+                                    <span class="text-dark">Lạm dụng mỹ phẩm trị mụn gây kích ứng</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start gap-3 p-3 bg-light mistake-item">
+                                    <i class="bi bi-x-circle-fill text-danger mt-1"></i>
+                                    <span class="text-dark">Bỏ dở giữa chừng, không kiên trì điều trị</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start gap-3 p-3 bg-light mistake-item">
+                                    <i class="bi bi-x-circle-fill text-danger mt-1"></i>
+                                    <span class="text-dark">Không tham khảo ý kiến chuyên gia</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expert Advice -->
+                <div class="card border-0 shadow-sm mb-5">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="h3 fw-bold mb-4 text-dark d-flex align-items-center gap-3">
+                            <i class="bi bi-person-badge-fill text-primary"></i>
+                            LỜI KHUYÊN TỪ CHUYÊN GIA DA LIỄU
+                        </h2>
+
+                        <div class="alert alert-info border-0 shadow-sm">
+                            <div class="d-flex align-items-start gap-3">
+                                <i class="bi bi-info-circle-fill text-info fs-4 mt-1"></i>
+                                <div>
+                                    <h5 class="fw-bold text-info mb-2">Điều quan trọng cần nhớ</h5>
+                                    <p class="mb-2">
+                                        Điều trị mụn là một quá trình đòi hỏi thời gian, sự kiên trì và kiến thức đúng đắn.
+                                        Đừng quá lo lắng nếu chưa thấy cải thiện ngay lập tức – mụn cần được kiểm soát từ sâu bên trong.
+                                    </p>
+                                    <p class="mb-0">
+                                        Điều quan trọng là bạn cần một phác đồ điều trị phù hợp với làn da của mình.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="card border-0 shadow-lg cta-card">
+                    <div class="card-body text-center p-5">
+                        <h3 class="fw-bold text-white mb-3">
+                            Đặt lịch tư vấn điều trị mụn ngay hôm nay!
+                        </h3>
+                        <p class="text-white-50 mb-4">
+                            Đội ngũ bác sĩ sẽ thăm khám và thiết kế liệu trình cá nhân hóa cho bạn
+                        </p>
+                        <button class="btn btn-light btn-lg px-5 py-3 fw-bold cta-button">
+                            Đặt lịch tư vấn miễn phí
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="appointment-script">
+    <script type="module" th:src="@{/client/custom/js/appointment/create.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</th:block>
+</html>

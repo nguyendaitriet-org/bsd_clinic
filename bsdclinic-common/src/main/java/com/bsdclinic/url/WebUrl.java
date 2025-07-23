@@ -21,6 +21,14 @@ public class WebUrl {
     public static final String CLIENT_HOME = "/";
     public static final String CLIENT_APPOINTMENT_CREATE = "/client/appointments/create";
     public static final String CLIENT_APPOINTMENT_CREATE_SUCCESS = "/client/appointments/create/success";
+    public static final String CLIENT_ACNE_TREATMENT_BLOG = "/client/post/acne_treatment_blog";
+    public static final String CLIENT_SKIN_REJUVENATION = "/client/post/skin_rejuvenation";
+    public static final String CLIENT_POST_LASER_BEAUTY_BLOG = "/client/post/laser_beauty_blog";
+    public static final String CLIENT_POST_BOX_FILLER_BLOG = "/client/post/box_filler_blog";
+    public static final String CLIENT_POST_5 = "/client/post/post5";
+    public static final String SKINCARE_BLOG = "/client/post/skincare_blog";
+    public static final String CLIENT_POST_7 = "/client/post/post7";
+    public static final String CLIENT_POST_8 = "/client/post/post8";
 
     // API Public
     public static final String API_PUBLIC_ENDPOINT = "/api/public";

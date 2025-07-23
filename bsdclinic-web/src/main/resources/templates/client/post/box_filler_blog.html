@@ -1,0 +1,327 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/layout/app}"
+>
+<th:block layout:fragment="content-style">
+    <link rel="stylesheet" th:href="@{/client/custom/css/box_filler_blog.css}"/>
+</th:block>
+
+<th:block layout:fragment="content-body">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Tiêm Botox & Filler</h1>
+                    <h2 class="h3 mb-4">Làm Đẹp Không Phẫu Thuật</h2>
+                    <p class="lead mb-4">Thon gọn – Xóa nhăn – Tạo hình tự nhiên – Không xâm lấn</p>
+                    <a href="#services" class="btn btn-light btn-lg px-4 py-3">
+                        <i class="fas fa-arrow-down me-2"></i>Khám phá ngay
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.pexels.com/photos/3985163/pexels-photo-3985163.jpeg"
+                         alt="Botox and Filler Treatment"
+                         class="img-fluid feature-img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <!-- Treatment Cards Section -->
+        <section id="services" class="my-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title display-6 fw-bold">Dịch vụ tiêm thẩm mỹ</h2>
+                <p class="lead text-muted">Giải pháp làm đẹp hiện đại, an toàn và hiệu quả</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Botox Card -->
+                <div class="col-lg-6">
+                    <div class="card treatment-card">
+                        <div class="treatment-card-header text-center">
+                            <i class="fas fa-syringe display-4 mb-3"></i>
+                            <h3 class="card-title mb-0">Tiêm Botox</h3>
+                            <p class="mb-0 mt-2">Thon gọn và xóa nhăn hiệu quả</p>
+                        </div>
+                        <div class="card-body p-4">
+                            <img src="https://images.pexels.com/photos/3997989/pexels-photo-3997989.jpeg"
+                                 alt="Botox Treatment"
+                                 class="img-fluid rounded mb-4">
+
+                            <p class="mb-4">Botox là một loại protein tinh khiết giúp làm giãn cơ tạm thời, làm mềm các nếp nhăn động như trán, khóe mắt, cơ cắn.</p>
+
+                            <div class="highlight-box">
+                                <h6 class="fw-bold mb-3">
+                                    <i class="fas fa-star text-warning me-2"></i>
+                                    Ứng dụng của Botox:
+                                </h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success me-2"></i>Xóa nếp nhăn trán, vết chân chim quanh mắt</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Làm thon gọn góc hàm (tiêm cơ cắn)</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Nâng cung mày nhẹ</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Giảm đổ mồ hôi tay, nách</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Hỗ trợ điều trị hàm nghiến</li>
+                                </ul>
+                            </div>
+
+                            <div class="alert alert-success border-0 mb-3">
+                                <h6 class="fw-bold mb-2">
+                                    <i class="fas fa-thumbs-up me-2"></i>Ưu điểm:
+                                </h6>
+                                <p class="mb-0">Thực hiện nhanh, không nghỉ dưỡng, hiệu quả sau 3–7 ngày.</p>
+                            </div>
+
+                            <div class="warning-card">
+                                <h6 class="fw-bold mb-3">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>Lưu ý:
+                                </h6>
+                                <ul class="list-unstyled mb-0">
+                                    <li><i class="fas fa-times text-danger me-2"></i>Không dùng cho phụ nữ mang thai hoặc cho con bú</li>
+                                    <li><i class="fas fa-times text-danger me-2"></i>Tránh xoa bóp vùng tiêm trong 4–6 giờ đầu</li>
+                                    <li><i class="fas fa-clock text-warning me-2"></i>Hiệu quả tạm thời – cần tiêm định kỳ</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filler Card -->
+                <div class="col-lg-6">
+                    <div class="card treatment-card">
+                        <div class="treatment-card-header text-center">
+                            <i class="fas fa-gem display-4 mb-3"></i>
+                            <h3 class="card-title mb-0">Tiêm Filler</h3>
+                            <p class="mb-0 mt-2">Làm đầy & tạo đường nét tự nhiên</p>
+                        </div>
+                        <div class="card-body p-4">
+                            <img src="https://images.pexels.com/photos/3997993/pexels-photo-3997993.jpeg"
+                                 alt="Filler Treatment"
+                                 class="img-fluid rounded mb-4">
+
+                            <p class="mb-4">Filler là chất làm đầy (HA) tiêm vào các vùng lõm trên khuôn mặt nhằm làm đầy mô, phục hồi thể tích và tạo hình thẩm mỹ không cần phẫu thuật.</p>
+
+                            <div class="highlight-box">
+                                <h6 class="fw-bold mb-3">
+                                    <i class="fas fa-star text-warning me-2"></i>
+                                    Ứng dụng của Filler:
+                                </h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success me-2"></i>Làm đầy rãnh cười, rãnh lệ</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Tạo hình mũi, cằm, môi</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Làm đầy má hóp, thái dương</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Trẻ hóa da tay</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Tạo mặt V-line tự nhiên</li>
+                                </ul>
+                            </div>
+
+                            <div class="alert alert-success border-0 mb-3">
+                                <h6 class="fw-bold mb-2">
+                                    <i class="fas fa-thumbs-up me-2"></i>Ưu điểm:
+                                </h6>
+                                <p class="mb-0">Thấy ngay kết quả, ít sưng đau, có thể tan chỉnh nếu cần.</p>
+                            </div>
+
+                            <div class="warning-card">
+                                <h6 class="fw-bold mb-3">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>Lưu ý:
+                                </h6>
+                                <ul class="list-unstyled mb-0">
+                                    <li><i class="fas fa-shield-alt text-info me-2"></i>Chỉ dùng Filler chất lượng, có kiểm định</li>
+                                    <li><i class="fas fa-user-md text-info me-2"></i>Thực hiện bởi bác sĩ chuyên khoa</li>
+                                    <li><i class="fas fa-balance-scale text-warning me-2"></i>Không tiêm quá liều để giữ nét tự nhiên</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Process Section -->
+        <section class="my-5">
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6">
+                    <h2 class="section-title display-6 fw-bold">Quy trình thực hiện tại BSD Clinic</h2>
+                    <p class="lead text-muted mb-4">Quy trình chuẩn y khoa, đảm bảo an toàn tuyệt đối</p>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.pexels.com/photos/3845457/pexels-photo-3845457.jpeg"
+                         alt="Medical consultation"
+                         class="img-fluid feature-img">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="process-step">
+                        <div class="process-number">1</div>
+                        <h5 class="fw-bold mb-3">Thăm khám & tư vấn</h5>
+                        <p class="mb-0">Đánh giá gương mặt, chọn vùng tiêm phù hợp với từng trường hợp cụ thể.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="process-step">
+                        <div class="process-number">2</div>
+                        <h5 class="fw-bold mb-3">Làm sạch & ủ tê</h5>
+                        <p class="mb-0">Vệ sinh da sạch sẽ và áp dụng gel tê để giảm đau, tạo cảm giác thoải mái.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="process-step">
+                        <div class="process-number">3</div>
+                        <h5 class="fw-bold mb-3">Tiến hành tiêm</h5>
+                        <p class="mb-0">Bác sĩ tiêm chính xác bằng kim chuyên dụng với kỹ thuật chuyên nghiệp.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="process-step">
+                        <div class="process-number">4</div>
+                        <h5 class="fw-bold mb-3">Chăm sóc sau tiêm</h5>
+                        <p class="mb-0">Chườm lạnh nếu sưng, tránh vận động vùng tiêm trong 24–48 giờ.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- FAQ Section -->
+        <section class="my-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title display-6 fw-bold">Giải đáp thắc mắc thường gặp</h2>
+                <p class="lead text-muted">Những câu hỏi khách hàng quan tâm nhất</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="faq-card">
+                        <h6 class="fw-bold mb-3">
+                            <i class="fas fa-question-circle text-primary me-2"></i>
+                            Tiêm Botox/Filler có đau không?
+                        </h6>
+                        <p class="mb-0">Chỉ hơi châm chích nhẹ, không đau nếu ủ tê kỹ.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="faq-card">
+                        <h6 class="fw-bold mb-3">
+                            <i class="fas fa-question-circle text-primary me-2"></i>
+                            Có để lại sẹo hoặc thâm không?
+                        </h6>
+                        <p class="mb-0">Không, nếu thực hiện đúng kỹ thuật và chăm sóc tốt.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="faq-card">
+                        <h6 class="fw-bold mb-3">
+                            <i class="fas fa-question-circle text-primary me-2"></i>
+                            Sau bao lâu thì có kết quả?
+                        </h6>
+                        <p class="mb-0">Botox: 3–7 ngày. Filler: Thấy ngay.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="faq-card">
+                        <h6 class="fw-bold mb-3">
+                            <i class="fas fa-question-circle text-primary me-2"></i>
+                            Bao lâu cần tiêm lại?
+                        </h6>
+                        <p class="mb-0">Botox: 4–6 tháng. Filler: 9–18 tháng tùy vùng và loại.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Safety Section -->
+        <section class="my-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="https://images.pexels.com/photos/5327580/pexels-photo-5327580.jpeg"
+                         alt="Safety and quality"
+                         class="img-fluid feature-img mb-4">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="section-title">
+                        <i class="fas fa-shield-alt text-primary me-2"></i>
+                        Làm đẹp an toàn – Hãy chọn đúng nơi
+                    </h2>
+                    <div class="important-card">
+                        <p class="mb-0 fs-5">
+                            Tiêm Botox/Filler tuy đơn giản nhưng tiềm ẩn rủi ro nếu làm tại nơi không uy tín. Hãy chọn phòng khám da liễu chuyên khoa, bác sĩ có chứng chỉ hành nghề, sản phẩm chính hãng và điều kiện vô trùng.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonial Section -->
+        <section class="my-5">
+            <div class="testimonial-card">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h3 class="mb-3">
+                            <i class="fas fa-user-md text-primary me-2"></i>
+                            Chuyên gia nói gì?
+                        </h3>
+                        <blockquote class="blockquote mb-0">
+                            <p class="mb-3 fs-5 fst-italic">
+                                "Botox và Filler là những công cụ tuyệt vời trong thẩm mỹ hiện đại, nhưng thành công phụ thuộc vào kỹ thuật và kinh nghiệm của bác sĩ thực hiện."
+                            </p>
+                            <footer class="blockquote-footer">
+                                <strong>Bác sĩ thẩm mỹ tại BSD Clinic</strong>
+                            </footer>
+                        </blockquote>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <img src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg"
+                             alt="Doctor consultation"
+                             class="img-fluid rounded-circle"
+                             style="width: 150px; height: 150px; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section text-center">
+            <div class="container position-relative">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <i class="fas fa-calendar-check display-1 mb-4 opacity-75"></i>
+                        <h3 class="display-6 fw-bold mb-4">Đặt lịch tư vấn cùng bác sĩ chuyên khoa BSD</h3>
+                        <p class="lead mb-4">
+                            Đội ngũ bác sĩ thẩm mỹ nội khoa giàu kinh nghiệm tại BSD Clinic sẵn sàng giúp bạn trở nên rạng rỡ, tinh tế và an toàn nhất.
+                        </p>
+                        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                            <a href="#!" class="btn btn-light btn-lg px-5 py-3">
+                                <i class="fas fa-comments me-2"></i>Đặt lịch ngay
+                            </a>
+                            <a href="tel:+84123456789" class="btn btn-outline-light btn-lg px-5 py-3">
+                                <i class="fas fa-phone me-2"></i>Hotline: 0123 456 789
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</th:block>
+
+<th:block layout:fragment="appointment-script">
+    <script type="module" th:src="@{/client/custom/js/appointment/create.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</th:block>

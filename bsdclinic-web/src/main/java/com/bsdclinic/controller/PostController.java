@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @RequiredArgsConstructor
 public class PostController {
-
     @GetMapping(WebUrl.CLIENT_ACNE_TREATMENT_BLOG)
     public String toPost1Page() {
         return "client/post/acne_treatment_blog";
@@ -23,25 +22,30 @@ public class PostController {
     public String toPost3Page() {
         return "client/post/laser_beauty_blog";
     }
+
     @GetMapping(WebUrl.CLIENT_POST_BOX_FILLER_BLOG)
     public String toPostBoxAndFillerPage() {
         return "client/post/box_filler_blog";
     }
-    @GetMapping(WebUrl.CLIENT_POST_5)
-    public String toPost5Page() {
-        return "client/post/post5";
+
+    @GetMapping(WebUrl.CLIENT_POST_BIO_LIGHT_BLOG)
+    public String toPostBioLightPage() {
+        return "client/post/bio_light_blog";
     }
+
     @GetMapping(WebUrl.SKINCARE_BLOG)
     public String toSkinCareBlogPage() {
         return "client/post/skincare_blog";
     }
+
     @GetMapping(WebUrl.CLIENT_POST_7)
     public String toPost7Page() {
         return "client/post/post7";
     }
-    @GetMapping(WebUrl.CLIENT_POST_8)
+
+    @GetMapping(WebUrl.CLIENT_POST_INTRODUCE_BSD_CLINIC)
     public String toPost8Page() {
-        return "post7";
+        return "client/post/introduce_bsd_clinic";
     }
 }
 

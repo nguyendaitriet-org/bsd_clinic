@@ -34,6 +34,10 @@ export const Status = (function () {
             FINISHED_NO_PAY: "FINISHED_NO_PAY",
             PAID: "PAID",
             UNPAID: "UNPAID"
+        },
+        INVOICE: {
+            PAID: "PAID",
+            UNPAID: "UNPAID"
         }
     };
 })();

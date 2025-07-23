@@ -19,7 +19,9 @@ export const MedicalRecordInvoicePrescription = (function () {
         printPrescriptionButtonSelector: $('.print-prescription-btn'),
         deletePrescriptionButtonSelector: $('.delete-prescription-btn'),
 
-        clinicLogoSelector: $('.clinic-logo')
+        clinicLogoSelector: $('.clinic-logo'),
+
+        invoiceDetailFormSelector: $('#invoice-detail-form')
     }
 
     module.init = () => {
@@ -85,7 +87,7 @@ export const MedicalRecordInvoicePrescription = (function () {
         const prescriptionId = module.prescriptionIdSelector.val();
         if (invoiceId) {
             InvoiceDetail.getInvoice(invoiceId).then((invoiceResponse) => {
-                InvoiceDetail.renderInvoiceDetail(invoiceResponse);
+                InvoiceDetail.renderInvoiceDetail(invoiceResponse, module.invoiceDetailFormSelector);
             });
         }
         if (prescriptionId) {
@@ -120,7 +122,7 @@ export const MedicalRecordInvoicePrescription = (function () {
         module.deleteInvoiceButtonSelector.on('click', function () {
             App.showSweetAlertConfirmation('error', confirmApplyTitle, deleteInvoiceCaution).then((result) => {
                 if (result.isConfirmed) {
-                    const invoiceId = InvoiceDetail.invoiceDetailFormSelector.find(InvoiceDetail.invoiceIdInput).val();
+                    const invoiceId = module.invoiceDetailFormSelector.find(InvoiceDetail.invoiceIdInput).val();
                     InvoiceDeletion.deleteInvoice(invoiceId)
                         .then(() => {
                             const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
@@ -176,7 +178,7 @@ export const MedicalRecordInvoicePrescription = (function () {
 
     const handlePrintInvoiceButton = () => {
         module.printInvoiceButtonSelector.on('click', function () {
-            const invoiceElement = InvoiceDetail.invoiceDetailFormSelector.clone();
+            const invoiceElement = module.invoiceDetailFormSelector.clone();
             invoiceElement.find('button').remove();
             const invoiceContent = invoiceElement.html();
             Printer.openPrintWindow(invoiceContent, invoiceTitle);

@@ -18,6 +18,11 @@ export const Printer = (function () {
                             color: #333;
                         }
                         
+                        .clinic-logo {
+                            width: 40px;
+                            height: 40px;
+                        }
+                        
                         .container-fluid {
                             max-width: 100%;
                             margin: 0 auto;

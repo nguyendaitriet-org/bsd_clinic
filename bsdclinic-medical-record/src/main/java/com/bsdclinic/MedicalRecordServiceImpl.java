@@ -5,12 +5,11 @@ import com.bsdclinic.appointment.Appointment;
 import com.bsdclinic.constant.DateTimePattern;
 import com.bsdclinic.dto.request.MedicalRecordFilter;
 import com.bsdclinic.dto.request.MedicalRecordUpdateRequest;
-import com.bsdclinic.dto.response.IMedicalRecordResponse;
-import com.bsdclinic.dto.response.MedicalRecordListResponse;
-import com.bsdclinic.dto.response.MedicalRecordResponse;
+import com.bsdclinic.dto.response.*;
 import com.bsdclinic.exception_handler.exception.BadRequestException;
 import com.bsdclinic.exception_handler.exception.ConflictException;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
+import com.bsdclinic.invoice.PurchasedService;
 import com.bsdclinic.medical_record.MedicalRecord;
 import com.bsdclinic.medical_service.ChosenMedicalService;
 import com.bsdclinic.message.MessageProvider;
@@ -26,6 +25,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -42,6 +42,8 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     private final ChosenServiceRepository chosenServiceRepository;
     private final MessageProvider messageProvider;
     private final MedicalRecordMapper medicalRecordMapper;
+    private final MedicalServiceMapper medicalServiceMapper;
+    private final ServiceMedicalService serviceMedicalService;
 
     @Override
     @Transactional
@@ -122,7 +124,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     @Override
     @Transactional
     @Modifying
-    public void updateMedicalRecordAndAppointment(String medicalRecordId, String appointmentId, MedicalRecordUpdateRequest request) {
+    public MedicalRecordUpdateResponse updateMedicalRecordAndAppointment(String medicalRecordId, String appointmentId, MedicalRecordUpdateRequest request) {
         if (!medicalRecordRepository.existsByAppointmentIdAndMedicalRecordId(appointmentId, medicalRecordId)) {
             throw new NotFoundException(messageProvider.getMessage("validation.no_exist.medical_record"));
         }
@@ -137,11 +139,11 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 
         /* Update appointment */
         Appointment updatedAppointment = medicalRecordMapper.toAppointment(request, appointment);
-        appointmentRepository.save(updatedAppointment);
+        updatedAppointment = appointmentRepository.save(updatedAppointment);
 
         /* Update medical record */
         MedicalRecord updatedMedicalRecord = medicalRecordMapper.toEntity(request, medicalRecord);
-        medicalRecordRepository.save(updatedMedicalRecord);
+        updatedMedicalRecord = medicalRecordRepository.save(updatedMedicalRecord);
 
         /* Update the chosen medical service for medical record */
         chosenServiceRepository.deleteByMedicalRecordId(medicalRecordId);
@@ -151,6 +153,25 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
                         .setMedicalServiceId(medicalServiceId))
                 .toList();
         chosenServiceRepository.saveAll(updatedChosenMedicalServices);
+
+        return getMedicalRecordResponse(updatedAppointment, updatedMedicalRecord);
+    }
+
+    private MedicalRecordUpdateResponse getMedicalRecordResponse(Appointment appointment, MedicalRecord medicalRecord) {
+        MedicalRecordUpdateResponse medicalRecordUpdateResponse = new MedicalRecordUpdateResponse();
+        List<IMedicalServiceResponse> medicalServiceResponse = serviceMedicalService.getMedicalServicesByMedicalRecordId(medicalRecord.getMedicalRecordId());
+        List<PurchasedService> purchasedServices = medicalServiceMapper
+                .toPurchasedServiceList(medicalServiceResponse);
+        BigDecimal servicesTotalPrice = purchasedServices.stream()
+                .map(PurchasedService::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        medicalRecordUpdateResponse.setPatientName(appointment.getPatientName());
+        medicalRecordUpdateResponse.setPurchasedServices(purchasedServices);
+        medicalRecordUpdateResponse.setServicesTotalPrice(servicesTotalPrice);
+        medicalRecordUpdateResponse.setAdvance(medicalRecord.getAdvance());
+
+        return medicalRecordUpdateResponse;
     }
 
     @Override

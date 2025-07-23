@@ -3,6 +3,7 @@ package com.bsdclinic;
 import com.bsdclinic.dto.request.MedicalRecordFilter;
 import com.bsdclinic.dto.request.MedicalRecordUpdateRequest;
 import com.bsdclinic.dto.response.MedicalRecordResponse;
+import com.bsdclinic.dto.response.MedicalRecordUpdateResponse;
 import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.url.WebUrl;
 import jakarta.validation.Valid;
@@ -28,12 +29,12 @@ public class MedicalRecordApi {
 
     @RoleAuthorization.AdminAndDoctorAuthorization
     @PutMapping(WebUrl.API_ADMIN_MEDICAL_RECORD_APPOINTMENT)
-    public void updateMedicalRecordAndAppointment(
+    public MedicalRecordUpdateResponse updateMedicalRecordAndAppointment(
             @PathVariable String medicalRecordId,
             @PathVariable String appointmentId,
             @RequestBody @Valid MedicalRecordUpdateRequest request
     ) {
-        medicalRecordService.updateMedicalRecordAndAppointment(medicalRecordId, appointmentId, request);
+        return medicalRecordService.updateMedicalRecordAndAppointment(medicalRecordId, appointmentId, request);
     }
 
     @RoleAuthorization.AdminAndDoctorAuthorization

@@ -14,7 +14,7 @@
         }
         .clinic-logo {
             height: 40px;
-            width: auto;
+            width: 40px;
         }
     </style>
 </th:block>
@@ -144,9 +144,9 @@
                         <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
                         <div>
                             <button class="btn btn-primary save-and-print-advance-btn"
-                                    th:text="#{title.medical_record.save_and_print_advance}" disabled></button>
+                                    th:text="#{title.medical_record.save_and_print_advance}"></button>
                             <button class="btn btn-secondary save-record-btn"
-                                    th:text="#{title.save_only}"></button>
+                                    th:text="#{title.save_change}"></button>
                             <button class="btn btn-danger delete-record-btn"
                                     th:text="#{title.medical_record.remove}"></button>
                         </div>
@@ -232,6 +232,8 @@
     </div>
     <!-- Prescription-invoice modal -->
     <th:block th:replace="~{admin/medical_record/component/prescription_invoice_modal :: prescription-invoice}"></th:block>
+    <!-- Advance detail form -->
+    <th:block th:replace="~{admin/medical_record/component/advance_detail :: advance-detail}"></th:block>
 </th:block>
 
 <th:block layout:fragment="medical-record-script">

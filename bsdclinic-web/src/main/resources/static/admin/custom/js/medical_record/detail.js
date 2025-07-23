@@ -3,8 +3,8 @@ import {FormHandler} from "/common/js/form.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
 import {DateTimePattern} from "/common/js/constant.js";
 import {CurrencyConverter} from "/common/js/currency_util.js";
-import {PrescriptionCreation, PrescriptionDetail} from "/admin/custom/js/prescription/script.js";
-import {InvoiceCreation, InvoiceDetail} from "/admin/custom/js/invoice/script.js";
+import {InvoiceDetail} from "/admin/custom/js/invoice/script.js";
+import {Printer} from "/common/js/print.js";
 
 export const MedicalRecordCreation = (function () {
     const module = {};
@@ -52,6 +52,7 @@ export const MedicalRecordUpdating = (function () {
         serviceTotalPriceSelector: $('#service-total-price'),
         servicePriceTextSelector: $('.service-price-text'),
         saveMedicalRecordButton: $('.save-record-btn'),
+        saveAndPrintAdvanceFormButtonSelector: $('.save-and-print-advance-btn'),
 
         selectedMedicalServiceIds: []
     };
@@ -66,6 +67,7 @@ export const MedicalRecordUpdating = (function () {
         handleRemoveSelectedServiceButton();
         renderMedicalServiceTotalPrice();
         handleSaveMedicalRecordButton();
+        handleSaveAndPrintAdvanceButton();
         CurrencyConverter.setupPriceFormatter(module.advanceSelector);
     }
 
@@ -185,7 +187,26 @@ export const MedicalRecordUpdating = (function () {
             const medicalRecordData = getMedicalRecordData();
             App.showSweetAlertConfirmation('warning', confirmApplyTitle, '').then((result) => {
                 if (result.isConfirmed) {
-                    saveMedicalRecordData(medicalRecordData);
+                    saveMedicalRecordData(medicalRecordData).then(() => {
+                        App.showSweetAlert('success', operationSuccess, '');
+                        location.reload();
+                    });
+                }
+            });
+        });
+    }
+
+    const handleSaveAndPrintAdvanceButton = () => {
+        module.saveAndPrintAdvanceFormButtonSelector.on('click', function () {
+            const medicalRecordData = getMedicalRecordData();
+            App.showSweetAlertConfirmation('warning', confirmApplyTitle, '').then((result) => {
+                if (result.isConfirmed) {
+                    saveMedicalRecordData(medicalRecordData).then((response) => {
+                        App.showSweetAlert('success', operationSuccess, '');
+                        AdvanceHandler.renderAdvanceData(response);
+                        AdvanceHandler.handlePrintAdvanceForm();
+                        location.reload();
+                    });
                 }
             });
         });
@@ -198,7 +219,7 @@ export const MedicalRecordUpdating = (function () {
             .replace('{medicalRecordId}', medicalRecordId)
             .replace('{appointmentId}', appointmentId);
 
-        $.ajax({
+        return $.ajax({
             headers: {
                 "accept": "application/json",
                 "content-type": "application/json"
@@ -207,10 +228,6 @@ export const MedicalRecordUpdating = (function () {
             url: requestUrl,
             data: JSON.stringify(medicalRecordData),
         })
-            .done(() => {
-                App.showSweetAlert('success', operationSuccess, '');
-                location.reload();
-            })
             .fail((jqXHR) => {
                 FormHandler.handleServerValidationError(module.medicalRecordDetailArea, jqXHR);
                 App.handleResponseMessageByStatusCode(jqXHR);
@@ -298,7 +315,7 @@ export const MedicalRecordPrescription = (function () {
                         data-text="${item.title}" data-price="${item.unitPrice}">
                     <div class="fw-bolder">${item.title}</div>
                     <small class="text-muted">${CurrencyConverter.formatCurrencyVND(item.unitPrice)}</small>
-              </div>`
+                </div>`
         });
     }
 
@@ -400,6 +417,24 @@ export const MedicalRecordPrescription = (function () {
             const currentRowSelector = $(this).closest('tr');
             currentRowSelector.remove();
         });
+    }
+
+    return module;
+})();
+
+export const AdvanceHandler = (function () {
+    const module = {
+        advanceDetailFormSelector: $('#advance-detail-form')
+    };
+
+    module.renderAdvanceData = (advanceData) => {
+        advanceData.createdAt = moment().format(DateTimePattern.API_DATE_FORMAT);
+        InvoiceDetail.renderInvoiceDetail(advanceData, module.advanceDetailFormSelector);
+    }
+
+    module.handlePrintAdvanceForm = () => {
+        const advanceContent = module.advanceDetailFormSelector.html();
+        Printer.openPrintWindow(advanceContent, serviceAdvanceTitle);
     }
 
     return module;

@@ -1,4 +1,4 @@
-import {App} from "/common/js/app.js";
+import {App, SweetAlert} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 import {DateTimePattern} from "/common/js/constant.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
@@ -386,7 +386,7 @@ export const ClinicInfo = (function () {
                 data: JSON.stringify(clinicInfoParams),
             })
                 .done(() => {
-                    App.showSweetAlert('success', operationSuccess, '');
+                    SweetAlert.showAlert('success', operationSuccess, '');
                     location.reload();
                 })
                 .fail((jqXHR) => {

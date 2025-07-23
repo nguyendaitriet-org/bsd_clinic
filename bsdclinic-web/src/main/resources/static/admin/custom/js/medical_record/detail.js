@@ -1,4 +1,4 @@
-import {App} from "/common/js/app.js";
+import {App, SweetAlert} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
 import {DateTimePattern} from "/common/js/constant.js";
@@ -185,10 +185,10 @@ export const MedicalRecordUpdating = (function () {
     const handleSaveMedicalRecordButton = () => {
         module.saveMedicalRecordButton.on('click', function () {
             const medicalRecordData = getMedicalRecordData();
-            App.showSweetAlertConfirmation('warning', confirmApplyTitle, '').then((result) => {
+            SweetAlert.showConfirmation('warning', confirmApplyTitle, '').then((result) => {
                 if (result.isConfirmed) {
                     saveMedicalRecordData(medicalRecordData).then(() => {
-                        App.showSweetAlert('success', operationSuccess, '');
+                        SweetAlert.showAlert('success', operationSuccess, '');
                         location.reload();
                     });
                 }
@@ -199,10 +199,10 @@ export const MedicalRecordUpdating = (function () {
     const handleSaveAndPrintAdvanceButton = () => {
         module.saveAndPrintAdvanceFormButtonSelector.on('click', function () {
             const medicalRecordData = getMedicalRecordData();
-            App.showSweetAlertConfirmation('warning', confirmApplyTitle, '').then((result) => {
+            SweetAlert.showConfirmation('warning', confirmApplyTitle, '').then((result) => {
                 if (result.isConfirmed) {
                     saveMedicalRecordData(medicalRecordData).then((response) => {
-                        App.showSweetAlert('success', operationSuccess, '');
+                        SweetAlert.showAlert('success', operationSuccess, '');
                         AdvanceHandler.renderAdvanceData(response);
                         AdvanceHandler.handlePrintAdvanceForm();
                         location.reload();
@@ -248,7 +248,7 @@ export const MedicalRecordDeletion = (function () {
 
     const handleDeleteMedicalRecord = () => {
         module.deleteMedicalRecordButtonSelector.on('click', function () {
-            App.showSweetAlertConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then((result) => {
+            SweetAlert.showConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then((result) => {
                 if (result.isConfirmed) {
                     const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
                     const medicalRecordId = MedicalRecordUpdating.medicalRecordIdSelector.val();
@@ -268,7 +268,7 @@ export const MedicalRecordDeletion = (function () {
             url: requestUrl,
         })
             .done(() => {
-                App.showSweetAlert('success', operationSuccess, '');
+                SweetAlert.showAlert('success', operationSuccess, '');
                 window.location.href = ADMIN_APPOINTMENT_FOR_DOCTOR;
             })
             .fail((jqXHR) => {

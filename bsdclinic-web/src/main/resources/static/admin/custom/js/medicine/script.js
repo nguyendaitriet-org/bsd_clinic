@@ -1,4 +1,4 @@
-import {App} from "/common/js/app.js";
+import {App, SweetAlert} from "/common/js/app.js";
 import {CurrencyConverter} from "/common/js/currency_util.js";
 import {FormHandler} from "/common/js/form.js";
 import {DatatableAttribute} from "/common/js/app.js";
@@ -31,7 +31,7 @@ export const MedicineCreation = (function () {
                 data: JSON.stringify(medicineCreationParams),
             })
                 .done(() => {
-                    App.showSweetAlert('success', createSuccess, '');
+                    SweetAlert.showAlert('success', createSuccess, '');
                     window.location.href = ADMIN_MEDICINE_INDEX;
                 })
                 .fail((jqXHR) => {
@@ -184,7 +184,7 @@ export const MedicineUpdating = (function () {
                 data: JSON.stringify(medicineUpdatingParams),
             })
                 .done(() => {
-                    App.showSweetAlert('success', operationSuccess, '');
+                    SweetAlert.showAlert('success', operationSuccess, '');
                     window.location.href = ADMIN_MEDICINE_INDEX;
                 })
                 .fail((jqXHR) => {
@@ -206,7 +206,7 @@ export const MedicineDeletion = (function () {
 
     const handleShowMedicineDeletionConfirmation = () => {
         MedicineList.medicineListTableSelector.on('click', '.show-deletion-confirmation-btn', function () {
-            App.showSweetAlertConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then((result) => {
+            SweetAlert.showConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then((result) => {
                 if(result.isConfirmed) {
                     const rowData = MedicineList.medicineListTableSelector.DataTable().row($(this).closest('tr')).data();
                     deleteMedicine(rowData.medicineId);
@@ -221,7 +221,7 @@ export const MedicineDeletion = (function () {
                 url: API_ADMIN_MEDICINE_WITH_ID.replace('{medicineId}', medicineId)
             })
                 .done(() => {
-                    App.showSweetAlert('success', operationSuccess, '');
+                    SweetAlert.showAlert('success', operationSuccess, '');
                     window.location.href = ADMIN_MEDICINE_INDEX;
                 })
                 .fail((jqXHR) => {

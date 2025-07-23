@@ -47,32 +47,6 @@ export const App = (function () {
         });
     }
 
-    module.showSweetAlertConfirmation = (type, title, content) => {
-        return Swal.fire({
-            icon: type,
-            title: title,
-            text: content,
-            showCancelButton: true,
-            confirmButtonText: acceptTitle,
-            denyButtonText: closeTitle
-        });
-    }
-
-    module.showSweetAlertConfirmationWithInput = (title) => {
-        return Swal.fire({
-            title: title,
-            input: "text",
-            showCancelButton: true,
-            confirmButtonText: acceptTitle,
-            denyButtonText: closeTitle,
-            inputValidator: (value) => {
-                if (!value) {
-                    return "You need to write something!";
-                }
-            }
-        });
-    }
-
     module.clearAllModalInputsAfterClosing = () => {
         $('.modal').on('hidden.bs.modal', function () {
             FormHandler.clearAllInputs($(this));
@@ -93,7 +67,7 @@ export const App = (function () {
     module.keepSidebarTabActive = () => {
         const url = window.location;
         const targetLinkSelector = $('.sidebar-content .nav-item a').filter(function () {
-            return this.href == url;
+            return this.href === url;
         });
         targetLinkSelector.closest('li').addClass('active');
     }
@@ -101,7 +75,7 @@ export const App = (function () {
     module.keepSidebarDropdownOpen = () => {
         const url = window.location;
         const targetLinkSelector = $('.sidebar-content .nav-item .collapse a').filter(function () {
-            return this.href == url;
+            return this.href === url;
         });
         targetLinkSelector.closest('li').addClass('active');
         targetLinkSelector.closest('.nav-item').addClass('active');
@@ -120,9 +94,54 @@ export const App = (function () {
             });
     }
 
-    module.hideModalAfterAjax = () => {
-        $(document).on("ajaxSuccess", function () {
-            $('.modal').modal('hide');
+    return module;
+})();
+
+export const SweetAlert = (function () {
+    const module = {};
+
+    module.showAlert = (type, title, content) => {
+        Swal.fire({
+            icon: type,
+            title: title,
+            text: content,
+            timer: 1000
+        });
+    }
+
+    module.showConfirmation = (type, title, content) => {
+        return Swal.fire({
+            icon: type,
+            title: title,
+            text: content,
+            showCancelButton: true,
+            confirmButtonText: acceptTitle,
+            denyButtonText: closeTitle
+        });
+    }
+
+    module.showConfirmationWithInput = (title) => {
+        return Swal.fire({
+            title: title,
+            input: "text",
+            showCancelButton: true,
+            confirmButtonText: acceptTitle,
+            denyButtonText: closeTitle,
+            inputValidator: (value) => {
+                if (!value) {
+                    return contentRequired;
+                }
+            }
+        });
+    }
+
+    module.showAlertWithTimer = (type, title, content) => {
+        return Swal.fire({
+            icon: type,
+            title: title,
+            text: content,
+            timer: 2500,
+            timerProgressBar: true,
         });
     }
 
@@ -159,6 +178,7 @@ export const ProgressingBar = (function () {
                 topbar.hide();
             });
     }
+
     return module;
 })();
 

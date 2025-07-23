@@ -1,6 +1,6 @@
 import {Subscriber} from "/admin/custom/js/appointment/subscriber.js";
 import AppointmentCreation from "/admin/custom/js/appointment/appointment-create.js";
-import {App, DatatableAttribute, Image} from "/common/js/app.js";
+import {App, DatatableAttribute, Image, SweetAlert} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
 import {RequestHeader, DateTimePattern, Status} from "/common/js/constant.js";
@@ -167,7 +167,7 @@ export const AppointmentListForCreation = (function () {
                 }
                 renderAppointmentDataToCreateForm(appointmentDataForCreation);
                 module.appointmentListModalSelector.modal('hide');
-                App.showSweetAlert('success', operationSuccess, '');
+                SweetAlert.showAlert('success', operationSuccess, '');
             }
         });
     }
@@ -417,7 +417,7 @@ export const AppointmentDetail = (function () {
 
             if (appointmentUpdateParams.actionStatus === Status.APPOINTMENT.REJECTED) {
                 module.appointmentDetailModalSelector.modal('hide');
-                App.showSweetAlertConfirmationWithInput(enterRejectedReason).then((result) => {
+                SweetAlert.showConfirmationWithInput(enterRejectedReason).then((result) => {
                     if (result.isConfirmed) {
                         appointmentUpdateParams.rejectedReason = result.value.trim();
                         handleUpdateAppointment(appointmentId, appointmentUpdateParams);
@@ -433,7 +433,7 @@ export const AppointmentDetail = (function () {
     const handleUpdateAppointment = (appointmentId, appointmentUpdateParams) => {
         module.updateAppointment(appointmentId, appointmentUpdateParams)
             .then(() => {
-                App.showSweetAlert('success', operationSuccess, '');
+                SweetAlert.showAlert('success', operationSuccess, '');
                 location.reload();
             })
             .catch((jqXHR) => {

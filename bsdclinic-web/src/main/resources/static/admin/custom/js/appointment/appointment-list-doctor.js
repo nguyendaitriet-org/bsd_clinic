@@ -1,6 +1,6 @@
 import {MedicalRecordCreation} from "/admin/custom/js/medical_record/detail.js";
 import {DatatableAttribute} from "/common/js/app.js";
-import {App} from "/common/js/app.js";
+import {SweetAlert} from "/common/js/app.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
 import {DateTimePattern} from "/common/js/constant.js";
 
@@ -134,12 +134,12 @@ export const AppointmentListForDoctor = (function () {
 
     const handleCreateMedicalRecordButton = () => {
         module.appointmentListTableSelector.on('click', '.btn-create-record', function () {
-            App.showSweetAlertConfirmation('warning', confirmApplyTitle, '').then((result) => {
+            SweetAlert.showConfirmation('warning', confirmApplyTitle, '').then((result) => {
                 if (result.isConfirmed) {
                     const rowData = module.appointmentListTableSelector.DataTable().row($(this).closest('tr')).data();
                     const appointmentId = rowData.appointmentId;
                     MedicalRecordCreation.createMedicalRecord(appointmentId).then((response) => {
-                        App.showSweetAlert('success', createSuccess);
+                        SweetAlert.showAlert('success', createSuccess);
                         module.redirectToMedicalRecordDetail(response.medicalRecordId, appointmentId);
                     });
                 }

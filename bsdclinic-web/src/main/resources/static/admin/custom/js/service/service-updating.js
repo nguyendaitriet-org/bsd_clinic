@@ -1,4 +1,4 @@
-import {App} from "/common/js/app.js";
+import {App, SweetAlert} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 import {ServiceList} from "./service-list.js";
 
@@ -36,7 +36,7 @@ export const ServiceUpdating = (function () {
             const medicalServiceUpdatingParams = Object.fromEntries(
                 Array.from(formData.entries()).map(([key, value]) => [key, value === '' ? null : value])
             );
-            console.log("medicalServiceUpdatingParams" + medicalServiceUpdatingParams)
+            
             $.ajax({
                 headers: {
                     "accept": "application/json",
@@ -47,7 +47,7 @@ export const ServiceUpdating = (function () {
                 data: JSON.stringify(medicalServiceUpdatingParams),
             })
                 .done(() => {
-                    App.showSweetAlert('success', operationSuccess, '');
+                    SweetAlert.showAlert('success', operationSuccess, '');
                     window.location.href = ADMIN_MEDICAL_SERVICE_INDEX;
                 })
                 .fail((jqXHR) => {
@@ -68,7 +68,7 @@ export const MedicalServiceDeletion = (function () {
 
     const handleShowMedicalServiceDeletionConfirmation = () => {
         ServiceList.serviceListTableSelector.on('click', '.show-deletion-confirmation-btn', function () {
-            App.showSweetAlertConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then((result) => {
+            SweetAlert.showConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then((result) => {
                if(result.isConfirmed){
                 const rowData = ServiceList.serviceListTableSelector.DataTable().row($(this).closest('tr')).data();
                 deleteMedicalService(rowData.medicalServiceId);
@@ -83,7 +83,7 @@ export const MedicalServiceDeletion = (function () {
             url: API_ADMIN_MEDICAL_SERVICE_WITH_ID.replace('{medicalServiceId}', medicalServiceId)
         })
             .done(() => {
-                App.showSweetAlert('success', operationSuccess, '');
+                SweetAlert.showAlert('success', operationSuccess, '');
                 window.location.href = ADMIN_MEDICAL_SERVICE_INDEX;
             })
             .fail((jqXHR) => {

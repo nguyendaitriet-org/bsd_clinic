@@ -14,7 +14,7 @@ public interface ServiceMedicalService {
     void create(CreateMedicalServiceRequest request);
     DatatableResponse getMedicalServices(MedicalServiceFilter medicalServiceFilter);
     List<MedicalServiceResponse> getMedicalServicesForSelection(String keyword);
-    List<IMedicalServiceResponse>  getMedicalServicesByMedicalRecordId(String medicalRecordId);
+    List<IMedicalServiceResponse> getMedicalServicesByMedicalRecordId(String medicalRecordId);
     void deleteMedicalService(String medicalServiceId);
     void updateMedicalService(String medicalServiceId, MedicalServiceUpdateRequest medicalServiceUpdateRequest);
 }

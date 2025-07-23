@@ -13,6 +13,7 @@ import com.bsdclinic.dto.response.IAppointmentStatusCount;
 import com.bsdclinic.dto.response.StatusTransitionResponse;
 import com.bsdclinic.exception_handler.exception.BadRequestException;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
+import com.bsdclinic.invoice.InvoiceStatus;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.status_flow.ActionStatusFlow;
@@ -20,6 +21,7 @@ import com.bsdclinic.subscriber.Subscriber;
 import com.bsdclinic.subscriber.SubscriberDto;
 import com.bsdclinic.subscriber.SubscriberRepository;
 import com.bsdclinic.subscriber.SubscriberService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -49,6 +51,7 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
     private final MedicalRecordRepoForAppointment medicalRecordRepository;
     private final ClinicInfoService clinicInfoService;
     private final EmailService emailService;
+    private final InvoiceRepository invoiceRepository;
 
     public static final List<String> STATUS_FOR_DOCTOR = List.of(
             ActionStatus.CHECKED_IN.name(),
@@ -120,6 +123,7 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
     }
 
     @Override
+    @Transactional
     public void updateAppointment(String appointmentId, AppointmentUpdate appointmentUpdate) {
         Appointment appointment = getAppointmentById(appointmentId);
         ActionStatus currentStatus = ActionStatus.valueOf(appointment.getActionStatus());
@@ -138,7 +142,25 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
         appointment = appointmentMapper.toAppointment(appointmentUpdate, appointment);
         appointmentRepository.save(appointment);
 
+        handleInvoiceStatus(nextStatus, appointmentId);
+
         sendEmailToSubscriber(appointment, nextStatus);
+    }
+
+    private void handleInvoiceStatus(ActionStatus nextAppointmentStatus, String appointmentId) {
+        InvoiceStatus invoiceStatus = switch (nextAppointmentStatus) {
+            case PAID -> InvoiceStatus.PAID;
+            case UNPAID -> InvoiceStatus.UNPAID;
+            default -> {
+                log.debug("No need to handle invoice status.");
+                yield null;
+            }
+        };
+
+        if (invoiceStatus != null) {
+            String medicalRecordId = appointmentRepository.getMedicalRecordIdByAppointmentId(appointmentId);
+            invoiceRepository.updateStatusByMedicalRecordId(medicalRecordId, invoiceStatus.name());
+        }
     }
 
     private void sendEmailToSubscriber(Appointment appointment, ActionStatus nextStatus) {
@@ -178,7 +200,7 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
                         emailToSubscriberContent
                 );
             }
-            default -> log.info("No need to send email.");
+            default -> log.debug("No need to send email.");
         }
     }
 

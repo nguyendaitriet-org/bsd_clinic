@@ -33,4 +33,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, String
             "WHERE a.appointmentId = :appointmentId")
     void updateActionStatus(String appointmentId, String actionStatus);
 
+    @Query(value = "SELECT medical_record_id FROM medical_records WHERE appointment_id = :appointmentId", nativeQuery = true)
+    String getMedicalRecordIdByAppointmentId(String appointmentId);
 }

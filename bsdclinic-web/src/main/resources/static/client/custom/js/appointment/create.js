@@ -1,4 +1,4 @@
-import {App} from "/common/js/app.js";
+import {App, SweetAlert} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 import AdminAppointmentCreation from "/admin/custom/js/appointment/appointment-create.js";
 import {DateTimePattern} from "/common/js/constant.js";
@@ -98,7 +98,7 @@ export const AppointmentCreation = (function () {
     const handleFormSubmission = () => {
         module.appointmentRegisterFormSelector.on('submit', function (e) {
             e.preventDefault();
-            App.showSweetAlertConfirmation('warning', confirmApplyTitle, '').then((result) => {
+            SweetAlert.showConfirmation('warning', confirmApplyTitle, '').then((result) => {
                 if (result.isConfirmed) {
                     const formData = new FormData(this);
                     const appointmentCreationParams = Object.fromEntries(

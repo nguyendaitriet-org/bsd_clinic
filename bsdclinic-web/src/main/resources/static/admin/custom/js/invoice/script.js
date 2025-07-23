@@ -6,9 +6,6 @@ import {DateTimeConverter} from "/common/js/datetime_util.js";
 export const InvoiceCreation = (function () {
     const module = {};
 
-    module.init = () => {
-    }
-
     module.createInvoice = (invoiceCreationParams) => {
         return $.ajax({
             headers: RequestHeader.JSON_TYPE,
@@ -26,15 +23,11 @@ export const InvoiceCreation = (function () {
 
 export const InvoiceDetail = (function () {
     const module = {
-        invoiceDetailFormSelector: $('#invoice-detail-form'),
-        tableMedicalServicesDetail: $('.table-medical-services-detail'),
-        tableTakenMedicinesDetail: $('.table-taken-medicines-detail'),
+        tableMedicalServicesDetail: '.table-medical-services-detail',
+        tableTakenMedicinesDetail: '.table-taken-medicines-detail',
 
         invoiceIdInput: 'input[data-attribute="invoiceId"]'
     };
-
-    module.init = () => {
-    }
 
     const getPurchasedServiceRow = ({title, price}) =>
         `<tr>
@@ -50,10 +43,10 @@ export const InvoiceDetail = (function () {
             <td>${CurrencyConverter.formatCurrencyVND(purchasedTotalPrice)}</td>
         </tr>`;
 
-    module.renderInvoiceDetail = (invoiceDetail) => {
+    module.renderInvoiceDetail = (invoiceDetail, invoiceDetailAreaSelector) => {
         for (const [key, value] of Object.entries(invoiceDetail)) {
             if (key === 'invoiceId') {
-                module.invoiceDetailFormSelector.find(module.invoiceIdInput).val(value);
+                invoiceDetailAreaSelector.find(module.invoiceIdInput).val(value);
             }
 
             if (key === 'purchasedServices') {
@@ -61,7 +54,10 @@ export const InvoiceDetail = (function () {
                 for (const purchasedService of value) {
                     purchasedServiceRows += getPurchasedServiceRow(purchasedService);
                 }
-                module.tableMedicalServicesDetail.find('tbody').append(purchasedServiceRows);
+                invoiceDetailAreaSelector
+                    .find(module.tableMedicalServicesDetail)
+                    .find('tbody')
+                    .append(purchasedServiceRows);
                 continue;
             }
 
@@ -70,23 +66,26 @@ export const InvoiceDetail = (function () {
                 for (const takenMedicine of value) {
                     takenMedicineRows += getTakenMedicineRow(takenMedicine);
                 }
-                module.tableTakenMedicinesDetail.find('tbody').append(takenMedicineRows);
+                invoiceDetailAreaSelector
+                    .find(module.tableTakenMedicinesDetail)
+                    .find('tbody')
+                    .append(takenMedicineRows);
                 continue;
             }
 
             if (key === 'createdAt') {
                 const displayDate = DateTimeConverter.convertToDisplayPattern(value);
-                module.invoiceDetailFormSelector.find(`span[data-attribute='createdAt']`).text(displayDate);
+                invoiceDetailAreaSelector.find(`span[data-attribute='createdAt']`).text(displayDate);
                 continue;
             }
 
             if (typeof value === 'number') {
                 const displayPrice = CurrencyConverter.formatCurrencyVND(value);
-                module.invoiceDetailFormSelector.find(`span[data-attribute='${key}']`).text(displayPrice);
+                invoiceDetailAreaSelector.find(`span[data-attribute='${key}']`).text(displayPrice);
                 continue;
             }
 
-            module.invoiceDetailFormSelector.find(`span[data-attribute='${key}']`).text(value);
+            invoiceDetailAreaSelector.find(`span[data-attribute='${key}']`).text(value);
         }
     }
 

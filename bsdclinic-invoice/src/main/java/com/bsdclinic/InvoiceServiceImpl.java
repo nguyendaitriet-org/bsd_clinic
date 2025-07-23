@@ -4,6 +4,7 @@ import com.bsdclinic.dto.request.CreateInvoiceRequest;
 import com.bsdclinic.dto.response.InvoiceResponse;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.invoice.Invoice;
+import com.bsdclinic.invoice.InvoiceStatus;
 import com.bsdclinic.invoice.PurchasedService;
 import com.bsdclinic.message.MessageProvider;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +50,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 
             BigDecimal remainingPrice = grandTotalPrice.subtract(advance);
             invoice.setRemainingPrice(remainingPrice);
+
+            invoice.setStatus(InvoiceStatus.UNPAID.name());
 
             invoiceRepository.save(invoice);
         }

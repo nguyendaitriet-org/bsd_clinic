@@ -1,4 +1,4 @@
-import {App, Image} from "/common/js/app.js";
+import {App, Image, SweetAlert} from "/common/js/app.js";
 import {Printer} from "/common/js/print.js";
 import {Status} from "/common/js/constant.js";
 import {MedicalRecordUpdating, MedicalRecordPrescription} from "/admin/custom/js/medical_record/detail.js";
@@ -19,7 +19,9 @@ export const MedicalRecordInvoicePrescription = (function () {
         printPrescriptionButtonSelector: $('.print-prescription-btn'),
         deletePrescriptionButtonSelector: $('.delete-prescription-btn'),
 
-        clinicLogoSelector: $('.clinic-logo')
+        clinicLogoSelector: $('.clinic-logo'),
+
+        invoiceDetailFormSelector: $('#invoice-detail-form')
     }
 
     module.init = () => {
@@ -47,7 +49,7 @@ export const MedicalRecordInvoicePrescription = (function () {
                 createPrescriptionParams.takenMedicines.length,
             );
 
-            App.showSweetAlertConfirmation('warning', confirmApplyTitle, warningMessage).then((result) => {
+            SweetAlert.showConfirmation('warning', confirmApplyTitle, warningMessage).then((result) => {
                 if (result.isConfirmed) {
                     /* Create prescription first */
                     PrescriptionCreation.createPrescription(createPrescriptionParams).then(prescriptionResponse => {
@@ -61,7 +63,7 @@ export const MedicalRecordInvoicePrescription = (function () {
                         InvoiceCreation.createInvoice(createInvoiceParams).then(() => {
                             const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
                             AppointmentDetail.updateAppointment(appointmentId, {actionStatus: Status.APPOINTMENT.FINISHED});
-                            App.showSweetAlert('success', createSuccess);
+                            SweetAlert.showAlert('success', createSuccess);
                             location.reload();
                         })
                     });
@@ -85,7 +87,7 @@ export const MedicalRecordInvoicePrescription = (function () {
         const prescriptionId = module.prescriptionIdSelector.val();
         if (invoiceId) {
             InvoiceDetail.getInvoice(invoiceId).then((invoiceResponse) => {
-                InvoiceDetail.renderInvoiceDetail(invoiceResponse);
+                InvoiceDetail.renderInvoiceDetail(invoiceResponse, module.invoiceDetailFormSelector);
             });
         }
         if (prescriptionId) {
@@ -118,14 +120,14 @@ export const MedicalRecordInvoicePrescription = (function () {
 
     const handleDeleteInvoiceButton = () => {
         module.deleteInvoiceButtonSelector.on('click', function () {
-            App.showSweetAlertConfirmation('error', confirmApplyTitle, deleteInvoiceCaution).then((result) => {
+            SweetAlert.showConfirmation('error', confirmApplyTitle, deleteInvoiceCaution).then((result) => {
                 if (result.isConfirmed) {
-                    const invoiceId = InvoiceDetail.invoiceDetailFormSelector.find(InvoiceDetail.invoiceIdInput).val();
+                    const invoiceId = module.invoiceDetailFormSelector.find(InvoiceDetail.invoiceIdInput).val();
                     InvoiceDeletion.deleteInvoice(invoiceId)
                         .then(() => {
                             const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
                             AppointmentDetail.updateAppointment(appointmentId, {actionStatus: Status.APPOINTMENT.EXAMINING});
-                            App.showSweetAlert('success', operationSuccess);
+                            SweetAlert.showAlert('success', operationSuccess);
                             location.reload();
                         })
                         .catch((jqXHR) => {
@@ -138,14 +140,14 @@ export const MedicalRecordInvoicePrescription = (function () {
 
     const handleDeletePrescriptionButton = () => {
         module.deletePrescriptionButtonSelector.on('click', function () {
-            App.showSweetAlertConfirmation('error', confirmApplyTitle, deletePrescriptionCaution).then((result) => {
+            SweetAlert.showConfirmation('error', confirmApplyTitle, deletePrescriptionCaution).then((result) => {
                 if (result.isConfirmed) {
                     const prescriptionId = PrescriptionDetail.prescriptionDetailFormSelector.find(PrescriptionDetail.prescriptionIdInput).val();
                     PrescriptionDeletion.deletePrescription(prescriptionId)
                         .then(() => {
                             const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
                             AppointmentDetail.updateAppointment(appointmentId, {actionStatus: Status.APPOINTMENT.EXAMINING});
-                            App.showSweetAlert('success', operationSuccess);
+                            SweetAlert.showAlert('success', operationSuccess);
                             location.reload();
                         })
                         .catch((jqXHR) => {
@@ -158,25 +160,25 @@ export const MedicalRecordInvoicePrescription = (function () {
 
     const handleFinishExaminationButton = () => {
         module.finishExaminationButtonSelector.on('click', function () {
-            App.showSweetAlertConfirmation('error', confirmApplyTitle, finishExaminationCaution).then((result) => {
+            SweetAlert.showConfirmation('error', confirmApplyTitle, finishExaminationCaution).then((result) => {
                 if (result.isConfirmed) {
                     const appointmentId = MedicalRecordUpdating.appointmentIdSelector.val();
                     AppointmentDetail.updateAppointment(appointmentId, {actionStatus: Status.APPOINTMENT.FINISHED_NO_PAY})
                         .then(() => {
-                            App.showSweetAlert('success', operationSuccess);
+                            SweetAlert.showAlert('success', operationSuccess);
                             window.location.href = ADMIN_MEDICAL_RECORD_INDEX;
                         })
                         .catch((jqXHR) => {
                             App.handleResponseMessageByStatusCode(jqXHR);
                         });
                 }
-                });
             });
+        });
     }
 
     const handlePrintInvoiceButton = () => {
         module.printInvoiceButtonSelector.on('click', function () {
-            const invoiceElement = InvoiceDetail.invoiceDetailFormSelector.clone();
+            const invoiceElement = module.invoiceDetailFormSelector.clone();
             invoiceElement.find('button').remove();
             const invoiceContent = invoiceElement.html();
             Printer.openPrintWindow(invoiceContent, invoiceTitle);

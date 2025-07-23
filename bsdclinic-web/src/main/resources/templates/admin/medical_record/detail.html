@@ -9,12 +9,14 @@
         label {
             font-weight: bolder;
         }
-        .table>tfoot>tr>td, .table>tfoot>tr>th {
+
+        .table > tfoot > tr > td, .table > tfoot > tr > th {
             padding: 8px 12px !important;
         }
+
         .clinic-logo {
             height: 40px;
-            width: auto;
+            width: 40px;
         }
     </style>
 </th:block>
@@ -25,7 +27,8 @@
 <th:block layout:fragment="content-title-note"></th:block>
 
 <th:block layout:fragment="content-button">
-    <button id="back-btn" class="btn btn-primary btn-round" type="button" th:text="#{title.medical_record.back_to_list}"></button>
+    <button id="back-btn" class="btn btn-primary btn-round" type="button"
+            th:text="#{title.medical_record.back_to_list}"></button>
 </th:block>
 
 <th:block layout:fragment="content-body">
@@ -33,8 +36,12 @@
         <div class="card-body medical-record-detail-area">
             <div class="d-flex">
                 <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
-                <div class="btn action-status-badge ms-auto me-0" th:classappend="'action-status-' + ${appointment.actionStatus}"
-                     th:text="${appointmentStatusMap[appointment.actionStatus]}">
+                <div class="my-auto ms-auto">
+                    <span class="fw-bold me-3" th:text="#{title.status}"></span>
+                    <span class="btn action-status-badge"
+                          th:classappend="'action-status-' + ${appointment.actionStatus}"
+                          th:text="${appointmentStatusMap[appointment.actionStatus]}">
+                </span>
                 </div>
             </div>
             <div class="tab-content mt-5 mb-3">
@@ -48,7 +55,7 @@
                             <label class="form-label required-field" th:text="#{title.full_name}"
                                    for="patient-full-name"></label>
                             <input type="text" class="form-control" name="patientName" id="patient-full-name"
-                                    th:value="${appointment.patientName}" th:data-value="${appointment.patientName}">
+                                   th:value="${appointment.patientName}" th:data-value="${appointment.patientName}">
                         </div>
                         <div class="col-md-3 with-validation">
                             <label class="form-label required-field" th:text="#{title.birthday}"
@@ -101,37 +108,42 @@
                                    th:value="${medicalRecord.diagnosis}">
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="medical-service" th:text="#{title.medical_service.select}"></label>
+                            <label class="form-label" for="medical-service"
+                                   th:text="#{title.medical_service.select}"></label>
                             <input type="search" class="form-control" id="medical-service">
                         </div>
                         <div>
                             <table class="table" id="selected-services-table">
                                 <thead>
-                                    <tr>
-                                        <th th:text="#{title.medical_service.name}"></th>
-                                        <th th:text="#{title.price}"></th>
-                                        <th></th>
-                                    </tr>
+                                <tr>
+                                    <th th:text="#{title.medical_service.name}"></th>
+                                    <th th:text="#{title.price}"></th>
+                                    <th></th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <th:block th:each="medicalService: ${medicalServices}">
-                                        <tr>
-                                            <input type="hidden" name="medicalServiceIds[]" th:value="${medicalService.medicalServiceId}">
-                                            <input type="hidden" name="medicalServicePrice[]" th:value="${medicalService.price}">
-                                            <td th:text="${medicalService.title}"></td>
-                                            <td class="service-price-text" th:data-price="${medicalService.price}"></td>
-                                            <td class="text-center">
-                                                <button type="button" class="btn btn-sm btn-outline-danger btn-remove-service">X</button>
-                                            </td>
-                                        </tr>
-                                    </th:block>
+                                <th:block th:each="medicalService: ${medicalServices}">
+                                    <tr>
+                                        <input type="hidden" name="medicalServiceIds[]"
+                                               th:value="${medicalService.medicalServiceId}">
+                                        <input type="hidden" name="medicalServicePrice[]"
+                                               th:value="${medicalService.price}">
+                                        <td th:text="${medicalService.title}"></td>
+                                        <td class="service-price-text" th:data-price="${medicalService.price}"></td>
+                                        <td class="text-center">
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-danger btn-remove-service">X
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </th:block>
                                 </tbody>
                                 <tfoot>
-                                    <tr>
-                                        <th th:text="#{placeholder.medical_service.total_price}"></th>
-                                        <th id="service-total-price">0 đ</th>
-                                        <th></th>
-                                    </tr>
+                                <tr>
+                                    <th th:text="#{placeholder.medical_service.total_price}"></th>
+                                    <th id="service-total-price">0 đ</th>
+                                    <th></th>
+                                </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -141,12 +153,13 @@
                         </div>
                     </div>
                     <div class="my-5 d-flex justify-content-between">
-                        <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
+                        <th:block
+                                th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
                         <div>
                             <button class="btn btn-primary save-and-print-advance-btn"
-                                    th:text="#{title.medical_record.save_and_print_advance}" disabled></button>
+                                    th:text="#{title.medical_record.save_and_print_advance}"></button>
                             <button class="btn btn-secondary save-record-btn"
-                                    th:text="#{title.save_only}"></button>
+                                    th:text="#{title.save_change}"></button>
                             <button class="btn btn-danger delete-record-btn"
                                     th:text="#{title.medical_record.remove}"></button>
                         </div>
@@ -156,7 +169,8 @@
                     <div class="row g-3">
                         <h4 th:text="#{title.prescription.internal_availability}"></h4>
                         <div class="col-12">
-                            <label class="form-label" for="internal-medicine" th:text="#{title.medicine.select}"></label>
+                            <label class="form-label" for="internal-medicine"
+                                   th:text="#{title.medicine.select}"></label>
                             <input type="search" class="form-control" id="internal-medicine">
                         </div>
                         <div class="table-responsive">
@@ -173,10 +187,10 @@
                                 </thead>
                                 <tbody></tbody>
                                 <tfoot>
-                                    <tr>
-                                        <th th:text="#{placeholder.medicine.total_price}"></th>
-                                        <th id="medicine-total-price" colspan="5">0 đ</th>
-                                    </tr>
+                                <tr>
+                                    <th th:text="#{placeholder.medicine.total_price}"></th>
+                                    <th id="medicine-total-price" colspan="5">0 đ</th>
+                                </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -184,24 +198,24 @@
                         <div class="table-responsive">
                             <table class="table" id="external-medicines-table">
                                 <thead>
-                                    <tr>
-                                        <th th:text="#{title.medicine.name}"></th>
-                                        <th th:text="#{title.quantity}"></th>
-                                        <th th:text="#{title.usage}"></th>
-                                        <th></th>
-                                    </tr>
+                                <tr>
+                                    <th th:text="#{title.medicine.name}"></th>
+                                    <th th:text="#{title.quantity}"></th>
+                                    <th th:text="#{title.usage}"></th>
+                                    <th></th>
+                                </tr>
                                 </thead>
                                 <tbody></tbody>
                                 <tfoot>
-                                    <tr>
-                                        <td colspan="4" class=" border-bottom-0">
-                                            <button id="btn-add-external-medicine" data-bs-toggle="tooltip"
-                                                    th:data-bs-title="#{title.medicine.add_external}"
-                                                    type="button" class="btn btn-outline-dark w-100 border-0">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="4" class=" border-bottom-0">
+                                        <button id="btn-add-external-medicine" data-bs-toggle="tooltip"
+                                                th:data-bs-title="#{title.medicine.add_external}"
+                                                type="button" class="btn btn-outline-dark w-100 border-0">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </td>
+                                </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -214,8 +228,12 @@
                             <input type="text" class="form-control" name="reExamination" id="re-examination">
                         </div>
                     </div>
-                    <div class="my-5 d-flex justify-content-between">
-                        <th:block th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
+                    <div class="row my-5 ">
+                        <h5 th:text="#{message.medical_record_saving_check}" class="text-danger fw-bold"></h5>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <th:block
+                                th:replace="~{admin/medical_record/component/medical_record_tab_bar :: tab-bar}"></th:block>
                         <div>
                             <button class="btn btn-primary create-invoice-prescription-btn"
                                     th:text="#{title.prescription_invoice.create}"></button>
@@ -231,12 +249,19 @@
         </div>
     </div>
     <!-- Prescription-invoice modal -->
-    <th:block th:replace="~{admin/medical_record/component/prescription_invoice_modal :: prescription-invoice}"></th:block>
+    <th:block
+            th:replace="~{admin/medical_record/component/prescription_invoice_modal :: prescription-invoice}"></th:block>
+    <!-- Advance detail form -->
+    <th:block th:replace="~{admin/medical_record/component/advance_detail :: advance-detail}"></th:block>
 </th:block>
 
 <th:block layout:fragment="medical-record-script">
     <script type="module">
-        import {MedicalRecordUpdating, MedicalRecordDeletion, MedicalRecordPrescription} from '/admin/custom/js/medical_record/detail.js';
+        import {
+            MedicalRecordUpdating,
+            MedicalRecordDeletion,
+            MedicalRecordPrescription
+        } from '/admin/custom/js/medical_record/detail.js';
         import {MedicalRecordInvoicePrescription} from '/admin/custom/js/medical_record/invoice_prescription.js';
 
         (function () {

@@ -29,7 +29,7 @@ public class WebUrl {
     public static final String CLIENT_POST_BOX_FILLER_BLOG = "/client/post/box_filler_blog";
     public static final String CLIENT_POST_BIO_LIGHT_BLOG = "/client/post/bio_light_blog";
     public static final String SKINCARE_BLOG = "/client/post/skincare_blog";
-    public static final String CLIENT_POST_7 = "/client/post/post7";
+    public static final String CLIENT_POST_ACNE_DURING_PRENANCY_BLOG = "/client/post/acne_during_pregnancy_blog";
     public static final String CLIENT_POST_INTRODUCE_BSD_CLINIC = "/client/post/introduce_bsd_clinic";
 
     // API Public

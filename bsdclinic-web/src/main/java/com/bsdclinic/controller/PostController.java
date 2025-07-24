@@ -38,9 +38,9 @@ public class PostController {
         return "client/post/skincare_blog";
     }
 
-    @GetMapping(WebUrl.CLIENT_POST_7)
+    @GetMapping(WebUrl.CLIENT_POST_ACNE_DURING_PRENANCY_BLOG)
     public String toPost7Page() {
-        return "client/post/post7";
+        return "client/post/acne_during_pregnancy_blog";
     }
 
     @GetMapping(WebUrl.CLIENT_POST_INTRODUCE_BSD_CLINIC)

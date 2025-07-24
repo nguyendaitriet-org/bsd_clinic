@@ -65,18 +65,20 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Override
     public void updateMedicine(String medicineId, MedicineRequest request) {
-        Medicine medicine = medicineRepository.findById(medicineId).orElseThrow(
-                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.medicine"))
-        );
+        Medicine medicine = getMedicine(medicineId);
         medicine = medicineMapper.toEntity(medicine, request);
         medicineRepository.save(medicine);
     }
 
     @Override
     public void deleteMedicine(String medicineId) {
-        Medicine medicine = medicineRepository.findById(medicineId).orElseThrow(
+        Medicine medicine = getMedicine(medicineId);
+        medicineRepository.delete(medicine);
+    }
+
+    private Medicine getMedicine(String medicineId) {
+        return medicineRepository.findById(medicineId).orElseThrow(
                 () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.medicine"))
         );
-        medicineRepository.delete(medicine);
     }
 }

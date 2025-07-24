@@ -177,7 +177,7 @@ export const MedicalRecordUpdating = (function () {
             visitReason: module.visitReasonSelector.val().trim(),
             medicalHistory: module.medicalHistorySelector.val().trim(),
             diagnosis: module.diagnosisSelector.val().trim(),
-            advance: CurrencyConverter.getNumericValue(module.advanceSelector),
+            advance: CurrencyConverter.getNumericValue(module.advanceSelector.val()),
             medicalServiceIds: module.selectedMedicalServiceIds
         });
     }

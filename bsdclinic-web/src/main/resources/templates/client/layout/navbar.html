@@ -6,7 +6,7 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a th:href="@{${webUrl.CLIENT_HOME}}" class="navbar-brand p-0">
                     <h1 class="text-primary mb-0">
-                        <img th:src="@{/common/img/BSD_Clinic_Logo.png}" alt="Logo" class="rounded-circle">
+                        <img th:src="@{/api/public/images/BSD_Clinic_Logo.png?imagePath=client_home}" alt="Logo" class="rounded-circle">
                         <span th:text="#{title.app.client}"></span>
                     </h1>
                 </a>
@@ -22,14 +22,13 @@
                                 <span class="dropdown-toggle" th:text="#{title.column}"></span>
                             </a>
                             <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Chăm sóc da</a>
-                                <a href="#" class="dropdown-item">Liệu pháp laser</a>
-                                <a href="#" class="dropdown-item">Bệnh da mặt</a>
-                                <a href="#" class="dropdown-item">Trẻ hóa da</a>
+<!--                                <a href="#" class="dropdown-item">Chăm sóc da</a>-->
+<!--                                <a href="#" class="dropdown-item">Liệu pháp laser</a>-->
+<!--                                <a href="#" class="dropdown-item">Bệnh da mặt</a>-->
+<!--                                <a href="#" class="dropdown-item">Trẻ hóa da</a>-->
                             </div>
                         </div>
                         <a href="#" class="nav-item nav-link" th:text="#{title.medical_service}"></a>
-
 <!--                        <div class="nav-btn px-3">-->
 <!--                            <button class="btn-search btn btn-primary btn-md-square rounded-circle flex-shrink-0" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>-->
 <!--                        </div>-->
@@ -44,7 +43,10 @@
                     </a>
                     <div class="d-flex flex-column ms-3">
                         <span th:text="#{title.appointment.register.short}"></span>
-                        <a href="zalo://"><span class="text-dark">Zalo: 0652478964</span></a>
+                        <a href="zalo://">
+                            <span class="text-dark">Zalo:&nbsp;</span>
+                            <span th:text="${clinicInfo.phone}"></span>
+                        </a>
                     </div>
                 </div>
             </nav>

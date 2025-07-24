@@ -1,5 +1,7 @@
 import {App} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
+import {CurrencyConverter} from "/common/js/currency_util.js";
+import {ServiceList} from "/admin/custom/js/service/service-list.js";
 
 export const ServiceCreation = (function () {
     const module = {
@@ -12,6 +14,7 @@ export const ServiceCreation = (function () {
 
     module.init = () => {
         handleSaveButton();
+        CurrencyConverter.setupPriceFormatter(module.priceSelector);
     }
 
     const handleSaveButton = () => {
@@ -25,7 +28,7 @@ export const ServiceCreation = (function () {
         return (
             {
                 title: module.titleSelector.val().trim(),
-                price: module.priceSelector.val().trim(),
+                price: CurrencyConverter.getNumericValue(module.priceSelector.val()),
                 description:  module.descriptionSelector.val().trim(),
             }
         );
@@ -42,8 +45,9 @@ export const ServiceCreation = (function () {
             data: JSON.stringify(medicalServiceCreationData),
         })
             .done(() => {
+                module.medicalServiceCreationModalSelector.modal('hide');
                 App.showSuccessMessage(createSuccess);
-                location.reload();
+                ServiceList.serviceListTableSelector.DataTable().row.add(medicalServiceCreationData).draw('full-hold');
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);

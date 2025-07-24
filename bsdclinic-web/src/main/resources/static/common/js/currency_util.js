@@ -15,8 +15,8 @@ export const CurrencyConverter = (function () {
     }
 
     // Get numeric value from formatted input
-    module.getNumericValue = (inputSelector) => {
-        let raw = inputSelector.val().replace(/\./g, '');
+    module.getNumericValue = (inputValue) => {
+        let raw = inputValue.replace(/\./g, '');
         return parseInt(raw, 10) || 0;
     }
 

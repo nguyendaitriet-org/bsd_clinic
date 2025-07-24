@@ -5,12 +5,15 @@ import {DatatableAttribute} from "/common/js/app.js";
 
 export const MedicineCreation = (function () {
     const module = {
+        createMedicineModalSelector: $('#create-medicine-modal'),
         createMedicineFormSelector: $('#create-medicine-form'),
-        saveMedicineButtonSelector: $('.btn-save')
+        saveMedicineButtonSelector: $('.btn-save'),
+        unitPriceSelector: $('#create-medicine-modal .price-input')
     };
 
     module.init = () => {
         handleCreateMedicineFormSubmission();
+        CurrencyConverter.setupPriceFormatter(module.unitPriceSelector);
     }
 
     const handleCreateMedicineFormSubmission = () => {
@@ -20,6 +23,7 @@ export const MedicineCreation = (function () {
             const medicineCreationParams = Object.fromEntries(
                 Array.from(formData.entries()).map(([key, value]) => [key, value === '' ? null : value])
             );
+            medicineCreationParams.unitPrice = CurrencyConverter.getNumericValue(module.unitPriceSelector.val());
 
             $.ajax({
                 headers: {
@@ -32,7 +36,8 @@ export const MedicineCreation = (function () {
             })
                 .done(() => {
                     SweetAlert.showAlert('success', createSuccess, '');
-                    window.location.href = ADMIN_MEDICINE_INDEX;
+                    module.createMedicineModalSelector.modal('hide');
+                    MedicineList.medicineListTableSelector.DataTable().row.add(medicineCreationParams).draw('full-hold');
                 })
                 .fail((jqXHR) => {
                     App.handleResponseMessageByStatusCode(jqXHR);
@@ -143,11 +148,13 @@ export const MedicineUpdating = (function () {
     const module = {
         medicineUpdatingModalSelector: $('#update-medicine-modal'),
         updateMedicineFormSelector: $('#update-medicine-form'),
+        unitPriceSelector: $('#update-medicine-modal .price-input')
     };
 
     module.init = () => {
         handleShowUpdatingModal();
         handleUpdateMedicineFormSubmission();
+        CurrencyConverter.setupPriceFormatter(module.unitPriceSelector);
     }
 
     const handleShowUpdatingModal = () => {
@@ -173,6 +180,7 @@ export const MedicineUpdating = (function () {
             const medicineUpdatingParams = Object.fromEntries(
                 Array.from(formData.entries()).map(([key, value]) => [key, value === '' ? null : value])
             );
+            medicineUpdatingParams.unitPrice = CurrencyConverter.getNumericValue(module.unitPriceSelector.val());
 
             $.ajax({
                 headers: {
@@ -185,7 +193,8 @@ export const MedicineUpdating = (function () {
             })
                 .done(() => {
                     SweetAlert.showAlert('success', operationSuccess, '');
-                    window.location.href = ADMIN_MEDICINE_INDEX;
+                    module.medicineUpdatingModalSelector.modal('hide');
+                    MedicineList.medicineListTableSelector.DataTable().row.add(medicineUpdatingParams).draw('full-hold');
                 })
                 .fail((jqXHR) => {
                     App.handleResponseMessageByStatusCode(jqXHR);
@@ -207,7 +216,7 @@ export const MedicineDeletion = (function () {
     const handleShowMedicineDeletionConfirmation = () => {
         MedicineList.medicineListTableSelector.on('click', '.show-deletion-confirmation-btn', function () {
             SweetAlert.showConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then((result) => {
-                if(result.isConfirmed) {
+                if (result.isConfirmed) {
                     const rowData = MedicineList.medicineListTableSelector.DataTable().row($(this).closest('tr')).data();
                     deleteMedicine(rowData.medicineId);
                 }
@@ -216,17 +225,17 @@ export const MedicineDeletion = (function () {
     }
 
     const deleteMedicine = (medicineId) => {
-            $.ajax({
-                type: 'DELETE',
-                url: API_ADMIN_MEDICINE_WITH_ID.replace('{medicineId}', medicineId)
+        $.ajax({
+            type: 'DELETE',
+            url: API_ADMIN_MEDICINE_WITH_ID.replace('{medicineId}', medicineId)
+        })
+            .done(() => {
+                SweetAlert.showAlert('success', operationSuccess, '');
+                MedicineList.medicineListTableSelector.DataTable().draw('page');
             })
-                .done(() => {
-                    SweetAlert.showAlert('success', operationSuccess, '');
-                    window.location.href = ADMIN_MEDICINE_INDEX;
-                })
-                .fail((jqXHR) => {
-                    App.handleResponseMessageByStatusCode(jqXHR);
-                })
+            .fail((jqXHR) => {
+                App.handleResponseMessageByStatusCode(jqXHR);
+            })
     }
 
     return module;

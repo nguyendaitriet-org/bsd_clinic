@@ -10,7 +10,6 @@ import com.bsdclinic.medical_service.MedicalService;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.repository.MedicalServiceRepository;
 import com.bsdclinic.response.DatatableResponse;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -29,7 +28,6 @@ public class ServiceMedicalServiceImpl implements ServiceMedicalService {
 
     public void create(CreateMedicalServiceRequest request) {
         MedicalService service = medicalServiceMapper.toEntity(request);
-
         medicalServiceRepository.save(service);
     }
 
@@ -60,11 +58,13 @@ public class ServiceMedicalServiceImpl implements ServiceMedicalService {
 
         return datatableResponse;
     }
+
     private MedicalService findById(String medicalServiceId) {
-        return medicalServiceRepository.findById(medicalServiceId)
-                .orElseThrow(() -> new NotFoundException(
-                        messageProvider.getMessage("validation.no_exist.user_id") + " " + medicalServiceId));
+        return medicalServiceRepository.findById(medicalServiceId).orElseThrow(
+                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.medical_service"))
+        );
     }
+
     @Override
     public List<MedicalServiceResponse> getMedicalServicesForSelection(String keyword) {
         List<MedicalService> medicalServices = medicalServiceRepository.findAllByKeyword(keyword);
@@ -78,18 +78,14 @@ public class ServiceMedicalServiceImpl implements ServiceMedicalService {
 
     @Override
     public void updateMedicalService(String medicalServiceId, MedicalServiceUpdateRequest medicalServiceUpdateRequest){
-        MedicalService medicalService = medicalServiceRepository.findById(medicalServiceId).orElseThrow(
-                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.medical_service"))
-        );
+        MedicalService medicalService = findById(medicalServiceId);
         medicalService = medicalServiceMapper.toEntity(medicalServiceUpdateRequest, medicalService);
         medicalServiceRepository.save(medicalService);
     }
 
     @Override
     public void deleteMedicalService(String medicalServiceId) {
-        MedicalService medicalService = medicalServiceRepository.findById(medicalServiceId).orElseThrow(
-                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.medicine"))
-        );
+        MedicalService medicalService = findById(medicalServiceId);
         medicalServiceRepository.delete(medicalService);
     }
 }

@@ -26,7 +26,7 @@
                                         <span th:text="#{title.watch_video}"></span>
                                     </a>
                                     <a class="btn btn-dark rounded-pill py-3 px-4 px-md-5 ms-2"
-                                       href="#" th:text="#{title.find_out_more}"></a>
+                                       th:href="@{${webUrl.CLINIC_INTRODUCTION_PAGE}}" th:text="#{title.find_out_more}"></a>
                                 </div>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                     <div class="row gy-4 gy-lg-0 gx-0 gx-lg-5 align-items-center">
                         <div class="col-lg-6 animated fadeInLeft">
                             <div class="calrousel-img">
-                                <img th:src="@{/api/public/images/skin_care_2.jpg?imagePath=client_home}" class="img-fluid w-100" alt="">
+                                <img th:src="@{/api/public/images/skin_care_2.png?imagePath=client_home}" class="img-fluid w-100" alt="">
                             </div>
                         </div>
                         <div class="col-lg-6 animated fadeInRight">
@@ -59,7 +59,7 @@
                                         <span th:text="#{title.watch_video}"></span>
                                     </a>
                                     <a class="btn btn-dark rounded-pill py-3 px-4 px-md-5 ms-2"
-                                       href="#" th:text="#{title.find_out_more}"></a>
+                                       th:href="@{${webUrl.CLINIC_INTRODUCTION_PAGE}}" th:text="#{title.find_out_more}"></a>
                                 </div>
                             </div>
                         </div>
@@ -85,15 +85,17 @@
                 <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
                     <div class="service-item">
                         <div class="service-img">
-                            <img th:src="@{/api/public/images/acnes_treatment_1.jpg?imagePath=client_home}" class="img-fluid rounded-top w-100" alt="">
+                            <img th:src="@{/api/public/images/acnes_treatment_1.jpg?imagePath=client_home}"
+                                 class="img-fluid rounded-top w-100" alt="">
                         </div>
                         <div class="service-content p-4">
                             <div class="service-content-inner">
-                                <a href="#" class="d-inline-block h4 mb-4">Điều trị mụn</a>
+                                <a th:href="@{${webUrl.ACNE_TREATMENT_BLOG}}" class="d-inline-block h4 mb-4">Điều trị mụn</a>
                                 <p class="mb-4">
                                     Điều trị mụn hiệu quả với công nghệ hiện đại, giúp da sạch mụn và ngăn ngừa tái phát.
                                 </p>
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="#" th:text="#{title.learn_more}">Learn More</a>
+                                <a class="btn btn-primary rounded-pill py-2 px-4" th:href="@{${webUrl.ACNE_TREATMENT_BLOG}}"
+                                   th:text="#{title.learn_more}"></a>
                             </div>
                         </div>
                     </div>
@@ -101,15 +103,17 @@
                 <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
                     <div class="service-item">
                         <div class="service-img">
-                            <img th:src="@{/api/public/images/skin_rejuvenation_1.jpg?imagePath=client_home}" class="img-fluid rounded-top w-100" alt="">
+                            <img th:src="@{/api/public/images/skin_rejuvenation_1.jpg?imagePath=client_home}"
+                                 class="img-fluid rounded-top w-100" alt="">
                         </div>
                         <div class="service-content p-4">
                             <div class="service-content-inner">
-                                <a href="#" class="d-inline-block h4 mb-4">Trẻ hóa da</a>
+                                <a th:href="@{${webUrl.SKIN_REJUVENATION}}" class="d-inline-block h4 mb-4">Trẻ hóa da</a>
                                 <p class="mb-4">
                                     Trẻ hóa da giúp cải thiện độ đàn hồi, làm mờ nếp nhăn và phục hồi làn da tươi trẻ, rạng rỡ.
                                 </p>
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="#" th:text="#{title.learn_more}">Learn More</a>
+                                <a class="btn btn-primary rounded-pill py-2 px-4" th:href="@{${webUrl.SKIN_REJUVENATION}}"
+                                   th:text="#{title.learn_more}"></a>
                             </div>
                         </div>
                     </div>
@@ -117,15 +121,17 @@
                 <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
                     <div class="service-item">
                         <div class="service-img">
-                            <img th:src="@{/api/public/images/laser_1.jpg?imagePath=client_home}" class="img-fluid rounded-top w-100" alt="">
+                            <img th:src="@{/api/public/images/laser_1.jpg?imagePath=client_home}"
+                                 class="img-fluid rounded-top w-100" alt="">
                         </div>
                         <div class="service-content p-4">
                             <div class="service-content-inner">
-                                <a href="#" class="d-inline-block h4 mb-4">Laser thẩm mỹ</a>
+                                <a th:href="@{${webUrl.LASER_BEAUTY_BLOG}}" class="d-inline-block h4 mb-4">Laser thẩm mỹ</a>
                                 <p class="mb-4">
                                     Laser thẩm mỹ giúp điều trị nám, tàn nhang, thu nhỏ lỗ chân lông và cải thiện sắc tố da hiệu quả.
                                 </p>
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="#" th:text="#{title.learn_more}">Learn More</a>
+                                <a class="btn btn-primary rounded-pill py-2 px-4" th:href="@{${webUrl.LASER_BEAUTY_BLOG}}"
+                                   th:text="#{title.learn_more}"></a>
                             </div>
                         </div>
                     </div>
@@ -133,15 +139,17 @@
                 <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.8s">
                     <div class="service-item">
                         <div class="service-img">
-                            <img th:src="@{/api/public/images/botox_1.jpg?imagePath=client_home}" class="img-fluid rounded-top w-100" alt="">
+                            <img th:src="@{/api/public/images/botox_1.jpg?imagePath=client_home}"
+                                 class="img-fluid rounded-top w-100" alt="">
                         </div>
                         <div class="service-content p-4">
                             <div class="service-content-inner">
-                                <a href="#" class="d-inline-block h4 mb-4">Tiêm Botox, Filler</a>
+                                <a th:href="@{${webUrl.BOX_FILLER_BLOG}}" class="d-inline-block h4 mb-4">Tiêm Botox, Filler</a>
                                 <p class="mb-4">
                                     Tiêm Botox, Filler giúp xóa nhăn, tạo hình khuôn mặt và giữ gìn nét thanh xuân nhanh chóng, an toàn.
                                 </p>
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="#" th:text="#{title.learn_more}">Learn More</a>
+                                <a class="btn btn-primary rounded-pill py-2 px-4" th:href="@{${webUrl.BOX_FILLER_BLOG}}"
+                                   th:text="#{title.learn_more}"></a>
                             </div>
                         </div>
                     </div>
@@ -349,7 +357,7 @@
                             <p class="mb-3 text-justify">
                                 Mụn trứng cá trong quá trình mang thai là một vấn đề khá phổ biến. Nó không chỉ ảnh hưởng đến thẩm mỹ, tâm lý của phụ nữ mang thai mà còn có thể gây nên các dị tật thai nhi nếu điều trị không đúng cách.
                             </p>
-                            <a href="#" class="btn p-0">
+                            <a th:href="@{${webUrl.CLIENT_APPOINTMENT_CREATE}}" class="btn p-0">
                                 <span th:text="#{title.see_more}"></span>
                                 <i class="fa fa-arrow-right"></i>
                             </a>

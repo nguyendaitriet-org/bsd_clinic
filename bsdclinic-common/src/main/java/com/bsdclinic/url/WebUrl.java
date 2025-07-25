@@ -23,14 +23,14 @@ public class WebUrl {
     public static final String CLIENT_APPOINTMENT_CREATE = "/client/appointments/create";
     public static final String CLIENT_APPOINTMENT_CREATE_SUCCESS = "/client/appointments/create/success";
 
-    public static final String CLIENT_ACNE_TREATMENT_BLOG = "/client/post/acne_treatment_blog";
-    public static final String CLIENT_SKIN_REJUVENATION = "/client/post/skin_rejuvenation";
-    public static final String CLIENT_POST_LASER_BEAUTY_BLOG = "/client/post/laser_beauty_blog";
-    public static final String CLIENT_POST_BOX_FILLER_BLOG = "/client/post/box_filler_blog";
-    public static final String CLIENT_POST_BIO_LIGHT_BLOG = "/client/post/bio_light_blog";
-    public static final String SKINCARE_BLOG = "/client/post/skincare_blog";
-    public static final String CLIENT_POST_ACNE_DURING_PRENANCY_BLOG = "/client/post/acne_during_pregnancy_blog";
-    public static final String CLIENT_POST_INTRODUCE_BSD_CLINIC = "/client/post/introduce_bsd_clinic";
+    public static final String ACNE_TREATMENT_BLOG = "/client/post/acne_treatment";
+    public static final String SKIN_REJUVENATION = "/client/post/skin_rejuvenation";
+    public static final String LASER_BEAUTY_BLOG = "/client/post/laser_beauty";
+    public static final String BOX_FILLER_BLOG = "/client/post/box_filler";
+    public static final String BIO_LIGHT_BLOG = "/client/post/bio_light";
+    public static final String SKINCARE_BLOG = "/client/post/skincare";
+    public static final String ACNE_DURING_PREGNANCY_BLOG = "/client/post/acne_during_pregnancy";
+    public static final String CLINIC_INTRODUCTION_PAGE = "/client/post/clinic_introduction";
 
     // API Public
     public static final String API_PUBLIC_ENDPOINT = "/api/public";

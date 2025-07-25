@@ -188,3 +188,8 @@
     background-color: #015fc9;
     border: white solid 2px;
 }
+
+:root {
+    --post-bg-primary-gradient: linear-gradient(135deg, #015fc9 0%, #015fc9 100%);;
+    --post-bg-grey-gradient: linear-gradient(135deg, #f2f5f9 0%, #fbfcff 100%);;
+}

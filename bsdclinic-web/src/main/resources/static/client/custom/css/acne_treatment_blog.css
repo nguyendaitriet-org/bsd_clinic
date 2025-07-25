@@ -8,7 +8,6 @@
 body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
-    color: #333;
 }
 
 /* Hero Section */
@@ -196,14 +195,6 @@ html {
     border-radius: 15px;
 }
 
-/* Custom Bootstrap Color Overrides */
-:root {
-    --bs-primary: #e74c3c;
-    --bs-primary-rgb: 231, 76, 60;
-    --bs-secondary: #c0392b;
-    --bs-secondary-rgb: 192, 57, 43;
-}
-
 /* Animation Classes */
 @keyframes fadeInUp {
     from {
@@ -256,12 +247,6 @@ footer {
     .card-body {
         padding: 1.5rem;
     }
-}
-
-/* Text improvements */
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 700;
-    line-height: 1.2;
 }
 
 .lead {

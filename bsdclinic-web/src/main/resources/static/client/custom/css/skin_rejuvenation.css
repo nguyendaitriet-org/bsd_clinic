@@ -11,6 +11,7 @@
     --text-light: #7F8C8D;
     --bg-light: #F8F9FA;
 }
+
 .cta-section {
     background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
     color: white;
@@ -31,7 +32,6 @@
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
     animation: float 20s infinite linear;
 }
-
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

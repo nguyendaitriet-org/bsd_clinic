@@ -1,34 +1,47 @@
 package com.bsdclinic.controller;
 
+import com.bsdclinic.ClinicInfoDto;
+import com.bsdclinic.ClinicInfoService;
 import com.bsdclinic.url.WebUrl;
+import com.bsdclinic.user.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class PostController {
-    @GetMapping(WebUrl.CLIENT_ACNE_TREATMENT_BLOG)
+    private final ClinicInfoService clinicInfoService;
+
+    @ModelAttribute("clinicInfo")
+    public ClinicInfoDto getClinicInfo() {
+        return clinicInfoService.getClinicInfo();
+    }
+
+    @GetMapping(WebUrl.ACNE_TREATMENT_BLOG)
     public String toPost1Page() {
         return "client/post/acne_treatment_blog";
     }
 
-    @GetMapping(WebUrl.CLIENT_SKIN_REJUVENATION)
+    @GetMapping(WebUrl.SKIN_REJUVENATION)
     public String toPostSkinRejuvenation() {
         return "client/post/skin_rejuvenation";
     }
 
-    @GetMapping(WebUrl.CLIENT_POST_LASER_BEAUTY_BLOG)
+    @GetMapping(WebUrl.LASER_BEAUTY_BLOG)
     public String toPost3Page() {
         return "client/post/laser_beauty_blog";
     }
 
-    @GetMapping(WebUrl.CLIENT_POST_BOX_FILLER_BLOG)
+    @GetMapping(WebUrl.BOX_FILLER_BLOG)
     public String toPostBoxAndFillerPage() {
         return "client/post/box_filler_blog";
     }
 
-    @GetMapping(WebUrl.CLIENT_POST_BIO_LIGHT_BLOG)
+    @GetMapping(WebUrl.BIO_LIGHT_BLOG)
     public String toPostBioLightPage() {
         return "client/post/bio_light_blog";
     }
@@ -38,14 +51,14 @@ public class PostController {
         return "client/post/skincare_blog";
     }
 
-    @GetMapping(WebUrl.CLIENT_POST_ACNE_DURING_PRENANCY_BLOG)
+    @GetMapping(WebUrl.ACNE_DURING_PREGNANCY_BLOG)
     public String toPost7Page() {
         return "client/post/acne_during_pregnancy_blog";
     }
 
-    @GetMapping(WebUrl.CLIENT_POST_INTRODUCE_BSD_CLINIC)
+    @GetMapping(WebUrl.CLINIC_INTRODUCTION_PAGE)
     public String toPost8Page() {
-        return "client/post/introduce_bsd_clinic";
+        return "client/post/clinic_introduction_page";
     }
 }
 

@@ -18,19 +18,18 @@
         <div class="container hero-content">
             <div class="row align-items-center">
                 <div class="col-lg-8 mx-auto text-center">
-                    <h1 class="display-4 fw-bold mb-4">Trẻ Hóa Da</h1>
-                    <h2 class="h3 mb-4">Bí Quyết Gìn Giữ Thanh Xuân Cho Làn Da</h2>
+                    <h1 class="display-4 fw-bold mb-4 text-white">Trẻ Hóa Da</h1>
+                    <h2 class="h3 mb-4 text-white">Bí Quyết Gìn Giữ Thanh Xuân Cho Làn Da</h2>
                     <p class="lead mb-4">
                         Thời gian, môi trường và thói quen sinh hoạt là những yếu tố khiến làn da dần trở nên xỉn màu, nhăn nheo, kém săn chắc – dấu hiệu của quá trình lão hóa. Nhưng đừng lo, trẻ hóa da chính là giải pháp giúp phục hồi sự tươi trẻ, căng bóng và đàn hồi của làn da.
                     </p>
-                    <a href="#solutions" class="btn btn-primary-custom btn-lg">
+                    <a href="#solutions" class="btn btn-light btn-lg">
                         <i class="fas fa-magic me-2"></i>Khám phá ngay
                     </a>
                 </div>
             </div>
         </div>
     </section>
-
     <section class="py-5">
         <div class="container">
             <div class="row">
@@ -41,7 +40,6 @@
                     </p>
                 </div>
             </div>
-
             <div class="row g-4 mt-4">
                 <div class="col-md-6 col-lg-4">
                     <div class="card-feature card h-100">
@@ -131,7 +129,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="solution-item">
                         <div class="d-flex align-items-center">
                             <div class="feature-icon me-3" style="width: 40px; height: 40px; font-size: 1rem;">
@@ -143,7 +140,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="solution-item">
                         <div class="d-flex align-items-center">
                             <div class="feature-icon me-3" style="width: 40px; height: 40px; font-size: 1rem;">
@@ -155,7 +151,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="solution-item">
                         <div class="d-flex align-items-center">
                             <div class="feature-icon me-3" style="width: 40px; height: 40px; font-size: 1rem;">
@@ -182,7 +177,6 @@
                     </p>
                 </div>
             </div>
-
             <div class="row mb-5">
                 <div class="col-lg-10 mx-auto">
                     <h3 class="h4 mb-4 text-primary">
@@ -213,7 +207,7 @@
                                 <p class="mb-0 small">Bước quan trọng nhất để ngăn lão hóa sớm</p>
                             </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="lifestyle-tip">
                                 <h6><i class="fas fa-leaf me-2 text-primary"></i>Mặt nạ dưỡng da</h6>
                                 <p class="mb-0 small">Đắp mặt nạ chứa Collagen, Hyaluronic Acid hoặc chiết xuất thiên nhiên</p>
@@ -265,7 +259,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="card-feature card">
                                 <div class="card-body">
                                     <div class="tech-badge mb-3">✅ HIFU Technology</div>
@@ -311,7 +305,7 @@
                                 <p class="mb-0">Ăn nhiều rau xanh, trái cây, hạt dinh dưỡng</p>
                             </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="lifestyle-tip">
                                 <h6><i class="fas fa-ban me-2 text-danger"></i>Tránh các tác nhân có hại</h6>
                                 <p class="mb-0">Tránh hút thuốc, hạn chế rượu bia – kẻ thù của làn da!</p>
@@ -344,11 +338,11 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <i class="fas fa-user-md display-1 mb-4 opacity-75"></i>
-                    <h3 class="display-6 fw-bold mb-4">Cần Tư Vấn Chuyên Môn?</h3>
+                    <h3 class="display-6 fw-bold mb-4 text-white">Cần Tư Vấn Chuyên Môn?</h3>
                     <p class="lead mb-4">
                         Đội ngũ chuyên gia da liễu tại BSD Clinic sẵn sàng tư vấn và thực hiện liệu trình phù hợp nhất cho làn da của bạn.                        </p>
                     <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-                        <a href="#!" class="btn btn-light btn-lg px-5 py-3">
+                        <a th:href="@{${webUrl.CLIENT_APPOINTMENT_CREATE}}" class="btn btn-light btn-lg px-5 py-3">
                             <i class="fas fa-calendar-check me-2"></i>Đặt lịch khám
                         </a>
                     </div>
@@ -359,7 +353,8 @@
     </body>
 </th:block>
 
-<th:block layout:fragment="appointment-script">
+<th:block layout:fragment="post-script">
     <script type="module" th:src="@{/client/custom/js/post/skin_rejuvenation_blog.js}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </th:block>
+
+</html>

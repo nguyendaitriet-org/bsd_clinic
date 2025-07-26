@@ -3,13 +3,10 @@ package com.bsdclinic.controller;
 import com.bsdclinic.ClinicInfoDto;
 import com.bsdclinic.ClinicInfoService;
 import com.bsdclinic.url.WebUrl;
-import com.bsdclinic.user.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,42 +19,42 @@ public class PostController {
     }
 
     @GetMapping(WebUrl.ACNE_TREATMENT_BLOG)
-    public String toPost1Page() {
+    public String toAcneTreatmentBlog() {
         return "client/post/acne_treatment_blog";
     }
 
-    @GetMapping(WebUrl.SKIN_REJUVENATION)
-    public String toPostSkinRejuvenation() {
+    @GetMapping(WebUrl.SKIN_REJUVENATION_BLOG)
+    public String toPostSkinRejuvenationBlog() {
         return "client/post/skin_rejuvenation";
     }
 
     @GetMapping(WebUrl.LASER_BEAUTY_BLOG)
-    public String toPost3Page() {
+    public String toLaserBeautyBlog() {
         return "client/post/laser_beauty_blog";
     }
 
-    @GetMapping(WebUrl.BOX_FILLER_BLOG)
-    public String toPostBoxAndFillerPage() {
-        return "client/post/box_filler_blog";
+    @GetMapping(WebUrl.BOTOX_FILLER_BLOG)
+    public String toPostBoxAndFillerBlog() {
+        return "client/post/botox_filler_blog";
     }
 
     @GetMapping(WebUrl.BIO_LIGHT_BLOG)
-    public String toPostBioLightPage() {
+    public String toPostBioLightBlog() {
         return "client/post/bio_light_blog";
     }
 
     @GetMapping(WebUrl.SKINCARE_BLOG)
-    public String toSkinCareBlogPage() {
+    public String toSkinCareBlogBlog() {
         return "client/post/skincare_blog";
     }
 
     @GetMapping(WebUrl.ACNE_DURING_PREGNANCY_BLOG)
-    public String toPost7Page() {
+    public String toAcneDuringPregnancyBlog() {
         return "client/post/acne_during_pregnancy_blog";
     }
 
     @GetMapping(WebUrl.CLINIC_INTRODUCTION_PAGE)
-    public String toPost8Page() {
+    public String toClinicIntroductionPage() {
         return "client/post/clinic_introduction_page";
     }
 }

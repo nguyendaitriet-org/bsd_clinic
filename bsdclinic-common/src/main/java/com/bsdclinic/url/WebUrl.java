@@ -24,9 +24,9 @@ public class WebUrl {
     public static final String CLIENT_APPOINTMENT_CREATE_SUCCESS = "/client/appointments/create/success";
 
     public static final String ACNE_TREATMENT_BLOG = "/client/post/acne_treatment";
-    public static final String SKIN_REJUVENATION = "/client/post/skin_rejuvenation";
+    public static final String SKIN_REJUVENATION_BLOG = "/client/post/skin_rejuvenation";
     public static final String LASER_BEAUTY_BLOG = "/client/post/laser_beauty";
-    public static final String BOX_FILLER_BLOG = "/client/post/box_filler";
+    public static final String BOTOX_FILLER_BLOG = "/client/post/botox_filler";
     public static final String BIO_LIGHT_BLOG = "/client/post/bio_light";
     public static final String SKINCARE_BLOG = "/client/post/skincare";
     public static final String ACNE_DURING_PREGNANCY_BLOG = "/client/post/acne_during_pregnancy";

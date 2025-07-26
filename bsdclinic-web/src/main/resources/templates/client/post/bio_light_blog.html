@@ -15,10 +15,6 @@
                 <div class="col-lg-6">
                     <div class="author-info bg-white text-dark mb-4">
                         <div class="d-flex align-items-center">
-                            <img src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg"
-                                 alt="Bs. Ngô Hoàng Bảo"
-                                 class="rounded-circle me-3"
-                                 style="width: 60px; height: 60px; object-fit: cover;">
                             <div>
                                 <h6 class="mb-1 fw-bold">Bs. Ngô Hoàng Bảo</h6>
                                 <small class="text-muted">
@@ -28,15 +24,15 @@
                             </div>
                         </div>
                     </div>
-                    <h1 class="display-5 fw-bold mb-4">Liệu Pháp Ánh Sáng Sinh Học</h1>
-                    <h2 class="h4 mb-4">Làn Da Đẹp Từ Năng Lượng Tự Nhiên</h2>
+                    <h1 class="display-5 fw-bold mb-4 text-white">Liệu Pháp Ánh Sáng<br> Sinh Học</h1>
+                    <h2 class="h4 mb-4 text-white">Làn Da Đẹp Từ Năng Lượng Tự Nhiên</h2>
                     <p class="lead mb-4">Thẩm mỹ nội khoa hiện đại - An toàn, không xâm lấn, hiệu quả cao</p>
                     <a href="#treatment" class="btn btn-light btn-lg px-4 py-3">
                         <i class="fas fa-arrow-down me-2"></i>Tìm hiểu ngay
                     </a>
                 </div>
                 <div class="col-lg-6">
-                    <img src="https://images.pexels.com/photos/3997989/pexels-photo-3997989.jpeg"
+                    <img th:src="@{/api/public/images/treatment_1.png?imagePath=post/bio_light}"
                          alt="LED Light Therapy"
                          class="img-fluid feature-img">
                 </div>
@@ -75,14 +71,10 @@
                             <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Se khít lỗ chân lông, giúp da sáng khỏe, đều màu hơn</li>
                         </ul>
                     </div>
-
-                    <a href="#consultation" class="btn btn-primary btn-lg px-4 py-3">
-                        <i class="fas fa-comments me-2"></i>Nhận Tư Vấn Ngay
-                    </a>
                 </div>
 
                 <div class="col-lg-6">
-                    <img src="https://images.pexels.com/photos/3985163/pexels-photo-3985163.jpeg"
+                    <img th:src="@{/api/public/images/treatment_2.png?imagePath=post/bio_light}"
                          alt="Chiếu ánh sáng trị mụn"
                          class="img-fluid feature-img">
                 </div>
@@ -185,7 +177,7 @@
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="before-after-container">
-                        <img src="https://images.pexels.com/photos/3845457/pexels-photo-3845457.jpeg"
+                        <img th:src="@{/api/public/images/before_treatment_1.png?imagePath=post/bio_light}"
                              alt="Trước điều trị"
                              class="img-fluid w-100"
                              style="height: 300px; object-fit: cover;">
@@ -194,7 +186,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="before-after-container">
-                        <img src="https://images.pexels.com/photos/3997993/pexels-photo-3997993.jpeg"
+                        <img th:src="@{/api/public/images/after_treatment_1.png?imagePath=post/bio_light}"
                              alt="Sau điều trị"
                              class="img-fluid w-100"
                              style="height: 300px; object-fit: cover;">
@@ -209,12 +201,7 @@
         <!-- Suitable Candidates Section -->
         <section class="my-5">
             <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <img src="https://images.pexels.com/photos/5327580/pexels-photo-5327580.jpeg"
-                         alt="Đối tượng phù hợp"
-                         class="img-fluid feature-img mb-4">
-                </div>
-                <div class="col-lg-6">
+                <div>
                     <h2 class="section-title">Đối tượng phù hợp</h2>
                     <div class="suitable-candidate">
                         <ul class="list-unstyled mb-0">
@@ -286,7 +273,7 @@
                     </div>
                 </div>
 
-                <div class="col-12">
+                <div class="col-lg-6">
                     <div class="process-step">
                         <div class="process-number">5</div>
                         <h5 class="fw-bold mb-3">Chống nắng nghiêm ngặt</h5>
@@ -326,7 +313,7 @@
                     </div>
                 </div>
 
-                <div class="col-12">
+                <div class="col-lg-6">
                     <div class="faq-card">
                         <h6 class="fw-bold mb-3">
                             <i class="fas fa-question-circle text-primary me-2"></i>
@@ -344,11 +331,11 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <i class="fas fa-user-md display-1 mb-4 opacity-75"></i>
-                        <h3 class="display-6 fw-bold mb-4">Cần Tư Vấn Chuyên Môn?</h3>
+                        <h3 class="display-6 fw-bold mb-4 text-white">Cần Tư Vấn Chuyên Môn?</h3>
                         <p class="lead mb-4">
                             Đội ngũ chuyên gia da liễu tại BSD Clinic sẵn sàng tư vấn và thực hiện liệu trình phù hợp nhất cho làn da của bạn.                        </p>
                         <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-                            <a href="#!" class="btn btn-light btn-lg px-5 py-3">
+                            <a th:href="@{${webUrl.CLIENT_APPOINTMENT_CREATE}}" class="btn btn-light btn-lg px-5 py-3">
                                 <i class="fas fa-calendar-check me-2"></i>Đặt lịch khám
                             </a>
                         </div>
@@ -357,11 +344,5 @@
             </div>
         </section>
     </div>
-</th:block>
-
-<th:block layout:fragment="appointment-script">
-    <script type="module" th:src="@{/client/custom/js/appointment/create.js}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 </th:block>
 </html>

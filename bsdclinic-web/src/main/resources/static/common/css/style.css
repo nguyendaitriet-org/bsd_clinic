@@ -190,6 +190,16 @@
 }
 
 :root {
-    --post-bg-primary-gradient: linear-gradient(135deg, #015fc9 0%, #015fc9 100%);;
+    --post-bg-primary-gradient: linear-gradient(135deg, #015fc9 0%, #258dff 100%);;
     --post-bg-grey-gradient: linear-gradient(135deg, #f2f5f9 0%, #fbfcff 100%);;
+}
+
+.float-card {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.skin-type-card:hover, .float-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }

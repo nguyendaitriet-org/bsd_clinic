@@ -108,11 +108,11 @@
                         </div>
                         <div class="service-content p-4">
                             <div class="service-content-inner">
-                                <a th:href="@{${webUrl.SKIN_REJUVENATION}}" class="d-inline-block h4 mb-4">Trẻ hóa da</a>
+                                <a th:href="@{${webUrl.SKIN_REJUVENATION_BLOG}}" class="d-inline-block h4 mb-4">Trẻ hóa da</a>
                                 <p class="mb-4">
                                     Trẻ hóa da giúp cải thiện độ đàn hồi, làm mờ nếp nhăn và phục hồi làn da tươi trẻ, rạng rỡ.
                                 </p>
-                                <a class="btn btn-primary rounded-pill py-2 px-4" th:href="@{${webUrl.SKIN_REJUVENATION}}"
+                                <a class="btn btn-primary rounded-pill py-2 px-4" th:href="@{${webUrl.SKIN_REJUVENATION_BLOG}}"
                                    th:text="#{title.learn_more}"></a>
                             </div>
                         </div>
@@ -144,11 +144,11 @@
                         </div>
                         <div class="service-content p-4">
                             <div class="service-content-inner">
-                                <a th:href="@{${webUrl.BOX_FILLER_BLOG}}" class="d-inline-block h4 mb-4">Tiêm Botox, Filler</a>
+                                <a th:href="@{${webUrl.BOTOX_FILLER_BLOG}}" class="d-inline-block h4 mb-4">Tiêm Botox, Filler</a>
                                 <p class="mb-4">
                                     Tiêm Botox, Filler giúp xóa nhăn, tạo hình khuôn mặt và giữ gìn nét thanh xuân nhanh chóng, an toàn.
                                 </p>
-                                <a class="btn btn-primary rounded-pill py-2 px-4" th:href="@{${webUrl.BOX_FILLER_BLOG}}"
+                                <a class="btn btn-primary rounded-pill py-2 px-4" th:href="@{${webUrl.BOTOX_FILLER_BLOG}}"
                                    th:text="#{title.learn_more}"></a>
                             </div>
                         </div>
@@ -193,11 +193,11 @@
                         <div class="row g-4 justify-content-center">
                             <div class="col-12">
                                 <div class="rounded bg-light">
-                                    <img th:src="@{/api/public/images/doctor_group_1.jpg?imagePath=client_home}" class="img-fluid rounded w-100" alt="">
+                                    <img th:src="@{/api/public/images/clinic_team_1.png?imagePath=post/clinic_introduction}" class="img-fluid rounded w-100" alt="">
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="counter-item bg-light rounded p-3 h-100">
+                                <div class="counter-item bg-light rounded p-3 h-100 float-card">
                                     <div class="counter-counting">
                                         <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">3</span>
                                         <span class="h1 fw-bold text-primary">+</span>
@@ -206,7 +206,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="counter-item bg-light rounded p-3 h-100">
+                                <div class="counter-item bg-light rounded p-3 h-100 float-card">
                                     <div class="counter-counting">
                                         <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">1000</span>
                                         <span class="h1 fw-bold text-primary">+</span>
@@ -215,7 +215,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="counter-item bg-light rounded p-3 h-100">
+                                <div class="counter-item bg-light rounded p-3 h-100 float-card">
                                     <div class="counter-counting">
                                         <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">500</span>
                                         <span class="h1 fw-bold text-primary">+</span>
@@ -224,7 +224,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="counter-item bg-light rounded p-3 h-100">
+                                <div class="counter-item bg-light rounded p-3 h-100 float-card">
                                     <div class="counter-counting">
                                         <span class="text-primary fs-2 fw-bold" data-toggle="counter-up">10</span>
                                         <span class="h1 fw-bold text-primary">+</span>
@@ -248,31 +248,28 @@
                 <p class="mb-0 text-center" th:text="#{text.expert_team.introduction}"></p>
             </div>
             <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="team-item">
+                        <div class="team-img">
+                            <img th:src="@{/api/public/images/doctor_2.jpg?imagePath=client_home}" class="img-fluid rounded-top w-100" alt="">
+                        </div>
+                        <div class="team-title p-4">
+                            <p class="mb-0">BSCK I.</p>
+                            <h4 class="mb-0">Huỳnh Thị Như Ý</h4>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
                     <div class="team-item">
                         <div class="team-img">
                             <img th:src="@{/api/public/images/doctor_1.jpg?imagePath=client_home}" class="img-fluid rounded-top w-100" alt="">
                             <div class="team-icon">
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href="https://www.facebook.com/quang.danh.311098"><i class="fab fa-facebook-f"></i></a>
                             </div>
                         </div>
                         <div class="team-title p-4">
-                            <p class="mb-0">Ths.BSCK I.</p>
-                            <h4 class="mb-0"> Ngô Hoàng Bảo</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
-                    <div class="team-item">
-                        <div class="team-img">
-                            <img th:src="@{/api/public/images/doctor_2.jpg?imagePath=client_home}" class="img-fluid rounded-top w-100" alt="">
-                            <div class="team-icon">
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-facebook-f"></i></a>
-                            </div>
-                        </div>
-                        <div class="team-title p-4">
-                            <p class="mb-0">Ths.BSCK I.</p>
-                            <h4 class="mb-0">Lê Nguyễn Trung Châu</h4>
+                            <p class="mb-0">Ths.BS.</p>
+                            <h4 class="mb-0">Lê Quang Danh</h4>
                         </div>
                     </div>
                 </div>
@@ -280,13 +277,10 @@
                     <div class="team-item">
                         <div class="team-img">
                             <img th:src="@{/api/public/images/doctor_3.jpg?imagePath=client_home}" class="img-fluid rounded-top w-100" alt="">
-                            <div class="team-icon">
-                                <a class="btn btn-primary btn-sm-square rounded-pill mb-2" href=""><i class="fab fa-facebook-f"></i></a>
-                            </div>
                         </div>
                         <div class="team-title p-4">
-                            <p class="mb-0">Ths.BSCK II.</p>
-                            <h4 class="mb-0">Huỳnh Thị Như Ý</h4>
+                            <p class="mb-0">BSCK I.</p>
+                            <h4 class="mb-0">Ngô Hoàng Bảo</h4>
                         </div>
                     </div>
                 </div>
@@ -313,9 +307,9 @@
                                 <div class="small"><span class="fa fa-calendar text-primary"></span> 20/05/2024</div>
                                 <div class="small"><span class="fa fa-comment-alt text-primary"></span> 596 lượt xem</div>
                             </div>
-                            <a href="#" class="h4 d-inline-block mb-3">LIỆU PHÁP ÁNH SÁNG SINH HỌC TRONG THẨM MỸ NỘI KHOA</a>
+                            <a th:href="@{${webUrl.BIO_LIGHT_BLOG}}" class="h4 d-inline-block mb-3">LIỆU PHÁP ÁNH SÁNG SINH HỌC TRONG THẨM MỸ NỘI KHOA</a>
                             <p class="mb-3 text-justify">Ánh sáng sinh học được ứng dụng trong điều trị trẻ hóa da, giảm viêm trong mụn trứng cá, mau làm lành vết thương, điều trị trứng cá đỏ.</p>
-                            <a href="#" class="btn p-0">
+                            <a th:href="@{${webUrl.BIO_LIGHT_BLOG}}" class="btn p-0">
                                 <span th:text="#{title.see_more}"></span>
                                 <i class="fa fa-arrow-right"></i>
                             </a>
@@ -333,9 +327,9 @@
                                 <div class="small"><span class="fa fa-calendar text-primary"></span> 12/06/2024</div>
                                 <div class="small"><span class="fa fa-comment-alt text-primary"></span> 413 lượt xem</div>
                             </div>
-                            <a href="#" class="h4 d-inline-block mb-3">CHĂM SÓC DA KHOA HỌC</a>
+                            <a th:href="@{${webUrl.SKINCARE_BLOG}}" class="h4 d-inline-block mb-3">CHĂM SÓC DA KHOA HỌC</a>
                             <p class="mb-3 text-justify">Chăm sóc da khoa học là một quy trình skincare với các sản phẩm phù hợp, thứ tự và cách sử dụng đúng theo từng tình trạng da và bệnh lý.</p>
-                            <a href="#" class="btn p-0">
+                            <a th:href="@{${webUrl.SKINCARE_BLOG}}" class="btn p-0">
                                 <span th:text="#{title.see_more}"></span>
                                 <i class="fa fa-arrow-right"></i>
                             </a>
@@ -353,11 +347,11 @@
                                 <div class="small"><span class="fa fa-calendar text-primary"></span> 05/07/2024</div>
                                 <div class="small"><span class="fa fa-comment-alt text-primary"></span> 352 lượt xem</div>
                             </div>
-                            <a href="#" class="h4 d-inline-block mb-3">MỤN TRỨNG CÁ TRONG THAI KỲ</a>
+                            <a th:href="@{${webUrl.ACNE_DURING_PREGNANCY_BLOG}}" class="h4 d-inline-block mb-3">MỤN TRỨNG CÁ TRONG THAI KỲ</a>
                             <p class="mb-3 text-justify">
                                 Mụn trứng cá trong quá trình mang thai là một vấn đề khá phổ biến. Nó không chỉ ảnh hưởng đến thẩm mỹ, tâm lý của phụ nữ mang thai mà còn có thể gây nên các dị tật thai nhi nếu điều trị không đúng cách.
                             </p>
-                            <a th:href="@{${webUrl.CLIENT_APPOINTMENT_CREATE}}" class="btn p-0">
+                            <a th:href="@{${webUrl.ACNE_DURING_PREGNANCY_BLOG}}" class="btn p-0">
                                 <span th:text="#{title.see_more}"></span>
                                 <i class="fa fa-arrow-right"></i>
                             </a>

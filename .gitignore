@@ -42,7 +42,6 @@ out/
 
 ### Storage ###
 /storage/*
-!/storage/avatar/default.png
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

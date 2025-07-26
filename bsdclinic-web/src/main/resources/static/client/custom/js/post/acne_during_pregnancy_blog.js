@@ -144,65 +144,6 @@ const createScrollProgress = () => {
 // Initialize scroll progress
 document.addEventListener('DOMContentLoaded', createScrollProgress);
 
-// Add back to top button
-const createBackToTop = () => {
-    const backToTop = document.createElement('button');
-    backToTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
-    backToTop.setAttribute('aria-label', 'Về đầu trang');
-    backToTop.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #4facfe, #00f2fe);
-        color: white;
-        border: none;
-        cursor: pointer;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.3s ease;
-        z-index: 1000;
-        box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
-        font-size: 1.2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    `;
-
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-
-    backToTop.addEventListener('mouseenter', () => {
-        backToTop.style.transform = backToTop.style.transform.includes('translateY(0)')
-            ? 'translateY(0) scale(1.1)'
-            : 'translateY(20px) scale(1.1)';
-    });
-
-    backToTop.addEventListener('mouseleave', () => {
-        backToTop.style.transform = window.scrollY > 300
-            ? 'translateY(0) scale(1)'
-            : 'translateY(20px) scale(1)';
-    });
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            backToTop.style.opacity = '1';
-            backToTop.style.transform = 'translateY(0)';
-        } else {
-            backToTop.style.opacity = '0';
-            backToTop.style.transform = 'translateY(20px)';
-        }
-    });
-
-    document.body.appendChild(backToTop);
-};
-
 // Initialize back to top button
 document.addEventListener('DOMContentLoaded', createBackToTop);
 

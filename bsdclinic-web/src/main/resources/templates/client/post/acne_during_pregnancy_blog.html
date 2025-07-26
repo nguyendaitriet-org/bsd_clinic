@@ -15,10 +15,6 @@
                 <div class="col-lg-6">
                     <div class="author-info bg-white text-dark mb-4">
                         <div class="d-flex align-items-center">
-                            <img src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg"
-                                 alt="Bs. Ngô Hoàng Bảo"
-                                 class="rounded-circle me-3"
-                                 style="width: 60px; height: 60px; object-fit: cover;">
                             <div>
                                 <h6 class="mb-1 fw-bold">Bs. Ngô Hoàng Bảo</h6>
                                 <small class="text-muted">
@@ -28,15 +24,15 @@
                             </div>
                         </div>
                     </div>
-                    <h1 class="display-5 fw-bold mb-4">Mụn Trứng Cá Trong Thai Kỳ</h1>
-                    <h2 class="h4 mb-4">Làm Sao Để Xử Lý An Toàn Cho Mẹ Và Bé?</h2>
+                    <h1 class="display-5 fw-bold mb-4 text-white">Mụn Trứng Cá Trong Thai Kỳ</h1>
+                    <h2 class="h4 mb-4 text-white">Làm Sao Để Xử Lý An Toàn Cho Mẹ Và Bé?</h2>
                     <p class="lead mb-4">Hướng dẫn khoa học và an toàn để điều trị mụn trong thai kỳ</p>
                     <a href="#content" class="btn btn-light btn-lg px-4 py-3">
-                        <i class="fas fa-arrow-down me-2"></i>Đọc ngay
+                        <i class="fas fa-arrow-down me-2"></i>Tìm hiểu ngay
                     </a>
                 </div>
                 <div class="col-lg-6">
-                    <img src="https://cdn.tgdd.vn//News/1442111//pexels-matilda-wormwood-7484918-845x563.jpg"
+                    <img th:src="@{/api/public/images/acnes_in_pregnancy.jpg?imagePath=client_home}"
                          alt="Mẹ bầu chăm sóc da"
                          class="img-fluid feature-img">
                 </div>
@@ -69,9 +65,8 @@
         <!-- Why Pregnant Women Get Acne Section -->
         <section class="my-5">
             <div class="row align-items-center">
+                <h2 class="section-title display-6 fw-bold">Tại Sao Phụ Nữ Mang Thai Dễ Bị Mụn?</h2>
                 <div class="col-lg-6">
-                    <h2 class="section-title display-6 fw-bold">Tại Sao Phụ Nữ Mang Thai Dễ Bị Mụn?</h2>
-
                     <div class="info-card">
                         <p class="mb-4">
                             Trong giai đoạn đầu thai kỳ (đặc biệt là tam cá nguyệt đầu tiên), sự thay đổi nội tiết tố – đặc biệt là sự tăng cao của hormone Androgen – khiến tuyến bã nhờn hoạt động mạnh mẽ hơn.
@@ -109,7 +104,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-6">
                     <img src="https://cdn.tgdd.vn//News/1442111//pexels-matilda-wormwood-7484918-845x563.jpg"
                          alt="Phụ nữ mang thai"
@@ -242,7 +236,7 @@
                     <div class="col-lg-6 order-lg-2">
                         <h3 class="fw-bold mb-4">
                             <span class="solution-number">2</span>
-                            Sử dụng các hoạt chất an toàn được khuyến nghị
+                            Sử dụng các hoạt chất an toàn
                         </h3>
 
                         <div class="safe-ingredients">
@@ -397,13 +391,7 @@
         <!-- When to See Doctor Section -->
         <section class="my-5">
             <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <img src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg"
-                         alt="Tư vấn bác sĩ"
-                         class="img-fluid feature-img">
-                </div>
-
-                <div class="col-lg-6">
+                <div>
                     <h2 class="section-title display-6 fw-bold">Khi Nào Nên Gặp Bác Sĩ Da Liễu?</h2>
 
                     <div class="doctor-advice">
@@ -529,11 +517,11 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <i class="fas fa-user-md display-1 mb-4 opacity-75"></i>
-                        <h3 class="display-6 fw-bold mb-4">Cần Tư Vấn Chuyên Môn?</h3>
+                        <h3 class="display-6 fw-bold mb-4 text-white">Cần Tư Vấn Chuyên Môn?</h3>
                         <p class="lead mb-4">
                             Đội ngũ chuyên gia da liễu tại BSD Clinic sẵn sàng tư vấn và thực hiện liệu trình phù hợp nhất cho làn da của bạn.                        </p>
                         <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-                            <a href="#!" class="btn btn-light btn-lg px-5 py-3">
+                            <a th:href="@{${webUrl.CLIENT_APPOINTMENT_CREATE}}" class="btn btn-light btn-lg px-5 py-3">
                                 <i class="fas fa-calendar-check me-2"></i>Đặt lịch khám
                             </a>
                         </div>
@@ -545,7 +533,6 @@
 
 </th:block>
 
-<th:block layout:fragment="appointment-script">
+<th:block layout:fragment="post-script">
     <script type="module" th:src="@{/client/custom/js/post/acne_during_pregnancy_blog.js}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </th:block>

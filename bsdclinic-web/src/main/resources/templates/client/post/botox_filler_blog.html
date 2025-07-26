@@ -4,7 +4,7 @@
       layout:decorate="~{client/layout/app}"
 >
 <th:block layout:fragment="content-style">
-    <link rel="stylesheet" th:href="@{/client/custom/css/box_filler_blog.css}"/>
+    <link rel="stylesheet" th:href="@{/client/custom/css/botox_filler_blog.css}"/>
 </th:block>
 
 <th:block layout:fragment="content-body">
@@ -13,15 +13,15 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <h1 class="display-4 fw-bold mb-4">Tiêm Botox & Filler</h1>
-                    <h2 class="h3 mb-4">Làm Đẹp Không Phẫu Thuật</h2>
+                    <h1 class="display-4 fw-bold mb-4 text-white">Tiêm Botox & Filler</h1>
+                    <h2 class="h3 mb-4 text-white">Làm Đẹp Không Phẫu Thuật</h2>
                     <p class="lead mb-4">Thon gọn – Xóa nhăn – Tạo hình tự nhiên – Không xâm lấn</p>
                     <a href="#services" class="btn btn-light btn-lg px-4 py-3">
                         <i class="fas fa-arrow-down me-2"></i>Khám phá ngay
                     </a>
                 </div>
                 <div class="col-lg-6">
-                    <img src="https://images.pexels.com/photos/3985163/pexels-photo-3985163.jpeg"
+                    <img th:src="@{/api/public/images/botox_1.jpg?imagePath=client_home}"
                          alt="Botox and Filler Treatment"
                          class="img-fluid feature-img">
                 </div>
@@ -42,7 +42,7 @@
                 <div class="col-lg-6">
                     <div class="card treatment-card">
                         <div class="treatment-card-header text-center">
-                            <h3 class="card-title mb-0">Tiêm Botox</h3>
+                            <h3 class="card-title mb-0 text-white">Tiêm Botox</h3>
                             <p class="mb-0 mt-2">Thon gọn và xóa nhăn hiệu quả</p>
                         </div>
                         <div class="card-body p-4">
@@ -91,7 +91,7 @@
                 <div class="col-lg-6">
                     <div class="card treatment-card">
                         <div class="treatment-card-header text-center">
-                            <h3 class="card-title mb-0">Tiêm Filler</h3>
+                            <h3 class="card-title mb-0 text-white">Tiêm Filler</h3>
                             <p class="mb-0 mt-2">Làm đầy & tạo đường nét tự nhiên</p>
                         </div>
                         <div class="card-body p-4">
@@ -147,11 +147,6 @@
                     <h2 class="section-title display-6 fw-bold">Quy trình thực hiện tại BSD Clinic</h2>
                     <p class="lead text-muted mb-4">Quy trình chuẩn y khoa, đảm bảo an toàn tuyệt đối</p>
                 </div>
-<!--                <div class="col-lg-6">-->
-<!--                    <img src="https://images.pexels.com/photos/3845457/pexels-photo-3845457.jpeg"-->
-<!--                         alt="Medical consultation"-->
-<!--                         class="img-fluid feature-img">-->
-<!--                </div>-->
             </div>
 
             <div class="row">
@@ -246,12 +241,7 @@
         <!-- Safety Section -->
         <section class="my-5">
             <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <img src="https://images.pexels.com/photos/5327580/pexels-photo-5327580.jpeg"
-                         alt="Safety and quality"
-                         class="img-fluid feature-img mb-4">
-                </div>
-                <div class="col-lg-6">
+                <div>
                     <h2 class="section-title">
                         <i class="fas fa-shield-alt text-primary me-2"></i>
                         Làm đẹp an toàn – Hãy chọn đúng nơi
@@ -299,11 +289,11 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <i class="fas fa-user-md display-1 mb-4 opacity-75"></i>
-                        <h3 class="display-6 fw-bold mb-4">Cần Tư Vấn Chuyên Môn?</h3>
+                        <h3 class="display-6 fw-bold mb-4 text-white">Cần Tư Vấn Chuyên Môn?</h3>
                         <p class="lead mb-4">
                             Đội ngũ chuyên gia da liễu tại BSD Clinic sẵn sàng tư vấn và thực hiện liệu trình phù hợp nhất cho làn da của bạn.                        </p>
                         <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-                            <a href="#!" class="btn btn-light btn-lg px-5 py-3">
+                            <a th:href="@{${webUrl.CLIENT_APPOINTMENT_CREATE}}" class="btn btn-light btn-lg px-5 py-3">
                                 <i class="fas fa-calendar-check me-2"></i>Đặt lịch khám
                             </a>
                         </div>
@@ -313,9 +303,4 @@
         </section>
     </div>
 </th:block>
-
-<th:block layout:fragment="appointment-script">
-    <script type="module" th:src="@{/client/custom/js/appointment/create.js}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-</th:block>
+</html>

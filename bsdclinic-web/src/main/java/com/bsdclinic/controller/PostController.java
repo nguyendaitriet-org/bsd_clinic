@@ -1,47 +1,61 @@
 package com.bsdclinic.controller;
 
+import com.bsdclinic.ClinicInfoDto;
+import com.bsdclinic.ClinicInfoService;
 import com.bsdclinic.url.WebUrl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 @RequiredArgsConstructor
 public class PostController {
+    private final ClinicInfoService clinicInfoService;
 
-    @GetMapping(WebUrl.CLIENT_ACNE_TREATMENT_BLOG)
-    public String toPost1Page() {
+    @ModelAttribute("clinicInfo")
+    public ClinicInfoDto getClinicInfo() {
+        return clinicInfoService.getClinicInfo();
+    }
+
+    @GetMapping(WebUrl.ACNE_TREATMENT_BLOG)
+    public String toAcneTreatmentBlog() {
         return "client/post/acne_treatment_blog";
     }
 
-    @GetMapping(WebUrl.CLIENT_SKIN_REJUVENATION)
-    public String toPostSkinRejuvenation() {
+    @GetMapping(WebUrl.SKIN_REJUVENATION_BLOG)
+    public String toPostSkinRejuvenationBlog() {
         return "client/post/skin_rejuvenation";
     }
 
-    @GetMapping(WebUrl.CLIENT_POST_LASER_BEAUTY_BLOG)
-    public String toPost3Page() {
+    @GetMapping(WebUrl.LASER_BEAUTY_BLOG)
+    public String toLaserBeautyBlog() {
         return "client/post/laser_beauty_blog";
     }
-    @GetMapping(WebUrl.CLIENT_POST_BOX_FILLER_BLOG)
-    public String toPostBoxAndFillerPage() {
-        return "client/post/box_filler_blog";
+
+    @GetMapping(WebUrl.BOTOX_FILLER_BLOG)
+    public String toPostBoxAndFillerBlog() {
+        return "client/post/botox_filler_blog";
     }
-    @GetMapping(WebUrl.CLIENT_POST_5)
-    public String toPost5Page() {
-        return "client/post/post5";
+
+    @GetMapping(WebUrl.BIO_LIGHT_BLOG)
+    public String toPostBioLightBlog() {
+        return "client/post/bio_light_blog";
     }
+
     @GetMapping(WebUrl.SKINCARE_BLOG)
-    public String toSkinCareBlogPage() {
+    public String toSkinCareBlogBlog() {
         return "client/post/skincare_blog";
     }
-    @GetMapping(WebUrl.CLIENT_POST_7)
-    public String toPost7Page() {
-        return "client/post/post7";
+
+    @GetMapping(WebUrl.ACNE_DURING_PREGNANCY_BLOG)
+    public String toAcneDuringPregnancyBlog() {
+        return "client/post/acne_during_pregnancy_blog";
     }
-    @GetMapping(WebUrl.CLIENT_POST_8)
-    public String toPost8Page() {
-        return "post7";
+
+    @GetMapping(WebUrl.CLINIC_INTRODUCTION_PAGE)
+    public String toClinicIntroductionPage() {
+        return "client/post/clinic_introduction_page";
     }
 }
 

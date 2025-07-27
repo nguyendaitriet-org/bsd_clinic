@@ -1,0 +1,502 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/layout/app}"
+>
+<th:block layout:fragment="content-style">
+    <link rel="stylesheet" th:href="@{/client/custom/css/introduce_bsd_clinic.css}"/>
+</th:block>
+
+<th:block layout:fragment="content-body">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="display-4 fw-bold mb-4 text-white">Phòng khám Da liễu Thẩm mỹ BSD</h1>
+                        <p class="lead mb-4">Chuyên sâu trong lĩnh vực chẩn đoán – điều trị các bệnh lý da liễu và thẩm mỹ nội khoa không xâm lấn</p>
+                        <p class="mb-4">Hoạt động theo nguyên tắc: <strong>An toàn – Khoa học – Cá nhân hóa</strong></p>
+                    </div>
+                    <div class="col-lg-6">
+                        <img th:src="@{/api/public/images/representative_1.jpg?imagePath=post/clinic_introduction}"
+                             class="img-fluid rounded-3 shadow-lg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container py-5">
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="fade-in">
+                        <h2 class="section-title">Giới thiệu Phòng khám</h2>
+                        <p class="lead">Phòng khám Da liễu Thẩm mỹ BSD là đơn vị chuyên sâu trong lĩnh vực chẩn đoán – điều trị các bệnh lý da liễu và thẩm mỹ nội khoa không xâm lấn, hoạt động theo nguyên tắc an toàn – khoa học – cá nhân hóa.</p>
+
+                        <p>Với định hướng lấy bằng chứng y khoa làm nền tảng, phòng khám cam kết mang đến cho khách hàng các giải pháp điều trị hiệu quả, được xây dựng trên cơ sở chuyên môn vững chắc và công nghệ hiện đại.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="fade-in">
+                        <img th:src="@{/api/public/images/examination_1.jpg?imagePath=post/clinic_introduction}"
+                             class="img-fluid rounded-3 shadow" alt="Phòng khám hiện đại">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quote Section -->
+            <div class="quote-section fade-in">
+                <h4 class="mb-3 text-white">Triết lý điều trị</h4>
+                <p class="lead mb-0">Mỗi ca điều trị là một nghiên cứu cá nhân hóa – chúng tôi không áp dụng liệu trình đại trà.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title fade-in">Đội ngũ chuyên môn</h2>
+                <p class="lead fade-in">Bác sĩ da liễu được đào tạo bài bản với kinh nghiệm thực tiễn phong phú</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="team-card fade-in">
+                        <img th:src="@{/api/public/images/clinic_team_1.png?imagePath=post/clinic_introduction}"
+                             class="img-fluid" alt="" style="height: 400px; width: 100%; object-fit: cover;">
+                        <div class="p-4">
+                            <h5 class="mb-3">Đội ngũ chuyên gia chất lượng cao</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Bác sĩ da liễu được đào tạo bài bản, có chứng chỉ hành nghề
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Kinh nghiệm thực tiễn phong phú trong điều trị da liễu
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Thường xuyên cập nhật kiến thức từ hội nghị chuyên ngành
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Tham gia các khóa đào tạo trong nước và quốc tế
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title fade-in">Lĩnh vực chuyên môn</h2>
+                <p class="lead fade-in">Dịch vụ chuyên sâu với công nghệ hiện đại</p>
+            </div>
+
+            <!-- Da liễu điều trị -->
+            <div class="row mb-5">
+                <div class="col-lg-6 fade-in">
+                    <div class="service-card card-hover p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-stethoscope text-primary me-3" style="font-size: 2rem;"></i>
+                            <h4 class="mb-0">Da liễu điều trị</h4>
+                        </div>
+                        <div class="d-grid" style="grid-template-columns: repeat(2, 1fr); gap: 0 2rem;">
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Mụn trứng cá, mụn nội tiết
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Viêm da cơ địa
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Viêm da tiếp xúc
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Rosacea
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Vảy nến
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Chàm, nấm da
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Rối loạn sắc tố
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Nám, tàn nhang
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Sẹo mụn, sẹo lồi
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Trẻ hóa da
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 fade-in">
+                    <img th:src="@{/api/public/images/treatment_2.jpg?imagePath=post/clinic_introduction}"
+                         class="img-fluid rounded-3 shadow" alt="Da liễu điều trị" style="height: 300px; width: 100%; object-fit: cover;">
+                </div>
+            </div>
+
+            <!-- Thẩm mỹ nội khoa -->
+            <div class="row mb-5">
+                <div class="col-lg-6 order-lg-2 fade-in">
+                    <div class="service-card card-hover p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-spa text-primary me-3" style="font-size: 2rem;"></i>
+                            <h4 class="mb-0">Thẩm mỹ nội khoa</h4>
+                        </div>
+                        <div class="d-grid" style="grid-template-columns: repeat(2, 1fr); gap: 0 2rem;">
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Peel da hóa học y khoa
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Laser điều trị sắc tố
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Ánh sáng IPL
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Công nghệ RF
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Ánh sáng sinh học
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Tiêm Botox
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Filler
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Mesotherapy
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Liệu pháp PRP
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 fade-in">
+                    <img th:src="@{/api/public/images/treatment_1.jpg?imagePath=post/clinic_introduction}"
+                         class="img-fluid rounded-3 shadow" alt="Thẩm mỹ nội khoa" style="height: 300px; width: 100%; object-fit: cover;">
+                </div>
+            </div>
+
+            <!-- Tư vấn chăm sóc -->
+            <div class="row">
+                <div class="col-lg-6 fade-in">
+                    <div class="service-card card-hover p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-user-md text-primary me-3" style="font-size: 2rem;"></i>
+                            <h4 class="mb-0">Tư vấn & Chăm sóc da chuyên sâu</h4>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Phân tích da bằng thiết bị kỹ thuật số
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Xây dựng phác đồ chăm sóc da cá nhân hóa
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-dot-circle text-primary me-2"></i>
+                                Theo dõi tiến triển định kỳ bằng ảnh lâm sàng
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 fade-in">
+                    <img th:src="@{/api/public/images/consult_2.jpg?imagePath=post/clinic_introduction}"
+                         class="img-fluid rounded-3 shadow" alt="Tư vấn chăm sóc da" style="height: 300px; width: 100%; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LED Light Therapy Section -->
+    <section class="light-therapy-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="mb-4">Liệu pháp ánh sáng sinh học</h2>
+                <p class="lead">Công nghệ LED hiện đại cho làn da khỏe đẹp tự nhiên</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6 fade-in">
+                    <div class="light-card card-hover p-4 text-center">
+                        <i class="fas fa-circle text-danger mb-3" style="font-size: 3rem;"></i>
+                        <h5>Ánh sáng đỏ</h5>
+                        <p class="small">630-660nm</p>
+                        <ul class="list-unstyled small">
+                            <li>Kích thích collagen</li>
+                            <li>Giảm nếp nhăn</li>
+                            <li>Cải thiện tuần hoàn</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 fade-in">
+                    <div class="light-card card-hover p-4 text-center">
+                        <i class="fas fa-circle text-primary mb-3" style="font-size: 3rem;"></i>
+                        <h5>Ánh sáng xanh</h5>
+                        <p class="small">415-450nm</p>
+                        <ul class="list-unstyled small">
+                            <li>Diệt khuẩn P.acnes</li>
+                            <li>Giảm viêm mụn</li>
+                            <li>Kiểm soát dầu thừa</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 fade-in">
+                    <div class="light-card card-hover p-4 text-center">
+                        <i class="fas fa-circle text-success mb-3" style="font-size: 3rem;"></i>
+                        <h5>Ánh sáng xanh lá</h5>
+                        <p class="small">520-535nm</p>
+                        <ul class="list-unstyled small">
+                            <li>Giảm sắc tố melanin</li>
+                            <li>Làm sáng da</li>
+                            <li>Điều trị nám</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 fade-in">
+                    <div class="light-card card-hover p-4 text-center">
+                        <i class="fas fa-circle text-warning mb-3" style="font-size: 3rem;"></i>
+                        <h5>Ánh sáng vàng</h5>
+                        <p class="small">570-590nm</p>
+                        <ul class="list-unstyled small">
+                            <li>Tăng lưu thông máu</li>
+                            <li>Giảm đỏ da nhạy cảm</li>
+                            <li>Làm dịu viêm nhiễm</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages Section -->
+    <section id="advantages" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title fade-in">Ưu thế của Phòng khám BSD</h2>
+                <p class="lead fade-in">Những điểm vượt trội tạo nên sự khác biệt</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="advantage-item fade-in">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-user-md text-primary me-3" style="font-size: 2rem;"></i>
+                            <div>
+                                <h5 class="mb-1">Chuẩn y khoa</h5>
+                                <p class="mb-0">Bác sĩ khám và chỉ định trực tiếp từng liệu trình</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="advantage-item fade-in">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-fingerprint text-primary me-3" style="font-size: 2rem;"></i>
+                            <div>
+                                <h5 class="mb-1">Cá nhân hóa</h5>
+                                <p class="mb-0">Không dùng chung phác đồ, điều trị theo từng loại da</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="advantage-item fade-in">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-microscope text-primary me-3" style="font-size: 2rem;"></i>
+                            <div>
+                                <h5 class="mb-1">Thiết bị hiện đại</h5>
+                                <p class="mb-0">Máy soi da, laser và thiết bị đạt chuẩn CE/FDA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="advantage-item fade-in">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-shield-alt text-primary me-3" style="font-size: 2rem;"></i>
+                            <div>
+                                <h5 class="mb-1">Quy trình vô trùng</h5>
+                                <p class="mb-0">Tuân thủ nghiêm ngặt tiêu chuẩn y tế an toàn</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="advantage-item fade-in">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-chart-line text-primary me-3" style="font-size: 2rem;"></i>
+                            <div>
+                                <h5 class="mb-1">Theo dõi lâm sàng</h5>
+                                <p class="mb-0">Lưu hồ sơ chi tiết, so sánh ảnh trước/sau điều trị</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title fade-in">Quy trình điều trị</h2>
+                <p class="lead fade-in">5 bước chuẩn y khoa cho hiệu quả tối ưu</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="process-step fade-in">
+                        <div class="process-number">1</div>
+                        <h5>Thăm khám và tư vấn</h5>
+                        <p>Bác sĩ thăm khám trực tiếp, phân tích tình trạng da bằng thiết bị chuyên dụng</p>
+                    </div>
+                    <div class="process-step fade-in">
+                        <div class="process-number">2</div>
+                        <h5>Xây dựng phác đồ điều trị</h5>
+                        <p>Lập kế hoạch điều trị cá nhân hóa phù hợp với từng loại da và mục tiêu</p>
+                    </div>
+                    <div class="process-step fade-in">
+                        <div class="process-number">3</div>
+                        <h5>Thực hiện liệu trình</h5>
+                        <p>Áp dụng các phương pháp điều trị với thiết bị hiện đại, quy trình vô trùng</p>
+                    </div>
+                    <div class="process-step fade-in">
+                        <div class="process-number">4</div>
+                        <h5>Chăm sóc sau điều trị</h5>
+                        <p>Hướng dẫn chăm sóc da tại nhà, kê đơn thuốc và sản phẩm phù hợp</p>
+                    </div>
+                    <div class="process-step fade-in">
+                        <div class="process-number">5</div>
+                        <h5>Theo dõi và đánh giá</h5>
+                        <p>Tái khám định kỳ, chụp ảnh so sánh, điều chỉnh liệu trình nếu cần</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title fade-in">Câu hỏi thường gặp</h2>
+                <p class="lead fade-in">Giải đáp mọi thắc mắc của bạn</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="faq-item fade-in">
+                            <h2 class="accordion-header">
+                                <button class="faq-header accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    <i class="fas fa-question-circle me-3"></i>
+                                    Bao lâu thì thấy hiệu quả điều trị?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="faq-body accordion-body">
+                                    Tùy thuộc vào tình trạng da và phương pháp điều trị. Với liệu pháp ánh sáng sinh học, sau 1-3 buổi da sẽ dịu và sáng hơn rõ rệt. Hiệu quả tối ưu thường thấy sau 4-6 buổi điều trị liên tục.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item fade-in">
+                            <h2 class="accordion-header">
+                                <button class="faq-header accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    <i class="fas fa-shield-alt me-3"></i>
+                                    Các phương pháp điều trị có an toàn không?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="faq-body accordion-body">
+                                    Hoàn toàn an toàn. Phòng khám sử dụng các phương pháp không xâm lấn, thiết bị đạt chuẩn CE/FDA, quy trình vô trùng nghiêm ngặt và có bác sĩ da liễu trực tiếp thực hiện.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item fade-in">
+                            <h2 class="accordion-header">
+                                <button class="faq-header accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    <i class="fas fa-calendar-alt me-3"></i>
+                                    Làm thế nào để đặt lịch khám?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="faq-body accordion-body">
+                                    Bạn có thể đặt lịch qua Hotline/Zalo: <span th:text="${clinicInfo.phone}"></span>,
+                                    truy cập website <a th:href="@{${webUrl.CLIENT_HOME}}" th:text="${clinicInfo.website}"></a>
+                                    hoặc gửi email đến <span th:text="${clinicInfo.email}"></span>.
+                                    Thời gian làm việc chi tiết xem tại trang <a th:href="@{${webUrl.CLIENT_APPOINTMENT_CREATE}}">Đăng ký khám bệnh</a>.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item fade-in">
+                            <h2 class="accordion-header">
+                                <button class="faq-header accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    <i class="fas fa-money-bill-wave me-3"></i>
+                                    Chi phí điều trị như thế nào?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="faq-body accordion-body">
+                                    Chi phí được tính theo từng liệu trình cụ thể, phù hợp với tình trạng da và phương pháp điều trị. Phòng khám cam kết minh bạch về giá cả và tư vấn chi tiết trước khi điều trị.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section text-center">
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <i class="fas fa-user-md display-1 mb-4 opacity-75"></i>
+                    <h3 class="display-6 fw-bold mb-4">Cần Tư Vấn Chuyên Môn?</h3>
+                    <p class="lead mb-4">
+                        Đội ngũ chuyên gia da liễu tại BSD Clinic sẵn sàng tư vấn và thực hiện liệu trình phù hợp nhất cho làn da của bạn.                        </p>
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                        <a th:href="@{${webUrl.CLIENT_APPOINTMENT_CREATE}}" class="btn btn-dark btn-lg px-5 py-3">
+                            <i class="fas fa-calendar-check me-2"></i>Đặt lịch khám
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</th:block>
+
+<th:block layout:fragment="post-script">
+    <script type="module" th:src="@{/client/custom/js/post/introduce_bsd_chtlinic.js}"></script>
+</th:block>

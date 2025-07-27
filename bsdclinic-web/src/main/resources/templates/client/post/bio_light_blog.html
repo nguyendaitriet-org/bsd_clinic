@@ -1,0 +1,348 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/layout/app}"
+>
+<th:block layout:fragment="content-style">
+    <link rel="stylesheet" th:href="@{/client/custom/css/bio_light_blog.css}"/>
+</th:block>
+
+<th:block layout:fragment="content-body">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="author-info bg-white text-dark mb-4">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h6 class="mb-1 fw-bold">Bs. Ngô Hoàng Bảo</h6>
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>20/05/2024 |
+                                    <i class="fas fa-eye me-1"></i>596 lượt xem
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <h1 class="display-5 fw-bold mb-4 text-white">Liệu Pháp Ánh Sáng<br> Sinh Học</h1>
+                    <h2 class="h4 mb-4 text-white">Làn Da Đẹp Từ Năng Lượng Tự Nhiên</h2>
+                    <p class="lead mb-4">Thẩm mỹ nội khoa hiện đại - An toàn, không xâm lấn, hiệu quả cao</p>
+                    <a href="#treatment" class="btn btn-light btn-lg px-4 py-3">
+                        <i class="fas fa-arrow-down me-2"></i>Tìm hiểu ngay
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <img th:src="@{/api/public/images/treatment_1.png?imagePath=post/bio_light}"
+                         alt="LED Light Therapy"
+                         class="img-fluid feature-img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <!-- Introduction Section -->
+        <section class="my-5">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <p class="fs-5 text-muted mb-4">
+                        Trong lĩnh vực thẩm mỹ nội khoa hiện đại, liệu pháp ánh sáng sinh học (Phototherapy/LED Light Therapy) đang ngày càng trở nên phổ biến nhờ tính an toàn, không xâm lấn, hiệu quả cao và phù hợp với nhiều loại da.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Treatment Section -->
+        <section id="treatment" class="my-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="section-title display-6 fw-bold">Chiếu Ánh Sáng Sinh Học Trị Mụn</h2>
+
+                    <div class="highlight-box">
+                        <h6 class="fw-bold mb-3">
+                            <i class="fas fa-star text-warning me-2"></i>
+                            Công dụng chính:
+                        </h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Trị mụn trứng cá, giảm viêm, gom còi mụn nhanh chóng</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Kích thích sản sinh collagen, giảm nếp nhăn, nâng cơ nhẹ</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Cải thiện sắc tố da, hỗ trợ trị nám, tàn nhang, đốm nâu</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Làm dịu, phục hồi da tổn thương sau các liệu trình mạnh</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Se khít lỗ chân lông, giúp da sáng khỏe, đều màu hơn</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <img th:src="@{/api/public/images/treatment_2.png?imagePath=post/bio_light}"
+                         alt="Chiếu ánh sáng trị mụn"
+                         class="img-fluid feature-img">
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Light Types Section -->
+        <section class="my-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title display-6 fw-bold">Các loại ánh sáng và công dụng cụ thể</h2>
+                <p class="lead text-muted">Mỗi bước sóng ánh sáng có tác dụng điều trị riêng biệt</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card light-therapy-card light-card-red">
+                        <div class="card-body text-center p-4">
+                            <div class="benefit-icon" style="background: linear-gradient(135deg, #dc3545, #c82333);">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Ánh sáng đỏ</h5>
+                            <p class="light-wavelength mb-3">(630-660nm)</p>
+                            <ul class="list-unstyled text-start">
+                                <li><i class="fas fa-check text-success me-2"></i>Kích thích collagen</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Giảm viêm</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Chống lão hóa</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Phục hồi da</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card light-therapy-card light-card-blue">
+                        <div class="card-body text-center p-4">
+                            <div class="benefit-icon" style="background: linear-gradient(135deg, #0d6efd, #0b5ed7);">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Ánh sáng xanh dương</h5>
+                            <p class="light-wavelength mb-3">(415-450nm)</p>
+                            <ul class="list-unstyled text-start">
+                                <li><i class="fas fa-check text-success me-2"></i>Diệt khuẩn P.acnes</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Trị mụn viêm</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Giảm bã nhờn</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Se khít lỗ chân lông</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card light-therapy-card light-card-green">
+                        <div class="card-body text-center p-4">
+                            <div class="benefit-icon" style="background: linear-gradient(135deg, #198754, #157347);">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Ánh sáng xanh lá</h5>
+                            <p class="light-wavelength mb-3">(520-535nm)</p>
+                            <ul class="list-unstyled text-start">
+                                <li><i class="fas fa-check text-success me-2"></i>Giảm sắc tố</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Trị nám, tàn nhang</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Làm sáng da</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Đều màu da</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card light-therapy-card light-card-yellow">
+                        <div class="card-body text-center p-4">
+                            <div class="benefit-icon" style="background: linear-gradient(135deg, #ffc107, #ffca2c);">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Ánh sáng vàng</h5>
+                            <p class="light-wavelength mb-3">(570-590nm)</p>
+                            <ul class="list-unstyled text-start">
+                                <li><i class="fas fa-check text-success me-2"></i>Tăng tuần hoàn</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Dẫn lưu bạch huyết</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Giảm sưng</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Da hồng hào</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Treatment Results Section -->
+        <section class="my-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title display-6 fw-bold">Kết quả điều trị</h2>
+                <p class="lead text-muted">Hình ảnh trước và sau điều trị</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="before-after-container">
+                        <img th:src="@{/api/public/images/before_treatment_1.png?imagePath=post/bio_light}"
+                             alt="Trước điều trị"
+                             class="img-fluid w-100"
+                             style="height: 300px; object-fit: cover;">
+                        <div class="before-after-label">Trước điều trị</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="before-after-container">
+                        <img th:src="@{/api/public/images/after_treatment_1.png?imagePath=post/bio_light}"
+                             alt="Sau điều trị"
+                             class="img-fluid w-100"
+                             style="height: 300px; object-fit: cover;">
+                        <div class="before-after-label">Sau điều trị</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Suitable Candidates Section -->
+        <section class="my-5">
+            <div class="row align-items-center">
+                <div>
+                    <h2 class="section-title">Đối tượng phù hợp</h2>
+                    <div class="suitable-candidate">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-3">
+                                <i class="fas fa-user-check text-success me-2"></i>
+                                <strong>Người bị mụn viêm, mụn trứng cá</strong>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-user-check text-success me-2"></i>
+                                <strong>Da lão hóa, nhăn nheo</strong>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-user-check text-success me-2"></i>
+                                <strong>Người sau peel, laser, vi kim</strong>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-user-check text-success me-2"></i>
+                                <strong>Da nhạy cảm, yếu, dễ kích ứng</strong>
+                            </li>
+                            <li>
+                                <i class="fas fa-user-check text-success me-2"></i>
+                                <strong>Người muốn cải thiện da nhưng không muốn xâm lấn</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Process Section -->
+        <section class="my-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title display-6 fw-bold">Quy trình thực hiện</h2>
+                <p class="lead text-muted">5 bước đơn giản, an toàn và hiệu quả</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="process-step">
+                        <div class="process-number">1</div>
+                        <h5 class="fw-bold mb-3">Làm sạch và tẩy trang</h5>
+                        <p class="mb-0">Vệ sinh da kỹ lưỡng để loại bỏ bụi bẩn và trang điểm.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="process-step">
+                        <div class="process-number">2</div>
+                        <h5 class="fw-bold mb-3">Tẩy tế bào chết nhẹ</h5>
+                        <p class="mb-0">Loại bỏ tế bào chết để ánh sáng thẩm thấu tốt hơn (nếu cần).</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="process-step">
+                        <div class="process-number">3</div>
+                        <h5 class="fw-bold mb-3">Chiếu ánh sáng sinh học</h5>
+                        <p class="mb-0">Thực hiện từ 10–20 phút với bước sóng phù hợp.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="process-step">
+                        <div class="process-number">4</div>
+                        <h5 class="fw-bold mb-3">Dưỡng da và serum</h5>
+                        <p class="mb-0">Áp dụng serum phục hồi và dưỡng ẩm chuyên sâu.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="process-step">
+                        <div class="process-number">5</div>
+                        <h5 class="fw-bold mb-3">Chống nắng nghiêm ngặt</h5>
+                        <p class="mb-0">Bảo vệ da khỏi tác hại của tia UV sau liệu trình.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- FAQ Section -->
+        <section class="my-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title display-6 fw-bold">Câu hỏi thường gặp</h2>
+                <p class="lead text-muted">Giải đáp những thắc mắc phổ biến</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="faq-card">
+                        <h6 class="fw-bold mb-3">
+                            <i class="fas fa-question-circle text-primary me-2"></i>
+                            Bao lâu thì thấy hiệu quả?
+                        </h6>
+                        <p class="mb-0">Sau 1–3 buổi chiếu, da sẽ dịu và sáng hơn. Hiệu quả rõ rệt sau 4–6 buổi.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="faq-card">
+                        <h6 class="fw-bold mb-3">
+                            <i class="fas fa-question-circle text-primary me-2"></i>
+                            Có tác dụng phụ không?
+                        </h6>
+                        <p class="mb-0">Không. Phương pháp này không đau, không bong tróc, hoàn toàn an toàn.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="faq-card">
+                        <h6 class="fw-bold mb-3">
+                            <i class="fas fa-question-circle text-primary me-2"></i>
+                            Có thể kết hợp với phương pháp khác không?
+                        </h6>
+                        <p class="mb-0">Có. Kết hợp tuyệt vời với peel, vi kim, laser, serum để tăng hiệu quả điều trị.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section text-center">
+            <div class="container position-relative">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <i class="fas fa-user-md display-1 mb-4 opacity-75"></i>
+                        <h3 class="display-6 fw-bold mb-4 text-white">Cần Tư Vấn Chuyên Môn?</h3>
+                        <p class="lead mb-4">
+                            Đội ngũ chuyên gia da liễu tại BSD Clinic sẵn sàng tư vấn và thực hiện liệu trình phù hợp nhất cho làn da của bạn.                        </p>
+                        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                            <a th:href="@{${webUrl.CLIENT_APPOINTMENT_CREATE}}" class="btn btn-light btn-lg px-5 py-3">
+                                <i class="fas fa-calendar-check me-2"></i>Đặt lịch khám
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</th:block>
+</html>

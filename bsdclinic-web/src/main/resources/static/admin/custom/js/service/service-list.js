@@ -1,31 +1,24 @@
 import {CurrencyConverter} from "/common/js/currency_util.js";
-import {DatatableAttribute} from "/common/js/app.js";
+import {DatatableAttribute, DebounceUtil} from "/common/js/app.js";
 
 export const ServiceList = (function () {
     const module = {
         searchInputSelector: $('#search-input'),
-        searchSubmitButtonSelector: $('#submit-btn'),
-        cancelSearchButtonSelector: $('#cancel-btn'),
         serviceListTableSelector: $('#service-list-table'),
     };
 
     module.init = () => {
-        // initDateRangePicker();
-        module.renderMedicalServiceListTable();
-        handleSearchSubmissionButton();
-        handleCancelSearchButton();
+        renderMedicalServiceListTable();
+        handleSearchInputChange();
     }
 
-    const handleCancelSearchButton = () => {
-        module.cancelSearchButtonSelector.on('click', function () {
-            module.searchInputSelector.val('');
-            module.renderMedicalServiceListTable();
-        })
-    }
-
-    const handleSearchSubmissionButton = () => {
-        module.searchSubmitButtonSelector.on('click', function () {
-            module.renderMedicalServiceListTable();
+    const handleSearchInputChange = () => {
+        module.searchInputSelector.on('input', function() {
+            DebounceUtil.debounce(
+                renderMedicalServiceListTable,
+                DebounceUtil.delayTime,
+                'serviceSearch'
+            )();
         });
     }
 
@@ -35,7 +28,7 @@ export const ServiceList = (function () {
         }
     }
 
-    module.renderMedicalServiceListTable = () => {
+    const renderMedicalServiceListTable = () => {
         const medicalServiceFilter = getMedicalServiceListFilter();
         const medicalServiceListDatatable = module.serviceListTableSelector.DataTable({
             ajax: {

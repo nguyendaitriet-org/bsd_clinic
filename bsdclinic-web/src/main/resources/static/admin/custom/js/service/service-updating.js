@@ -27,6 +27,11 @@ export const ServiceUpdating = (function () {
 
     const renderMedicalServiceData = (medicalServiceData) => {
         for (const key in medicalServiceData) {
+            if (key === 'price') {
+                const vndPrice = CurrencyConverter.formatCurrencyVndWithoutSuffix(medicalServiceData[key]);
+                module.medicalServiceUpdatingModalSelector.find(`input[name="price"]`).val(vndPrice);
+                continue;
+            }
             module.medicalServiceUpdatingModalSelector.find(`input[name="${key}"]`).val(medicalServiceData[key]);
             module.medicalServiceUpdatingModalSelector.find(`textarea[name="${key}"]`).val(medicalServiceData[key]);
         }

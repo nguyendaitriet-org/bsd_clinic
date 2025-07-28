@@ -247,3 +247,52 @@ export const LocalStorage = (function () {
 
     return module;
 })();
+
+export const DebounceUtil = (function () {
+    const module = {
+        delayTime: 700
+    };
+
+    const timers = new Map();
+
+    const clearTimer = (identifier) => {
+        if (timers.has(identifier)) {
+            clearTimeout(timers.get(identifier));
+            timers.delete(identifier);
+        }
+    };
+
+    module.debounce = (func, delay, identifier = 'default') => {
+        return function(...args) {
+            clearTimer(identifier);
+
+            const timer = setTimeout(() => {
+                func.apply(this, args);
+                timers.delete(identifier);
+            }, delay);
+
+            timers.set(identifier, timer);
+        };
+    };
+
+    module.cancel = (identifier = 'default') => {
+        clearTimer(identifier);
+    };
+
+    module.cancelAll = () => {
+        timers.forEach(timer => clearTimeout(timer));
+        timers.clear();
+    };
+
+    // Get active timer count (for debugging)
+    module.getActiveTimers = () => {
+        return timers.size;
+    };
+
+    // Check if a specific timer is active
+    module.isActive = (identifier = 'default') => {
+        return timers.has(identifier);
+    };
+
+    return module;
+})();

@@ -5,6 +5,10 @@ export const CurrencyConverter = (function () {
         return amount.toLocaleString('vi-VN') + ' ₫';
     }
 
+    module.formatCurrencyVndWithoutSuffix = (amount) => {
+        return amount.toLocaleString('vi-VN');
+    }
+
     // Format price input with thousands separators
     module.setupPriceFormatter = (inputSelector) => {
         inputSelector.on('input', function () {

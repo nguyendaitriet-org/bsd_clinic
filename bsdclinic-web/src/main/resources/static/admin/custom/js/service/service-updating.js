@@ -27,6 +27,11 @@ export const ServiceUpdating = (function () {
 
     const renderMedicalServiceData = (medicalServiceData) => {
         for (const key in medicalServiceData) {
+            if (key === 'price') {
+                const vndPrice = CurrencyConverter.formatCurrencyVndWithoutSuffix(medicalServiceData[key]);
+                module.medicalServiceUpdatingModalSelector.find(`input[name="price"]`).val(vndPrice);
+                continue;
+            }
             module.medicalServiceUpdatingModalSelector.find(`input[name="${key}"]`).val(medicalServiceData[key]);
             module.medicalServiceUpdatingModalSelector.find(`textarea[name="${key}"]`).val(medicalServiceData[key]);
         }
@@ -64,14 +69,15 @@ export const ServiceUpdating = (function () {
 
     return module;
 })();
+
 export const MedicalServiceDeletion = (function () {
     const module = {};
 
     module.init = () => {
-        handleShowMedicalServiceDeletionConfirmation();
+        handleMedicalServiceDeletion();
     }
 
-    const handleShowMedicalServiceDeletionConfirmation = () => {
+    const handleMedicalServiceDeletion = () => {
         ServiceList.serviceListTableSelector.on('click', '.show-deletion-confirmation-btn', function () {
             SweetAlert.showConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then((result) => {
                 if (result.isConfirmed) {

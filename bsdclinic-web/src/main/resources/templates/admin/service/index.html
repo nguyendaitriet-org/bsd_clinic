@@ -8,26 +8,19 @@
 
 <th:block layout:fragment="content-title" th:text="#{title.medical_service.list}"></th:block>
 <th:block layout:fragment="content-title-note"></th:block>
-<th:block layout:fragment="content-button">
-    <button class="btn btn-primary btn-round" type="button" th:text="#{title.create}"
-            data-bs-toggle="modal" data-bs-target="#create-medical-service-modal"></button>
-</th:block>
+<th:block layout:fragment="content-button"></th:block>
 
 <th:block layout:fragment="content-body">
     <div class="mb-3 d-flex justify-content-between gap-5">
-        <div class="p-0 col">
-            <div class="input-group">
-                <label for="search-input" class="btn btn-black" type="button">
-                    <i class="fa fa-search"></i>
-                </label>
-                <input id="search-input" type="search" class="form-control border-secondary border-1"
-                       th:placeholder="#{placeholder.find_service}">
-            </div>
+        <div class="input-group col">
+            <label for="search-input" class="btn btn-black" type="button">
+                <i class="fa fa-search"></i>
+            </label>
+            <input id="search-input" type="search" class="form-control border-secondary border-1"
+                   th:placeholder="#{placeholder.find_service}">
         </div>
-        <div class="btn-group float-end col-3">
-            <button id="submit-btn" class="btn btn-black" type="button" th:text="#{title.apply}"></button>
-            <button id="cancel-btn" class="btn btn-secondary" type="button" th:text="#{title.cancel}"></button>
-        </div>
+        <button class="btn btn-primary btn-round" type="button" th:text="#{title.create}"
+                data-bs-toggle="modal" data-bs-target="#create-medical-service-modal"></button>
     </div>
     <div class="table-responsive">
         <table id="service-list-table" class="table table-sm table-hover table-head-bg-black dataTable w-100">

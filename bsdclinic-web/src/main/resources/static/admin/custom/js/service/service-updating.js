@@ -69,14 +69,15 @@ export const ServiceUpdating = (function () {
 
     return module;
 })();
+
 export const MedicalServiceDeletion = (function () {
     const module = {};
 
     module.init = () => {
-        handleShowMedicalServiceDeletionConfirmation();
+        handleMedicalServiceDeletion();
     }
 
-    const handleShowMedicalServiceDeletionConfirmation = () => {
+    const handleMedicalServiceDeletion = () => {
         ServiceList.serviceListTableSelector.on('click', '.show-deletion-confirmation-btn', function () {
             SweetAlert.showConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then((result) => {
                 if (result.isConfirmed) {

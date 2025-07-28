@@ -1,7 +1,6 @@
-import {App, SweetAlert} from "/common/js/app.js";
+import {App, SweetAlert, DebounceUtil, DatatableAttribute} from "/common/js/app.js";
 import {CurrencyConverter} from "/common/js/currency_util.js";
 import {FormHandler} from "/common/js/form.js";
-import {DatatableAttribute} from "/common/js/app.js";
 
 export const MedicineCreation = (function () {
     const module = {
@@ -52,28 +51,21 @@ export const MedicineCreation = (function () {
 export const MedicineList = (function () {
     const module = {
         searchInputSelector: $('#search-input'),
-        searchSubmitButtonSelector: $('#submit-btn'),
-        cancelSearchButtonSelector: $('#cancel-btn'),
-
         medicineListTableSelector: $('#medicine-list-table'),
     };
 
     module.init = () => {
-        module.renderMedicineListTable();
-        handleSearchSubmissionButton();
-        handleCancelSearchButton();
+        renderMedicineListTable();
+        handleSearchInputChange();
     }
 
-    const handleCancelSearchButton = () => {
-        module.cancelSearchButtonSelector.on('click', function () {
-            module.searchInputSelector.val('');
-            module.renderMedicineListTable();
-        })
-    }
-
-    const handleSearchSubmissionButton = () => {
-        module.searchSubmitButtonSelector.on('click', function () {
-            module.renderMedicineListTable();
+    const handleSearchInputChange = () => {
+        module.searchInputSelector.on('input', function() {
+            DebounceUtil.debounce(
+                renderMedicineListTable,
+                DebounceUtil.delayTime,
+                'medicineSearch'
+            )();
         });
     }
 
@@ -83,7 +75,7 @@ export const MedicineList = (function () {
         }
     }
 
-    module.renderMedicineListTable = () => {
+    const renderMedicineListTable = () => {
         const medicineFilter = getMedicineListFilter();
         const medicineListDatatable = module.medicineListTableSelector.DataTable({
             ajax: {
@@ -119,6 +111,12 @@ export const MedicineList = (function () {
                     targets: 2,
                     render: (data) => {
                         return CurrencyConverter.formatCurrencyVND(data);
+                    }
+                },
+                {
+                    targets: 3,
+                    render: (data) => {
+                        return dosageUnitMap[data];
                     }
                 },
                 {
@@ -168,6 +166,18 @@ export const MedicineUpdating = (function () {
 
     const renderMedicineData = (medicineData) => {
         for (const key in medicineData) {
+            if (key === 'unitPrice') {
+                const vndPrice = CurrencyConverter.formatCurrencyVndWithoutSuffix(medicineData[key]);
+                module.medicineUpdatingModalSelector.find(`input[name="unitPrice"]`).val(vndPrice);
+                continue;
+            }
+            if (key === 'unit') {
+                module.updateMedicineFormSelector
+                    .find('.dosage-unit')
+                    .find(`option[value="${medicineData[key]}"]`)
+                    .prop('selected', true);
+                continue;
+            }
             module.medicineUpdatingModalSelector.find(`input[name="${key}"]`).val(medicineData[key]);
             module.medicineUpdatingModalSelector.find(`textarea[name="${key}"]`).val(medicineData[key]);
         }
@@ -210,10 +220,10 @@ export const MedicineDeletion = (function () {
     const module = {};
 
     module.init = () => {
-        handleShowMedicineDeletionConfirmation();
+        handleMedicineDeletion();
     }
 
-    const handleShowMedicineDeletionConfirmation = () => {
+    const handleMedicineDeletion = () => {
         MedicineList.medicineListTableSelector.on('click', '.show-deletion-confirmation-btn', function () {
             SweetAlert.showConfirmation('error', confirmApplyTitle, cannotRedoAfterDeleting).then((result) => {
                 if (result.isConfirmed) {

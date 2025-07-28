@@ -20,7 +20,11 @@
                         </div>
                         <div class="mb-3 with-validation">
                             <label for="medicine-unit" class="form-label fw-semibold required-field" th:text="#{title.unit}"></label>
-                            <input type="text" class="form-control unit-input" id="medicine-unit" name="unit">
+                            <select class="form-control" id="medicine-unit" name="unit">
+                                <th:block th:each="dosageUnit: ${dosageUnits}">
+                                    <option th:value="${dosageUnit.key}" th:text="${dosageUnit.value}"></option>
+                                </th:block>
+                            </select>
                         </div>
                         <div class="mb-3 with-validation">
                             <label for="medicine-dosage" class="form-label fw-semibold" th:text="#{title.dosage}"></label>

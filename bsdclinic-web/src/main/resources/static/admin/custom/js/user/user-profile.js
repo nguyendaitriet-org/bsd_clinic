@@ -165,8 +165,7 @@ export const UserProfile = (function () {
             })
                 .done(() => {
                     App.showSuccessMessage(operationSuccess);
-                    module.changePasswordModalSelector.modal('hide');
-                    FormHandler.clearAllInputs(module.changePasswordModalSelector);
+                    location.reload();
                 })
                 .fail((jqXHR) => {
                     FormHandler.handleServerValidationError(module.changePasswordModalSelector, jqXHR)

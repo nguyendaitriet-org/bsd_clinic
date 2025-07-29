@@ -2,7 +2,7 @@ package com.bsdclinic.auth_user;
 
 import com.bsdclinic.SecurityBeanName;
 
-import com.bsdclinic.error_handler.CustomAccessDeniedHandler;
+import com.bsdclinic.UserPrincipal;
 import com.bsdclinic.error_handler.CustomAuthenticationEntryPoint;
 import com.bsdclinic.exception_handler.exception.UnauthorizedException;
 import com.bsdclinic.jwt.JWTUser;
@@ -16,13 +16,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import static com.bsdclinic.SecurityConfiguration.ENDPOINTS_WHITELIST;
@@ -58,7 +58,11 @@ public class UserJwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             if (jwtService.validateJwtToken(accessToken)) {
                 JWTUser jwtUser = jwtService.getPrincipalFromJwtToken(accessToken);
-                UserDetails userDetails = userDetailsService.loadUserByUsername(jwtUser.getUsername());
+                UserPrincipal userDetails = userDetailsService.loadUserByUsername(jwtUser.getUsername());
+
+                if (!Objects.equals(jwtUser.getTokenVersion(), userDetails.getTokenVersion())) {
+                    throw new UnauthorizedException("Unauthorized");
+                }
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 

@@ -9,7 +9,6 @@ import com.bsdclinic.user.UserStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -24,17 +23,17 @@ public class AuthUserDetailService implements UserDetailsService {
     private final MessageProvider messageProvider;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserPrincipal loadUserByUsername(String email) throws UsernameNotFoundException {
         IUserResult user = userSecurityRepository.findByEmailWithRole(email);
 
         if (user == null || user.getStatus().equals(UserStatus.BLOCKED.name())) {
-            throw new UnauthorizedException(messageProvider.getMessage("message.user.not_existed_or_blocked"));
+            throw new UnauthorizedException(messageProvider.getMessage("message.user.invalid_credential_or_blocked"));
         }
 
         List<GrantedAuthority> authorities = Collections.singletonList(
                 new SimpleGrantedAuthority(user.getRole())
         );
 
-        return new UserPrincipal(user.getUserId(), user.getEmail(), user.getPassword(), authorities);
+        return new UserPrincipal(user.getUserId(), user.getEmail(), user.getPassword(), user.getTokenVersion(), authorities);
     }
 }

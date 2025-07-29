@@ -8,4 +8,5 @@ import lombok.Getter;
 public class JWTUser {
     private String userId;
     private String username;
+    private Integer tokenVersion;
 }

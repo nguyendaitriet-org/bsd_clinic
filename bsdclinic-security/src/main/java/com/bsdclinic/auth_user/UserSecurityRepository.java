@@ -14,6 +14,7 @@ public interface UserSecurityRepository extends JpaRepository<User, String> {
                 u.email AS email,
                 u.password AS password,
                 u.status AS status,
+                u.tokenVersion AS tokenVersion,
                 r.code AS role
             FROM User AS u
             INNER JOIN Role AS r ON u.roleId = r.roleId

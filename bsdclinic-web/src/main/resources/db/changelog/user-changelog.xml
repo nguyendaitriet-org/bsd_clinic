@@ -1,0 +1,13 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.13.xsd">
+
+    <changeSet id="28072025_1" author="triet.nguyendai" context="Add column token_version">
+        <sql>
+            ALTER TABLE users
+            ADD COLUMN token_version INT DEFAULT 0;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

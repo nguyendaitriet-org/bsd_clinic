@@ -1,7 +1,6 @@
 package com.bsdclinic;
 
 import com.bsdclinic.constant.CacheKey;
-import com.bsdclinic.constant.ComponentName;
 import com.bsdclinic.dto.request.CreateUserRequest;
 import com.bsdclinic.dto.request.UpdateUserByAdminRequest;
 import com.bsdclinic.dto.request.UserFilter;
@@ -16,7 +15,6 @@ import com.bsdclinic.repository.RoleRepository;
 import com.bsdclinic.repository.UserRepository;
 import com.bsdclinic.repository.UserSpecifications;
 import com.bsdclinic.response.DatatableResponse;
-import com.bsdclinic.storage.FileStorageService;
 import com.bsdclinic.storage.LocalFileStorageService;
 import com.bsdclinic.user.Role;
 import com.bsdclinic.user.User;
@@ -24,8 +22,7 @@ import com.bsdclinic.user.UserStatus;
 import com.bsdclinic.user.User_;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
@@ -101,7 +98,7 @@ public class UserServiceImpl implements UserService {
     public void changePassword(String userId, String newPassword) {
         User user = findById(userId);
         user.setPassword(passwordEncoder.encode(newPassword));
-
+        user.incrementTokenVersion();
         userRepository.save(user);
     }
 
@@ -142,7 +139,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUserInfo(String userId, UserInfoRequest userInfoRequest){
         User user = findById(userId);
+        if (!StringUtils.equals(user.getEmail(), userInfoRequest.getEmail())) {
+            user.incrementTokenVersion();
+        }
         user = userMapper.toEntity(userInfoRequest, user);
+
         userRepository.save(user);
     }
 

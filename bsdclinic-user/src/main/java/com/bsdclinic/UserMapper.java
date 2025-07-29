@@ -5,9 +5,7 @@ import com.bsdclinic.dto.request.UserInfoRequest;
 import com.bsdclinic.dto.response.UserResponse;
 import com.bsdclinic.mapper.DateMapper;
 import com.bsdclinic.user.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {DateMapper.class})
 public interface UserMapper {
@@ -15,5 +13,6 @@ public interface UserMapper {
 
     UserResponse toDto(User user);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     User toEntity(UserInfoRequest request, @MappingTarget User user);
 }

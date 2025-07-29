@@ -35,7 +35,7 @@ public class AuthApi {
     private final MessageProvider messageProvider;
 
     @PostMapping("/api/admin/login")
-    public ResponseEntity uniLogin(@Valid @RequestBody LoginParam loginParam) {
+    public ResponseEntity login(@Valid @RequestBody LoginParam loginParam) {
         Authentication authentication;
         try {
             authentication = userAuthenticationProvider.authenticate(
@@ -43,11 +43,11 @@ public class AuthApi {
                             loginParam.getPassword())
             );
         } catch (BadCredentialsException e) {
-            throw new UnauthorizedException(messageProvider.getMessage("message.user.not_existed_or_blocked"));
+            throw new UnauthorizedException(messageProvider.getMessage("message.user.invalid_credential_or_blocked"));
         }
 
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
-        String accessToken = jwtService.generateToken(principal.getUserId(), principal.getUsername());
+        String accessToken = jwtService.generateToken(principal.getUserId(), principal.getUsername(), principal.getTokenVersion());
         ResponseCookie cookie = ResponseCookie.from("JWT", accessToken)
                 .httpOnly(false)
                 .secure(false)

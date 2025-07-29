@@ -5,5 +5,6 @@ public interface IUserResult {
     String getEmail();
     String getPassword();
     String getStatus();
+    Integer getTokenVersion();
     String getRole();
 }

@@ -19,15 +19,19 @@ public class UserPrincipal implements UserDetails {
 
     private final String password;
 
+    private final Integer tokenVersion;
+
     private final Collection<? extends GrantedAuthority> authorities;
 
     public UserPrincipal(String userId,
                          String username,
                          String password,
+                         Integer tokenVersion,
                          Collection<? extends GrantedAuthority> authorities) {
         this.userId = userId;
         this.username = username;
         this.password = password;
+        this.tokenVersion = tokenVersion;
         this.authorities = authorities;
     }
 

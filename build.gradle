@@ -88,6 +88,7 @@ subprojects {
 
         implementation 'io.hypersistence:hypersistence-utils-hibernate-60:3.9.4'
 
-        implementation 'software.amazon.awssdk:ses:2.31.78'
+        implementation 'software.amazon.awssdk:ses:2.32.9'
+        implementation 'software.amazon.awssdk:s3:2.32.9'
     }
 }

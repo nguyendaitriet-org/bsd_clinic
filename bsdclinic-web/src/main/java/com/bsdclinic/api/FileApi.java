@@ -15,7 +15,7 @@ import java.io.IOException;
 @RestController
 public class FileApi {
     @Autowired
-    @Qualifier(value = ComponentName.LOCAL_FILE_STORAGE)
+    @Qualifier(value = ComponentName.S3_FILE_STORAGE)
     private FileStorageService fileStorageService;
 
     @GetMapping(WebUrl.API_PUBLIC_IMAGE_BY_NAME)

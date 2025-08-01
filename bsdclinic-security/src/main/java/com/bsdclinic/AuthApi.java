@@ -39,7 +39,8 @@ public class AuthApi {
         Authentication authentication;
         try {
             authentication = userAuthenticationProvider.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginParam.getEmail(),
+                    new UsernamePasswordAuthenticationToken(
+                            loginParam.getEmail(),
                             loginParam.getPassword())
             );
         } catch (BadCredentialsException e) {

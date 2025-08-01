@@ -1,6 +1,7 @@
 package com.bsdclinic;
 
 import com.bsdclinic.constant.CacheKey;
+import com.bsdclinic.constant.ComponentName;
 import com.bsdclinic.dto.request.CreateUserRequest;
 import com.bsdclinic.dto.request.UpdateUserByAdminRequest;
 import com.bsdclinic.dto.request.UserFilter;
@@ -15,7 +16,7 @@ import com.bsdclinic.repository.RoleRepository;
 import com.bsdclinic.repository.UserRepository;
 import com.bsdclinic.repository.UserSpecifications;
 import com.bsdclinic.response.DatatableResponse;
-import com.bsdclinic.storage.LocalFileStorageService;
+import com.bsdclinic.storage.FileStorageService;
 import com.bsdclinic.user.Role;
 import com.bsdclinic.user.User;
 import com.bsdclinic.user.UserStatus;
@@ -23,6 +24,8 @@ import com.bsdclinic.user.User_;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
@@ -45,7 +48,10 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final MessageProvider messageProvider;
-    private final LocalFileStorageService localFileStorageService;
+
+    @Autowired
+    @Qualifier(ComponentName.S3_FILE_STORAGE)
+    private FileStorageService fileStorageService;
 
     private static final String AVATAR_FOLDER = "avatar";
 
@@ -115,17 +121,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public AvatarResponse saveAvatar(MultipartFile avatar, String userId) {
         String fileName = userId + "." + FilenameUtils.getExtension(avatar.getOriginalFilename());
-        localFileStorageService.deleteFilesByBaseName(userId, AVATAR_FOLDER);
-        localFileStorageService.uploadFile(avatar, AVATAR_FOLDER, fileName);
+        fileStorageService.deleteFilesByBaseName(userId, AVATAR_FOLDER);
+        fileStorageService.uploadFile(avatar, AVATAR_FOLDER, fileName);
 
         return new AvatarResponse(fileName);
     }
 
     @Override
     public Resource getAvatar(String userId) {
-        Resource avatarResource = localFileStorageService.downloadFileByBaseName(userId, AVATAR_FOLDER);
+        Resource avatarResource = fileStorageService.downloadFileByBaseName(userId, AVATAR_FOLDER);
         if (avatarResource == null) {
-            return localFileStorageService.downloadFile("default.png", AVATAR_FOLDER);
+            return fileStorageService.downloadFile("default.png", AVATAR_FOLDER);
         }
         return avatarResource;
     }

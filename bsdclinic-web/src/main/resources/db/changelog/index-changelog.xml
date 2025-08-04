@@ -1,0 +1,18 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.13.xsd">
+
+    <changeSet id="03082025_1" author="triet.nguyendai" context="Add indexes for table columns">
+        <sql>
+            CREATE INDEX index_role_id ON users (role_id);
+            CREATE INDEX index_user_id ON appointments (doctor_id);
+            CREATE INDEX index_subscriber_id ON appointments (subscriber_id);
+            CREATE INDEX index_appointment_id ON medical_records (appointment_id);
+            CREATE INDEX index_medical_record_id ON chosen_medical_services (medical_record_id);
+            CREATE INDEX index_medical_service_id ON chosen_medical_services (medical_service_id);
+            CREATE INDEX index_prescription_id ON taken_medicines (prescription_id);
+            CREATE INDEX index_medicine_id ON taken_medicines (medicine_id);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<head>
+    <link rel="icon" th:href="@{/common/img/BSD_Clinic_Logo_circle.png}" type="image/x-icon" />
+    <title th:text="#{title.app.client.short}"></title>
+    <th:block th:replace="~{client/layout/head :: app-head}"></th:block>
+    <link th:href="@{/client/custom/css/zalo.css}" rel="stylesheet">
+</head>
+
+<body>
+<!-- Header -->
+<nav class="navbar navbar-light bg-white shadow-sm">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold text-primary fs-3" href="#">Zalo</a>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="main-bg">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Profile Card -->
+                <div class="card shadow-sm mb-4 profile-card">
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="clinic-card p-4">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <!-- Logo -->
+                                        <div class="profile-avatar me-3">
+                                            <img src="/api/public/images/BSD_Clinic_Logo.png?imagePath=client_home" alt="Logo" class="rounded-circle clinic-logo">
+                                        </div>
+
+                                        <!-- Thông tin -->
+                                        <div>
+                                            <h4 class="mb-1 fw-bold d-flex align-items-center">
+                                                <span th:text="#{title.app.client.short}"></span>
+                                                <i class="bi bi-patch-check-fill text-warning ms-2"></i>
+                                            </h4>
+                                            <p class="text-muted mb-0" th:text="#{title.medicine_pharmacy}"></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Nút nhắn tin -->
+                                    <div class="text-center">
+                                        <a href="https://chat.zalo.me/?c=3020445600032684467" class="btn btn-primary btn-lg px-4 position-relative start-10 translate-middle-x" type="button">
+                                            <i class="bi bi-chat-dots me-2"></i>
+                                            <span th:text="#{title.message}"></span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- Contact Details -->
+                                <div class="contact-details">
+                                    <h5 class="fw-bold mb-3" th:text="#{title.detail_2}"></h5>
+
+                                    <div class="contact-item mb-3">
+                                        <i class="bi bi-geo-alt text-muted me-3"></i>
+                                        <span th:text="${clinicInfo.address}"></span>
+                                    </div>
+
+                                    <div class="contact-item mb-3">
+                                        <i class="bi bi-telephone text-muted me-3"></i>
+                                        <span th:text="${clinicInfo.phone}"></span>
+                                    </div>
+
+                                    <div class="contact-item mb-4">
+                                        <i class="bi bi-house text-muted me-3"></i>
+                                        <a th:href="@{${webUrl.CLIENT_HOME}}"
+                                           class="text-primary text-decoration-none"
+                                           th:text="#{title.dashboard}">
+                                        </a>
+                                    </div>
+
+                                    <!-- Doctor Info -->
+                                    <div class="doctor-info">
+                                        <p class="mb-1">Ths.BS. Lê Quang Danh</p>
+                                        <p class="mb-1">Thạc sĩ Da liễu Đại học Y Hà Nội</p>
+                                        <p class="mb-1">Thẩm mỹ nội khoa | Điều trị bệnh da liễu</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 text-center">
+                                <!-- QR Code -->
+                                <div class="qr-container">
+                                    <div class="qr-code mb-3">
+                                        <img th:src="@{/client/assets/img/zalo_QR.png}" alt="">
+                                    </div>
+                                    <p class="text-muted small" th:text="#{message.zalo.qr_scan}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>

@@ -1,0 +1,169 @@
+.main-bg {
+    background-color: #e5e5e5;
+    min-height: 100vh;
+    padding: 20px 0;
+}
+
+.profile-card {
+    border-radius: 12px;
+    border: none;
+    background: white;
+    margin-bottom: 20px;
+}
+
+.services-card {
+    border-radius: 12px;
+    border: none;
+    background: white;
+}
+
+.profile-avatar {
+    position: relative;
+}
+
+.clinic-logo {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    padding: 5px;
+    background: #fff;
+}
+
+.avatar-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4CAF50, #2196F3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.avatar-text {
+    color: white;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.contact-item i {
+    width: 20px;
+    margin-right: 12px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.doctor-info {
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.doctor-info p {
+    color: #212529;
+    font-weight: 500;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.qr-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.qr-code {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}
+
+.service-item {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.service-item:hover {
+    background-color: #e9ecef;
+    transform: translateY(-1px);
+}
+
+.navbar-brand {
+    color: #0084ff !important;
+    font-size: 28px !important;
+    font-weight: 600 !important;
+}
+
+.btn-primary {
+    background-color: #0084ff;
+    border-color: #0084ff;
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 12px 24px;
+}
+
+.btn-primary:hover {
+    background-color: #0066cc;
+    border-color: #0066cc;
+}
+
+.text-primary {
+    color: #0084ff !important;
+}
+
+.verified-badge {
+    color: #ffc107;
+    font-size: 18px;
+}
+
+.dropdown-toggle::after {
+    margin-left: 8px;
+}
+
+.card {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.contact-details h5 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.qr-text {
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+    margin-top: 10px;
+}
+
+footer {
+    background-color: #f8f9fa !important;
+    border-top: 1px solid #e9ecef;
+    margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+    .qr-container {
+        margin-top: 30px;
+    }
+
+    .profile-card .row {
+        text-align: center;
+    }
+
+    .contact-item {
+        justify-content: center;
+        text-align: left;
+    }
+}

@@ -22,6 +22,7 @@ public class WebUrl {
     public static final String CLIENT_HOME = "/";
     public static final String CLIENT_APPOINTMENT_CREATE = "/client/appointments/create";
     public static final String CLIENT_APPOINTMENT_CREATE_SUCCESS = "/client/appointments/create/success";
+    public static final String CLIENT_ZALO = "/client/zalo";
 
     public static final String ACNE_TREATMENT_BLOG = "/client/post/acne_treatment";
     public static final String SKIN_REJUVENATION_BLOG = "/client/post/skin_rejuvenation";

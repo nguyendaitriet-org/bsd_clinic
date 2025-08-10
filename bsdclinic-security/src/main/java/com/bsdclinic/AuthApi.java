@@ -34,7 +34,7 @@ public class AuthApi {
 
     private final MessageProvider messageProvider;
 
-    @PostMapping("/api/admin/login")
+    @PostMapping(WebUrl.API_ADMIN_LOGIN)
     public ResponseEntity login(@Valid @RequestBody LoginParam loginParam) {
         Authentication authentication;
         try {

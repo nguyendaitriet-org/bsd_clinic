@@ -21,7 +21,7 @@
                                 <h1 class="display-1 text-white mb-4" th:text="${clinicInfo.slogan}"></h1>
                                 <p class="mb-5 fs-5" th:text="${clinicInfo.introduction}"></p>
                                 <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
-                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="#">
+                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" th:href="@{${webUrl.CLIENT_VIDEOS}}">
                                         <i class="fas fa-play-circle me-2"></i>
                                         <span th:text="#{title.watch_video}"></span>
                                     </a>
@@ -54,7 +54,7 @@
                                 <h1 class="display-1 text-white mb-4" th:text="${clinicInfo.slogan}"></h1>
                                 <p class="mb-5 fs-5" th:text="${clinicInfo.introduction}"></p>
                                 <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
-                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="#">
+                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2"  th:href="@{${webUrl.CLIENT_VIDEOS}}">
                                         <i class="fas fa-play-circle me-2"></i>
                                         <span th:text="#{title.watch_video}"></span>
                                     </a>

@@ -18,9 +18,18 @@ public class HomePageController {
         return clinicInfoService.getClinicInfo();
     }
 
+    @GetMapping(WebUrl.CLIENT_HOME)
+    public String toClientHomePage() {
+        return "client/index";
+    }
+
     @GetMapping(WebUrl.CLIENT_ZALO)
     public String toZaloPage() {
         return "client/zalo";
     }
 
+    @GetMapping(WebUrl.CLIENT_VIDEOS)
+    public String toVideosPage() {
+        return "client/videos";
+    }
 }

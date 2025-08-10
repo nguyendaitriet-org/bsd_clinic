@@ -23,12 +23,4 @@ public class HomePageController {
     public String toAdminLoginPage(@AuthenticationPrincipal UserPrincipal principal) {
         return principal != null ? "redirect:/admin" : "admin/auth/login";
     }
-
-    @GetMapping(WebUrl.CLIENT_HOME)
-    public ModelAndView toClientHomePage() {
-        ModelAndView modelAndView = new ModelAndView("client/index");
-        modelAndView.addObject("clinicInfo", clinicInfoService.getClinicInfo());
-
-        return modelAndView;
-    }
 }

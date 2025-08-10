@@ -1,0 +1,38 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/layout/app}"
+>
+<th:block layout:fragment="content-style">
+    <style>
+        .bg-breadcrumb {
+            background: none;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="content-body">
+    <!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb">
+        <div class="container text-center py-5" style="max-width: 900px;">
+            <h4 class="display-4 mb-4 wow fadeInDown text-primary" data-wow-delay="0.1s"
+                th:text="#{title.video}"
+            ></h4>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <div class="container-fluid bg-light about py-5">
+        <div class="container py-5">
+            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@bsdldanh" data-unique-id="bsdldanh" data-embed-from="embed_page" data-embed-type="creator" style="max-width:780px; min-width:288px;">
+                <section>
+                    <a target="_blank" href="https://www.tiktok.com/@bsdldanh?refer=creator_embed">@bsdldanh</a>
+                </section>
+            </blockquote>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="appointment-script">
+    <script async src="https://www.tiktok.com/embed.js"></script>
+</th:block>

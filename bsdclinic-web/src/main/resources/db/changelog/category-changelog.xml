@@ -1,0 +1,22 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.13.xsd">
+
+    <changeSet id="12082025_1" author="triet.nguyendai" context="Create category tables ">
+        <sql>
+            CREATE TABLE IF NOT EXISTS categories (
+                category_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
+                title VARCHAR(255) NOT NULL,
+                category_type VARCHAR(20) NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS categorie_assignments (
+                category_assignment_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
+                category_id VARCHAR(50) NOT NULL,
+                entity_id VARCHAR(50) NOT NULL
+            );
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

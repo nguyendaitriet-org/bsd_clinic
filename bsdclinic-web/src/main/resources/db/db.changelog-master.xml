@@ -13,5 +13,6 @@
     <include file="/db/changelog/prescriptions-changelog.xml"></include>
     <include file="/db/changelog/user-changelog.xml"></include>
     <include file="/db/changelog/index-changelog.xml"></include>
+    <include file="/db/changelog/category-changelog.xml"></include>
 
 </databaseChangeLog>

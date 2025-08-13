@@ -17,6 +17,12 @@ import {FormHandler} from "/common/js/form.js";
         }, 7000)
     });
 
+    $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
+        if (jqxhr.status === 401) {
+            window.location.href = LOGIN;
+        }
+    });
+
     $('.selectpicker').selectpicker('setStyle', 'btn-outline-secondary');
 
     App.keepSidebarDropdownOpen();

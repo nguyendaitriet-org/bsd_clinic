@@ -1,5 +1,6 @@
 import {App} from "/common/js/app.js";
 import {RequestHeader} from "/common/js/constant.js";
+import {CategoryComponent} from "/admin/custom/js/category/component.js";
 
 export const CategoryInitiation = (function () {
     const module = {};
@@ -25,6 +26,41 @@ export const CategoryInitiation = (function () {
             if (radio.length) {
                 radio.prop('checked', true).trigger('change');
             }
+        });
+    }
+
+    return module;
+})();
+
+export const CategoryCreation = (function () {
+    const module = {
+        addCategoryButtonSelector: $('#add-category-btn'),
+        saveAllNewCategoriesButtonSelector: $('#save-all-new-categories-btn'),
+        categoryListAreaSelector: $('#category-list-area')
+    };
+
+    module.init = () => {
+        handleAddCategoryButton();
+        handleRemoveCreateCategoryItem();
+        handleSaveAllNewCategories();
+    }
+
+    const handleAddCategoryButton = () => {
+        module.addCategoryButtonSelector.on('click', function () {
+            module.saveAllNewCategoriesButtonSelector.prop('hidden', false);
+            module.categoryListAreaSelector.prepend(CategoryComponent.categoryItemCreate);
+        });
+    }
+
+    const handleRemoveCreateCategoryItem = () => {
+        module.categoryListAreaSelector.on('click', '.cancel-category-btn', function () {
+           $(this).closest('.category-item-create').remove();
+        });
+    }
+
+    const handleSaveAllNewCategories = () => {
+        module.saveAllNewCategoriesButtonSelector.on('click', function () {
+            $(this).prop('hidden', true);
         });
     }
 

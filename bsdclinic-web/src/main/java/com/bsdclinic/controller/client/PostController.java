@@ -1,4 +1,4 @@
-package com.bsdclinic.controller;
+package com.bsdclinic.controller.client;
 
 import com.bsdclinic.ClinicInfoDto;
 import com.bsdclinic.ClinicInfoService;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-@Controller
+@Controller(value = "clientPostController")
 @RequiredArgsConstructor
 public class PostController {
     private final ClinicInfoService clinicInfoService;

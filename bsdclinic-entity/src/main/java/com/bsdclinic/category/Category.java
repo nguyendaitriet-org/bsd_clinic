@@ -1,6 +1,6 @@
 package com.bsdclinic.category;
 
-import com.bsdclinic.BaseEntity;
+import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Entity
 @Table(name = "categories")
-public class Category extends BaseEntity {
+public class Category {
     @Id
     @Column(name = "category_id")
     private String categoryId;
@@ -21,4 +21,11 @@ public class Category extends BaseEntity {
 
     @Column(name = "category_type")
     private String categoryType;
+
+    @PrePersist
+    public void prePersist() {
+        if (categoryId == null) {
+            categoryId = NanoIdUtils.randomNanoId();
+        }
+    }
 }

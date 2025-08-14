@@ -84,13 +84,17 @@ public class WebUrl {
     public static final String API_ADMIN_MEDICINE_LIST = API_ADMIN_MEDICINE + "/list";
     public static final String API_ADMIN_MEDICINE_WITH_ID = API_ADMIN_MEDICINE + "/{medicineId}";
 
-    // API Admin - prescription
+    // API Admin - Prescription
     public static final String API_ADMIN_PRESCRIPTION = API_ADMIN_ENDPOINT + "/prescriptions";
     public static final String API_ADMIN_PRESCRIPTION_WITH_ID = API_ADMIN_PRESCRIPTION + "/{prescriptionId}";
 
-    // API Admin - invoice
+    // API Admin - Invoice
     public static final String API_ADMIN_INVOICE = API_ADMIN_ENDPOINT + "/invoices";
     public static final String API_ADMIN_INVOICE_WITH_ID = API_ADMIN_INVOICE + "/{invoiceId}";
+
+    // API Admin - Category
+    public static final String API_ADMIN_CATEGORY = API_ADMIN_ENDPOINT + "/categories";
+
 
 
     // API Client - Appointment

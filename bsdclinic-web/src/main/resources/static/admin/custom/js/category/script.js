@@ -1,6 +1,21 @@
-import {App} from "/common/js/app.js";
+import {App, SweetAlert} from "/common/js/app.js";
 import {RequestHeader} from "/common/js/constant.js";
 import {CategoryComponent} from "/admin/custom/js/category/component.js";
+import {FormHandler} from "/common/js/form.js";
+
+export const Element = (function () {
+    return {
+        saveCategoryButton: '.save-category-btn',
+        cancelCategoryButton: '.cancel-category-btn',
+        categoryTitleInput: '.category-title-input',
+        categoryItemCreateArea: '.category-item-create',
+
+        categoryTypeItemSelector: $('.category-type-item'),
+        addCategoryButtonSelector: $('#add-category-btn'),
+        categoryListAreaSelector: $('#category-list-area'),
+        categoryTypeInputsSelector: $('input[name="categoryType"]')
+    };
+})();
 
 export const CategoryInitiation = (function () {
     const module = {};
@@ -11,8 +26,8 @@ export const CategoryInitiation = (function () {
     }
 
     const handleCategoryTypeChange = () => {
-        $('input[name="categoryType"]').on('change', function() {
-            $('.category-type-item').removeClass('active');
+        Element.categoryTypeInputsSelector.on('change', function () {
+            Element.categoryTypeItemSelector.removeClass('active');
 
             if ($(this).is(':checked')) {
                 $(this).parent().addClass('active');
@@ -21,7 +36,7 @@ export const CategoryInitiation = (function () {
     }
 
     const handleCategoryTypeLabelTrigger = () => {
-        $('.category-type-item').on('click', function() {
+        Element.categoryTypeItemSelector.on('click', function () {
             const radio = $(this).find('input[type="radio"]');
             if (radio.length) {
                 radio.prop('checked', true).trigger('change');
@@ -33,34 +48,48 @@ export const CategoryInitiation = (function () {
 })();
 
 export const CategoryCreation = (function () {
-    const module = {
-        addCategoryButtonSelector: $('#add-category-btn'),
-        saveAllNewCategoriesButtonSelector: $('#save-all-new-categories-btn'),
-        categoryListAreaSelector: $('#category-list-area')
-    };
+    const module = {};
 
     module.init = () => {
         handleAddCategoryButton();
+        handleSaveCategoryButton();
         handleRemoveCreateCategoryItem();
-        handleSaveAllNewCategories();
     }
 
     const handleAddCategoryButton = () => {
-        module.addCategoryButtonSelector.on('click', function () {
-            module.saveAllNewCategoriesButtonSelector.prop('hidden', false);
-            module.categoryListAreaSelector.prepend(CategoryComponent.categoryItemCreate);
+        Element.addCategoryButtonSelector.on('click', function () {
+            Element.categoryListAreaSelector.prepend(CategoryComponent.categoryItemCreate);
+        });
+    }
+
+    const handleSaveCategoryButton = () => {
+        Element.categoryListAreaSelector.on('click', Element.saveCategoryButton, function () {
+            const categoryParams = {
+                title: $(this).parent().siblings(Element.categoryTitleInput).val().trim(),
+                categoryType: Element.categoryTypeInputsSelector.filter(':checked').val()
+            }
+
+            $.ajax({
+                headers: RequestHeader.JSON_TYPE,
+                type: 'POST',
+                url: API_ADMIN_CATEGORY,
+                data: JSON.stringify(categoryParams),
+            })
+                .done(() => {
+                    SweetAlert.showAlert('success', createSuccess, '');
+                    $(this).closest(Element.categoryItemCreateArea).remove();
+                })
+                .fail((jqXHR) => {
+                    App.handleResponseMessageByStatusCode(jqXHR);
+                    const currentCategoryItem = $(this).closest(Element.categoryItemCreateArea);
+                    FormHandler.handleServerValidationError(currentCategoryItem, jqXHR)
+                })
         });
     }
 
     const handleRemoveCreateCategoryItem = () => {
-        module.categoryListAreaSelector.on('click', '.cancel-category-btn', function () {
-           $(this).closest('.category-item-create').remove();
-        });
-    }
-
-    const handleSaveAllNewCategories = () => {
-        module.saveAllNewCategoriesButtonSelector.on('click', function () {
-            $(this).prop('hidden', true);
+        Element.categoryListAreaSelector.on('click', Element.cancelCategoryButton, function () {
+           $(this).closest(Element.categoryItemCreateArea).remove();
         });
     }
 

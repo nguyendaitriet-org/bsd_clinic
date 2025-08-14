@@ -22,9 +22,14 @@
             border-color: var(--bs-primary);
         }
 
-        /* Hide the actual radio inputs */
         input[type="radio"] {
             display: none;
+        }
+
+        .with-validation .error-text {
+            top: 50%;
+            left: 25%;
+            bottom: unset;
         }
     </style>
 </th:block>
@@ -42,10 +47,13 @@
                     <div class="card-body">
                         <h5 class="card-title mb-3" th:text="#{title.category.type}"></h5>
                         <div class="d-flex flex-wrap gap-2">
-                            <th:block th:each="categoryType : ${categoryTypes}">
-                                <label class="btn btn-outline-primary category-type-item">
+                            <th:block th:each="categoryType, iterStat : ${categoryTypes}">
+                                <label class="btn btn-outline-primary category-type-item"
+                                       th:classappend="${iterStat.index == 0} ? active : ''">
                                     <input type="radio" name="categoryType"
-                                           th:value="${categoryType.key}" th:text="${categoryType.value}">
+                                           th:value="${categoryType.key}"
+                                           th:text="${categoryType.value}"
+                                           th:checked="${iterStat.index == 0}">
                                 </label>
                             </th:block>
                         </div>
@@ -62,12 +70,13 @@
                             <div class="btn-group">
                                 <button class="btn btn-secondary" id="add-category-btn">
                                     <i class="fa fa-plus-circle"></i>
-                                    <span th:text="#{title.category.create}"></span>
+                                    <span th:text="#{title.category.add}"></span>
                                 </button>
-                                <button class="btn btn-success" id="save-all-new-categories-btn" hidden>
-                                    <i class="fas fa-check"></i>
-                                    <span th:text="#{title.category.save_all_new}"></span>
-                                </button>
+                                    <!-- TODO: Implement later after validation error response is fixed -->
+<!--                                <button class="btn btn-success" id="save-all-new-categories-btn" hidden>-->
+<!--                                    <i class="fas fa-check"></i>-->
+<!--                                    <span th:text="#{title.category.save_all_new}"></span>-->
+<!--                                </button>-->
                             </div>
                         </div>
                         <!-- Search input field -->

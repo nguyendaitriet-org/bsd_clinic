@@ -1,6 +1,7 @@
 import {App, SweetAlert, DebounceUtil, DatatableAttribute} from "/common/js/app.js";
 import {CurrencyConverter} from "/common/js/currency_util.js";
 import {FormHandler} from "/common/js/form.js";
+import {RequestHeader} from "/common/js/constant.js";
 
 export const MedicineCreation = (function () {
     const module = {
@@ -25,10 +26,7 @@ export const MedicineCreation = (function () {
             medicineCreationParams.unitPrice = CurrencyConverter.getNumericValue(module.unitPriceSelector.val());
 
             $.ajax({
-                headers: {
-                    "accept": "application/json",
-                    "content-type": "application/json"
-                },
+                headers: RequestHeader.JSON_TYPE,
                 type: 'POST',
                 url: API_ADMIN_MEDICINE,
                 data: JSON.stringify(medicineCreationParams),

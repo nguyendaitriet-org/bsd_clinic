@@ -20,5 +20,37 @@ export const CategoryComponent = (function () {
             </div>
         </div>`
 
+    module.categoryItemDetail = (categoryDetail) =>
+        `<div class="col-md-6 col-lg-4 mb-3 category-item-detail">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title mb-0">${categoryDetail.title}</h5>
+                        <input type="hidden" value="${categoryDetail.categoryId}">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-secondary" type="button"
+                                    data-bs-toggle="dropdown">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <button type="button" class="dropdown-item">
+                                        <i class="fas fa-pen me-2"></i>
+                                        <span>${editTitle}</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="dropdown-item text-danger">
+                                        <i class="fas fa-trash-alt me-2"></i>
+                                        <span>${deleteTitle}</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`
+
     return module;
 })();

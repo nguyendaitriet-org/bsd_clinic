@@ -53,6 +53,7 @@
                                     <input type="radio" name="categoryType"
                                            th:value="${categoryType.key}"
                                            th:text="${categoryType.value}"
+                                           th:data-text="${categoryType.value}"
                                            th:checked="${iterStat.index == 0}">
                                 </label>
                             </th:block>
@@ -66,7 +67,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-4 gap-3">
-                            <h4 id="categoryTitle">Video Categories</h4>
+                            <h4 id="category-title-text"></h4>
                             <div class="btn-group">
                                 <button class="btn btn-secondary" id="add-category-btn">
                                     <i class="fa fa-plus-circle"></i>
@@ -90,44 +91,7 @@
                             </div>
                         </div>
                         <!-- Categories List -->
-                        <div class="row" id="category-list-area">
-                            <div class="col-md-6 col-lg-4 mb-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start mb-2">
-                                            <h5 class="card-title mb-0">Tutorials</h5>
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-outline-secondary" type="button"
-                                                        data-bs-toggle="dropdown">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">
-                                                            <i class="fas fa-pen me-2"></i>
-                                                            <span th:text="#{title.edit}"></span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item text-danger" href="#">
-                                                            <i class="fas fa-trash-alt me-2"></i>
-                                                            <span th:text="#{title.delete}"></span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Empty State -->
-                        <div id="emptyState" class="text-center py-5" style="display: none;">
-                            <i class="bi bi-folder2-open display-1 text-muted"></i>
-                            <h4 class="text-muted mt-3">No categories found</h4>
-                            <p class="text-muted">Click "Add Category" to create your first category.</p>
-                        </div>
+                        <div class="row" id="category-list-area"></div>
                     </div>
                 </div>
             </div>
@@ -137,8 +101,9 @@
 
 <th:block layout:fragment="category-script">
     <script type="module">
-        import {CategoryInitiation, CategoryCreation} from '/admin/custom/js/category/script.js';
+        import {CategoryInitiation, CategoryCreation, CategoryList} from '/admin/custom/js/category/script.js';
         CategoryInitiation.init();
         CategoryCreation.init();
+        CategoryList.init();
     </script>
 </th:block>

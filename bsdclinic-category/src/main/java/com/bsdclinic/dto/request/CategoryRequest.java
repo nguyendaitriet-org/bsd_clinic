@@ -1,5 +1,6 @@
 package com.bsdclinic.dto.request;
 
+import com.bsdclinic.validation.CategoryRuleAnnotation;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -13,6 +14,6 @@ public class CategoryRequest {
     private String title;
 
     @NotBlank(message = "{validation.required.category_type}")
-    @Size(max = 255, message = "{validation.input.max_length.255}")
+    @CategoryRuleAnnotation.ValidCategoryType(message = "{validation.invalid.category_type}")
     private String categoryType;
 }

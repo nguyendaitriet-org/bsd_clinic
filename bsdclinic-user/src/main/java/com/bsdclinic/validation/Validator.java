@@ -127,7 +127,6 @@ public class Validator {
 
     @RequiredArgsConstructor
     public static class UniqueEmailExceptCurrentValidator implements ConstraintValidator<RuleAnnotation.UniqueEmailExceptCurrent, String> {
-
         private final UserRepository userRepository;
 
         @Override
@@ -142,7 +141,6 @@ public class Validator {
 
     @RequiredArgsConstructor
     public static class UniquePhoneExceptCurrentValidator implements ConstraintValidator<RuleAnnotation.UniquePhoneExceptCurrent, String> {
-
         private final UserRepository userRepository;
 
         @Override

@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CategoryRequest {
+public class CategoryCreateRequest {
     @NotBlank(message = "{validation.required.category_title}")
     @Size(max = 255, message = "{validation.input.max_length.255}")
     private String title;

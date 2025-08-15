@@ -1,12 +1,14 @@
 package com.bsdclinic;
 
 import com.bsdclinic.dto.request.CategoryListRequest;
-import com.bsdclinic.dto.request.CategoryRequest;
+import com.bsdclinic.dto.request.CategoryCreateRequest;
+import com.bsdclinic.dto.request.CategoryUpdateRequest;
 import com.bsdclinic.dto.response.CategoryResponse;
 
 import java.util.List;
 
 public interface CategoryService {
-    void createCategories(CategoryRequest categoryRequest);
+    void createCategory(CategoryCreateRequest categoryCreateRequest);
     List<CategoryResponse> getCategories(CategoryListRequest request);
+    void updateCategory(String categoryId, CategoryUpdateRequest categoryUpdateRequest);
 }

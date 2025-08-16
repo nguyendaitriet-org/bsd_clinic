@@ -8,8 +8,16 @@ export const Element = (function () {
         saveCategoryButton: '.save-category-btn',
         cancelCategoryButton: '.cancel-category-btn',
         categoryTitleInput: '.category-title-input',
+        categoryIdInput: '.category-id-input',
+        categoryTitleText: '.category-title-text',
         categoryItemCreateArea: '.category-item-create',
         categoryItemDetailArea: '.category-item-detail',
+        editCategoryButton: '.edit-category-btn',
+        deleteCategoryButton: '.delete-category-btn',
+        updateCategoryButton: '.update-category-btn',
+        cancelUpdateCategoryButton: '.cancel-update-category-btn',
+        confirmUpdateArea: '.confirm-update-area',
+
 
         searchInputSelector: $('#search-input'),
         categoryTypeItemSelector: $('.category-type-item'),
@@ -146,6 +154,71 @@ export const CategoryList = (function () {
                 DebounceUtil.delayTime,
                 'categorySearch'
             )();
+        });
+    }
+
+    return module;
+})();
+
+export const CategoryUpdating = (function () {
+    const module = {};
+
+    module.init = () => {
+        handleEditCategoryButton();
+        handleCancelUpdateCategoryButton();
+        handleUpdateCategoryButton();
+    }
+
+    const handleEditCategoryButton = () => {
+        Element.categoryListAreaSelector.on('click', Element.editCategoryButton, function () {
+            $(this).closest('.dropdown').prop('hidden', true);
+            const categoryItemDetailAreaSelector = $(this).closest(Element.categoryItemDetailArea);
+            categoryItemDetailAreaSelector.find(Element.confirmUpdateArea).prop('hidden', false);
+            categoryItemDetailAreaSelector.find(Element.categoryTitleInput).prop('hidden', false);
+            categoryItemDetailAreaSelector.find(Element.categoryTitleText).prop('hidden', true);
+        });
+    }
+
+    const handleCancelUpdateCategoryButton = () => {
+        Element.categoryListAreaSelector.on('click', Element.cancelUpdateCategoryButton, function () {
+            const categoryItemDetailAreaSelector = $(this).closest(Element.categoryItemDetailArea);
+            categoryItemDetailAreaSelector.find('.dropdown').prop('hidden', false);
+            categoryItemDetailAreaSelector.find(Element.confirmUpdateArea).prop('hidden', true);
+            categoryItemDetailAreaSelector.find(Element.categoryTitleInput).prop('hidden', true);
+            categoryItemDetailAreaSelector.find(Element.categoryTitleText).prop('hidden', false);
+        });
+    }
+
+    const handleUpdateCategoryButton = () => {
+        Element.categoryListAreaSelector.on('click', Element.updateCategoryButton, function () {
+            const categoryParams = {
+                title: $(this).parent().siblings(Element.categoryTitleInput).val().trim()
+            }
+
+            const categoryId = $(this).parent().siblings(Element.categoryIdInput).val();
+
+            $.ajax({
+                headers: RequestHeader.JSON_TYPE,
+                type: 'PATCH',
+                url: API_ADMIN_CATEGORY_WITH_ID.replace('{categoryId}', categoryId),
+                data: JSON.stringify(categoryParams),
+            })
+                .done(() => {
+                    SweetAlert.showAlert('success', operationSuccess, '');
+                    $(this).closest(Element.categoryItemDetailArea).remove();
+                    // Re-render updated category
+                    Element.categoryListAreaSelector.append(
+                        CategoryComponent.categoryItemDetail({
+                            ...categoryParams,
+                            categoryId
+                        })
+                    );
+                })
+                .fail((jqXHR) => {
+                    App.handleResponseMessageByStatusCode(jqXHR);
+                    const currentCategoryItem = $(this).closest(Element.categoryItemDetailArea);
+                    FormHandler.handleServerValidationError(currentCategoryItem, jqXHR)
+                })
         });
     }
 

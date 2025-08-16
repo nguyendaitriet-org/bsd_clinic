@@ -101,9 +101,10 @@
 
 <th:block layout:fragment="category-script">
     <script type="module">
-        import {CategoryInitiation, CategoryCreation, CategoryList} from '/admin/custom/js/category/script.js';
+        import {CategoryInitiation, CategoryCreation, CategoryList, CategoryUpdating} from '/admin/custom/js/category/script.js';
         CategoryInitiation.init();
         CategoryCreation.init();
         CategoryList.init();
+        CategoryUpdating.init();
     </script>
 </th:block>

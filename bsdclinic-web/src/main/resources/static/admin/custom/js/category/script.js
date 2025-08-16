@@ -194,7 +194,6 @@ export const CategoryUpdating = (function () {
             const categoryParams = {
                 title: $(this).parent().siblings(Element.categoryTitleInput).val().trim()
             }
-
             const categoryId = $(this).parent().siblings(Element.categoryIdInput).val();
 
             $.ajax({
@@ -218,6 +217,34 @@ export const CategoryUpdating = (function () {
                     App.handleResponseMessageByStatusCode(jqXHR);
                     const currentCategoryItem = $(this).closest(Element.categoryItemDetailArea);
                     FormHandler.handleServerValidationError(currentCategoryItem, jqXHR)
+                })
+        });
+    }
+
+    return module;
+})();
+
+export const CategoryDeletion = (function () {
+    const module = {};
+
+    module.init = () => {
+        handleDeleteCategoryButton();
+    }
+
+    const handleDeleteCategoryButton = () => {
+        Element.categoryListAreaSelector.on('click', Element.deleteCategoryButton, function () {
+            const categoryId = $(this).closest('.dropdown').siblings(Element.categoryIdInput).val();
+
+            $.ajax({
+                type: 'DELETE',
+                url: API_ADMIN_CATEGORY_WITH_ID.replace('{categoryId}', categoryId)
+            })
+                .done(() => {
+                    SweetAlert.showAlert('success', operationSuccess, '');
+                    $(this).closest(Element.categoryItemDetailArea).remove();
+                })
+                .fail((jqXHR) => {
+                    App.handleResponseMessageByStatusCode(jqXHR);
                 })
         });
     }

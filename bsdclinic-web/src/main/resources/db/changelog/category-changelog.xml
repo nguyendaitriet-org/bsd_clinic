@@ -11,7 +11,7 @@
                 category_type VARCHAR(20) NOT NULL
             );
 
-            CREATE TABLE IF NOT EXISTS categorie_assignments (
+            CREATE TABLE IF NOT EXISTS category_assignments (
                 category_assignment_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
                 category_id VARCHAR(50) NOT NULL,
                 entity_id VARCHAR(50) NOT NULL
@@ -19,4 +19,10 @@
         </sql>
     </changeSet>
 
+    <changeSet id="16082025_1" author="triet.nguyendai" context="Add column entity_title to category_assignments table">
+        <sql>
+            ALTER TABLE category_assignments
+            ADD COLUMN entity_title VARCHAR(255) NOT NULL;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

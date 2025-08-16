@@ -14,4 +14,7 @@ public interface CategoryRepository extends JpaRepository<Category, String> {
                 (:categoryType IS NULL OR c.category_type = :categoryType)"""
     , nativeQuery = true)
     List<Category> findCategoriesWithFilters(String keyword, String categoryType);
+
+    @Query(value = "SELECT COUNT(*) FROM category_assignments c WHERE c.category_id = :categoryId", nativeQuery = true)
+    Integer countCategoryAssignments(String categoryId);
 }

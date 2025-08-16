@@ -5,6 +5,7 @@ import com.bsdclinic.dto.request.CategoryListRequest;
 import com.bsdclinic.dto.request.CategoryCreateRequest;
 import com.bsdclinic.dto.request.CategoryUpdateRequest;
 import com.bsdclinic.dto.response.CategoryResponse;
+import com.bsdclinic.exception_handler.exception.ConflictException;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.message.MessageProvider;
 import lombok.RequiredArgsConstructor;
@@ -33,10 +34,24 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void updateCategory(String categoryId, CategoryUpdateRequest categoryUpdateRequest) {
-        Category category = categoryRepository.findById(categoryId).orElseThrow(
-                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.category"))
-        );
+        Category category = findById(categoryId);
         category.setTitle(categoryUpdateRequest.getTitle());
         categoryRepository.save(category);
+    }
+
+    @Override
+    public void deleteCategory(String categoryId) {
+        Category category = findById(categoryId);
+        Integer categoryAssignmentCount = categoryRepository.countCategoryAssignments(categoryId);
+        if (categoryAssignmentCount > 0) {
+            throw new ConflictException(messageProvider.getMessage("message.category.assigned"));
+        }
+        categoryRepository.delete(category);
+    }
+
+    private Category findById(String categoryId) {
+        return categoryRepository.findById(categoryId).orElseThrow(
+                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.category"))
+        );
     }
 }

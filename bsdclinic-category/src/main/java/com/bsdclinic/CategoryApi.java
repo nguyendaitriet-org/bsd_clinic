@@ -36,4 +36,10 @@ public class CategoryApi {
     ) {
         categoryService.updateCategory(categoryId, request);
     }
+
+    @RoleAuthorization.AdminAndDoctorAuthorization
+    @DeleteMapping(WebUrl.API_ADMIN_CATEGORY_WITH_ID)
+    public void deleteCategory(@PathVariable String categoryId) {
+        categoryService.deleteCategory(categoryId);
+    }
 }

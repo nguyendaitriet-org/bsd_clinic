@@ -11,7 +11,7 @@
                 category_type VARCHAR(20) NOT NULL
             );
 
-            CREATE TABLE IF NOT EXISTS categorie_assignments (
+            CREATE TABLE IF NOT EXISTS category_assignments (
                 category_assignment_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
                 category_id VARCHAR(50) NOT NULL,
                 entity_id VARCHAR(50) NOT NULL

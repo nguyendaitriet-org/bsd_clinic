@@ -19,4 +19,10 @@
         </sql>
     </changeSet>
 
+    <changeSet id="16082025_1" author="triet.nguyendai" context="Add column entity_title to category_assignments table">
+        <sql>
+            ALTER TABLE category_assignments
+            ADD COLUMN entity_title VARCHAR(255) NOT NULL;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

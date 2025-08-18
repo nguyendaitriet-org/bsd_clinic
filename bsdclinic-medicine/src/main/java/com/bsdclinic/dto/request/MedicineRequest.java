@@ -1,5 +1,6 @@
 package com.bsdclinic.dto.request;
 
+import com.bsdclinic.validation.MedicineRuleAnnotation;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -21,7 +23,7 @@ public class MedicineRequest {
     private BigDecimal unitPrice;
 
     @NotBlank(message = "{validation.required.medicine_unit}")
-    @Size(max = 255, message = "{validation.input.max_length.255}")
+    @MedicineRuleAnnotation.ValidUnit(message = "{validation.invalid.medicine_unit}")
     private String unit;
 
     @Size(max = 1000, message = "{validation.input.max_length.1000}")
@@ -29,4 +31,7 @@ public class MedicineRequest {
 
     @Size(max = 1000, message = "{validation.input.max_length.1000}")
     private String sideEffect;
+
+    @MedicineRuleAnnotation.ValidCategoryIds(message = "{validation.invalid.category_ids}")
+    private Set<String> categoryIds;
 }

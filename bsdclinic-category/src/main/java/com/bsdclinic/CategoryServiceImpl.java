@@ -1,6 +1,8 @@
 package com.bsdclinic;
 
 import com.bsdclinic.category.Category;
+import com.bsdclinic.category.CategoryAssignment;
+import com.bsdclinic.dto.request.CategoryAssignmentRequest;
 import com.bsdclinic.dto.request.CategoryListRequest;
 import com.bsdclinic.dto.request.CategoryCreateRequest;
 import com.bsdclinic.dto.request.CategoryUpdateRequest;
@@ -8,6 +10,8 @@ import com.bsdclinic.dto.response.CategoryResponse;
 import com.bsdclinic.exception_handler.exception.ConflictException;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.message.MessageProvider;
+import com.bsdclinic.repository.CategoryAssignmentRepository;
+import com.bsdclinic.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +21,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
-    private final CategoryRepository categoryRepository;
     private final MessageProvider messageProvider;
+    private final CategoryRepository categoryRepository;
+    private final CategoryAssignmentRepository categoryAssignmentRepository;
 
     @Override
     public void createCategory(CategoryCreateRequest categoryCreateRequest) {
@@ -47,6 +52,12 @@ public class CategoryServiceImpl implements CategoryService {
             throw new ConflictException(messageProvider.getMessage("message.category.assigned"));
         }
         categoryRepository.delete(category);
+    }
+
+    @Override
+    public void createCategoryAssignments(List<CategoryAssignmentRequest> requestList) {
+        List<CategoryAssignment> assignments = categoryMapper.toEntities(requestList);
+        categoryAssignmentRepository.saveAll(assignments);
     }
 
     private Category findById(String categoryId) {

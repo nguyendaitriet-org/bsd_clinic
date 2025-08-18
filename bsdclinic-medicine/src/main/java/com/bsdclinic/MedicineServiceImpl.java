@@ -1,5 +1,6 @@
 package com.bsdclinic;
 
+import com.bsdclinic.dto.request.CategoryAssignmentRequest;
 import com.bsdclinic.dto.request.MedicineRequest;
 import com.bsdclinic.dto.request.MedicineFilter;
 import com.bsdclinic.dto.response.MedicineResponse;
@@ -7,6 +8,7 @@ import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.medicine.Medicine;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.response.DatatableResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -22,11 +24,24 @@ public class MedicineServiceImpl implements MedicineService {
     private final MedicineRepository medicineRepository;
     private final MedicineMapper medicineMapper;
     private final MessageProvider messageProvider;
+    private final CategoryService categoryService;
 
     @Override
+    @Transactional
     public void createMedicine(MedicineRequest request) {
         Medicine medicine = medicineMapper.toEntity(request);
-        medicineRepository.save(medicine);
+        medicine = medicineRepository.save(medicine);
+
+        String medicineId = medicine.getMedicineId();
+        String medicineTitle = medicine.getTitle();
+        List<CategoryAssignmentRequest> assignmentRequests = request.getCategoryIds().stream()
+                .map(categoryId -> CategoryAssignmentRequest.builder()
+                        .entityId(medicineId)
+                        .entityTitle(medicineTitle)
+                        .categoryId(categoryId)
+                        .build()
+                ).toList();
+        categoryService.createCategoryAssignments(assignmentRequests);
     }
 
     @Override

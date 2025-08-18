@@ -22,6 +22,9 @@ public class CategoryAssignment {
     @Column(name = "entity_id")
     private String entityId;
 
+    @Column(name = "entity_title")
+    private String entityTitle;
+
     @PrePersist
     public void prePersist() {
         if (categoryAssignmentId == null) {

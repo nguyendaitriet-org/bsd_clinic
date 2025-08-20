@@ -20,6 +20,7 @@ dependencies {
     implementation project(':bsdclinic-prescription')
     implementation project(':bsdclinic-invoice')
     implementation project(':bsdclinic-category')
+    implementation project(':bsdclinic-article')
 }
 
 application {

@@ -1,0 +1,21 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.13.xsd">
+
+    <changeSet id="18082025" author="trung.ducphan" context="Create articles table">
+        <sql>
+            CREATE TABLE IF NOT EXISTS articles (
+                article_id VARCHAR(50) PRIMARY KEY,
+                title VARCHAR(255) NOT NULL,
+                content TEXT,
+                user_id VARCHAR(50) NOT NULL,
+                category_id VARCHAR(50) NOT NULL,
+                url VARCHAR(255),
+                status VARCHAR(10),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP
+                );
+        </sql>
+    </changeSet>
+</databaseChangeLog>

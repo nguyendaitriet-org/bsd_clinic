@@ -19,8 +19,19 @@
                             <input type="text" class="form-control price-input" id="medicine-unit-price" name="unitPrice">
                         </div>
                         <div class="mb-3 with-validation">
+                            <label for="medicine-category" class="form-label fw-semibold" th:text="#{title.category}"></label>
+                            <select id="medicine-category" class="selectpicker w-100 medicine-category"
+                                    th:data-none-selected-text="#{placeholder.category}"
+                                    tabindex="-1" data-live-search="true" multiple name="categoryIds">
+                                <th:block th:each="medicineCategory: ${medicineCategories}">
+                                    <option th:value="${medicineCategory.categoryId}" th:text="${medicineCategory.title}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <div class="mb-3 with-validation">
                             <label for="medicine-unit" class="form-label fw-semibold required-field" th:text="#{title.unit}"></label>
-                            <select class="form-control" id="medicine-unit" name="unit">
+                            <select id="medicine-unit" class="selectpicker w-100"
+                                    th:data-none-selected-text="#{placeholder.unit}" data-live-search="true" name="unit">
                                 <th:block th:each="dosageUnit: ${dosageUnits}">
                                     <option th:value="${dosageUnit.key}" th:text="${dosageUnit.value}"></option>
                                 </th:block>

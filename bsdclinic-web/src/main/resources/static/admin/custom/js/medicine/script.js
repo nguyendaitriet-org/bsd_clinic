@@ -8,7 +8,8 @@ export const MedicineCreation = (function () {
         createMedicineModalSelector: $('#create-medicine-modal'),
         createMedicineFormSelector: $('#create-medicine-form'),
         saveMedicineButtonSelector: $('.btn-save'),
-        unitPriceSelector: $('#create-medicine-modal .price-input')
+        unitPriceSelector: $('#create-medicine-modal .price-input'),
+        medicineCategorySelector: $('#create-medicine-modal .medicine-category')
     };
 
     module.init = () => {
@@ -20,10 +21,12 @@ export const MedicineCreation = (function () {
         module.createMedicineFormSelector.on('submit', function (e) {
             e.preventDefault();
             const formData = new FormData(this);
+
             const medicineCreationParams = Object.fromEntries(
                 Array.from(formData.entries()).map(([key, value]) => [key, value === '' ? null : value])
             );
             medicineCreationParams.unitPrice = CurrencyConverter.getNumericValue(module.unitPriceSelector.val());
+            medicineCreationParams.categoryIds = module.medicineCategorySelector.selectpicker('val');
 
             $.ajax({
                 headers: RequestHeader.JSON_TYPE,

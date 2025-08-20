@@ -1,6 +1,8 @@
 package com.bsdclinic;
 
 import com.bsdclinic.category.Category;
+import com.bsdclinic.category.CategoryAssignment;
+import com.bsdclinic.dto.request.CategoryAssignmentRequest;
 import com.bsdclinic.dto.request.CategoryCreateRequest;
 import com.bsdclinic.dto.response.CategoryResponse;
 import org.mapstruct.Mapper;
@@ -12,4 +14,5 @@ import java.util.List;
 public interface CategoryMapper {
     Category toEntity(CategoryCreateRequest categoryRequest);
     List<CategoryResponse> toDtos(List<Category> categories);
+    List<CategoryAssignment> toEntities(List<CategoryAssignmentRequest> requestList);
 }

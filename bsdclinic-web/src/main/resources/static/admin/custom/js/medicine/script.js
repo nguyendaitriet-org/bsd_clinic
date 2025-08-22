@@ -90,6 +90,7 @@ export const MedicineList = (function () {
             columns: [
                 {data: null},
                 {data: 'title'},
+                {data: 'medicineCategories'},
                 {data: 'unitPrice'},
                 {data: 'unit'},
                 {data: null},
@@ -105,17 +106,23 @@ export const MedicineList = (function () {
             pagingType: 'simple_numbers',
             columnDefs: [
                 {
-                    targets: [0, 2, 3, 4],
+                    targets: [0, 3, 4, 5],
                     className: "text-center"
                 },
                 {
                     targets: 2,
                     render: (data) => {
-                        return CurrencyConverter.formatCurrencyVND(data);
+                        return data && data.map(item =>`<button class="btn btn-sm btn-secondary">${item.title}</button>` );
                     }
                 },
                 {
                     targets: 3,
+                    render: (data) => {
+                        return CurrencyConverter.formatCurrencyVND(data);
+                    }
+                },
+                {
+                    targets: 4,
                     render: (data) => {
                         return dosageUnitMap[data];
                     }

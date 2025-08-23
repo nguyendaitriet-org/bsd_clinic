@@ -3,20 +3,26 @@ package com.bsdclinic;
 import com.bsdclinic.dto.request.CategoryAssignmentRequest;
 import com.bsdclinic.dto.request.MedicineRequest;
 import com.bsdclinic.dto.request.MedicineFilter;
+import com.bsdclinic.dto.response.CategoryResponse;
 import com.bsdclinic.dto.response.MedicineResponse;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.medicine.Medicine;
 import com.bsdclinic.message.MessageProvider;
+import com.bsdclinic.repository.MedicineRepository;
+import com.bsdclinic.repository.MedicineSpecifications;
 import com.bsdclinic.response.DatatableResponse;
+import io.jsonwebtoken.lang.Collections;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -32,9 +38,11 @@ public class MedicineServiceImpl implements MedicineService {
         Medicine medicine = medicineMapper.toEntity(request);
         medicine = medicineRepository.save(medicine);
 
-        String medicineId = medicine.getMedicineId();
-        String medicineTitle = medicine.getTitle();
-        List<CategoryAssignmentRequest> assignmentRequests = request.getCategoryIds().stream()
+        saveMedicineCategoryAssignments(medicine.getMedicineId(), medicine.getTitle(), request.getCategoryIds());
+    }
+
+    private void saveMedicineCategoryAssignments(String medicineId, String medicineTitle, Set<String> categoryIds) {
+        List<CategoryAssignmentRequest> assignmentRequests = categoryIds.stream()
                 .map(categoryId -> CategoryAssignmentRequest.builder()
                         .entityId(medicineId)
                         .entityTitle(medicineTitle)
@@ -51,15 +59,18 @@ public class MedicineServiceImpl implements MedicineService {
                 medicineFilter.getLength()
         );
 
-        Page<Medicine> medicines;
-        String keyword = medicineFilter.getKeyword();
-        if (StringUtils.isNotBlank(keyword)) {
-            medicines = medicineRepository.findAllByKeywordWithPage(keyword, pageable);
-        } else {
-            medicines = medicineRepository.findAll(pageable);
-        }
+        Specification<Medicine> medicineSpecification = MedicineSpecifications.withFilter(medicineFilter);
+        Page<Medicine> medicines = medicineRepository.findAll(medicineSpecification, pageable);
+
+        List<String> medicineIds = medicines.stream().map(Medicine::getMedicineId).toList();
+        Map<String, List<CategoryResponse>> medicineCategoryMap = categoryService.getAssignmentsByEntityIds(medicineIds);
+
         List<MedicineResponse> medicineResponses = medicines.stream()
-                .map(medicineMapper::toDto)
+                .map(item -> {
+                    MedicineResponse response = medicineMapper.toDto(item);
+                    response.setMedicineCategories(medicineCategoryMap.get(item.getMedicineId()));
+                    return response;
+                })
                 .toList();
 
         DatatableResponse<MedicineResponse> datatableResponse = new DatatableResponse<>();
@@ -79,10 +90,16 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
+    @Transactional
     public void updateMedicine(String medicineId, MedicineRequest request) {
         Medicine medicine = getMedicine(medicineId);
         medicine = medicineMapper.toEntity(medicine, request);
         medicineRepository.save(medicine);
+        categoryService.deleteAssignmentByEntityId(medicineId);
+        Set<String> categoryIds = request.getCategoryIds();
+        if (!Collections.isEmpty(categoryIds)) {
+            saveMedicineCategoryAssignments(medicine.getMedicineId(), medicine.getTitle(), categoryIds);
+        }
     }
 
     @Override

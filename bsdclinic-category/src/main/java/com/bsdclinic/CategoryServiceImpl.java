@@ -7,6 +7,7 @@ import com.bsdclinic.dto.request.CategoryListRequest;
 import com.bsdclinic.dto.request.CategoryCreateRequest;
 import com.bsdclinic.dto.request.CategoryUpdateRequest;
 import com.bsdclinic.dto.response.CategoryResponse;
+import com.bsdclinic.dto.response.ICategoryResponse;
 import com.bsdclinic.exception_handler.exception.ConflictException;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.message.MessageProvider;
@@ -16,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -60,9 +63,35 @@ public class CategoryServiceImpl implements CategoryService {
         categoryAssignmentRepository.saveAll(assignments);
     }
 
+    /**
+         * Groups category assignments by entityId and maps each group
+         * to a list of CategoryResponse objects.
+
+         * Example result:
+         * {
+         *   "entity_id_1": [CategoryResponse1, CategoryResponse2],
+         *   "entity_id_2": [CategoryResponse3]
+         * }
+     */
+    @Override
+    public Map<String, List<CategoryResponse>> getAssignmentsByEntityIds(List<String> entityIds) {
+        return categoryAssignmentRepository.getAllByEntityIds(entityIds)
+                .stream()
+                .collect(Collectors.groupingBy(
+                        ICategoryResponse::getEntityId,
+                        Collectors.mapping(categoryMapper::toCategoryResponse, Collectors.toList())
+                ));
+    }
+
+    @Override
+    public void deleteAssignmentByEntityId(String entityId) {
+        categoryAssignmentRepository.deleteByEntityId(entityId);
+    }
+
     private Category findById(String categoryId) {
         return categoryRepository.findById(categoryId).orElseThrow(
                 () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.category"))
         );
     }
+
 }

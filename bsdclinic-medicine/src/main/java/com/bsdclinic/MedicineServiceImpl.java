@@ -103,9 +103,11 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
+    @Transactional
     public void deleteMedicine(String medicineId) {
         Medicine medicine = getMedicine(medicineId);
         medicineRepository.delete(medicine);
+        categoryService.deleteAssignmentByEntityId(medicineId);
     }
 
     private Medicine getMedicine(String medicineId) {

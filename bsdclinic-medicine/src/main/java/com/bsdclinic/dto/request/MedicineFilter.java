@@ -1,14 +1,10 @@
 package com.bsdclinic.dto.request;
 
-import com.bsdclinic.request.DatatablePagination;
+import com.bsdclinic.specification.EntityFilter;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
-public class MedicineFilter extends DatatablePagination {
-    private String keyword;
-    private List<String> categoryIds;
+public class MedicineFilter extends EntityFilter {
 }

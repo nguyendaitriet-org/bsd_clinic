@@ -65,7 +65,7 @@ export const App = (function () {
     }
 
     module.keepSidebarTabActive = () => {
-        const url = window.location;
+        const url = window.location.href;
         const targetLinkSelector = $('.sidebar-content .nav-item a').filter(function () {
             return this.href === url;
         });

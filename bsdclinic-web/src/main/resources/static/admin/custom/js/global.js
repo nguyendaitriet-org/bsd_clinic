@@ -11,11 +11,11 @@ import {FormHandler} from "/common/js/form.js";
 
     ProgressingBar.init();
 
-    // $(document).ajaxStop(function () {
-    //     setTimeout(() => {
-    //         $('.error-text').remove();
-    //     }, 7000)
-    // });
+    $(document).ajaxStop(function () {
+        setTimeout(() => {
+            $('.error-text').remove();
+        }, 7000)
+    });
 
     $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
         if (jqxhr.status === 401) {

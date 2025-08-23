@@ -1,8 +1,7 @@
 package com.bsdclinic;
 
-import com.bsdclinic.dto.request.CreateMedicalServiceRequest;
+import com.bsdclinic.dto.request.MedicalServiceRequest;
 import com.bsdclinic.dto.request.MedicalServiceFilter;
-import com.bsdclinic.dto.request.MedicalServiceUpdateRequest;
 import com.bsdclinic.dto.response.IMedicalServiceResponse;
 import com.bsdclinic.dto.response.MedicalServiceResponse;
 import com.bsdclinic.exception_handler.exception.NotFoundException;
@@ -26,7 +25,7 @@ public class ServiceMedicalServiceImpl implements ServiceMedicalService {
     private final MedicalServiceMapper medicalServiceMapper;
     private final MessageProvider messageProvider;
 
-    public void create(CreateMedicalServiceRequest request) {
+    public void create(MedicalServiceRequest request) {
         MedicalService service = medicalServiceMapper.toEntity(request);
         medicalServiceRepository.save(service);
     }
@@ -77,9 +76,9 @@ public class ServiceMedicalServiceImpl implements ServiceMedicalService {
     }
 
     @Override
-    public void updateMedicalService(String medicalServiceId, MedicalServiceUpdateRequest medicalServiceUpdateRequest){
+    public void updateMedicalService(String medicalServiceId, MedicalServiceRequest request){
         MedicalService medicalService = findById(medicalServiceId);
-        medicalService = medicalServiceMapper.toEntity(medicalServiceUpdateRequest, medicalService);
+        medicalService = medicalServiceMapper.toEntity(request, medicalService);
         medicalServiceRepository.save(medicalService);
     }
 

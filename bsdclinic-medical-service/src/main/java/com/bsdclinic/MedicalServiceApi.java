@@ -1,20 +1,14 @@
 package com.bsdclinic;
 
-import com.bsdclinic.dto.request.CreateMedicalServiceRequest;
+import com.bsdclinic.dto.request.MedicalServiceRequest;
 import com.bsdclinic.dto.request.MedicalServiceFilter;
-import com.bsdclinic.dto.request.MedicalServiceUpdateRequest;
 import com.bsdclinic.dto.response.MedicalServiceResponse;
-import com.bsdclinic.exception_handler.exception.NotFoundException;
-import com.bsdclinic.medical_service.MedicalService;
-import com.bsdclinic.medicine.Medicine;
 import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.url.WebUrl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -24,7 +18,7 @@ public class MedicalServiceApi {
 
     @RoleAuthorization.AdminAuthorization
     @PostMapping(WebUrl.API_ADMIN_MEDICAL_SERVICE)
-    public void createMedicalService(@RequestBody @Valid CreateMedicalServiceRequest request) {
+    public void createMedicalService(@RequestBody @Valid MedicalServiceRequest request) {
         serviceMedicalService.create(request);
     }
 
@@ -44,7 +38,7 @@ public class MedicalServiceApi {
     @PutMapping(WebUrl.API_ADMIN_MEDICAL_SERVICE_WITH_ID)
     public void updateMedicalService(
             @PathVariable String medicalServiceId,
-            @RequestBody @Valid MedicalServiceUpdateRequest request
+            @RequestBody @Valid MedicalServiceRequest request
     ) {
         serviceMedicalService.updateMedicalService(medicalServiceId, request);
     }

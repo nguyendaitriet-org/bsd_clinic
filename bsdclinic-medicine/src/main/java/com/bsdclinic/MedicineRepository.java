@@ -1,4 +1,4 @@
-package com.bsdclinic.repository;
+package com.bsdclinic;
 
 import com.bsdclinic.medicine.Medicine;
 import org.springframework.data.domain.Page;

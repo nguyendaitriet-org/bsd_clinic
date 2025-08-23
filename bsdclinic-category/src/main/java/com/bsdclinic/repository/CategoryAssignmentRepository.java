@@ -16,4 +16,6 @@ public interface CategoryAssignmentRepository extends JpaRepository<CategoryAssi
            "INNER JOIN Category AS c ON a.categoryId = c.categoryId " +
            "WHERE a.entityId IN :entityIds")
     List<ICategoryResponse> getAllByEntityIds(List<String> entityIds);
+
+    void deleteByEntityId(String entityId);
 }

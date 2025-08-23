@@ -16,4 +16,5 @@ public interface CategoryService {
     void deleteCategory(String categoryId);
     void createCategoryAssignments(List<CategoryAssignmentRequest> requestList);
     Map<String, List<CategoryResponse>> getAssignmentsByEntityIds(List<String> entityIds);
+    void deleteAssignmentByEntityId(String entityId);
 }

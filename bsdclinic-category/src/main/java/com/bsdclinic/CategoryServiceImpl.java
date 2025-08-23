@@ -83,9 +83,15 @@ public class CategoryServiceImpl implements CategoryService {
                 ));
     }
 
+    @Override
+    public void deleteAssignmentByEntityId(String entityId) {
+        categoryAssignmentRepository.deleteByEntityId(entityId);
+    }
+
     private Category findById(String categoryId) {
         return categoryRepository.findById(categoryId).orElseThrow(
                 () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.category"))
         );
     }
+
 }

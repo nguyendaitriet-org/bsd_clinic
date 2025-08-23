@@ -11,6 +11,7 @@ import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.repository.MedicineRepository;
 import com.bsdclinic.repository.MedicineSpecifications;
 import com.bsdclinic.response.DatatableResponse;
+import io.jsonwebtoken.lang.Collections;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -36,9 +38,11 @@ public class MedicineServiceImpl implements MedicineService {
         Medicine medicine = medicineMapper.toEntity(request);
         medicine = medicineRepository.save(medicine);
 
-        String medicineId = medicine.getMedicineId();
-        String medicineTitle = medicine.getTitle();
-        List<CategoryAssignmentRequest> assignmentRequests = request.getCategoryIds().stream()
+        saveMedicineCategoryAssignments(medicine.getMedicineId(), medicine.getTitle(), request.getCategoryIds());
+    }
+
+    private void saveMedicineCategoryAssignments(String medicineId, String medicineTitle, Set<String> categoryIds) {
+        List<CategoryAssignmentRequest> assignmentRequests = categoryIds.stream()
                 .map(categoryId -> CategoryAssignmentRequest.builder()
                         .entityId(medicineId)
                         .entityTitle(medicineTitle)
@@ -86,10 +90,16 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
+    @Transactional
     public void updateMedicine(String medicineId, MedicineRequest request) {
         Medicine medicine = getMedicine(medicineId);
         medicine = medicineMapper.toEntity(medicine, request);
         medicineRepository.save(medicine);
+        categoryService.deleteAssignmentByEntityId(medicineId);
+        Set<String> categoryIds = request.getCategoryIds();
+        if (!Collections.isEmpty(categoryIds)) {
+            saveMedicineCategoryAssignments(medicine.getMedicineId(), medicine.getTitle(), categoryIds);
+        }
     }
 
     @Override

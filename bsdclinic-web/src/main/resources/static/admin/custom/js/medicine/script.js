@@ -37,7 +37,7 @@ export const MedicineCreation = (function () {
                 .done(() => {
                     SweetAlert.showAlert('success', createSuccess, '');
                     module.createMedicineModalSelector.modal('hide');
-                    MedicineList.medicineListTableSelector.DataTable().row.add(medicineCreationParams).draw('full-hold');
+                    MedicineList.medicineListTableSelector.DataTable().draw('full-hold');
                 })
                 .fail((jqXHR) => {
                     App.handleResponseMessageByStatusCode(jqXHR);
@@ -112,7 +112,7 @@ export const MedicineList = (function () {
                 {
                     targets: 2,
                     render: (data) => {
-                        return data && data.map(item =>`<button class="btn btn-sm btn-secondary">${item.title}</button>` );
+                        return data && data.map(item =>`<button class="btn btn-sm btn-secondary mt-2">${item.title}</button>` );
                     }
                 },
                 {
@@ -154,7 +154,9 @@ export const MedicineUpdating = (function () {
     const module = {
         medicineUpdatingModalSelector: $('#update-medicine-modal'),
         updateMedicineFormSelector: $('#update-medicine-form'),
-        unitPriceSelector: $('#update-medicine-modal .price-input')
+        unitPriceSelector: $('#update-medicine-modal .price-input'),
+        unitSelector: $('#update-medicine-modal .dosage-unit'),
+        medicineCategorySelector: $('#update-medicine-modal .medicine-category'),
     };
 
     module.init = () => {
@@ -180,10 +182,12 @@ export const MedicineUpdating = (function () {
                 continue;
             }
             if (key === 'unit') {
-                module.updateMedicineFormSelector
-                    .find('.dosage-unit')
-                    .find(`option[value="${medicineData[key]}"]`)
-                    .prop('selected', true);
+                module.unitSelector.selectpicker('val', medicineData[key]);
+                continue;
+            }
+            if (key === 'medicineCategories') {
+                const categoryIds = medicineData[key].map(item => item.categoryId);
+                module.medicineCategorySelector.selectpicker('val', categoryIds);
                 continue;
             }
             module.medicineUpdatingModalSelector.find(`input[name="${key}"]`).val(medicineData[key]);
@@ -199,6 +203,7 @@ export const MedicineUpdating = (function () {
                 Array.from(formData.entries()).map(([key, value]) => [key, value === '' ? null : value])
             );
             medicineUpdatingParams.unitPrice = CurrencyConverter.getNumericValue(module.unitPriceSelector.val());
+            medicineUpdatingParams.categoryIds = module.medicineCategorySelector.selectpicker('val');
 
             $.ajax({
                 headers: {
@@ -212,7 +217,7 @@ export const MedicineUpdating = (function () {
                 .done(() => {
                     SweetAlert.showAlert('success', operationSuccess, '');
                     module.medicineUpdatingModalSelector.modal('hide');
-                    MedicineList.medicineListTableSelector.DataTable().row.add(medicineUpdatingParams).draw('full-hold');
+                    MedicineList.medicineListTableSelector.DataTable().draw('full-hold');
                 })
                 .fail((jqXHR) => {
                     App.handleResponseMessageByStatusCode(jqXHR);

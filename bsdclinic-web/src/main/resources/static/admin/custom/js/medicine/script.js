@@ -52,12 +52,14 @@ export const MedicineCreation = (function () {
 export const MedicineList = (function () {
     const module = {
         searchInputSelector: $('#search-input'),
+        categorySelectSelector: $('#category-select'),
         medicineListTableSelector: $('#medicine-list-table'),
     };
 
     module.init = () => {
         renderMedicineListTable();
         handleSearchInputChange();
+        handleCategorySelectChange();
     }
 
     const handleSearchInputChange = () => {
@@ -65,7 +67,17 @@ export const MedicineList = (function () {
             DebounceUtil.debounce(
                 renderMedicineListTable,
                 DebounceUtil.delayTime,
-                'medicineSearch'
+                'medicineSearchInput'
+            )();
+        });
+    }
+
+    const handleCategorySelectChange = () => {
+        module.categorySelectSelector.on('changed.bs.select', function () {
+            DebounceUtil.debounce(
+                renderMedicineListTable,
+                DebounceUtil.delayTime,
+                'medicineSearchCategory'
             )();
         });
     }
@@ -73,6 +85,7 @@ export const MedicineList = (function () {
     const getMedicineListFilter = () => {
         return {
             keyword: module.searchInputSelector.val().trim(),
+            categoryIds: module.categorySelectSelector.selectpicker('val')
         }
     }
 

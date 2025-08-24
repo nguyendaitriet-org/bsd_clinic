@@ -2,7 +2,6 @@ package com.bsdclinic;
 
 import com.bsdclinic.category.Category;
 import com.bsdclinic.category.CategoryAssignment;
-import com.bsdclinic.dto.request.CategoryAssignmentRequest;
 import com.bsdclinic.dto.request.CategoryListRequest;
 import com.bsdclinic.dto.request.CategoryCreateRequest;
 import com.bsdclinic.dto.request.CategoryUpdateRequest;
@@ -18,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,20 +58,26 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void createCategoryAssignments(List<CategoryAssignmentRequest> requestList) {
-        List<CategoryAssignment> assignments = categoryMapper.toEntities(requestList);
+    public void createCategoryAssignments(String entityId, String entityTitle, Set<String> categoryIds) {
+        List<CategoryAssignment> assignments = categoryIds.stream()
+                .map(categoryId -> CategoryAssignment.builder()
+                        .entityId(entityId)
+                        .entityTitle(entityTitle)
+                        .categoryId(categoryId)
+                        .build()
+                ).toList();
         categoryAssignmentRepository.saveAll(assignments);
     }
 
     /**
-         * Groups category assignments by entityId and maps each group
-         * to a list of CategoryResponse objects.
-
-         * Example result:
-         * {
-         *   "entity_id_1": [CategoryResponse1, CategoryResponse2],
-         *   "entity_id_2": [CategoryResponse3]
-         * }
+     * Groups category assignments by entityId and maps each group
+     * to a list of CategoryResponse objects.
+     * <p>
+     * Example result:
+     * {
+     * "entity_id_1": [CategoryResponse1, CategoryResponse2],
+     * "entity_id_2": [CategoryResponse3]
+     * }
      */
     @Override
     public Map<String, List<CategoryResponse>> getAssignmentsByEntityIds(List<String> entityIds) {

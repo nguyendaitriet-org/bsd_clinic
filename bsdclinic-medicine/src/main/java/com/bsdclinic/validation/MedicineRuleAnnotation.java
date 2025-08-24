@@ -10,19 +10,6 @@ public class MedicineRuleAnnotation {
     @Documented
     @Target({ElementType.PARAMETER, ElementType.METHOD, ElementType.FIELD})
     @Retention(RetentionPolicy.RUNTIME)
-    @Constraint(validatedBy = MedicineValidator.ValidCategoryIdsValidator.class)
-    @ReportAsSingleViolation
-    public @interface ValidCategoryIds {
-        String message() default "Invalid category IDs";
-
-        Class<?>[] groups() default {};
-
-        Class<? extends Payload>[] payload() default {};
-    }
-
-    @Documented
-    @Target({ElementType.PARAMETER, ElementType.METHOD, ElementType.FIELD})
-    @Retention(RetentionPolicy.RUNTIME)
     @Constraint(validatedBy = MedicineValidator.ValidUnitValidator.class)
     @ReportAsSingleViolation
     public @interface ValidUnit {

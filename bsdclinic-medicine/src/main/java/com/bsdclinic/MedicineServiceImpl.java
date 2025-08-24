@@ -1,7 +1,6 @@
 package com.bsdclinic;
 
 import com.bsdclinic.category.CategoryAssignment;
-import com.bsdclinic.dto.request.CategoryAssignmentRequest;
 import com.bsdclinic.dto.request.MedicineRequest;
 import com.bsdclinic.dto.request.MedicineFilter;
 import com.bsdclinic.dto.response.CategoryResponse;
@@ -39,18 +38,7 @@ public class MedicineServiceImpl implements MedicineService {
         Medicine medicine = medicineMapper.toEntity(request);
         medicine = medicineRepository.save(medicine);
 
-        saveMedicineCategoryAssignments(medicine.getMedicineId(), medicine.getTitle(), request.getCategoryIds());
-    }
-
-    private void saveMedicineCategoryAssignments(String medicineId, String medicineTitle, Set<String> categoryIds) {
-        List<CategoryAssignmentRequest> assignmentRequests = categoryIds.stream()
-                .map(categoryId -> CategoryAssignmentRequest.builder()
-                        .entityId(medicineId)
-                        .entityTitle(medicineTitle)
-                        .categoryId(categoryId)
-                        .build()
-                ).toList();
-        categoryService.createCategoryAssignments(assignmentRequests);
+        categoryService.createCategoryAssignments(medicine.getMedicineId(), medicine.getTitle(), request.getCategoryIds());
     }
 
     @Override
@@ -105,7 +93,7 @@ public class MedicineServiceImpl implements MedicineService {
         categoryService.deleteAssignmentByEntityId(medicineId);
         Set<String> categoryIds = request.getCategoryIds();
         if (!Collections.isEmpty(categoryIds)) {
-            saveMedicineCategoryAssignments(medicine.getMedicineId(), medicine.getTitle(), categoryIds);
+            categoryService.createCategoryAssignments(medicine.getMedicineId(), medicine.getTitle(), categoryIds);
         }
     }
 

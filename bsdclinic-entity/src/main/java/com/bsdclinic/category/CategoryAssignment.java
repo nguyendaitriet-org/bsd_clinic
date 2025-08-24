@@ -2,10 +2,12 @@ package com.bsdclinic.category;
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Accessors(chain = true)

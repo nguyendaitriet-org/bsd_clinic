@@ -1,5 +1,7 @@
 package com.bsdclinic.dto.request;
 
+import com.bsdclinic.category.CategoryType;
+import com.bsdclinic.validation.CategoryRuleAnnotation;
 import com.bsdclinic.validation.MedicineRuleAnnotation;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -32,6 +34,9 @@ public class MedicineRequest {
     @Size(max = 1000, message = "{validation.input.max_length.1000}")
     private String sideEffect;
 
-    @MedicineRuleAnnotation.ValidCategoryIds(message = "{validation.invalid.category_ids}")
+    @CategoryRuleAnnotation.ValidCategoryIds(
+            message = "{validation.invalid.category_ids}",
+            categoryType = CategoryType.MEDICINE
+    )
     private Set<String> categoryIds;
 }

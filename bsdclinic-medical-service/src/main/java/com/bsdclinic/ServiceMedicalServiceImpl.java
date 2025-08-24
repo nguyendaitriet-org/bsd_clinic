@@ -9,6 +9,7 @@ import com.bsdclinic.medical_service.MedicalService;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.repository.MedicalServiceRepository;
 import com.bsdclinic.response.DatatableResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -24,10 +25,15 @@ public class ServiceMedicalServiceImpl implements ServiceMedicalService {
     private final MedicalServiceRepository medicalServiceRepository;
     private final MedicalServiceMapper medicalServiceMapper;
     private final MessageProvider messageProvider;
+    private final CategoryService categoryService;
 
+    @Override
+    @Transactional
     public void create(MedicalServiceRequest request) {
         MedicalService service = medicalServiceMapper.toEntity(request);
-        medicalServiceRepository.save(service);
+        service = medicalServiceRepository.save(service);
+
+        categoryService.createCategoryAssignments(service.getMedicalServiceId(), service.getTitle(), request.getCategoryIds());
     }
 
     @Override

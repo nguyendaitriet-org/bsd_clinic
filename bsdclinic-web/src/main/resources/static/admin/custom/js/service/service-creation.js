@@ -8,6 +8,7 @@ export const ServiceCreation = (function () {
         titleSelector: $('#create-medical-service-modal .title-input'),
         priceSelector: $('#create-medical-service-modal .price-input'),
         descriptionSelector: $('#create-medical-service-modal .description-input'),
+        serviceCategorySelector: $('#create-medical-service-modal .service-category'),
         saveButtonSelector: $('#create-medical-service-modal .btn-save'),
         medicalServiceCreationModalSelector: $('#create-medical-service-modal')
     };
@@ -29,7 +30,8 @@ export const ServiceCreation = (function () {
             {
                 title: module.titleSelector.val().trim(),
                 price: CurrencyConverter.getNumericValue(module.priceSelector.val()),
-                description:  module.descriptionSelector.val().trim(),
+                description: module.descriptionSelector.val().trim(),
+                categoryIds: module.serviceCategorySelector.selectpicker('val')
             }
         );
     }
@@ -47,7 +49,7 @@ export const ServiceCreation = (function () {
             .done(() => {
                 module.medicalServiceCreationModalSelector.modal('hide');
                 App.showSuccessMessage(createSuccess);
-                ServiceList.serviceListTableSelector.DataTable().row.add(medicalServiceCreationData).draw('full-hold');
+                ServiceList.serviceListTableSelector.DataTable().draw('full-hold');
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);

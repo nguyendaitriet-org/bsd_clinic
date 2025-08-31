@@ -21,6 +21,17 @@
                         </div>
 
                         <div class="mb-3 with-validation">
+                            <label for="service-category" class="form-label fw-semibold" th:text="#{title.category}"></label>
+                            <select id="service-category" class="selectpicker w-100 service-category"
+                                    th:data-none-selected-text="#{placeholder.category}"
+                                    tabindex="-1" data-live-search="true" multiple name="categoryIds">
+                                <th:block th:each="serviceCategory: ${medicalServiceCategories}">
+                                    <option th:value="${serviceCategory.categoryId}" th:text="${serviceCategory.title}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 with-validation">
                             <label for="service-description" class="form-label fw-semibold" th:text="#{title.description}"></label>
                             <textarea class="form-control description-input" id="service-description" name="description" rows="3"></textarea>
                         </div>

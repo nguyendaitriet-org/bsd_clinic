@@ -21,6 +21,11 @@
                         </div>
 
                         <div class="mb-3 with-validation">
+                            <label class="form-label fw-semibold" th:text="#{title.category}"></label>
+                            <th:block th:replace="~{admin/component/category-selection :: category-modal-selection}"></th:block>
+                        </div>
+
+                        <div class="mb-3 with-validation">
                             <label for="service-description" class="form-label fw-semibold" th:text="#{title.description}"></label>
                             <textarea class="form-control description-input" id="service-description" name="description" rows="3"></textarea>
                         </div>

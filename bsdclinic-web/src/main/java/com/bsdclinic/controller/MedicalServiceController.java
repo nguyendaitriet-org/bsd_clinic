@@ -18,7 +18,7 @@ import java.util.List;
 public class MedicalServiceController {
     private final CategoryService categoryService;
 
-    @ModelAttribute("medicalServiceCategories")
+    @ModelAttribute("entityCategories")
     public List<CategoryResponse> getMedicineCategories() {
         CategoryListRequest request = CategoryListRequest.builder()
                 .categoryType(CategoryType.MEDICAL_SERVICE.name())

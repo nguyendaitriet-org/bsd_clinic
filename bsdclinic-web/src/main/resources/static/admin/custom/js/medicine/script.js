@@ -9,7 +9,7 @@ export const MedicineCreation = (function () {
         createMedicineFormSelector: $('#create-medicine-form'),
         saveMedicineButtonSelector: $('.btn-save'),
         unitPriceSelector: $('#create-medicine-modal .price-input'),
-        medicineCategorySelector: $('#create-medicine-modal .medicine-category')
+        medicineCategorySelector: $('#create-medicine-modal .category-select')
     };
 
     module.init = () => {
@@ -169,7 +169,7 @@ export const MedicineUpdating = (function () {
         updateMedicineFormSelector: $('#update-medicine-form'),
         unitPriceSelector: $('#update-medicine-modal .price-input'),
         unitSelector: $('#update-medicine-modal .dosage-unit'),
-        medicineCategorySelector: $('#update-medicine-modal .medicine-category'),
+        medicineCategorySelector: $('#update-medicine-modal .category-select'),
     };
 
     module.init = () => {
@@ -199,7 +199,7 @@ export const MedicineUpdating = (function () {
                 continue;
             }
             if (key === 'medicineCategories') {
-                const categoryIds = medicineData[key].map(item => item.categoryId);
+                const categoryIds = medicineData[key] ? medicineData[key].map(item => item.categoryId) : [];
                 module.medicineCategorySelector.selectpicker('val', categoryIds);
                 continue;
             }

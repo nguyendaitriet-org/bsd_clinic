@@ -1,10 +1,20 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
 
-<th:block th:fragment="category-selection">
+<th:block th:fragment="category-filter-selection">
     <select id="category-select" class="selectpicker w-100"
             th:data-none-selected-text="#{placeholder.category}"
             tabindex="-1" data-actions-box="true" multiple>
-        <th:block th:each="medicineCategory: ${medicineCategories}">
+        <th:block th:each="medicineCategory: ${entityCategories}">
+            <option th:value="${medicineCategory.categoryId}" th:text="${medicineCategory.title}"></option>
+        </th:block>
+    </select>
+</th:block>
+
+<th:block th:fragment="category-modal-selection">
+    <select class="selectpicker w-100 category-select"
+            th:data-none-selected-text="#{placeholder.category}"
+            tabindex="-1" data-live-search="true" multiple name="categoryIds">
+        <th:block th:each="medicineCategory: ${entityCategories}">
             <option th:value="${medicineCategory.categoryId}" th:text="${medicineCategory.title}"></option>
         </th:block>
     </select>

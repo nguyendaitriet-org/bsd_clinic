@@ -7,7 +7,6 @@ import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.medicine.TakenMedicine;
 import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.prescription.Prescription;
-import com.bsdclinic.repository.PrescriptionRepository;
 import com.bsdclinic.repository.TakenMedicineRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

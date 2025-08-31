@@ -5,11 +5,13 @@ export const ServiceList = (function () {
     const module = {
         searchInputSelector: $('#search-input'),
         serviceListTableSelector: $('#service-list-table'),
+        categorySelectSelector: $('#category-select'),
     };
 
     module.init = () => {
         renderMedicalServiceListTable();
         handleSearchInputChange();
+        handleCategorySelectChange();
     }
 
     const handleSearchInputChange = () => {
@@ -22,9 +24,20 @@ export const ServiceList = (function () {
         });
     }
 
+    const handleCategorySelectChange = () => {
+        module.categorySelectSelector.on('changed.bs.select', function () {
+            DebounceUtil.debounce(
+                renderMedicalServiceListTable,
+                DebounceUtil.delayTime,
+                'serviceSearchCategory'
+            )();
+        });
+    }
+
     const getMedicalServiceListFilter = () => {
         return {
             keyword: module.searchInputSelector.val().trim(),
+            categoryIds: module.categorySelectSelector.selectpicker('val')
         }
     }
 

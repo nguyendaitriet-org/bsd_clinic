@@ -13,8 +13,5 @@ import java.util.List;
 @Repository
 public interface MedicineRepository extends JpaRepository<Medicine, String>, JpaSpecificationExecutor<Medicine> {
     @Query(value = "SELECT * FROM medicines m WHERE vietnamese_text_search(m.title, :keyword)", nativeQuery = true)
-    Page<Medicine> findAllByFilterWithPage(String keyword, Pageable pageable);
-
-    @Query(value = "SELECT * FROM medicines m WHERE vietnamese_text_search(m.title, :keyword)", nativeQuery = true)
     List<Medicine> findAllByKeyword(String keyword);
 }

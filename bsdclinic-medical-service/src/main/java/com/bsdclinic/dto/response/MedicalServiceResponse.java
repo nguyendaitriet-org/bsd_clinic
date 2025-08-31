@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,4 +13,5 @@ public class MedicalServiceResponse {
     private String title;
     private BigDecimal price;
     private String description;
+    private List<CategoryResponse> serviceCategories;
 }

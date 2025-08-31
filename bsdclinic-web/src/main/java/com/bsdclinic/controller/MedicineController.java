@@ -26,7 +26,7 @@ public class MedicineController {
         return messageProvider.getMessageMap("medicine.dosage_unit", "constants");
     }
 
-    @ModelAttribute("medicineCategories")
+    @ModelAttribute("entityCategories")
     public List<CategoryResponse> getMedicineCategories() {
         CategoryListRequest request = CategoryListRequest.builder()
                 .categoryType(CategoryType.MEDICINE.name())

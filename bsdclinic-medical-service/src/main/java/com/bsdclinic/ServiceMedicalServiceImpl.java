@@ -13,6 +13,7 @@ import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.repository.MedicalServiceRepository;
 import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.specification.EntitySpecifications;
+import io.jsonwebtoken.lang.Collections;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -96,15 +98,26 @@ public class ServiceMedicalServiceImpl implements ServiceMedicalService {
     }
 
     @Override
+    @Transactional
     public void updateMedicalService(String medicalServiceId, MedicalServiceRequest request) {
         MedicalService medicalService = findById(medicalServiceId);
         medicalService = medicalServiceMapper.toEntity(request, medicalService);
         medicalServiceRepository.save(medicalService);
+        Set<String> categoryIds = request.getCategoryIds();
+        if (!Collections.isEmpty(categoryIds)) {
+            categoryService.createCategoryAssignments(
+                    medicalService.getMedicalServiceId(),
+                    medicalService.getTitle(),
+                    categoryIds
+            );
+        }
     }
 
     @Override
+    @Transactional
     public void deleteMedicalService(String medicalServiceId) {
         MedicalService medicalService = findById(medicalServiceId);
         medicalServiceRepository.delete(medicalService);
+        categoryService.deleteAssignmentByEntityId(medicalServiceId);
     }
 }

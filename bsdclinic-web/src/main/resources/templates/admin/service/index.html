@@ -20,7 +20,7 @@
                    th:placeholder="#{placeholder.find_service}">
         </div>
         <div class="col-2 mx-3">
-            <th:block th:replace="~{admin/component/category-selection :: category-selection}"></th:block>
+            <th:block th:replace="~{admin/component/category-selection :: category-filter-selection}"></th:block>
         </div>
         <button class="btn btn-primary btn-round" type="button" th:text="#{title.create}"
                 data-bs-toggle="modal" data-bs-target="#create-medical-service-modal"></button>
@@ -31,6 +31,7 @@
             <tr class="text-center">
                 <th>#</th>
                 <th th:text="#{title.medical_service.name}"></th>
+                <th class="w-10" th:text="#{title.category}"></th>
                 <th th:text="#{title.price}"></th>
                 <th class="w-40" th:text="#{title.description}"></th>
                 <th th:text="#{title.action}"></th>

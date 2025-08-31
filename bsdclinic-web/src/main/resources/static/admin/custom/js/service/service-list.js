@@ -55,6 +55,7 @@ export const ServiceList = (function () {
             columns: [
                 {data: null},
                 {data: 'title'},
+                {data: 'serviceCategories'},
                 {data: 'price'},
                 {data: 'description'},
                 {data: null},
@@ -70,11 +71,17 @@ export const ServiceList = (function () {
             pagingType: 'simple_numbers',
             columnDefs: [
                 {
-                    targets: [0, 2, 4],
+                    targets: [0, 3, 5],
                     className: "text-center"
                 },
                 {
                     targets: 2,
+                    render: (data) => {
+                        return data && data.map(item =>`<button class="btn btn-sm btn-secondary mt-2">${item.title}</button>` );
+                    }
+                },
+                {
+                    targets: 3,
                     render: (data) => {
                         return CurrencyConverter.formatCurrencyVND(data);
                     }

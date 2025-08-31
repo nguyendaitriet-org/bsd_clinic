@@ -1,4 +1,4 @@
-import {App} from "/common/js/app.js";
+import {App, SweetAlert} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 import {CurrencyConverter} from "/common/js/currency_util.js";
 import {ServiceList} from "/admin/custom/js/service/service-list.js";
@@ -8,10 +8,10 @@ export const ServiceCreation = (function () {
         titleSelector: $('#create-medical-service-modal .title-input'),
         priceSelector: $('#create-medical-service-modal .price-input'),
         descriptionSelector: $('#create-medical-service-modal .description-input'),
-        serviceCategorySelector: $('#create-medical-service-modal .service-category'),
+        serviceCategorySelector: $('#create-medical-service-modal .category-select'),
         saveButtonSelector: $('#create-medical-service-modal .btn-save'),
         medicalServiceCreationModalSelector: $('#create-medical-service-modal')
-    };
+    }
 
     module.init = () => {
         handleSaveButton();
@@ -48,7 +48,7 @@ export const ServiceCreation = (function () {
         })
             .done(() => {
                 module.medicalServiceCreationModalSelector.modal('hide');
-                App.showSuccessMessage(createSuccess);
+                SweetAlert.showAlert('success', createSuccess, '');
                 ServiceList.serviceListTableSelector.DataTable().draw('full-hold');
             })
             .fail((jqXHR) => {

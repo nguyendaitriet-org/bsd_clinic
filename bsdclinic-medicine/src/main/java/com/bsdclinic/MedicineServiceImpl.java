@@ -9,6 +9,7 @@ import com.bsdclinic.exception_handler.exception.NotFoundException;
 import com.bsdclinic.medicine.Medicine;
 import com.bsdclinic.medicine.Medicine_;
 import com.bsdclinic.message.MessageProvider;
+import com.bsdclinic.repository.MedicineRepository;
 import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.specification.EntitySpecifications;
 import io.jsonwebtoken.lang.Collections;
@@ -87,7 +88,7 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     @Transactional
     public void updateMedicine(String medicineId, MedicineRequest request) {
-        Medicine medicine = getMedicine(medicineId);
+        Medicine medicine = findById(medicineId);
         medicine = medicineMapper.toEntity(medicine, request);
         medicineRepository.save(medicine);
         categoryService.deleteAssignmentByEntityId(medicineId);
@@ -100,12 +101,12 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     @Transactional
     public void deleteMedicine(String medicineId) {
-        Medicine medicine = getMedicine(medicineId);
+        Medicine medicine = findById(medicineId);
         medicineRepository.delete(medicine);
         categoryService.deleteAssignmentByEntityId(medicineId);
     }
 
-    private Medicine getMedicine(String medicineId) {
+    private Medicine findById(String medicineId) {
         return medicineRepository.findById(medicineId).orElseThrow(
                 () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.medicine"))
         );

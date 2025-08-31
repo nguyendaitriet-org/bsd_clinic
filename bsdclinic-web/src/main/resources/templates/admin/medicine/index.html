@@ -20,7 +20,7 @@
                    th:placeholder="#{placeholder.find_medicine}">
         </div>
         <div class="col-2 mx-3">
-            <th:block th:replace="~{admin/component/category-selection :: category-selection}"></th:block>
+            <th:block th:replace="~{admin/component/category-selection :: category-filter-selection}"></th:block>
         </div>
         <button class="btn btn-primary btn-round" type="button" th:text="#{title.create}"
                 data-bs-toggle="modal" data-bs-target="#create-medicine-modal"></button>

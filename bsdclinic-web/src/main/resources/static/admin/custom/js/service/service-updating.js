@@ -8,6 +8,8 @@ export const ServiceUpdating = (function () {
         medicalServiceUpdatingModalSelector: $('#update-medical-service-modal'),
         updateMedicalServiceFormSelector: $('#update-medical-service-form'),
         priceSelector: $('#update-medical-service-modal .price-input'),
+        serviceCategorySelector: $('#update-medical-service-modal .category-select'),
+
     };
 
     module.init = () => {
@@ -32,6 +34,11 @@ export const ServiceUpdating = (function () {
                 module.medicalServiceUpdatingModalSelector.find(`input[name="price"]`).val(vndPrice);
                 continue;
             }
+            if (key === 'serviceCategories') {
+                const categoryIds = medicalServiceData[key] ? medicalServiceData[key].map(item => item.categoryId) : [];
+                module.serviceCategorySelector.selectpicker('val', categoryIds);
+                continue;
+            }
             module.medicalServiceUpdatingModalSelector.find(`input[name="${key}"]`).val(medicalServiceData[key]);
             module.medicalServiceUpdatingModalSelector.find(`textarea[name="${key}"]`).val(medicalServiceData[key]);
         }
@@ -45,6 +52,7 @@ export const ServiceUpdating = (function () {
                 Array.from(formData.entries()).map(([key, value]) => [key, value === '' ? null : value])
             );
             medicalServiceUpdatingParams.price = CurrencyConverter.getNumericValue(module.priceSelector.val());
+            medicalServiceUpdatingParams.categoryIds = module.serviceCategorySelector.selectpicker('val');
 
             $.ajax({
                 headers: {
@@ -58,7 +66,7 @@ export const ServiceUpdating = (function () {
                 .done(() => {
                     SweetAlert.showAlert('success', operationSuccess, '');
                     module.medicalServiceUpdatingModalSelector.modal('hide');
-                    ServiceList.serviceListTableSelector.DataTable().row.add(medicalServiceUpdatingParams).draw('full-hold');
+                    ServiceList.serviceListTableSelector.DataTable().draw('full-hold');
                 })
                 .fail((jqXHR) => {
                     App.handleResponseMessageByStatusCode(jqXHR);

@@ -16,7 +16,6 @@ import com.bsdclinic.repository.RoleRepository;
 import com.bsdclinic.repository.UserRepository;
 import com.bsdclinic.repository.UserSpecifications;
 import com.bsdclinic.response.DatatableResponse;
-import com.bsdclinic.storage.FileStorageService;
 import com.bsdclinic.user.Role;
 import com.bsdclinic.user.User;
 import com.bsdclinic.user.UserStatus;

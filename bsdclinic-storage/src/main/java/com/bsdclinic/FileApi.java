@@ -1,7 +1,6 @@
-package com.bsdclinic.api;
+package com.bsdclinic;
 
 import com.bsdclinic.constant.ComponentName;
-import com.bsdclinic.storage.FileStorageService;
 import com.bsdclinic.url.WebUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

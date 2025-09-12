@@ -1,4 +1,4 @@
-package com.bsdclinic.storage;
+package com.bsdclinic;
 
 import com.bsdclinic.constant.ComponentName;
 import com.bsdclinic.message.MessageProvider;

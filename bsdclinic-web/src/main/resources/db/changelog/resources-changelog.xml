@@ -1,0 +1,24 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.13.xsd">
+
+    <changeSet id="12092025_1" author="triet.nguyendai" context="Create resources table">
+        <sql>
+            CREATE TABLE IF NOT EXISTS resources (
+                resource_id VARCHAR(50) NOT NULL DEFAULT generate_nanoid(),
+                title VARCHAR(255) NOT NULL,
+                description TEXT,
+                resource_type VARCHAR(20) NOT NULL,
+                mime_type VARCHAR(20),
+                file_size BIGINT NOT NULL,
+                storage_path TEXT NOT NULL,
+                uploaded_by VARCHAR(50) NOT NULL,
+                created_at TIMESTAMP,
+                updated_at TIMESTAMP,
+                CONSTRAINT resource_pkey PRIMARY KEY (resource_id)
+            )
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

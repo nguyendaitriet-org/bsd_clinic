@@ -5,7 +5,7 @@ import java.util.List;
 
 public enum CategoryType {
     POST,
-    VIDEO,
+    RESOURCE,
     MEDICINE,
     MEDICAL_SERVICE;
 

@@ -1,4 +1,4 @@
-package com.bsdclinic.controller;
+package com.bsdclinic.controller.admin;
 
 import com.bsdclinic.ServiceMedicalService;
 import com.bsdclinic.UserService;

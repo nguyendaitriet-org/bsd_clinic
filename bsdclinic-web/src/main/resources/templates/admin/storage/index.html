@@ -1,0 +1,137 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/app}"
+>
+
+<th:block layout:fragment="content-style">
+    <style>
+        .resource-type-item {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .resource-type-item:hover {
+            background-color: var(--bs-primary);
+            color: white !important;
+        }
+
+        .resource-type-item.active {
+            background-color: var(--bs-primary);
+            color: white !important;
+            border-color: var(--bs-primary);
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        .with-validation .error-text {
+            top: 50%;
+            left: 25%;
+            bottom: unset;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="content-title" th:text="#{title.resource.list}"></th:block>
+<th:block layout:fragment="content-title-note"></th:block>
+<th:block layout:fragment="content-button"></th:block>
+
+<th:block layout:fragment="content-body">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Resource Types Navigation -->
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3" th:text="#{title.resource.type}"></h5>
+                        <div class="d-flex flex-wrap gap-2">
+                            <th:block th:each="resourceType, iterStat : ${resourceTypes}">
+                                <label class="btn btn-outline-primary resource-type-item"
+                                       th:classappend="${iterStat.index == 0} ? active : ''">
+                                    <input type="radio" name="resourceType"
+                                           th:value="${resourceType.key}"
+                                           th:text="${resourceType.value}"
+                                           th:data-text="${resourceType.value}"
+                                           th:checked="${iterStat.index == 0}">
+                                </label>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content - Category List -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4 gap-3">
+                            <h4 id="category-title-text"></h4>
+                            <div class="btn-group">
+                                <button class="btn btn-secondary" id="add-category-btn">
+                                    <i class="fa fa-plus-circle"></i>
+                                    <span th:text="#{title.resource.add}"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Search input field -->
+                        <div class="mb-4">
+                            <div class="input-group">
+                                <label class="input-group-text" for="search-input">
+                                    <i class="fa fa-search"></i>
+                                </label>
+                                <input type="search" class="form-control" id="search-input"
+                                       th:placeholder="#{placeholder.find_resource}" autocomplete="off">
+                            </div>
+                        </div>
+                        <table id="user-list-table" class="table table-sm table-hover table-head-bg-black dataTable w-100">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th th:text="#{title.resource}"></th>
+                                    <th th:text="#{title.size}"></th>
+                                    <th th:text="#{title.creator}"></th>
+                                    <th th:text="#{title.created_at}"></th>
+                                    <th th:text="#{title.action}"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Bao_cao_doanh_thu_2025.docx</td>
+                                    <td>1.12MB</td>
+                                    <td>Admin 1</td>
+                                    <td>16/09/2025</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-sm btn-warning" type="button">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-primary" type="button">
+                                                <i class="fa fa-pen"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-success" type="button">
+                                                <i class="fa fa-arrow-down"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger" type="button">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="resource-script">
+    <script type="module">
+
+    </script>
+</th:block>

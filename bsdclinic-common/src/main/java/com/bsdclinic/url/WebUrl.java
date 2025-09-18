@@ -14,6 +14,7 @@ public class WebUrl {
     public static final String ADMIN_MEDICAL_SERVICE_INDEX = "/admin/services";
     public static final String ADMIN_MEDICINE_INDEX = "/admin/medicines";
     public static final String ADMIN_CATEGORY_INDEX = "/admin/categories";
+    public static final String ADMIN_RESOURCE_INDEX = "/admin/resources";
 
     public static final String LOGIN = "/login";
     public static final String LOGOUT = "/logout";

@@ -1,4 +1,4 @@
-package com.bsdclinic.controller;
+package com.bsdclinic.controller.admin;
 
 import com.bsdclinic.url.WebUrl;
 import org.springframework.stereotype.Controller;

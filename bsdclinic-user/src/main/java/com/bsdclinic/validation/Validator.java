@@ -99,8 +99,6 @@ public class Validator {
                 return false;
             }
 
-            context.disableDefaultConstraintViolation();
-
             String contentType = avatar.getContentType();
             if (!isSupportedContentType(contentType)) {
                 context.buildConstraintViolationWithTemplate("{validation.extension.avatar}")

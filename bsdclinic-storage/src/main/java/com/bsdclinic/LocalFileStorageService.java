@@ -26,7 +26,12 @@ public class LocalFileStorageService implements FileStorageService {
     private String basePath;
 
     @Override
-    public String uploadFile(MultipartFile file, String path, String fileName) {
+    public List<String> uploadFiles(List<MultipartFile> files, String path) {
+        return List.of();
+    }
+
+    @Override
+    public String uploadSingleFile(MultipartFile file, String path, String fileName) {
         try {
             Path destination = Paths.get(basePath, path, fileName);
             Files.createDirectories(destination.getParent());

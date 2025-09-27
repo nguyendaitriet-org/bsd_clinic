@@ -97,7 +97,8 @@ public class WebUrl {
     public static final String API_ADMIN_CATEGORY = API_ADMIN_ENDPOINT + "/categories";
     public static final String API_ADMIN_CATEGORY_WITH_ID = API_ADMIN_CATEGORY + "/{categoryId}";
 
-
+    // API Admin - Resource
+    public static final String API_ADMIN_RESOURCE = API_ADMIN_ENDPOINT + "/resources";
 
     // API Client - Appointment
     public static final String API_CLIENT_APPOINTMENT = API_CLIENT_ENDPOINT + "/appointments";

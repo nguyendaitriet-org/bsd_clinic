@@ -14,6 +14,7 @@ import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -40,7 +41,18 @@ public class S3FileStorageService implements FileStorageService {
     }
 
     @Override
-    public String uploadFile(MultipartFile file, String path, String fileName) {
+    public List<String> uploadFiles(List<MultipartFile> files, String path) {
+        List<CompletableFuture<String>> futures = files.stream()
+                .map(file -> CompletableFuture.supplyAsync(() -> uploadSingleFile(file, path, file.getOriginalFilename())))
+                .toList();
+
+        return futures.stream()
+                .map(CompletableFuture::join)
+                .toList();
+    }
+
+    @Override
+    public String uploadSingleFile(MultipartFile file, String path, String fileName) {
         String key = buildKey(path, fileName);
         try {
             PutObjectRequest request = PutObjectRequest.builder()
@@ -50,6 +62,7 @@ public class S3FileStorageService implements FileStorageService {
                     .build();
 
             s3Client.putObject(request, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+
             return key;
         } catch (IOException e) {
             throw new RuntimeException(messageProvider.getMessage("message.file.fail_to_store", fileName), e);

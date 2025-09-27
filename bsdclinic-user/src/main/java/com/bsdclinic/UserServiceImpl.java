@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserService {
     public AvatarResponse saveAvatar(MultipartFile avatar, String userId) {
         String fileName = userId + "." + FilenameUtils.getExtension(avatar.getOriginalFilename());
         fileStorageService.deleteFilesByBaseName(userId, AVATAR_FOLDER);
-        fileStorageService.uploadFile(avatar, AVATAR_FOLDER, fileName);
+        fileStorageService.uploadSingleFile(avatar, AVATAR_FOLDER, fileName);
 
         return new AvatarResponse(fileName);
     }

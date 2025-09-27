@@ -3,8 +3,11 @@ package com.bsdclinic;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface FileStorageService {
-    String uploadFile(MultipartFile file, String path, String fileName);
+    List<String> uploadFiles(List<MultipartFile> files, String path);
+    String uploadSingleFile(MultipartFile file, String path, String fileName);
     Resource downloadFile(String fileName, String path);
     Resource downloadFileByBaseName(String fileName, String path);
     void deleteFile(String filename, String path);

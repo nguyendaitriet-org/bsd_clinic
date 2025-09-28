@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum CategoryType {
-    POST,
+    ARTICLE,
     RESOURCE,
     MEDICINE,
     MEDICAL_SERVICE;

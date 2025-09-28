@@ -1,0 +1,76 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/app}"
+>
+
+<th:block layout:fragment="content-style">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+
+    <style>
+        .card-body {
+            padding: 2rem !important;
+        }
+
+        .ql-container {
+            height: 0;
+            min-height: 500px;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="content-title"></th:block>
+<th:block layout:fragment="content-title-note"></th:block>
+<th:block layout:fragment="content-button"></th:block>
+
+<th:block layout:fragment="content-body">
+    <div class="card" id="create-article">
+        <div class="card-header bg-black custom-card-header" th:text="#{title.article.creation}"></div>
+        <div class="card-body d-flex flex-wrap">
+            <div class="col-md-6 form-group with-validation">
+                <label class="required-field" for="article-title" th:text="#{title.title}"></label>
+                <input type="text" class="form-control" id="article-title" name="title"
+                       th:placeholder="#{placeholder.article_title}">
+            </div>
+            <div class="col-md-6 form-group with-validation">
+                <label for="article-url" th:text="#{title.article.url_slug}"></label>
+                <div class="input-group">
+                    <span class="input-group-text">/articles/</span>
+                    <input type="text" class="form-control" id="article-url" name="slugUrl"
+                           th:placeholder="#{placeholder.article_slug_url}">
+                </div>
+            </div>
+            <div class="col-md-6 form-group with-validation">
+                <label class="required-field" for="article-author" th:text="#{title.author}"></label>
+                <input type="text" class="form-control" id="article-author" name="title"
+                       th:value="${user.fullName}"
+                       th:placeholder="#{placeholder.author}">
+            </div>
+            <div class="col-md-6 form-group with-validation">
+                <label class="required-field" th:text="#{title.category}"></label>
+                <th:block th:replace="~{admin/component/category-selection :: category-modal-selection}"></th:block>
+            </div>
+            <div class="col-md-12 form-group with-validation">
+                <label class="required-field" th:text="#{title.content}"></label>
+                <div id="article-editor" class="editor-container"></div>
+            </div>
+        </div>
+        <div class="card-footer px-5 py-3">
+            <div class="btn-group float-end">
+                <button id="submit-btn" class="btn btn-black" type="button" th:text="#{title.create}"></button>
+                <button id="draft-btn" class="btn btn-secondary" type="button" th:text="#{title.save_draft}"></button>
+                <button id="reset-btn" class="btn btn-danger" type="button" th:text="#{title.reset}"></button>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="article-script">
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+    <script type="module">
+        import {ArticleCreation} from '/admin/custom/js/article/create.js';
+
+        ArticleCreation.init();
+    </script>
+</th:block>

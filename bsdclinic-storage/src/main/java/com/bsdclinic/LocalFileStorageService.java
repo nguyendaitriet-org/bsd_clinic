@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -26,8 +27,8 @@ public class LocalFileStorageService implements FileStorageService {
     private String basePath;
 
     @Override
-    public List<String> uploadFiles(List<MultipartFile> files, String path) {
-        return List.of();
+    public Map<String, String> uploadFiles(List<MultipartFile> files, String path) {
+        return Map.of();
     }
 
     @Override

@@ -14,6 +14,7 @@ import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -41,14 +42,22 @@ public class S3FileStorageService implements FileStorageService {
     }
 
     @Override
-    public List<String> uploadFiles(List<MultipartFile> files, String path) {
-        List<CompletableFuture<String>> futures = files.stream()
-                .map(file -> CompletableFuture.supplyAsync(() -> uploadSingleFile(file, path, file.getOriginalFilename())))
+    public Map<String, String> uploadFiles(List<MultipartFile> files, String path) {
+        List<CompletableFuture<Map.Entry<String, String>>> futures = files.stream()
+                .map(file -> CompletableFuture.supplyAsync(() -> {
+                    String originalFilename = file.getOriginalFilename();
+                    String nameWithoutExt = originalFilename != null && originalFilename.contains(".")
+                            ? originalFilename.substring(0, originalFilename.lastIndexOf("."))
+                            : originalFilename;
+
+                    String resourcePath = uploadSingleFile(file, path, originalFilename);
+                    return Map.entry(nameWithoutExt, resourcePath);
+                }))
                 .toList();
 
         return futures.stream()
                 .map(CompletableFuture::join)
-                .toList();
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     @Override

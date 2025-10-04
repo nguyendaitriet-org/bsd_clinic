@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
+@Validated
 public class ResourceApi {
     @Autowired
     @Qualifier(value = ComponentName.S3_FILE_STORAGE)

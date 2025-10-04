@@ -2,13 +2,12 @@ package com.bsdclinic.resource;
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import com.bsdclinic.BaseEntity;import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 @Getter
 @Setter
-@Accessors(chain = true)
 @Entity
 @Table(name = "resources")
 public class AppResource extends BaseEntity {

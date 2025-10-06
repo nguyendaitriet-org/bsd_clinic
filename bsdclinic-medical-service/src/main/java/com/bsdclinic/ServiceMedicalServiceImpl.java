@@ -103,6 +103,7 @@ public class ServiceMedicalServiceImpl implements ServiceMedicalService {
         MedicalService medicalService = findById(medicalServiceId);
         medicalService = medicalServiceMapper.toEntity(request, medicalService);
         medicalServiceRepository.save(medicalService);
+
         Set<String> categoryIds = request.getCategoryIds();
         if (!Collections.isEmpty(categoryIds)) {
             categoryService.createCategoryAssignments(

@@ -18,8 +18,12 @@
                             <th:block th:replace="~{admin/component/category-selection :: category-modal-selection}"></th:block>
                         </div>
                         <div class="mb-3 with-validation">
-                            <label for="storage-create-description" class="form-label fw-semibold" th:text="#{title.description}"></label>
-                            <textarea class="form-control description-input" id="storage-create-description" name="description" rows="3"></textarea>
+                            <label for="resource-create-description" class="form-label fw-semibold" th:text="#{title.description}"></label>
+                            <textarea class="form-control" id="resource-create-description" name="description" rows="3"></textarea>
+                        </div>
+                        <div class="d-flex justify-content-end gap-3 mt-5">
+                            <button type="button" class="btn btn-primary btn-save" th:text="#{title.save}"></button>
+                            <button type="button" class="btn btn-secondary" th:text="#{title.cancel}" data-bs-dismiss="modal"></button>
                         </div>
                     </form>
                 </div>

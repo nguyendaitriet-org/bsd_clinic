@@ -134,8 +134,9 @@
     <th:block th:replace="~{admin/storage/component/creation_form :: create-resource}"></th:block>
 </th:block>
 
-<th:block layout:fragment="resource-script">
+<th:block layout:fragment="storage-script">
     <script type="module">
-
+        import {ResourceCreation} from '/admin/custom/js/storage/create.js';
+        ResourceCreation.init();
     </script>
 </th:block>

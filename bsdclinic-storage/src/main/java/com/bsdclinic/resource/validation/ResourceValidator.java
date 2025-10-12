@@ -24,9 +24,31 @@ public class ResourceValidator {
                 return false;
             }
 
+            String baseExtension = null;
+
             for (MultipartFile resource : resources) {
-                long resourceSize = resource.getSize();
-                if (resourceSize > MAX_RESOURCE_SIZE) {
+                String fileName = resource.getOriginalFilename();
+
+                if (fileName == null || !fileName.contains(".")) {
+                    context.buildConstraintViolationWithTemplate("{validation.invalid.resource_file}")
+                            .addConstraintViolation();
+                    return false;
+                }
+
+                // Extract file extension
+                String extension = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
+
+                // Check if first file's extension
+                if (baseExtension == null) {
+                    baseExtension = extension;
+                } else if (!baseExtension.equals(extension)) {
+                    context.buildConstraintViolationWithTemplate("{validation.same_extension.resource_file}")
+                            .addConstraintViolation();
+                    return false;
+                }
+
+                // Check file size
+                if (resource.getSize() > MAX_RESOURCE_SIZE) {
                     context.buildConstraintViolationWithTemplate("{validation.max_size.resource_file}")
                             .addConstraintViolation();
                     return false;

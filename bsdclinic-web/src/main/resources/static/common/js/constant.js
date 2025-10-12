@@ -14,6 +14,7 @@ export const RegexPattern = (function () {
 
 export const RequestHeader = (function () {
     return {
+        JSON_CONTENT_TYPE: "application/json",
         JSON_TYPE: {
             "accept": "application/json",
             "content-type": "application/json"

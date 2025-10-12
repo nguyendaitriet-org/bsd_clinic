@@ -1,0 +1,58 @@
+v
+<th:block th:fragment="file-uploading">
+    <style>
+        #file-uploading-input {
+            display: none; /* hide the native file input */
+        }
+
+        .custom-file-label {
+            text-align: center;
+            width: 100%;
+            display: inline-block;
+            padding: 1em 2em;
+            border: 2px dashed #bbb;
+            border-radius: 2em;
+            background-color: #fff;
+            color: #174d82;
+            cursor: pointer;
+            transition: all 0.25s ease-in-out;
+        }
+
+        .custom-file-label:hover {
+            border-color: #888;
+            background-color: #f8f9fb;
+        }
+
+        .custom-file-label span {
+            display: inline-block;
+            background-color: #174d82;
+            color: #dbe6f0;
+            padding: 0.75em 1.5em;
+            border-radius: 2em;
+            margin-left: 1em;
+            transition: all 0.25s ease-in-out;
+        }
+
+        .custom-file-label:hover span {
+            background-color: #1f66ad;
+        }
+    </style>
+    <input id="file-uploading-input" type="file" multiple>
+    <label for="file-uploading-input" class="custom-file-label">
+        <text id="file-label-text" th:text="#{placeholder.choose_files}"></text>
+        <span th:text="#{title.search}"></span>
+    </label>
+    <script>
+        const fileInput = document.getElementById('file-uploading-input');
+        const fileLabelText = document.getElementById('file-label-text');
+
+        fileInput.addEventListener('change', () => {
+            const files = Array.from(fileInput.files);
+            if (files.length === 1) {
+                fileLabelText.textContent = files[0].name;
+            } else {
+                fileLabelText.textContent = `${files.length} file(s) được chọn`;
+            }
+        });
+    </script>
+</th:block>

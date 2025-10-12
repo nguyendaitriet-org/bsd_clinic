@@ -2,13 +2,12 @@ package com.bsdclinic.resource;
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import com.bsdclinic.BaseEntity;import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 @Getter
 @Setter
-@Accessors(chain = true)
 @Entity
 @Table(name = "resources")
 public class AppResource extends BaseEntity {
@@ -28,6 +27,7 @@ public class AppResource extends BaseEntity {
     @Column(name = "mime_type")
     private String mimeType;
 
+    /* Unit: bytes */
     @Column(name = "file_size")
     private Long fileSize;
 
@@ -36,11 +36,4 @@ public class AppResource extends BaseEntity {
 
     @Column(name = "uploaded_by")
     private String uploadedBy;
-
-    @PrePersist
-    public void prePersist() {
-        if (resourceId == null) {
-            resourceId = NanoIdUtils.randomNanoId();
-        }
-    }
 }

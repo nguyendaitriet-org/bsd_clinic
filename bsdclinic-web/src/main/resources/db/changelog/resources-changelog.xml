@@ -20,5 +20,11 @@
             )
         </sql>
     </changeSet>
+    <changeSet id="04102025_1" author="triet.nguyendai" context="Update mime_type column with VARCHAR(255)">
+        <sql>
+            ALTER TABLE resources
+            ALTER COLUMN mime_type TYPE VARCHAR (255);
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>

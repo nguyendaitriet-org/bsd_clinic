@@ -15,5 +15,6 @@
     <include file="/db/changelog/index-changelog.xml"></include>
     <include file="/db/changelog/category-changelog.xml"></include>
     <include file="/db/changelog/resources-changelog.xml"></include>
+    <include file="/db/changelog/articles-changelog.xml"></include>
 
 </databaseChangeLog>

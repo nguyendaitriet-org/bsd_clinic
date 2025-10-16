@@ -42,7 +42,7 @@
             </div>
             <div class="col-md-6 form-group with-validation">
                 <label class="required-field" for="article-author" th:text="#{title.author}"></label>
-                <input type="text" class="form-control" id="article-author" name="title"
+                <input type="text" class="form-control" id="article-author" name="title" disabled
                        th:value="${user.fullName}"
                        th:placeholder="#{placeholder.author}">
             </div>

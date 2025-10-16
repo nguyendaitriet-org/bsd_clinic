@@ -14,26 +14,22 @@ import lombok.experimental.Accessors;
 @Table(name = "articles")
 public class Articles extends BaseEntity {
     @Id
-    @Column(name = "article_id", length = 50, nullable = false)
+    @Column(name = "article_id")
     private String articleId;
 
-    @Column(name = "title", length = 255, nullable = false)
+    @Column(name = "title")
     private String title;
 
-    @Lob
     @Column(name = "content")
     private String content;
 
-    @Column(name = "user_id", length = 50, nullable = false)
+    @Column(name = "user_id")
     private String userId;
 
-    @Column(name = "category_id ", length = 50, nullable = false)
-    private String category_id ;
+    @Column(name = "url_slug")
+    private String urlSlug;
 
-    @Column(name = "url", length = 255)
-    private String url;
-
-    @Column(name = "status", length = 10)
+    @Column(name = "status")
     private String status;
 
     @PrePersist

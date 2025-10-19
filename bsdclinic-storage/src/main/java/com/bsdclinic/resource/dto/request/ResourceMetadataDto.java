@@ -1,4 +1,4 @@
-package com.bsdclinic.resource.dto;
+package com.bsdclinic.resource.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

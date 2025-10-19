@@ -17,8 +17,6 @@ import java.util.Optional;
 
 @Repository
 public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, String>, JpaSpecificationExecutor<MedicalRecord> {
-    boolean existsByMedicalRecordId(String medicalRecordId);
-
     boolean existsByAppointmentId(String appointmentId);
 
     boolean existsByAppointmentIdAndMedicalRecordId(String appointmentId, String medicalRecordId);

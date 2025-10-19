@@ -3,8 +3,10 @@ package com.bsdclinic.resource;
 import com.bsdclinic.FileStorageService;
 import com.bsdclinic.RoleAuthorization;
 import com.bsdclinic.constant.ComponentName;
-import com.bsdclinic.resource.dto.CreateResourceRequest;
+import com.bsdclinic.resource.dto.request.CreateResourceRequest;
+import com.bsdclinic.resource.dto.request.ResourceFilter;
 import com.bsdclinic.resource.validation.ResourceRuleAnnotation;
+import com.bsdclinic.response.DatatableResponse;
 import com.bsdclinic.url.WebUrl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +41,11 @@ public class ResourceApi {
             @RequestPart("data") @Valid CreateResourceRequest data
     ) {
         resourceService.createResource(files, data);
+    }
+
+    @RoleAuthorization.AuthenticatedUser
+    @PostMapping(WebUrl.API_ADMIN_RESOURCE_LIST)
+    public DatatableResponse getResources(@RequestBody ResourceFilter resourceFilterFilter) {
+        return resourceService.getResources(resourceFilterFilter);
     }
 }

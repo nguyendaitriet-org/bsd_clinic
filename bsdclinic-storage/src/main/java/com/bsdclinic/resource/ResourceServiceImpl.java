@@ -1,14 +1,23 @@
 package com.bsdclinic.resource;
 
+import com.bsdclinic.BaseEntity_;
 import com.bsdclinic.CategoryService;
 import com.bsdclinic.FileStorageService;
 import com.bsdclinic.UserPrincipal;
-import com.bsdclinic.resource.dto.CreateResourceRequest;
-import com.bsdclinic.resource.dto.ResourceMetadataDto;
+import com.bsdclinic.resource.dto.request.CreateResourceRequest;
+import com.bsdclinic.resource.dto.request.ResourceFilter;
+import com.bsdclinic.resource.dto.request.ResourceMetadataDto;
+import com.bsdclinic.resource.dto.response.IResourceResponse;
+import com.bsdclinic.resource.dto.response.ResourceResponse;
+import com.bsdclinic.response.DatatableResponse;
 import io.jsonwebtoken.lang.Collections;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +33,7 @@ public class ResourceServiceImpl implements ResourceService {
     private final ResourceRepository resourceRepository;
     private final CategoryService categoryService;
     private final FileStorageService fileStorageService;
+    private final ResourceMapper resourceMapper;
 
     private final String resourceRootPath = "resources";
 
@@ -73,12 +83,34 @@ public class ResourceServiceImpl implements ResourceService {
                     )
             );
         }
-
     }
 
     private void rollbackFileUploads(Map<String, String> resourcePathMap, String storagePath) {
         for (var path : resourcePathMap.entrySet()) {
             fileStorageService.deleteFilesByBaseName(path.getKey(), storagePath);
         }
+    }
+
+    @Override
+    public DatatableResponse getResources(ResourceFilter resourceFilter) {
+        Pageable pageable = PageRequest.of(
+                resourceFilter.getStart() / resourceFilter.getLength(),
+                resourceFilter.getLength(),
+                Sort.by(Sort.Direction.DESC, BaseEntity_.CREATED_AT)
+        );
+        Page<IResourceResponse> resourcesPage = resourceRepository.findResourcesWithFilter(
+                resourceFilter.getKeyword(),
+                resourceFilter.getResourceType(),
+                pageable
+        );
+
+        DatatableResponse<ResourceResponse> datatableResponse = new DatatableResponse<>();
+        datatableResponse.setData(resourceMapper.toResourceListResponses(resourcesPage.getContent()));
+        datatableResponse.setDraw(resourceFilter.getDraw());
+        Long totalRecord = resourcesPage.getTotalElements();
+        datatableResponse.setRecordsFiltered(totalRecord);
+        datatableResponse.setRecordsTotal(totalRecord);
+
+        return datatableResponse;
     }
 }

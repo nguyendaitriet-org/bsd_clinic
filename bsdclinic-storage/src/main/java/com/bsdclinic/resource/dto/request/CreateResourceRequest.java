@@ -1,4 +1,4 @@
-package com.bsdclinic.resource.dto;
+package com.bsdclinic.resource.dto.request;
 
 import com.bsdclinic.category.CategoryType;
 import com.bsdclinic.validation.CategoryRuleAnnotation;

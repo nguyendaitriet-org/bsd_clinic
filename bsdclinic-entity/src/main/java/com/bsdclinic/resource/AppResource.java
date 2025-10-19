@@ -1,8 +1,6 @@
 package com.bsdclinic.resource;
 
-import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import com.bsdclinic.BaseEntity;import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,6 +32,7 @@ public class AppResource extends BaseEntity {
     @Column(name = "storage_path")
     private String storagePath;
 
+    /* User ID */
     @Column(name = "uploaded_by")
     private String uploadedBy;
 }

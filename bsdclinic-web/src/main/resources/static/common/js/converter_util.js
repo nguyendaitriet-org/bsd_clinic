@@ -26,3 +26,21 @@ export const CurrencyConverter = (function () {
 
     return module;
 })();
+
+export const NumberConverter = (function () {
+    const module = {};
+
+    // Converts bytes to MB if >= 1 MB, otherwise to KB
+    module.formatBytes = (bytes) => {
+        const mb = bytes / (1024 * 1024);
+
+        if (mb >= 1) {
+            return `${Math.round(mb)} MB`;
+        }
+
+        const kb = bytes / 1024;
+        return `${Math.round(kb)} KB`;
+    }
+
+    return module;
+})();

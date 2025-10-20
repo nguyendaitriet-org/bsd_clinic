@@ -86,7 +86,7 @@
                                        th:placeholder="#{placeholder.find_resource}" autocomplete="off">
                             </div>
                         </div>
-                        <table id="user-list-table"
+                        <table id="resource-list-table"
                                class="table table-sm table-hover table-head-bg-black dataTable w-100">
                             <thead>
                             <tr class="text-center">
@@ -95,6 +95,7 @@
                                 <th th:text="#{title.size}"></th>
                                 <th th:text="#{title.creator}"></th>
                                 <th th:text="#{title.created_at}"></th>
+                                <th th:text="#{title.category}"></th>
                                 <th th:text="#{title.action}"></th>
                             </tr>
                             </thead>
@@ -120,7 +121,6 @@
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </div>
-
                                 </td>
                             </tr>
                             </tbody>
@@ -137,6 +137,8 @@
 <th:block layout:fragment="storage-script">
     <script type="module">
         import {ResourceCreation} from '/admin/custom/js/storage/create.js';
+        import {ResourceList} from '/admin/custom/js/storage/list.js';
         ResourceCreation.init();
+        ResourceList.init();
     </script>
 </th:block>

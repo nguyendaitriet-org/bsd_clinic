@@ -1,4 +1,4 @@
-import {CurrencyConverter} from "/common/js/currency_util.js";
+import {CurrencyConverter} from "/common/js/converter_util.js";
 import {DatatableAttribute, DebounceUtil} from "/common/js/app.js";
 
 export const ServiceList = (function () {

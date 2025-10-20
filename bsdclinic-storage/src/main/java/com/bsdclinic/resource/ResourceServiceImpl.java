@@ -4,6 +4,7 @@ import com.bsdclinic.BaseEntity_;
 import com.bsdclinic.CategoryService;
 import com.bsdclinic.FileStorageService;
 import com.bsdclinic.UserPrincipal;
+import com.bsdclinic.dto.response.CategoryResponse;
 import com.bsdclinic.resource.dto.request.CreateResourceRequest;
 import com.bsdclinic.resource.dto.request.ResourceFilter;
 import com.bsdclinic.resource.dto.request.ResourceMetadataDto;
@@ -104,8 +105,19 @@ public class ResourceServiceImpl implements ResourceService {
                 pageable
         );
 
+        List<String> resourceIds = resourcesPage.stream().map(IResourceResponse::getResourceId).toList();
+        Map<String, List<CategoryResponse>> resourceCategoryMap = categoryService.getAssignmentsByEntityIds(resourceIds);
+
+        List<ResourceResponse> resourceResponses = resourcesPage.stream()
+                .map(item -> {
+                    ResourceResponse response = resourceMapper.toResourceResponse(item);
+                    response.setResourceCategories(resourceCategoryMap.get(item.getResourceId()));
+                    return response;
+                })
+                .toList();
+
         DatatableResponse<ResourceResponse> datatableResponse = new DatatableResponse<>();
-        datatableResponse.setData(resourceMapper.toResourceListResponses(resourcesPage.getContent()));
+        datatableResponse.setData(resourceResponses);
         datatableResponse.setDraw(resourceFilter.getDraw());
         Long totalRecord = resourcesPage.getTotalElements();
         datatableResponse.setRecordsFiltered(totalRecord);

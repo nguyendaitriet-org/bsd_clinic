@@ -1,5 +1,5 @@
 import {App, SweetAlert, DebounceUtil, DatatableAttribute} from "/common/js/app.js";
-import {CurrencyConverter} from "/common/js/currency_util.js";
+import {CurrencyConverter} from "/common/js/converter_util.js";
 import {FormHandler} from "/common/js/form.js";
 import {RequestHeader} from "/common/js/constant.js";
 

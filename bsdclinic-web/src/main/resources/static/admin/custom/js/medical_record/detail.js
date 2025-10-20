@@ -2,7 +2,7 @@ import {App, SweetAlert} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
 import {DateTimePattern} from "/common/js/constant.js";
-import {CurrencyConverter} from "/common/js/currency_util.js";
+import {CurrencyConverter} from "/common/js/converter_util.js";
 import {InvoiceDetail} from "/admin/custom/js/invoice/script.js";
 import {Printer} from "/common/js/print.js";
 

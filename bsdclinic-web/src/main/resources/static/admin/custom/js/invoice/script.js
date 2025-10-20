@@ -1,6 +1,6 @@
 import {App} from "/common/js/app.js";
 import {RequestHeader} from "/common/js/constant.js";
-import {CurrencyConverter} from "/common/js/currency_util.js";
+import {CurrencyConverter} from "/common/js/converter_util.js";
 import {DateTimeConverter} from "/common/js/datetime_util.js";
 
 export const InvoiceCreation = (function () {

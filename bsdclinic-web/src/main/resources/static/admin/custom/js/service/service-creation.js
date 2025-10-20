@@ -1,6 +1,6 @@
 import {App, SweetAlert} from "/common/js/app.js";
 import {FormHandler} from "/common/js/form.js";
-import {CurrencyConverter} from "/common/js/currency_util.js";
+import {CurrencyConverter} from "/common/js/converter_util.js";
 import {ServiceList} from "/admin/custom/js/service/service-list.js";
 
 export const ServiceCreation = (function () {

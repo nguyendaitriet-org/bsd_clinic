@@ -48,4 +48,10 @@ public class ResourceApi {
     public DatatableResponse getResources(@RequestBody ResourceFilter resourceFilterFilter) {
         return resourceService.getResources(resourceFilterFilter);
     }
+
+    @RoleAuthorization.AuthenticatedUser
+    @DeleteMapping(WebUrl.API_ADMIN_RESOURCE_WITH_ID)
+    public void deleteResource(@PathVariable String resourceId) {
+        resourceService.deleteResource(resourceId);
+    }
 }

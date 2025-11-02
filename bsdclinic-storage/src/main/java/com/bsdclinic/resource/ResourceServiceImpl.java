@@ -5,6 +5,8 @@ import com.bsdclinic.CategoryService;
 import com.bsdclinic.FileStorageService;
 import com.bsdclinic.UserPrincipal;
 import com.bsdclinic.dto.response.CategoryResponse;
+import com.bsdclinic.exception_handler.exception.NotFoundException;
+import com.bsdclinic.message.MessageProvider;
 import com.bsdclinic.resource.dto.request.CreateResourceRequest;
 import com.bsdclinic.resource.dto.request.ResourceFilter;
 import com.bsdclinic.resource.dto.request.ResourceMetadataDto;
@@ -35,6 +37,7 @@ public class ResourceServiceImpl implements ResourceService {
     private final CategoryService categoryService;
     private final FileStorageService fileStorageService;
     private final ResourceMapper resourceMapper;
+    private final MessageProvider messageProvider;
 
     private final String resourceRootPath = "resources";
 
@@ -124,5 +127,23 @@ public class ResourceServiceImpl implements ResourceService {
         datatableResponse.setRecordsTotal(totalRecord);
 
         return datatableResponse;
+    }
+
+    private AppResource getAppResource(String resourceId) {
+        return resourceRepository.findById(resourceId).orElseThrow(
+                () -> new NotFoundException(messageProvider.getMessage("validation.no_exist.resource"))
+        );
+    }
+
+    @Override
+    @Transactional
+    public void deleteResource(String resourceId) {
+        AppResource appResource = getAppResource(resourceId);
+
+        resourceRepository.delete(appResource);
+
+        categoryService.deleteAssignmentByEntityId(resourceId);
+
+        fileStorageService.deleteFile(null, appResource.getStoragePath());
     }
 }

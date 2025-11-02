@@ -10,4 +10,5 @@ import java.util.List;
 public interface ResourceService {
     void createResource(List<MultipartFile> files, CreateResourceRequest request);
     DatatableResponse getResources(ResourceFilter resourceFilter);
+    void deleteResource(String resourceId);
 }

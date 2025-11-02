@@ -102,6 +102,7 @@ public class WebUrl {
     // API Admin - Resource
     public static final String API_ADMIN_RESOURCE = API_ADMIN_ENDPOINT + "/resources";
     public static final String API_ADMIN_RESOURCE_LIST = API_ADMIN_RESOURCE + "/list";
+    public static final String API_ADMIN_RESOURCE_WITH_ID = API_ADMIN_RESOURCE + "/{resourceId}";
 
     // API Client - Appointment
     public static final String API_CLIENT_APPOINTMENT = API_CLIENT_ENDPOINT + "/appointments";

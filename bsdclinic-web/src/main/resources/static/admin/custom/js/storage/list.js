@@ -91,7 +91,7 @@ export const ResourceList = (function () {
                                 <button class="btn btn-sm btn-success" type="button">
                                     <i class="fa fa-arrow-down"></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger" type="button">
+                                <button class="btn btn-sm btn-danger delete-resource-btn" type="button">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>`;
